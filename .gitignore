@@ -1,6 +1,10 @@
-*.class
+## IDE Specific files
 .vscode
 .idea
+*.iml
+
+## Binaries
+*.class
 bin
 build
 out
