@@ -1,6 +1,6 @@
 package model.ingame;
 
-public class MapComponentModel {
+public abstract class MapComponentModel {
     private double x;
     private double y;
 

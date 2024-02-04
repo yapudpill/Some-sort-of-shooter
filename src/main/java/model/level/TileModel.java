@@ -3,23 +3,11 @@ package model.level;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ingame.MapComponentModel;
 
-public class TileModel extends MapComponentModel {
-    private TileType type;
+public abstract class TileModel {
     private static final List<TileContent> tileContents = new ArrayList<>();
 
-    public TileModel(double x, double y, TileType type) {
-        super(x, y);
-        this.type = type;
-    }
-    
-    public TileType getType() {
-        return type;
-    }
+    public abstract boolean isWalkable();
+    public abstract void applyEffect();
 
-    public void setType(TileType type) {
-        this.type = type;
-    }
-    
 }
