@@ -1,6 +1,6 @@
-package main.java.model.ingame.entity;
+package model.ingame.entity;
 
-import main.java.model.ingame.Direction;
+import model.ingame.Direction;
 
 public interface MovementController {
     

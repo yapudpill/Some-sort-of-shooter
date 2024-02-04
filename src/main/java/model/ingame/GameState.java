@@ -1,4 +1,4 @@
-package main.java.model.ingame;
+package model.ingame;
 
 public interface GameState {
     

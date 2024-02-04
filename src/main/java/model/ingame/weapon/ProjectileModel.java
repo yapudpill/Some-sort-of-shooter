@@ -1,6 +1,6 @@
-package main.java.model.ingame.weapon;
+package model.ingame.weapon;
 
-import main.java.model.ingame.MapComponentModel;
+import model.ingame.MapComponentModel;
 
 public abstract class ProjectileModel extends MapComponentModel {
 

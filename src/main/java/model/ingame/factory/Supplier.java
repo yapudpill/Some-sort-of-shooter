@@ -1,4 +1,4 @@
-package main.java.model.ingame.factory;
+package model.ingame.factory;
 
 /*
  * Used to create default instances of a given class

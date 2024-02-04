@@ -1,7 +1,7 @@
-package main.java.model.ingame.entity;
+package model.ingame.entity;
 
-import main.java.model.ingame.Direction;
-import main.java.model.ingame.MapComponentModel;
+import model.ingame.Direction;
+import model.ingame.MapComponentModel;
 
 public class MovingEntityModel extends MapComponentModel{
     private double speed;

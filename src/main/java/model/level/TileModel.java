@@ -1,9 +1,9 @@
-package main.java.model.level;
+package model.level;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.model.ingame.MapComponentModel;
+import model.ingame.MapComponentModel;
 
 public class TileModel extends MapComponentModel {
     private TileType type;

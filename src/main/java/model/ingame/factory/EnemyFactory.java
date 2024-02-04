@@ -1,9 +1,9 @@
-package main.java.model.ingame.factory;
+package model.ingame.factory;
 
 import java.util.Iterator;
 import java.util.List;
 
-import main.java.model.ingame.entity.EnemyModel;
+import model.ingame.entity.EnemyModel;
 
 public class EnemyFactory {
     private static final List<Supplier<EnemyModel>> ENEMY_SUPPLIERS = List.of(); // lmabda expressions for enemy suppliers

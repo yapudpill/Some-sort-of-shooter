@@ -1,4 +1,4 @@
-package main.java.model.ingame.factory;
+package model.ingame.factory;
 
 import java.util.Iterator;
 import java.util.List;

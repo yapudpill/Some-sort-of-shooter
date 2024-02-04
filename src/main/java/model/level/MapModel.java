@@ -1,4 +1,4 @@
-package main.java.model.level;
+package model.level;
 
 import java.util.ArrayList;
 import java.util.List;
