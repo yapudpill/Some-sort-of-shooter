@@ -7,7 +7,7 @@ import model.ingame.MapComponentModel;
 
 public class TileModel extends MapComponentModel {
     private TileType type;
-    public static final List<TileContent> tileContents = new ArrayList<>();
+    private static final List<TileContent> tileContents = new ArrayList<>();
 
     public TileModel(double x, double y, TileType type) {
         super(x, y);
