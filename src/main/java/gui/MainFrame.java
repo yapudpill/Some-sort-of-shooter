@@ -25,6 +25,7 @@ public class MainFrame extends JFrame {
         setTitle("Some sort of shooter");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+        setLocationRelativeTo(null);
         EventQueue.invokeLater(() -> setVisible(true));
     }
 
