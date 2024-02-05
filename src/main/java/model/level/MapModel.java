@@ -1,6 +1,8 @@
 package model.level;
 
 
+import model.level.Tiles.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -9,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MapModel {
-    private static TileModel[][] tiles;
+    private TileModel[][] tiles;
 
 
     /**
@@ -50,35 +52,54 @@ public class MapModel {
      *      <li> '+' is at every corner, it's used to show the grid  </li>
      *      <li> '---' is a horizontal border of the map </li>
      *      <li> '|' (pipe) is a vertical border of the map </li>
-     *      <li> '.' indicates the default empty tile (no effect + walkable) </li>
+     *      <li> ' ' indicates the default empty tile (no effect + walkable) </li>
      *      <li> '#' indicates the default wall tile (no effect + non walkable) </li>
      *      <li> 'b', '/', 'r' and 's' are just for the show, no actual meaning for now </li>
      * </ul>
      */
 
-
-    public static String[][] parseMap(List<String> lines){
-        int height = lines.size();
-        int width = 2 * ((lines.get(0).length()-1)/4) + 1;
-        String[][] arr = new String[height][width];
+    /**
+     *
+     * @param lines String corresponding to each line of the .txt
+     * @return array containing the character corresponding to the content of each tile
+     *
+     *
+     */
+    public static char[][] parseMap(List<String> lines){
+        int height = lines.size()/2;
+        int width = (lines.get(0).length()-1)/4;
+        String current = "";
+        char[][] arr = new char[height][width];
         for (int i = 0; i < height; i++) {
+            current = lines.get(i);
             for (int j = 0; j < width; j++) {
-
+                if (i % 2 == 0) {
+                    arr[i*2+1][j*4+2] = current.charAt(j);
+                }
             }
         }
         return arr;
     }
-    public static void loadMap(String path) throws IOException {
+    public void loadMap(String path) throws IOException {
         try {
             InputStream file = Objects.requireNonNull(MapModel.class.getResourceAsStream(path));
             byte[] buffer = file.readAllBytes();
             String stringData = new String(buffer, StandardCharsets.UTF_8);
             List<String> list = Arrays.asList(stringData.split("\n"));
-            parseMap(list);
+            char[][] parsedMap = parseMap(list);
+
+            tiles = new TileModel[parsedMap.length][parsedMap[0].length];
+            for (int i = 0; i < parsedMap.length; i++) {
+                for (int j = 0; j < parsedMap[0].length; j++) {
+                    switch (parsedMap[i][j]){
+                       case '#' -> tiles[i][j] = new WallTileModel();
+                       default -> tiles[i][j] = new Empty();
+                    };
+                }
+            }
         }
         catch ( NullPointerException e) { e.printStackTrace(); }
-        
-    }
 
+    }
 
 }
