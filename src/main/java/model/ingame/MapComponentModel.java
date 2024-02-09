@@ -1,28 +1,19 @@
 package model.ingame;
 
-public class MapComponentModel {
-    private double x;
-    private double y;
+public abstract class MapComponentModel {
+    protected Coordinates pos;
 
-    public MapComponentModel(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public MapComponentModel(Coordinates pos) {
+        if (pos == null)
+            throw new IllegalArgumentException("Position cannot be null");
+        this.pos = pos;
     }
 
-    public double getX() {
-        return x;
+    public Coordinates getPos() {
+        return pos;
     }
 
-    public double getY() {
-        return y;
+    public void setPos(Coordinates pos) {
+        this.pos = pos;
     }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-    
 }
