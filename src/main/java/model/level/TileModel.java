@@ -3,23 +3,17 @@ package model.level;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ingame.Coordinates;
 import model.ingame.MapComponentModel;
+import model.ingame.entity.EntityModel;
 
 public class TileModel extends MapComponentModel {
-    private TileType type;
-    private static final List<TileContent> tileContents = new ArrayList<>();
+    private final List<TileContent> tileContents = new ArrayList<>();
+    private final List<EntityModel> entitiesOnTile = new ArrayList<>(); 
 
-    public TileModel(double x, double y, TileType type) {
-        super(x, y);
-        this.type = type;
-    }
-    
-    public TileType getType() {
-        return type;
-    }
-
-    public void setType(TileType type) {
-        this.type = type;
+    public TileModel(Coordinates pos) {
+        super(pos);
+        //TODO: implement projectile
     }
     
 }
