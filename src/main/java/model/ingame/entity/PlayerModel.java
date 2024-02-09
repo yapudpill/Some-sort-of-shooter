@@ -1,5 +1,14 @@
 package model.ingame.entity;
 
-public abstract class PlayerModel {
-    // note to whoever is gonna work on this : make sure to add a zero paramater constructor to serve as a supplier for the factory
+import model.ingame.Coordinates;
+
+/*
+ * Abstract class for the player model
+ */
+public abstract class PlayerModel extends EntityModel{
+    
+    public PlayerModel(Coordinates pos) {
+        super(pos);
+    }
+
 }

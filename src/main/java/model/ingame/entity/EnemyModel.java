@@ -1,5 +1,11 @@
 package model.ingame.entity;
 
-public abstract class EnemyModel {
-    // note to whoever is gonna work on this : make sure to add a zero paramater constructor to serve as a supplier for the factory
+import model.ingame.Coordinates;
+
+public abstract class EnemyModel extends EntityModel{
+    
+    public EnemyModel(Coordinates pos) {
+        super(pos);
+    }
+    
 }
