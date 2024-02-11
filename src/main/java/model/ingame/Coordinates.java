@@ -1,7 +1,7 @@
 package model.ingame;
 
 /*
- * The Coordinates class is used to represent a point in a 2D plane.
+ * The Coordinates class is used to represent a point/vector in a 2D plane.
  */
 
 public class Coordinates {
@@ -21,5 +21,7 @@ public class Coordinates {
     public static final Coordinates LEFT = new Coordinates(-1, 0);
     public static final Coordinates RIGHT = new Coordinates(1, 0);
 
-
+    public boolean intEquals(Coordinates other) {
+        return (int) x == (int) other.x && (int) y == (int) other.y;
+    }
 }
