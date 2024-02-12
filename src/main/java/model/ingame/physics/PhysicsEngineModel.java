@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
+import model.ingame.entity.IMobileEntity;
 import model.level.MapModel;
 
 public class PhysicsEngineModel {
@@ -32,20 +33,30 @@ public class PhysicsEngineModel {
         return involvedEntities;
     }
 
-    public void move(ICollisionEntity entity, Coordinates newPos){
+    public void move(IMobileEntity entity, Coordinates newPos){
         Coordinates oldPos = entity.getPos();
         if(entity == null || newPos == null)
             throw new IllegalArgumentException("Entity or newPos cannot be null");
+        else if(map.isOutOfBounds((int) newPos.x, (int) newPos.y)){
+            entity.getMovementHandler().setDirectionVector(Coordinates.ZERO);
+            return;
+        }
         else if(!entity.getPos().intEquals(newPos)){
+            if(!map.isWalkableAt((int) newPos.x, (int) newPos.y)){
+                entity.getMovementHandler().setDirectionVector(Coordinates.ZERO);
+                return;
+            }
             map.removeCollidableAt(entity, (int) oldPos.x, (int) oldPos.y);
             map.addCollidableAt(entity, (int) newPos.x, (int) newPos.y);
             entity.setPos(newPos);
+            entity.setColisionBox(newPos.x, newPos.y);
         }
         else if(entity.hasCollisionListeners()){
             List<ICollisionEntity> involvedEntities = getCollidedEntities(entity);
             if(!involvedEntities.isEmpty()){
                 CollisionEvent event = new CollisionEvent(entity, involvedEntities.toArray(new ICollisionEntity[0]));
                 entity.notifyCollisionListeners(event);
+                involvedEntities.forEach(e -> e.notifyCollisionListeners(event));
             }
         }
     }

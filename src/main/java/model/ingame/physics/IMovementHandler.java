@@ -1,9 +1,10 @@
 package model.ingame.physics;
 
 import model.ingame.Coordinates;
+import model.ingame.IUpdateable;
 import model.ingame.entity.IEntity;
 
-public interface IMovementHandler {
+public interface IMovementHandler extends IUpdateable{
     
     Coordinates getDirectionVector();
     void setDirectionVector(Coordinates directionVector);

@@ -8,9 +8,13 @@ import model.ingame.physics.CollisionListener;
 public interface ICollisionEntity extends IEntity{
     
     Rectangle2D getCollisionBox();
+    void setColisionBox(double x, double y);
     void addCollisionListener(CollisionListener listener);
-    boolean hasCollisionListeners();
+    void removeCollisionListener(CollisionListener listener);
     Iterator<CollisionListener> getCollisionListenersIterator();
     void notifyCollisionListeners(CollisionEvent e);
+    default boolean hasCollisionListeners(){
+        return getCollisionListenersIterator().hasNext();
+    }
 
 }

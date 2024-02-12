@@ -1,6 +1,6 @@
 package model.ingame.entity;
 
-public interface IVulnerableEntity {
+public interface IVulnerableEntity extends IEntity{
     
     int getHealth();
     void takeDamage(int damage);
