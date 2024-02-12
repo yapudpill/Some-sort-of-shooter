@@ -18,8 +18,8 @@ public class CollisionEvent extends EventObject {
         }
     }
 
-    public Iterator<ICollisionEntity> getInvolvedEntitiesIterator() {
-        return involvedEntities.iterator();
+    public List<ICollisionEntity> getInvolvedEntitiesList() {
+        return involvedEntities;
     }
     
 }

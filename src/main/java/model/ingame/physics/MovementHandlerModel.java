@@ -4,7 +4,7 @@ import model.ingame.Coordinates;
 import model.ingame.IUpdateable;
 import model.ingame.entity.IMobileEntity;
 
-public class MovementHandlerModel<T extends IMobileEntity> implements IUpdateable, IMovementHandler{
+public class MovementHandlerModel<T extends IMobileEntity> implements IMovementHandler{
     private T entity;
     private double speed;
     private Coordinates directionVector;

@@ -4,18 +4,41 @@ import model.ingame.Coordinates;
 import model.ingame.entity.CollisionEntityModel;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.physics.IMovementHandler;
+import model.ingame.physics.PhysicsEngineModel;
 
-public abstract class ProjectileModel extends CollisionEntityModel implements IMobileEntity{
+public abstract class ProjectileModel extends CollisionEntityModel implements IProjectile{
     protected int damage;
+    protected boolean active;
+    protected IMovementHandler movementHandler;
 
     public ProjectileModel(Coordinates pos, double width, double height, int damage) {
         super(pos, width, height);
         this.damage = damage;
+        this.active = true;
     }
 
+    @Override
     public int getDamage() {
         return damage;
     }
     
-    public abstract void specialEffect();
+    @Override
+    public IMovementHandler getMovementHandler() {
+        return movementHandler;
+    }
+
+    @Override
+    public boolean isActive() {
+        return active;
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    @Override
+    public void update() {
+        movementHandler.update();
+    }
 }

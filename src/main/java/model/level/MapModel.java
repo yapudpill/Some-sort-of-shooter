@@ -12,12 +12,22 @@ public class MapModel {
     private int width;
     private int height;
 
+    public MapModel(String path){
+        loadMap(path);
+    }
+
     public static void loadMap(String path){
         // Load map from file
     }
 
     public boolean isOutOfBounds(int x, int y) {
         return x < 0 || x >= width || y < 0 || y >= height;
+    }
+
+    public boolean isWalkableAt(int x, int y) {
+        if (isOutOfBounds(x, y))
+            return false;
+        return tiles[x][y].isWalkable();
     }
 
     public List<Iterator<ICollisionEntity>> getAllCollidableIteratorsAround(int x, int y) {
@@ -49,5 +59,15 @@ public class MapModel {
             throw new IllegalArgumentException("Coordinates out of bounds");
         tiles[x][y].removeCollidable(entity);
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+
     
 }
