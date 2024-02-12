@@ -1,26 +1,35 @@
 package model.ingame.entity;
 
 import model.ingame.Coordinates;
-import model.ingame.weapon.WeaponModel;
 
-public abstract class EntityModel extends MovingComponentModel {
-    protected WeaponModel weapon;
+public abstract class EntityModel implements IEntity{
+    protected Coordinates pos;
+    protected double width;
+    protected double height;
 
-    public EntityModel(Coordinates pos) {
-        super(pos);
-        //TODO Auto-generated constructor stub
+    public EntityModel(Coordinates pos, double width, double height) {
+        if (pos == null)
+            throw new IllegalArgumentException("Position cannot be null");
+        this.pos = pos;
+        this.width = width;
+        this.height = height;
     }
 
-    public void startShooting(){
-        // weapon.holdTrigger();
+    public Coordinates getPos() {
+        return pos;
     }
 
-    public void stopShooting(){
-        // weapon.releaseTrigger();
+    public void setPos(Coordinates pos) {
+        this.pos = pos;
     }
 
-    public void setWeapon(WeaponModel weapon) {
-        this.weapon = weapon;
+    public double getWidth() {
+        return width;
     }
+
+    public double getHeight() {
+        return height;
+    }
+
     
 }
