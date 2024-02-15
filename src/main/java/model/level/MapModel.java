@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 public class MapModel {
     private TileModel[][] tiles;
 
-    public MapModel(String path) throws IOException{
+    public MapModel(String path){
         tiles = loadMap(path);
     }
 
@@ -99,7 +99,6 @@ public class MapModel {
      *
      * @param path is the path of the map.txt (located in the maps directory in the model.level package of resources)
      * @return a TileModel[][] containing the tiles corresponding to the loaded map.txt
-     * @throws IOException is unhandled
      */
     public static TileModel[][] loadMap(String path){
         InputStream in = MapModel.class.getResourceAsStream(path);
