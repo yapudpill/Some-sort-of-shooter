@@ -2,9 +2,12 @@ package model.level.Tiles;
 
 import model.level.TileModel;
 
-public class Empty extends TileModel {
+/**
+ * basic tile : no effect and walkable
+ */
+public class DefaultTileModel extends TileModel {
 
-    public Empty(){
+    public DefaultTileModel(){
 
     }
     @Override

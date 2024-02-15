@@ -3,11 +3,10 @@ package model.level.Tiles;
 import model.level.TileModel;
 
 /**
- * basic wall tile : no effect and not walkable
+ * used to fill the blank space out of map bounds (to be displayed in black or another background color)
  */
-public class WallTileModel extends TileModel {
-
-    public WallTileModel(){
+public class VoidTileModel extends TileModel {
+    public VoidTileModel(){
 
     }
     @Override
