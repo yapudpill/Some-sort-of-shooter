@@ -84,7 +84,7 @@ public class MapModel {
     public static char[][] parseMap(String[] lines){
         int height = lines.length/2;
         int width = (lines[0].length())/4;
-        String current = "";
+        String current;
         char[][] arr = new char[height][width];
         for (int i = 0; i < height; i++) {
             current = lines[i*2+1];
@@ -99,25 +99,30 @@ public class MapModel {
      *
      * @param path is the path of the map.txt (located in the maps directory in the model.level package of resources)
      * @return a TileModel[][] containing the tiles corresponding to the loaded map.txt
-     * @throws IOException
+     * @throws IOException is unhandled
      */
-    public static TileModel[][] loadMap(String path) throws IOException {
+    public static TileModel[][] loadMap(String path){
         InputStream in = MapModel.class.getResourceAsStream(path);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        String[] tab = reader.lines().toArray(String[]::new);
+        try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String[] tab = reader.lines().toArray(String[]::new);
+            char[][] parsedMap = parseMap(tab);
 
-        char[][] parsedMap = parseMap(tab);
-
-        TileModel[][] tiles = new TileModel[parsedMap.length][parsedMap[0].length];
-        for (int i = 0; i < parsedMap.length; i++) {
-            for (int j = 0; j < parsedMap[0].length; j++) {
-                switch (parsedMap[i][j]){
-                   case '#' -> tiles[i][j] = new WallTileModel();
-                   default -> tiles[i][j] = new DefaultTileModel();
-                };
+            TileModel[][] tiles = new TileModel[parsedMap.length][parsedMap[0].length];
+            for (int i = 0; i < parsedMap.length; i++) {
+                for (int j = 0; j < parsedMap[0].length; j++) {
+                    switch (parsedMap[i][j]){
+                        case '#' -> tiles[i][j] = new WallTileModel();
+                        default -> tiles[i][j] = new DefaultTileModel();
+                    }
+                }
             }
+            return tiles;
         }
-        return tiles;
+        catch (NullPointerException e){
+            System.out.println("invalid path");
+        }
+        return null;
     }
 /*
     may be useful for tests
