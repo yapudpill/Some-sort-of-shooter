@@ -1,22 +1,27 @@
 package model.level;
 
+import model.ingame.entity.ICollisionEntity;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import model.ingame.entity.ICollisionEntity;
 
 public class MapModel {
     private TileModel[][] tiles;
     private int width;
     private int height;
 
-    public MapModel(String path){
+    public MapModel(String path) {
         loadMap(path);
     }
 
-    public static void loadMap(String path){
+    public MapModel(int width, int height, TileModel[][] tiles) {
+        this.width = width;
+        this.height = height;
+        this.tiles = tiles;
+    }
+
+    public static void loadMap(String path) {
         // Load map from file
     }
 
@@ -68,6 +73,7 @@ public class MapModel {
         return height;
     }
 
-
-    
+    public TileModel getTile(int x, int y) {
+        return tiles[y][x];
+    }
 }
