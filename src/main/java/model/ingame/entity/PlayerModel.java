@@ -14,6 +14,13 @@ import model.ingame.weapon.BulletsModel;
 import model.ingame.weapon.IProjectile;
 
 public class PlayerModel extends CollisionEntityModel implements ICombatEntity, IVulnerableEntity {
+    /*
+     * tag interface for player actions, to be used by the controller (e.g. attack, reload, etc.)
+     */
+    @FunctionalInterface
+    public interface PlayerAction {
+        void performAction();
+    }
     private final PhysicsEngineModel physicsEngine;
     private final MovementHandlerModel<PlayerModel> movementHandler;
     private final List<IProjectile> projectilesShot = new ArrayList<>();

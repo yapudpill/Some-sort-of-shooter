@@ -25,4 +25,18 @@ public class Coordinates {
     public boolean intEquals(Coordinates other) {
         return (int) x == (int) other.x && (int) y == (int) other.y;
     }
+
+    public void add(Coordinates addedVelocityVector) {
+        x += addedVelocityVector.x;
+        y += addedVelocityVector.y;
+    }
+
+    public Coordinates opposite() {
+        return new Coordinates(-x, -y);
+    }
+
+    public Coordinates normalize() {
+        double length = Math.sqrt(x * x + y * y);
+        return new Coordinates(x / length, y / length);
+    }
 }
