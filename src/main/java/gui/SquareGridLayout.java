@@ -6,10 +6,10 @@ import java.util.function.Supplier;
 public class SquareGridLayout implements LayoutManager {
     private final int squareCountH;
 
-    private final Supplier<Integer> squareWidthSupplier;
+    private final ScaleSupplier squareWidthSupplier;
 
 
-    public SquareGridLayout(int squareCountH, Supplier<Integer> squareWidthSupplier) {
+    public SquareGridLayout(int squareCountH, ScaleSupplier squareWidthSupplier) {
         this.squareWidthSupplier = squareWidthSupplier;
         this.squareCountH = squareCountH;
     }
@@ -34,7 +34,7 @@ public class SquareGridLayout implements LayoutManager {
 
     @Override
     public void layoutContainer(Container parent) {
-        int oneSquareWidth = squareWidthSupplier.get();
+        int oneSquareWidth = squareWidthSupplier.getScale();
         // Compute the necessary X and Y shift to center the components in their parents:
         int xCenteringOffset = (parent.getWidth() - squareCountH * oneSquareWidth) / 2;
         int yCenteringOffset = (parent.getHeight() - (parent.getComponentCount() / squareCountH) * oneSquareWidth) / 2;

@@ -1,7 +1,7 @@
 package gui;
 
 import javax.swing.*;
-import gui.ingame.MapRenderer;
+import gui.ingame.GameRenderer;
 import model.level.MapModel;
 import model.level.StandardTileModel;
 import model.level.TileModel;
@@ -25,8 +25,8 @@ public class IngameGuiDemo {
         }
 
         tiles[3][3] = new WaterTileModel();
-        MapRenderer mapRenderer = new MapRenderer(new MapModel(10, 5, tiles));
-        frame.getContentPane().add(mapRenderer.getJComponent());
+        GameRenderer gameRenderer = new GameRenderer(new MapModel(10, 5, tiles));
+        frame.getContentPane().add(gameRenderer.getJComponent());
 
 
         frame.pack();
