@@ -39,4 +39,14 @@ public class Coordinates {
         double length = Math.sqrt(x * x + y * y);
         return new Coordinates(x / length, y / length);
     }
+
+    public Coordinates translate(Coordinates other) {
+        return new Coordinates(x + other.x, y + other.y);
+    }
+
+    public Coordinates multiply(double scalar) {
+        return new Coordinates(x * scalar, y * scalar);
+    }
+
+
 }

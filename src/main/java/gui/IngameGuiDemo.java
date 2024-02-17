@@ -1,7 +1,12 @@
 package gui;
 
 import javax.swing.*;
-import gui.ingame.GameRenderer;
+
+import gui.ingame.GameView;
+import gui.ingame.SwingGameLoop;
+import model.ingame.Coordinates;
+import model.ingame.GameModel;
+import model.ingame.IGameLoop;
 import model.level.MapModel;
 import model.level.StandardTileModel;
 import model.level.TileModel;
@@ -25,11 +30,19 @@ public class IngameGuiDemo {
         }
 
         tiles[3][3] = new WaterTileModel();
-        GameRenderer gameRenderer = new GameRenderer(new MapModel(10, 5, tiles));
-        frame.getContentPane().add(gameRenderer.getJComponent());
+        MapModel mapModel = new MapModel(10, 5, tiles);
+        GameModel gameModel = new GameModel(mapModel);
+        gameModel.getPlayer().setPos(new Coordinates(3, 3));
+
+        IGameLoop gameModelLoop = new SwingGameLoop(gameModel);
+        GameView gameView = new GameView(gameModel);
+        IGameLoop gameViewLoop = new SwingGameLoop(gameView);
+        frame.getContentPane().add(gameView.getComponent());
 
 
         frame.pack();
         frame.setVisible(true);
+        gameModelLoop.start();
+        gameViewLoop.start();
     }
 }

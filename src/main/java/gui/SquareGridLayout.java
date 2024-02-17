@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.*;
-import java.util.function.Supplier;
 
 public class SquareGridLayout implements LayoutManager {
     private final int squareCountH;
@@ -35,15 +34,11 @@ public class SquareGridLayout implements LayoutManager {
     @Override
     public void layoutContainer(Container parent) {
         int oneSquareWidth = squareWidthSupplier.getScale();
-        // Compute the necessary X and Y shift to center the components in their parents:
-        int xCenteringOffset = (parent.getWidth() - squareCountH * oneSquareWidth) / 2;
-        int yCenteringOffset = (parent.getHeight() - (parent.getComponentCount() / squareCountH) * oneSquareWidth) / 2;
-
         Component[] components = parent.getComponents();
         for (int i = 0; i < components.length; i++) {
             int x = i % squareCountH;
             int y = i / squareCountH;
-            components[i].setBounds(xCenteringOffset + x * oneSquareWidth, yCenteringOffset + y * oneSquareWidth, oneSquareWidth, oneSquareWidth);
+            components[i].setBounds(x * oneSquareWidth, y * oneSquareWidth, oneSquareWidth, oneSquareWidth);
         }
     }
 }

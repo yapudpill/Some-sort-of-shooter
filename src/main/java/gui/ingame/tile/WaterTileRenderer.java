@@ -1,5 +1,6 @@
-package gui.ingame;
+package gui.ingame.tile;
 
+import gui.ingame.tile.AbstractTileRenderer;
 import model.level.TileModel;
 
 import java.awt.*;

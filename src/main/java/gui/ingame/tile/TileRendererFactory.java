@@ -1,4 +1,4 @@
-package gui.ingame;
+package gui.ingame.tile;
 
 import model.level.StandardTileModel;
 import model.level.TileModel;
@@ -9,7 +9,10 @@ public class TileRendererFactory {
         return switch (tileModel) {
             case StandardTileModel standardTileModel -> new StandardTileRenderer(standardTileModel);
             case WaterTileModel waterTileModel -> new WaterTileRenderer(waterTileModel);
-            default -> new StandardTileRenderer(tileModel); // Fallback to normal renderer
+            default -> {
+                System.out.println("TileRendererFactory: unknown tile model: " + tileModel.getClass().getName());
+                yield null; // TODO: should we throw an exception here? or return a default renderer?
+            }
         };
     }
 }

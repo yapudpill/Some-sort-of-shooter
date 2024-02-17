@@ -1,12 +1,13 @@
 package gui;
 
+import model.ingame.Coordinates;
+
 import java.awt.*;
-import java.util.function.Supplier;
 
 public class ProportionalScalerLayout implements LayoutManager {
-    private final Supplier<Integer> scaleSupplier;
+    private final ScaleSupplier scaleSupplier;
 
-    public ProportionalScalerLayout(Supplier<Integer> scaleSupplier) {
+    public ProportionalScalerLayout(ScaleSupplier scaleSupplier) {
         this.scaleSupplier = scaleSupplier;
     }
 
@@ -34,13 +35,13 @@ public class ProportionalScalerLayout implements LayoutManager {
     public void layoutContainer(Container parent) {
         for (Component component : parent.getComponents()) {
             if (component instanceof ScalableComponent scalableComponent) {
-                Point originalPosition = scalableComponent.getOriginalPosition();
-                Point originalSize = scalableComponent.getOriginalSize();
-                int scale = scaleSupplier.get();
-                int x = originalPosition.x * scale;
-                int y = originalPosition.y * scale;
-                int width = originalSize.x * scale;
-                int height = originalSize.y * scale;
+                Coordinates originalPosition = scalableComponent.getOriginalPosition();
+                Coordinates originalSize = scalableComponent.getOriginalSize();
+                int scale = scaleSupplier.getScale();
+                int x = (int) (originalPosition.x * scale);
+                int y = (int) (originalPosition.y * scale);
+                int width = (int) (originalSize.x * scale);
+                int height = (int) (originalSize.y * scale);
                 component.setBounds(x, y, width, height);
             }
         }

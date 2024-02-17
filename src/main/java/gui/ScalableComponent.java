@@ -1,8 +1,8 @@
 package gui;
 
-import java.awt.*;
+import model.ingame.Coordinates;
 
 public interface ScalableComponent {
-    Point getOriginalPosition();
-    Point getOriginalSize();
+    Coordinates getOriginalPosition();
+    Coordinates getOriginalSize();
 }

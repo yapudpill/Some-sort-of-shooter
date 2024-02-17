@@ -1,5 +1,6 @@
 package model.level;
 
+import model.ingame.entity.EntityModel;
 import model.ingame.entity.ICollisionEntity;
 
 import java.util.ArrayList;

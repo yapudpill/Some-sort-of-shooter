@@ -39,6 +39,7 @@ public class PlayerSwingController {
                 int keyCode = e.getKeyCode();
                 // Update direction:
                 if (player1KeyDirectionMap.containsKey(keyCode)) {
+                    System.out.println("player move");
                     Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).normalize();
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
                     oldVelocityVector.add(addedVelocityVector.normalize());

@@ -1,30 +1,46 @@
 package gui.ingame;
 
-import gui.FillLayout;
+import gui.CenterFillRatioLayout;
+import model.ingame.GameModel;
 import model.ingame.IUpdateable;
-import model.level.MapModel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GameRenderer implements IUpdateable {
     private static final Integer TILES_LAYER = 0;
+    private static final Integer ENTITIES_LAYER = 10;
+    private static final Integer HUD_LAYER = 20;
+
+
     private final JLayeredPane layeredPane;
 
     private final MapBackgroundRenderer mapBackgroundRenderer;
-    private final MapModel mapModel;
+    private final EntitiesPaneLayer entitiesPaneLayer;
+    private final EffectsPaneLayer effectsPaneLayer;
 
-    public GameRenderer(MapModel mapModel) {
-        this.mapModel = mapModel;
+    private final GameModel gameModel;
 
-        this.mapBackgroundRenderer = new MapBackgroundRenderer(mapModel, this::getScale);
+    public GameRenderer(GameModel gameModel) {
+        this.gameModel = gameModel;
+        this.mapBackgroundRenderer = new MapBackgroundRenderer(gameModel.getMapModel(), this::getScale);
+        this.entitiesPaneLayer = new EntitiesPaneLayer(gameModel.getEntitySet(), this::getScale);
+        this.effectsPaneLayer = new EffectsPaneLayer();
 
         this.layeredPane = new JLayeredPane();
         // debug
         layeredPane.setBackground(Color.CYAN);
+        layeredPane.setOpaque(true);
 
-        layeredPane.setLayout(new FillLayout()); // Make the layered panes take all the space
+        CenterFillRatioLayout centerFillRatioLayout = new CenterFillRatioLayout();
+        layeredPane.setLayout(centerFillRatioLayout); // Make the layered panes take all the space
         layeredPane.add(mapBackgroundRenderer.getJComponent(), TILES_LAYER);
+        layeredPane.add(entitiesPaneLayer.getJComponent(), ENTITIES_LAYER);
+        layeredPane.add(effectsPaneLayer, HUD_LAYER);
+        centerFillRatioLayout.setWidthHeightRatio((double) gameModel.getMapModel().getWidth() / gameModel.getMapModel().getHeight());
+        centerFillRatioLayout.setComponentCentering(mapBackgroundRenderer.getJComponent(), true);
+        centerFillRatioLayout.setComponentCentering(entitiesPaneLayer.getJComponent(), true);
+        centerFillRatioLayout.setComponentCentering(effectsPaneLayer, true);
     }
 
     /**
@@ -33,12 +49,13 @@ public class GameRenderer implements IUpdateable {
      * @return the scale of the map
      */
     public int getScale() {
-        return Math.min(layeredPane.getWidth() / mapModel.getWidth(), layeredPane.getHeight() / mapModel.getHeight());
+        return Math.min(layeredPane.getWidth() / gameModel.getMapModel().getWidth(), layeredPane.getHeight() / gameModel.getMapModel().getHeight());
     }
 
     @Override
     public void update() {
-
+        mapBackgroundRenderer.update();
+        entitiesPaneLayer.update();
     }
 
     /**

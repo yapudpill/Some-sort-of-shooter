@@ -1,4 +1,4 @@
-package gui.ingame;
+package gui.ingame.tile;
 
 import model.level.TileModel;
 
