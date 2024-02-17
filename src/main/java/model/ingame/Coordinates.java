@@ -48,5 +48,7 @@ public class Coordinates {
         return new Coordinates(x * scalar, y * scalar);
     }
 
-
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
 }

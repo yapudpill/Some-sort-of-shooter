@@ -33,7 +33,7 @@ public class MapModel {
     public boolean isWalkableAt(int x, int y) {
         if (isOutOfBounds(x, y))
             return false;
-        return tiles[x][y].isWalkable();
+        return tiles[y][x].isWalkable();
     }
 
     public List<Iterator<ICollisionEntity>> getAllCollidableIteratorsAround(int x, int y) {
@@ -55,7 +55,7 @@ public class MapModel {
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
             throw new IllegalArgumentException("Coordinates out of bounds");
-        tiles[x][y].addCollidable(entity);
+        tiles[y][x].addCollidable(entity);
     }
 
     public void removeCollidableAt(ICollisionEntity entity, int x, int y) {
@@ -63,7 +63,7 @@ public class MapModel {
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
             throw new IllegalArgumentException("Coordinates out of bounds");
-        tiles[x][y].removeCollidable(entity);
+        tiles[y][x].removeCollidable(entity);
     }
 
     public int getWidth() {

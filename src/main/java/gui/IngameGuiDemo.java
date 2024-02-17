@@ -39,9 +39,10 @@ public class IngameGuiDemo {
         IGameLoop gameViewLoop = new SwingGameLoop(gameView);
         frame.getContentPane().add(gameView.getComponent());
 
-
         frame.pack();
         frame.setVisible(true);
+        frame.setSize(800, 800);
+        frame.setLocationRelativeTo(null);
         gameModelLoop.start();
         gameViewLoop.start();
     }

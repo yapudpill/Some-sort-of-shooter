@@ -34,9 +34,14 @@ public class PlayerSwingController {
      */
     public KeyListener getKeyListener() {
         return new KeyAdapter() {
+            final boolean[] keyPressed = {false};
+
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
+                // if the key is already pressed, do nothing
+                if(keyPressed[0]) return;
+
                 // Update direction:
                 if (player1KeyDirectionMap.containsKey(keyCode)) {
                     System.out.println("player move");
@@ -44,6 +49,8 @@ public class PlayerSwingController {
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
                     oldVelocityVector.add(addedVelocityVector.normalize());
                 }
+                keyPressed[0] = true;
+
             }
 
             @Override
@@ -55,6 +62,7 @@ public class PlayerSwingController {
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
                     oldVelocityVector.add(addedVelocityVector);
                 }
+                keyPressed[0] = false;
             }
         };
     }

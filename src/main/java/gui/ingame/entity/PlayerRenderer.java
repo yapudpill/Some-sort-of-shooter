@@ -12,7 +12,7 @@ public class PlayerRenderer extends AbstractEntityRenderer {
 
     @Override
     public Coordinates getOriginalSize() {
-        return new Coordinates(1, 1);
+        return new Coordinates(entityModel.getWidth(), entityModel.getHeight());
     }
 
     @Override

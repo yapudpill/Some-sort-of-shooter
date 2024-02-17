@@ -41,15 +41,13 @@ public class PhysicsEngineModel {
             entity.getMovementHandler().setDirectionVector(Coordinates.ZERO);
             return;
         }
+        else if(!map.isWalkableAt((int) newPos.x, (int) newPos.y)){
+            entity.getMovementHandler().setDirectionVector(Coordinates.ZERO);
+            return;
+        }
         else if(!entity.getPos().intEquals(newPos)){
-            if(!map.isWalkableAt((int) newPos.x, (int) newPos.y)){
-                entity.getMovementHandler().setDirectionVector(Coordinates.ZERO);
-                return;
-            }
             map.removeCollidableAt(entity, (int) oldPos.x, (int) oldPos.y);
             map.addCollidableAt(entity, (int) newPos.x, (int) newPos.y);
-            entity.setPos(newPos);
-            entity.setColisionBox(newPos.x, newPos.y);
         }
         else if(entity.hasCollisionListeners()){
             List<ICollisionEntity> involvedEntities = getCollidedEntities(entity);
@@ -59,5 +57,7 @@ public class PhysicsEngineModel {
                 involvedEntities.forEach(e -> e.notifyCollisionListeners(event));
             }
         }
+        entity.setPos(newPos);
+        entity.setColisionBox(newPos.x, newPos.y);
     }
 }
