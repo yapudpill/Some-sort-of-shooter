@@ -38,9 +38,6 @@ public class GameMainArea implements IUpdateable {
         layeredPane.add(entitiesPaneLayer.getJComponent(), ENTITIES_LAYER);
         layeredPane.add(effectsPaneLayer, HUD_LAYER);
         centerFillRatioLayout.setWidthHeightRatio((double) gameModel.getMapModel().getWidth() / gameModel.getMapModel().getHeight());
-        centerFillRatioLayout.setComponentCentering(mapBackgroundPaneLayer.getJComponent(), true);
-        centerFillRatioLayout.setComponentCentering(entitiesPaneLayer.getJComponent(), true);
-        centerFillRatioLayout.setComponentCentering(effectsPaneLayer, true);
     }
 
     /**

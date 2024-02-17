@@ -4,15 +4,19 @@ import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * A layout manager that can center the components it manages and make them fill the parent as much as possible, while
+ * keeping a given width/height ratio.
+ * <p>
+ * It makes the components overlap, thus it is intended to be used with layers.
+ */
 public class CenterFillRatioLayout implements LayoutManager {
     private double widthHeightRatio;
-    private final Set<Component> centeredComponents = new HashSet<>();
 
-    public void setComponentCentering(Component component, boolean centered) {
-        if (centered) centeredComponents.add(component);
-        else centeredComponents.remove(component);
-    }
-
+    /**
+     * Sets the width/height ratio that the components should keep.
+     * @param widthHeightRatio the width/height ratio that the components should keep
+     */
     public void setWidthHeightRatio(double widthHeightRatio) {
         this.widthHeightRatio = widthHeightRatio;
     }
@@ -38,7 +42,6 @@ public class CenterFillRatioLayout implements LayoutManager {
     @Override
     public void layoutContainer(Container parent) {
         for (Component component : parent.getComponents()) {
-            if (centeredComponents.contains(component)) {
                 double parentRatio = (double) parent.getWidth() / parent.getHeight();
                 if (parentRatio > widthHeightRatio) {
                     int width = (int) (parent.getHeight() * widthHeightRatio);
@@ -49,9 +52,6 @@ public class CenterFillRatioLayout implements LayoutManager {
                     int y = (parent.getHeight() - height) / 2;
                     component.setBounds(0, y, parent.getWidth(), height);
                 }
-            } else {
-                component.setBounds(0, 0, parent.getWidth(), parent.getHeight());
-            }
         }
     }
 }
