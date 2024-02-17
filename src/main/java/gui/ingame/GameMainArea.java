@@ -7,7 +7,7 @@ import model.ingame.IUpdateable;
 import javax.swing.*;
 import java.awt.*;
 
-public class GameRenderer implements IUpdateable {
+public class GameMainArea implements IUpdateable {
     private static final Integer TILES_LAYER = 0;
     private static final Integer ENTITIES_LAYER = 10;
     private static final Integer HUD_LAYER = 20;
@@ -15,15 +15,15 @@ public class GameRenderer implements IUpdateable {
 
     private final JLayeredPane layeredPane;
 
-    private final MapBackgroundRenderer mapBackgroundRenderer;
+    private final MapBackgroundPaneLayer mapBackgroundPaneLayer;
     private final EntitiesPaneLayer entitiesPaneLayer;
     private final EffectsPaneLayer effectsPaneLayer;
 
     private final GameModel gameModel;
 
-    public GameRenderer(GameModel gameModel) {
+    public GameMainArea(GameModel gameModel) {
         this.gameModel = gameModel;
-        this.mapBackgroundRenderer = new MapBackgroundRenderer(gameModel.getMapModel(), this::getScale);
+        this.mapBackgroundPaneLayer = new MapBackgroundPaneLayer(gameModel.getMapModel(), this::getScale);
         this.entitiesPaneLayer = new EntitiesPaneLayer(gameModel.getEntitySet(), this::getScale);
         this.effectsPaneLayer = new EffectsPaneLayer();
 
@@ -34,11 +34,11 @@ public class GameRenderer implements IUpdateable {
 
         CenterFillRatioLayout centerFillRatioLayout = new CenterFillRatioLayout();
         layeredPane.setLayout(centerFillRatioLayout); // Make the layered panes take all the space
-        layeredPane.add(mapBackgroundRenderer.getJComponent(), TILES_LAYER);
+        layeredPane.add(mapBackgroundPaneLayer.getJComponent(), TILES_LAYER);
         layeredPane.add(entitiesPaneLayer.getJComponent(), ENTITIES_LAYER);
         layeredPane.add(effectsPaneLayer, HUD_LAYER);
         centerFillRatioLayout.setWidthHeightRatio((double) gameModel.getMapModel().getWidth() / gameModel.getMapModel().getHeight());
-        centerFillRatioLayout.setComponentCentering(mapBackgroundRenderer.getJComponent(), true);
+        centerFillRatioLayout.setComponentCentering(mapBackgroundPaneLayer.getJComponent(), true);
         centerFillRatioLayout.setComponentCentering(entitiesPaneLayer.getJComponent(), true);
         centerFillRatioLayout.setComponentCentering(effectsPaneLayer, true);
     }
@@ -54,7 +54,7 @@ public class GameRenderer implements IUpdateable {
 
     @Override
     public void update() {
-        mapBackgroundRenderer.update();
+        mapBackgroundPaneLayer.update();
         entitiesPaneLayer.update();
     }
 

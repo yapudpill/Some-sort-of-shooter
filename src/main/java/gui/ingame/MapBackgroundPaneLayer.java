@@ -10,12 +10,12 @@ import model.level.MapModel;
 import javax.swing.*;
 import java.awt.*;
 
-public class MapBackgroundRenderer implements IUpdateable {
+public class MapBackgroundPaneLayer implements IUpdateable {
     private final JPanel tilesPanel;
 
     private final AbstractTileRenderer[][] tileRenderers;
 
-    public MapBackgroundRenderer(MapModel mapModel, ScaleSupplier scaleSupplier) {
+    public MapBackgroundPaneLayer(MapModel mapModel, ScaleSupplier scaleSupplier) {
         this.tilesPanel = new JPanel();
         this.tilesPanel.setLayout(new SquareGridLayout(mapModel.getWidth(), scaleSupplier));
         this.tilesPanel.setOpaque(true);
