@@ -10,6 +10,10 @@ import model.level.MapModel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A layer of the game rendering the map background. It is a JPanel containing TileRenderers, each one corresponding
+ * to a tile of the map.
+ */
 public class MapBackgroundPaneLayer implements IUpdateable {
     private final JPanel tilesPanel;
 
@@ -33,6 +37,9 @@ public class MapBackgroundPaneLayer implements IUpdateable {
         }
     }
 
+    /**
+     * @return the JComponent of this layer
+     */
     public JComponent getJComponent() {
         return tilesPanel;
     }

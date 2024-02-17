@@ -22,18 +22,13 @@ public class EntitiesPaneLayer implements IUpdateable {
 
     public EntitiesPaneLayer(Set<EntityModel> entityModelSet, ScaleSupplier scaleSupplier) {
         this.entityModelSet = entityModelSet;
-        this.entitiesPanel = new JPanel() {
-            @Override
-            public void paintComponent(java.awt.Graphics g) {
-                super.paintComponent(g);
-            }
-        };
+        this.entitiesPanel = new JPanel();
         this.entitiesPanel.setLayout(new ProportionalScalerLayout(scaleSupplier));
         entitiesPanel.setOpaque(false);
     }
 
     /**
-     * @return the JComponent rendering the game
+     * @return the JComponent of this layer
      */
     public JComponent getJComponent() {
         return entitiesPanel;
@@ -52,6 +47,7 @@ public class EntitiesPaneLayer implements IUpdateable {
 
     @Override
     public void update() {
+        // Detect changes in the set of entity models and update the map of entity renderers accordingly
         SetToMapSynchronisator.synchroniseSetToMap(entityModelSet,
                 entityModelRendererMap,
                 this::addRendererForEntity,

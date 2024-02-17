@@ -7,6 +7,12 @@ import model.ingame.IUpdateable;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The main View for the game once it is launched. It contains the GameMainArea and the GameHUD. Intended to be the
+ * main pane of the frame.
+ * <p>
+ * Also responsible for catching the player input to pass them to a controller
+ */
 public class GameView implements IUpdateable {
     private final JPanel rootPane;
     private final GameModel gameModel;

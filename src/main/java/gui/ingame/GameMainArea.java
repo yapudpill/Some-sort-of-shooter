@@ -7,11 +7,13 @@ import model.ingame.IUpdateable;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The main area of the game, containing the map and the entities but NOT the HUD, buttons to exit, etc.
+ */
 public class GameMainArea implements IUpdateable {
     private static final Integer TILES_LAYER = 0;
     private static final Integer ENTITIES_LAYER = 10;
     private static final Integer HUD_LAYER = 20;
-
 
     private final JLayeredPane layeredPane;
 
@@ -56,7 +58,7 @@ public class GameMainArea implements IUpdateable {
     }
 
     /**
-     * @return the JComponent rendering the game
+     * @return the JComponent displaying the game area
      */
     public JComponent getJComponent() {
         return layeredPane;
