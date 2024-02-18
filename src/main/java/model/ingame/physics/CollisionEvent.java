@@ -18,6 +18,11 @@ public class CollisionEvent extends EventObject {
         }
     }
 
+    public CollisionEvent(ICollisionEntity source, List<ICollisionEntity> involved) {
+        super(source);
+        this.involvedEntities = involved;
+    }
+
     public List<ICollisionEntity> getInvolvedEntitiesList() {
         return involvedEntities;
     }

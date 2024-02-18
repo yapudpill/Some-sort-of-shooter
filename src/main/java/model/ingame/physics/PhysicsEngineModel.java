@@ -3,13 +3,16 @@ package model.ingame.physics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
+import java.awt.geom.Rectangle2D;
 
 import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
 import model.level.MapModel;
 
+/**
+ * The <code>PhysicsEngineModel</code> class is used to handle the physics of the game, such as collision detection and entity movement.
+ */
 public class PhysicsEngineModel {
     private final MapModel map;
 
@@ -19,13 +22,23 @@ public class PhysicsEngineModel {
         this.map = map;
     }
 
+    /**
+     * Returns a list of all entities that are colliding with the given entity.
+     * 
+     * @param entity the entity to check for collisions
+     * @return a list of all entities that are colliding with the given entity
+     */
+
     public List<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
         List<ICollisionEntity> involvedEntities = new ArrayList<>();
-        List<Iterator<ICollisionEntity>> iterators = map.getAllCollidableIteratorsAround((int) entity.getPos().x,(int) entity.getPos().y);
-        for (Iterator<ICollisionEntity> iterator : iterators) {
+        // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
+        List<Iterator<ICollisionEntity>> potentiallyCollided = map.getAllCollidableIteratorsAround((int) entity.getPos().x,(int) entity.getPos().y);
+
+        for (Iterator<ICollisionEntity> iterator : potentiallyCollided) {
             while (iterator.hasNext()) {
                 ICollisionEntity other = iterator.next();
-                if (entity.getCollisionBox().intersects(other.getCollisionBox())) {
+                // check if the entities are actually colliding, make sure not to check the entity with itself
+                if (entity.getCollisionBox().intersects(other.getCollisionBox()) && !entity.equals(other)) {
                     involvedEntities.add(other);
                 }
             }
@@ -33,31 +46,65 @@ public class PhysicsEngineModel {
         return involvedEntities;
     }
 
+    /**
+     * Moves the given entity to the given position, and checks for collisions.
+     * 
+     * @param entity the entity to move
+     * @param newPos the new position of the entity
+     */
+
     public void move(IMobileEntity entity, Coordinates newPos){
         Coordinates oldPos = entity.getPos();
+        int oldX = (int) oldPos.x;
+        int oldY = (int) oldPos.y;
+        int newX = (int) newPos.x;
+        int newY = (int) newPos.y;
+
         if(entity == null || newPos == null)
             throw new IllegalArgumentException("Entity or newPos cannot be null");
-        else if(map.isOutOfBounds((int) newPos.x, (int) newPos.y)){
-            entity.getMovementHandler().setDirectionVector(Coordinates.ZERO);
-            return;
+
+
+        // check if the entity has collision listeners, and if it does, check if it is colliding with anything  
+        List<ICollisionEntity> collidedEntities = getCollidedEntities(entity);
+        if(entity.hasCollisionListeners() && collidedEntities.size() > 0){
+            // create a collision event
+            CollisionEvent event = new CollisionEvent(entity, collidedEntities);
+            // notify the entity's collision listeners
+            entity.notifyCollisionListeners(event);
+            // notify the collided entities' collision listeners
+            collidedEntities.forEach(collidedEntity -> collidedEntity.notifyCollisionListeners(event));
         }
-        else if(!entity.getPos().intEquals(newPos)){
-            if(!map.isWalkableAt((int) newPos.x, (int) newPos.y)){
-                entity.getMovementHandler().setDirectionVector(Coordinates.ZERO);
-                return;
-            }
-            map.removeCollidableAt(entity, (int) oldPos.x, (int) oldPos.y);
-            map.addCollidableAt(entity, (int) newPos.x, (int) newPos.y);
-            entity.setPos(newPos);
-            entity.setColisionBox(newPos.x, newPos.y);
+
+        // check if the next position will be on a walkable tile, if not, cancel the movement
+        if(!isWalkable(entity, newPos)) return;
+        
+
+        // move the entity and its collision box
+        entity.setPos(newPos);
+        entity.setColisionBox(newX, newY);
+
+        // if the entity has moved to a new tile, update the collidables in the old and new tile
+        if(oldX != newX || oldY != newY){
+            map.removeCollidableAt(entity, oldX, oldY);
+            map.addCollidableAt(entity, newX, newY);
         }
-        else if(entity.hasCollisionListeners()){
-            List<ICollisionEntity> involvedEntities = getCollidedEntities(entity);
-            if(!involvedEntities.isEmpty()){
-                CollisionEvent event = new CollisionEvent(entity, involvedEntities.toArray(new ICollisionEntity[0]));
-                entity.notifyCollisionListeners(event);
-                involvedEntities.forEach(e -> e.notifyCollisionListeners(event));
-            }
-        }
+
     }
+
+    /**
+     * Checks if the next position will be on a walkable tile, given the entity's width and height.
+     * 
+     * @param entity the entity to check for walkability
+     * @param newPos the new position of the entity
+     * @return true if the next position will be on a walkable tile, false otherwise
+     */
+    public boolean isWalkable(IMobileEntity entity, Coordinates newPos){
+        if(entity == null || newPos == null)
+            throw new IllegalArgumentException("Entity or newPos cannot be null");
+        int x = (int) newPos.x;
+        int y = (int) newPos.y;
+        Rectangle2D.Double tileBox = new Rectangle2D.Double(x, y, 1, 1);
+        return tileBox.contains(entity.getCollisionBox());
+    }
+
 }
