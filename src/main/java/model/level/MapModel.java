@@ -9,8 +9,6 @@ import model.ingame.entity.ICollisionEntity;
 
 public class MapModel {
     private TileModel[][] tiles;
-    private int width;
-    private int height;
 
     public MapModel(String path){
         loadMap(path);
@@ -21,13 +19,13 @@ public class MapModel {
     }
 
     public boolean isOutOfBounds(int x, int y) {
-        return x < 0 || x >= width || y < 0 || y >= height;
+        return x < 0 || x >= tiles[0].length || y < 0 || y >= tiles.length;
     }
 
     public boolean isWalkableAt(int x, int y) {
         if (isOutOfBounds(x, y))
             return false;
-        return tiles[x][y].isWalkable();
+        return tiles[y][x].isWalkable();
     }
 
     public List<Iterator<ICollisionEntity>> getAllCollidableIteratorsAround(int x, int y) {
@@ -49,7 +47,7 @@ public class MapModel {
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
             throw new IllegalArgumentException("Coordinates out of bounds");
-        tiles[x][y].addCollidable(entity);
+        tiles[y][x].addCollidable(entity);
     }
 
     public void removeCollidableAt(ICollisionEntity entity, int x, int y) {
@@ -57,15 +55,15 @@ public class MapModel {
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
             throw new IllegalArgumentException("Coordinates out of bounds");
-        tiles[x][y].removeCollidable(entity);
+        tiles[y][x].removeCollidable(entity);
     }
 
     public int getWidth() {
-        return width;
+        return tiles[0].length;
     }
 
     public int getHeight() {
-        return height;
+        return tiles.length;
     }
 
 

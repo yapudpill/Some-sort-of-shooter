@@ -15,7 +15,7 @@ public abstract class TileModel {
     protected final List<ICollisionEntity> collidables = new ArrayList<>(); 
 
     public TileModel() {
-        //TODO: implement projectile
+        
     }
 
     public abstract boolean isWalkable();
