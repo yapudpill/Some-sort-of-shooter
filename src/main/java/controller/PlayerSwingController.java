@@ -56,12 +56,16 @@ public class PlayerSwingController {
             @Override
             public void keyReleased(KeyEvent e) {
                 int keyCode = e.getKeyCode();
+                System.out.println("key released");
                 // Update direction:
-                if (player1KeyDirectionMap.containsKey(keyCode)) {
-                    Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).opposite().normalize();
-                    Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
-                    oldVelocityVector.add(addedVelocityVector);
-                }
+                // if (player1KeyDirectionMap.containsKey(keyCode)) {
+                //      Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).opposite().normalize();
+                //      Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
+                //      oldVelocityVector.add(addedVelocityVector);
+                // }
+                Coordinates old = controlledPlayerModel.getMovementHandler().getDirectionVector();
+                old.x = 0;
+                old.y = 0;
                 keyPressed[0] = false;
             }
         };

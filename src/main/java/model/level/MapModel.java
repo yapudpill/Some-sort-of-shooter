@@ -15,8 +15,6 @@ public class MapModel {
     }
 
     public MapModel(int width, int height, TileModel[][] tiles) {
-        this.width = width;
-        this.height = height;
         this.tiles = tiles;
     }
 
@@ -41,7 +39,7 @@ public class MapModel {
                 int newX = x + i;
                 int newY = y + j;
                 if (!isOutOfBounds(newX, newY)) {
-                    iterators.add(tiles[newX][newY].getCollidablesIterator());
+                    iterators.add(tiles[newY][newX].getCollidablesIterator());
                 }
             }
         }
@@ -52,7 +50,7 @@ public class MapModel {
         if (entity == null)
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
-            throw new IllegalArgumentException("Coordinates out of bounds");
+            return;
         tiles[y][x].addCollidable(entity);
     }
 
@@ -60,7 +58,7 @@ public class MapModel {
         if (entity == null)
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
-            throw new IllegalArgumentException("Coordinates out of bounds");
+            return;
         tiles[y][x].removeCollidable(entity);
     }
 

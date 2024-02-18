@@ -26,11 +26,11 @@ public class PlayerRenderer extends AbstractEntityRenderer {
         g.setColor(Color.RED);
         g.fillPolygon(xPoints, yPoints, 3);
         Image image;
-        try {
-            image = ImageCache.loadImage("sprites/player1/playerRightShoot.png", PlayerRenderer.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+        // try {
+        //     image = ImageCache.loadImage("sprites/player1/playerRightShoot.png", PlayerRenderer.class);
+        // } catch (IOException e) {
+        //     throw new RuntimeException(e);
+        // }
+        // g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 }

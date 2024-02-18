@@ -31,7 +31,7 @@ public class GameModel implements IUpdateable {
 
     @Override
     public void update() {
-		    player.update();
+	    player.update();
     }
 
     public MapModel getMapModel() {

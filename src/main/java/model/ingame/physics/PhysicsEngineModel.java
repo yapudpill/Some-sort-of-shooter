@@ -98,12 +98,29 @@ public class PhysicsEngineModel {
      * @return true if the next position will be on a walkable tile, false otherwise
      */
     public boolean isWalkable(IMobileEntity entity, Coordinates newPos){
-        if(entity == null || newPos == null)
+        if (entity == null || newPos == null) {
             throw new IllegalArgumentException("Entity or newPos cannot be null");
-        int x = (int) newPos.x;
-        int y = (int) newPos.y;
-        Rectangle2D.Double tileBox = new Rectangle2D.Double(x, y, 1, 1);
-        return tileBox.contains(entity.getCollisionBox());
+        }
+    
+        // Calculate the coordinates of the tile that corresponds to the top-left corner of the entity's collision box
+        int tileX = (int) newPos.x;
+        int tileY = (int) newPos.y;
+    
+        double entityTileWidth = entity.getWidth();
+        double entityTileHeight = entity.getHeight();
+
+        
+    
+        // Check if all tiles that the entity would cover are walkable
+        for (int i = 0; i < entityTileWidth; i++) {
+            for (int j = 0; j < entityTileHeight; j++) {
+                if (!map.isWalkableAt(tileX + i, tileY + j)) {
+                    return false; // At least one tile is not walkable
+                }
+            }
+        }
+    
+        return true; // All tiles are walkable
     }
 
 }
