@@ -9,8 +9,6 @@ import java.util.List;
 
 public class MapModel {
     private TileModel[][] tiles;
-    private int width;
-    private int height;
 
     public MapModel(String path) {
         loadMap(path);
@@ -27,7 +25,7 @@ public class MapModel {
     }
 
     public boolean isOutOfBounds(int x, int y) {
-        return x < 0 || x >= width || y < 0 || y >= height;
+        return x < 0 || x >= tiles[0].length || y < 0 || y >= tiles.length;
     }
 
     public boolean isWalkableAt(int x, int y) {
@@ -67,11 +65,11 @@ public class MapModel {
     }
 
     public int getWidth() {
-        return width;
+        return tiles[0].length;
     }
 
     public int getHeight() {
-        return height;
+        return tiles.length;
     }
 
     public TileModel getTile(int x, int y) {
