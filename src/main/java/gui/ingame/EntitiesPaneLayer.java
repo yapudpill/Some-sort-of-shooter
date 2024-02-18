@@ -17,13 +17,15 @@ public class EntitiesPaneLayer implements IUpdateable {
     private final JPanel entitiesPanel;
 
     private final Set<EntityModel> entityModelSet;
+    private final ProportionalScalerLayout scaleLayout;
 
     private final LinkedHashMap<EntityModel, AbstractEntityRenderer> entityModelRendererMap = new LinkedHashMap<>();
 
     public EntitiesPaneLayer(Set<EntityModel> entityModelSet, ScaleSupplier scaleSupplier) {
         this.entityModelSet = entityModelSet;
         this.entitiesPanel = new JPanel();
-        this.entitiesPanel.setLayout(new ProportionalScalerLayout(scaleSupplier));
+        this.scaleLayout = new ProportionalScalerLayout(scaleSupplier);
+        this.entitiesPanel.setLayout(scaleLayout);
         entitiesPanel.setOpaque(false);
     }
 
@@ -52,5 +54,7 @@ public class EntitiesPaneLayer implements IUpdateable {
                 entityModelRendererMap,
                 this::addRendererForEntity,
                 this::removeRendererOfEntity);
+        entitiesPanel.repaint();
+        entitiesPanel.doLayout();
     }
 }

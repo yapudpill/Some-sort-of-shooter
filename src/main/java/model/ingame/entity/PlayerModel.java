@@ -69,6 +69,7 @@ public class PlayerModel extends CollisionEntityModel implements ICombatEntity, 
     @Override
     public void update(){
         System.out.println("Player pos: " + getPos());
+        System.out.println("Player direction: " + movementHandler.getDirectionVector());
         movementHandler.update();
         projectilesShot.forEach(projectile -> {
             if(!projectile.isActive()) projectilesShot.remove(projectile);

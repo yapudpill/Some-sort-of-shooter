@@ -1,9 +1,11 @@
 package gui.ingame.entity;
 
+import gui.ImageCache;
 import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class PlayerRenderer extends AbstractEntityRenderer {
     public PlayerRenderer(PlayerModel entityModel) {
@@ -23,5 +25,12 @@ public class PlayerRenderer extends AbstractEntityRenderer {
         int[] yPoints = {getHeight(), 0, getHeight()};
         g.setColor(Color.RED);
         g.fillPolygon(xPoints, yPoints, 3);
+        Image image;
+        try {
+            image = ImageCache.loadImage("sprites/player1/playerRightShoot.png", PlayerRenderer.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 }

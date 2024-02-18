@@ -8,7 +8,7 @@ import model.ingame.entity.EntityModel;
 import javax.swing.*;
 
 public abstract class AbstractEntityRenderer extends JComponent implements IUpdateable, ScalableComponent {
-    private final EntityModel entityModel;
+    protected final EntityModel entityModel;
 
     public AbstractEntityRenderer(EntityModel entityModel) {
         this.entityModel = entityModel;

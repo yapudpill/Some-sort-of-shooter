@@ -46,6 +46,6 @@ public class MapBackgroundPaneLayer implements IUpdateable {
 
     @Override
     public void update() {
-
+        tilesPanel.repaint();
     }
 }
