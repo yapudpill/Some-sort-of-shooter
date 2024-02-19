@@ -3,7 +3,6 @@ package model.ingame.physics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.awt.geom.Rectangle2D;
 
 import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
@@ -102,16 +101,14 @@ public class PhysicsEngineModel {
             throw new IllegalArgumentException("Entity or newPos cannot be null");
         }
 
-        int x = (int) newPos.x;
-        int y = (int) newPos.y;
         double halfWidth = entity.getWidth() / 2;
         double halfHeight = entity.getHeight() / 2;
 
         for(double i = -halfWidth; i <= halfWidth; i += entity.getWidth()){
             for(double j = -halfHeight; j <= halfHeight; j += entity.getHeight()){
-                int newX = (int) (newPos.x + i);
-                int newY = (int) (newPos.y + j);
-                if(!map.isWalkableAt(newX, newY)){
+                double newX = newPos.x + i;
+                double newY = newPos.y + j;
+                if(newX < 0 || newY < 0 || !map.isWalkableAt((int) newX, (int) newY)){
                     return false; // At least one tile is not walkable
                 }
             }
