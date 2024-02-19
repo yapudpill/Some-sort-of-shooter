@@ -3,7 +3,6 @@ package model.ingame.weapon;
 import model.ingame.Coordinates;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IVulnerableEntity;
-import model.ingame.physics.IMovementHandler;
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.physics.PhysicsEngineModel;
 

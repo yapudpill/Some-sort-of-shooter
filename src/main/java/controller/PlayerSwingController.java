@@ -7,12 +7,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 
 import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
-import model.ingame.physics.IMovementHandler;
 
 /**
  * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.

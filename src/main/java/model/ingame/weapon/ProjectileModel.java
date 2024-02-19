@@ -2,9 +2,7 @@ package model.ingame.weapon;
 
 import model.ingame.Coordinates;
 import model.ingame.entity.CollisionEntityModel;
-import model.ingame.entity.IMobileEntity;
 import model.ingame.physics.IMovementHandler;
-import model.ingame.physics.PhysicsEngineModel;
 
 public abstract class ProjectileModel extends CollisionEntityModel implements IProjectile{
     protected ProjectileWeaponModel sourceWeapon;

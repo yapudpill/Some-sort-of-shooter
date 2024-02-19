@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.Timer;
 
 import model.ingame.Coordinates;
-import model.ingame.entity.EntityModel;
 import model.ingame.entity.IEntity;
 import model.ingame.physics.PhysicsEngineModel;
 

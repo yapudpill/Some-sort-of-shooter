@@ -1,6 +1,5 @@
 package model.ingame.weapon;
 
-import model.ingame.IUpdateable;
 import model.ingame.entity.IMobileEntity;
 
 public interface IProjectile extends IMobileEntity {

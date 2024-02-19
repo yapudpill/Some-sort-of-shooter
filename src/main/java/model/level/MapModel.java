@@ -1,11 +1,10 @@
 package model.level;
 
-import model.ingame.entity.EntityModel;
-import model.ingame.entity.ICollisionEntity;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import model.ingame.entity.ICollisionEntity;
 
 public class MapModel {
     private TileModel[][] tiles;

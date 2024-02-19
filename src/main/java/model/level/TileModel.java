@@ -4,24 +4,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import model.ingame.Coordinates;
-import model.ingame.entity.EntityModel;
 import model.ingame.entity.ICollisionEntity;
-import model.ingame.entity.IEntity;
 import model.ingame.entity.IVulnerableEntity;
 
 public abstract class TileModel {
     protected final List<TileContent> tileContents = new ArrayList<>();
-    protected final List<ICollisionEntity> collidables = new ArrayList<>(); 
+    protected final List<ICollisionEntity> collidables = new ArrayList<>();
 
     public TileModel() {
-        
+
     }
 
     public abstract boolean isWalkable();
 
     public abstract void applyEffect(IVulnerableEntity entity);
-    
+
     public void addTileContent(TileContent content) {
         if (content == null)
             throw new IllegalArgumentException("Content cannot be null");

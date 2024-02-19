@@ -32,19 +32,4 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
         weapon.update();
     }
 
-    @Override
-    public void takeDamage(int damage) {
-        health -= damage;
-    }
-
-    @Override
-    public int getHealth() {
-        return health;
-    }
-
-    @Override
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
 }

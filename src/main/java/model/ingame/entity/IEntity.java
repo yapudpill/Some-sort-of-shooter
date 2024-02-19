@@ -1,7 +1,6 @@
 package model.ingame.entity;
 
 import model.ingame.Coordinates;
-import model.ingame.IUpdateable;
 
 public interface IEntity{
 

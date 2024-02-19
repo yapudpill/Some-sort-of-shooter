@@ -1,19 +1,8 @@
 package model.ingame.entity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import model.ingame.Coordinates;
-import model.ingame.physics.CollisionEvent;
-import model.ingame.physics.CollisionListener;
-import model.ingame.physics.IMovementHandler;
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.physics.PhysicsEngineModel;
-import model.ingame.weapon.BulletsModel;
-import model.ingame.weapon.IProjectile;
 import model.ingame.weapon.PistolModel;
-import model.ingame.weapon.ProjectileWeaponModel;
 
 public class PlayerModel extends CombatEntityModel {
     /*

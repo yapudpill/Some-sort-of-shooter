@@ -15,8 +15,8 @@ public class WalkingEnemyModel extends CreatureModel {
         addCollisionListener(e -> {
             if (e.getSource() != this) return;
             for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
-                if (entity instanceof IVulnerableEntity vul) {
-                    vul.takeDamage(10); //TODO: should not be hard coded
+                if (entity instanceof PlayerModel p) {
+                    p.takeDamage(10); //TODO: should not be hard coded
                 }
             }
         });
