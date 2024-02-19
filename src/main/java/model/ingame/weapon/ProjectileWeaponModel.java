@@ -26,7 +26,7 @@ public abstract class ProjectileWeaponModel {
         this.coolDown = coolDown;
         this.isCoolingDown = false;
         coolDownTimer = new Timer(coolDown, e -> {
-            isCoolingDown = true;
+            isCoolingDown = false;
         });
         coolDownTimer.setRepeats(false);
     }
@@ -39,10 +39,12 @@ public abstract class ProjectileWeaponModel {
 
     public void shoot(Coordinates directionVector) {
         if(isCoolingDown) return;
-        isCoolingDown = false;
+        isCoolingDown = true;
         IProjectile projectile = createProjectile();
         projectile.setPos(owner.getPos());
-        projectile.getMovementHandler().setDirectionVector(directionVector);
+        projectile.setSourceWeapon(this);
+        System.out.println("Direction vector: " + directionVector.toString());
+        projectile.getMovementHandler().setDirectionVector(new Coordinates(directionVector));
         shotProjectiles.add(projectile);
         coolDownTimer.start();
     }
@@ -56,6 +58,7 @@ public abstract class ProjectileWeaponModel {
             projectile.update();
         }
         shotProjectiles.removeIf(projectile -> !projectile.isActive());
+
     }
 
     public void setOwner(IEntity owner) {
@@ -83,6 +86,8 @@ public abstract class ProjectileWeaponModel {
         this.isCoolingDown = isCoolingDown;
     }
 
-
+    public List<IProjectile> getProjectiles() {
+        return shotProjectiles;
+    }
 
 }

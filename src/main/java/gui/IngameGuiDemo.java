@@ -32,7 +32,7 @@ public class IngameGuiDemo {
         tiles[3][3] = new WaterTileModel();
         MapModel mapModel = new MapModel(10, 5, tiles);
         GameModel gameModel = new GameModel(mapModel);
-        gameModel.getPlayer().setPos(new Coordinates(3, 3));
+        gameModel.getPlayer().setPos(new Coordinates(2, 2));
 
         IGameLoop gameModelLoop = new SwingGameLoop(gameModel);
         GameView gameView = new GameView(gameModel);

@@ -1,7 +1,6 @@
 package model.ingame.physics;
 
 import model.ingame.Coordinates;
-import model.ingame.IUpdateable;
 import model.ingame.entity.IMobileEntity;
 
 /*
@@ -20,7 +19,8 @@ public class MovementHandlerModel<T extends IMobileEntity> implements IMovementH
 
     public void update() {
         Coordinates pos = entity.getPos();
-        Coordinates newPos = new Coordinates(pos.x + directionVector.x * speed, pos.y + directionVector.y * speed);
+        Coordinates directionNormalized = directionVector.normalize();
+        Coordinates newPos = new Coordinates(pos.x + directionNormalized.x * speed, pos.y + directionNormalized.y * speed);
         physicsEngine.move(entity, newPos);
     }
 
@@ -44,5 +44,5 @@ public class MovementHandlerModel<T extends IMobileEntity> implements IMovementH
     public T getEntity() {
         return entity;
     }
-    
+
 }

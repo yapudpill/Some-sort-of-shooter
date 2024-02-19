@@ -24,7 +24,7 @@ public class PhysicsEngineModel {
 
     /**
      * Returns a list of all entities that are colliding with the given entity.
-     * 
+     *
      * @param entity the entity to check for collisions
      * @return a list of all entities that are colliding with the given entity
      */
@@ -48,7 +48,7 @@ public class PhysicsEngineModel {
 
     /**
      * Moves the given entity to the given position, and checks for collisions.
-     * 
+     *
      * @param entity the entity to move
      * @param newPos the new position of the entity
      */
@@ -64,9 +64,9 @@ public class PhysicsEngineModel {
             throw new IllegalArgumentException("Entity or newPos cannot be null");
 
 
-        // check if the entity has collision listeners, and if it does, check if it is colliding with anything  
+        // check if the entity has collision listeners, and if it does, check if it is colliding with anything
         List<ICollisionEntity> collidedEntities = getCollidedEntities(entity);
-        if(entity.hasCollisionListeners() && collidedEntities.size() > 0){
+        if(collidedEntities.size() > 0){
             // create a collision event
             CollisionEvent event = new CollisionEvent(entity, collidedEntities);
             // notify the entity's collision listeners
@@ -77,7 +77,7 @@ public class PhysicsEngineModel {
 
         // check if the next position will be on a walkable tile, if not, cancel the movement
         if(!isWalkable(entity, newPos)) return;
-        
+
 
         // move the entity and its collision box
         entity.setPos(newPos);
@@ -92,7 +92,7 @@ public class PhysicsEngineModel {
 
     /**
      * Checks if the next position will be on a walkable tile, given the entity's width and height.
-     * 
+     *
      * @param entity the entity to check for walkability
      * @param newPos the new position of the entity
      * @return true if the next position will be on a walkable tile, false otherwise
@@ -101,25 +101,22 @@ public class PhysicsEngineModel {
         if (entity == null || newPos == null) {
             throw new IllegalArgumentException("Entity or newPos cannot be null");
         }
-    
-        // Calculate the coordinates of the tile that corresponds to the top-left corner of the entity's collision box
-        int tileX = (int) newPos.x;
-        int tileY = (int) newPos.y;
-    
-        double entityTileWidth = entity.getWidth();
-        double entityTileHeight = entity.getHeight();
 
-        
-    
-        // Check if all tiles that the entity would cover are walkable
-        for (int i = 0; i < entityTileWidth; i++) {
-            for (int j = 0; j < entityTileHeight; j++) {
-                if (!map.isWalkableAt(tileX + i, tileY + j)) {
+        int x = (int) newPos.x;
+        int y = (int) newPos.y;
+        double halfWidth = entity.getWidth() / 2;
+        double halfHeight = entity.getHeight() / 2;
+
+        for(double i = -halfWidth; i <= halfWidth; i += entity.getWidth()){
+            for(double j = -halfHeight; j <= halfHeight; j += entity.getHeight()){
+                int newX = (int) (newPos.x + i);
+                int newY = (int) (newPos.y + j);
+                if(!map.isWalkableAt(newX, newY)){
                     return false; // At least one tile is not walkable
                 }
             }
         }
-    
+
         return true; // All tiles are walkable
     }
 

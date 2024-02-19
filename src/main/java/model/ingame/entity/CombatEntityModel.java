@@ -1,10 +1,8 @@
 package model.ingame.entity;
 
-import model.ingame.physics.IMovementHandler;
-import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.ProjectileWeaponModel;
 
-public class CombatEntityModel extends CreatureModel implements ICombatEntity{
+public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity{
     // TODO1: replace this with a more general interface that covers non projectile weapons
     protected ProjectileWeaponModel weapon;
 

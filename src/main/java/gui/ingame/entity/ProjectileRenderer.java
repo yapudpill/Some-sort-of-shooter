@@ -13,7 +13,7 @@ public class ProjectileRenderer extends AbstractEntityRenderer{
     public Coordinates getOriginalSize() {
         return new Coordinates(entityModel.getWidth(), entityModel.getHeight());
     }
-    
+
     @Override
     protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
