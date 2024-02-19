@@ -1,14 +1,16 @@
 package gui.ingame;
 
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
 import gui.ScaleSupplier;
-import gui.SquareGridLayout;
 import gui.ingame.tile.AbstractTileRenderer;
 import gui.ingame.tile.TileRendererFactory;
 import model.ingame.IUpdateable;
 import model.level.MapModel;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * A layer of the game rendering the map background. It is a JPanel containing TileRenderers, each one corresponding
@@ -16,12 +18,14 @@ import java.awt.*;
  */
 public class MapBackgroundPaneLayer implements IUpdateable {
     private final JPanel tilesPanel;
-
     private final AbstractTileRenderer[][] tileRenderers;
 
     public MapBackgroundPaneLayer(MapModel mapModel, ScaleSupplier scaleSupplier) {
+        int width = mapModel.getWidth();
+        int height = mapModel.getHeight();
+
         this.tilesPanel = new JPanel();
-        this.tilesPanel.setLayout(new SquareGridLayout(mapModel.getWidth(), scaleSupplier));
+        this.tilesPanel.setLayout(new GridLayout(height, width));
         this.tilesPanel.setOpaque(true);
 
         this.tileRenderers = new AbstractTileRenderer[mapModel.getHeight()][mapModel.getWidth()];
