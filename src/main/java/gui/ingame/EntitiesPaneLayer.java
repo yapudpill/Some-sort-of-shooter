@@ -5,7 +5,6 @@ import gui.ScaleSupplier;
 import gui.ingame.entity.AbstractEntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
 import model.ingame.IUpdateable;
-import model.ingame.entity.EntityModel;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
 import util.SetToMapSynchronisator;
@@ -57,14 +56,13 @@ public class EntitiesPaneLayer implements IUpdateable {
     @Override
     public void update() {
         // temporary code, should be replaced with a composite pattern to unpack entities and render them
-        IEntity player = null;
-        for(IEntity entity : entityModelSet) {
-            if(entity instanceof PlayerModel) player = entity;
-        }
         HashSet<IEntity> newEntityModelSet = new HashSet<>();
-        newEntityModelSet.add(player);
-        PlayerModel playerModel = (PlayerModel) player;
-        for(IEntity entity : playerModel.getWeapon().getProjectiles()) {
+        PlayerModel player = null;
+        for(IEntity entity : entityModelSet) {
+            if(entity instanceof PlayerModel p) player = p;
+            newEntityModelSet.add(entity);
+        }
+        for(IEntity entity : player.getWeapon().getProjectiles()) {
             newEntityModelSet.add(entity);
         }
         entityModelSet.clear();

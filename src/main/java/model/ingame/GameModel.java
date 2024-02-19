@@ -1,13 +1,11 @@
 package model.ingame;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import model.ingame.entity.EntityModel;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
+import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.physics.PhysicsEngineModel;
 import model.level.MapModel;
 
@@ -29,12 +27,14 @@ public class GameModel implements IUpdateable {
         this.physicsEngine = new PhysicsEngineModel(map);
         this.player = new PlayerModel(physicsEngine);
         entityModelList.add(player);
-
+        updateables.add(player);
     }
 
     @Override
     public void update() {
-	    player.update();
+        for (IUpdateable updateable : updateables) {
+            updateable.update();
+        }
         System.out.println("player health : " + player.getHealth());
     }
 
@@ -49,5 +49,12 @@ public class GameModel implements IUpdateable {
     // Probably temporary
     public PlayerModel getPlayer() {
         return player;
+    }
+
+    public void spawnWalking(double x, double y) {
+        WalkingEnemyModel e = new WalkingEnemyModel(player, physicsEngine);
+        e.setPos(new Coordinates(x, y));
+        updateables.add(e);
+        entityModelList.add(e);
     }
 }
