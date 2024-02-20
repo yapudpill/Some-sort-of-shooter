@@ -7,12 +7,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import model.ingame.entity.ICollisionEntity;
 
 public class MapModel {
     private TileModel[][] tiles;
 
     public MapModel(String path){
         tiles = loadMap(path);
+    }
+
+    public MapModel(int width, int height, TileModel[][] tiles) {
+        this.tiles = tiles;
     }
 
     /**
@@ -123,22 +132,55 @@ public class MapModel {
         }
         return null;
     }
-/*
-    may be useful for tests
+    public boolean isOutOfBounds(int x, int y) {
+        return x < 0 || x >= tiles[0].length || y < 0 || y >= tiles.length;
+    }
 
-    public static void display(char[][] arr){
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[0].length; j++) {
-                System.out.print(arr[i][j]);
+    public boolean isWalkableAt(int x, int y) {
+        if (isOutOfBounds(x, y))
+            return false;
+        return tiles[y][x].isWalkable();
+    }
+
+    public List<Iterator<ICollisionEntity>> getAllCollidableIteratorsAround(int x, int y) {
+        List<Iterator<ICollisionEntity>> iterators = new ArrayList<>();
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int newX = x + i;
+                int newY = y + j;
+                if (!isOutOfBounds(newX, newY)) {
+                    iterators.add(tiles[newY][newX].getCollidablesIterator());
+                }
             }
-            System.out.println();
         }
+        return iterators;
     }
 
-    public static void display(String[] arr){
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
-        }
+    public void addCollidableAt(ICollisionEntity entity, int x, int y) {
+        if (entity == null)
+            throw new IllegalArgumentException("Entity cannot be null");
+        if (isOutOfBounds(x, y))
+            return;
+        tiles[y][x].addCollidable(entity);
     }
- */
+
+    public void removeCollidableAt(ICollisionEntity entity, int x, int y) {
+        if (entity == null)
+            throw new IllegalArgumentException("Entity cannot be null");
+        if (isOutOfBounds(x, y))
+            return;
+        tiles[y][x].removeCollidable(entity);
+    }
+
+    public int getWidth() {
+        return tiles[0].length;
+    }
+
+    public int getHeight() {
+        return tiles.length;
+    }
+
+    public TileModel getTile(int x, int y) {
+        return tiles[y][x];
+    }
 }

@@ -1,5 +1,24 @@
 package model.ingame.entity;
 
-public abstract class PlayerModel {
-    // note to whoever is gonna work on this : make sure to add a zero paramater constructor to serve as a supplier for the factory
+import model.ingame.physics.MovementHandlerModel;
+import model.ingame.physics.PhysicsEngineModel;
+import model.ingame.weapon.PistolModel;
+
+public class PlayerModel extends CombatEntityModel {
+    /*
+     * tag interface for player actions, to be used by the controller (e.g. attack, reload, etc.)
+     */
+
+    @FunctionalInterface
+    public interface PlayerAction {
+        void performAction();
+    }
+
+    public PlayerModel(PhysicsEngineModel physicsEngine) {
+        super(100, 0.5, 0.5);
+        movementHandler = new MovementHandlerModel<PlayerModel>(this, physicsEngine);
+        movementHandler.setSpeed(0.09);
+        weapon = new PistolModel(this, physicsEngine);
+    }
+
 }
