@@ -29,7 +29,9 @@
 
 ## Pour la semaine prochaine :
 
-- Gestion des ennemis
-- Affichage plus approprié
-- Gestion des weapon drops
-- Gestion des parties
+- Gestion des ennemis (disparition des entités): Mohammed  
+- Affichage plus approprié: Anthony
+- Gestion des weapon drops: Yacob
+- Ramassage des weapons: Mohammed
+- Gestion des parties: Clément
+- Variété de maps: Clément
