@@ -1,5 +1,6 @@
 package model.level.Tiles;
 
+import model.ingame.entity.IVulnerableEntity;
 import model.level.TileModel;
 
 /**
@@ -16,6 +17,6 @@ public class DefaultTileModel extends TileModel {
     }
 
     @Override
-    public void applyEffect() {
+    public void applyEffect(IVulnerableEntity entity) {
     }
 }

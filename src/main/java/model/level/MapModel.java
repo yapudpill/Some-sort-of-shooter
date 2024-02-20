@@ -121,6 +121,7 @@ public class MapModel {
                 for (int j = 0; j < parsedMap[0].length; j++) {
                     switch (parsedMap[i][j]){
                         case '#' -> tiles[i][j] = new WallTileModel();
+                        case 'V' -> tiles[i][j] = new VoidTileModel();
                         default -> tiles[i][j] = new DefaultTileModel();
                     }
                 }

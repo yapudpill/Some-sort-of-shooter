@@ -10,7 +10,7 @@ import model.ingame.IGameLoop;
 import model.level.MapModel;
 import model.level.StandardTileModel;
 import model.level.TileModel;
-import model.level.WaterTileModel;
+import model.level.Tiles.WaterTileModel;
 
 public class IngameGuiDemo {
     public static void main(String[] args) {
