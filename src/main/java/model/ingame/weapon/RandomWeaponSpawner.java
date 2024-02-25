@@ -11,7 +11,7 @@ import model.ingame.weapon.PistolModel;
 import java.util.Random;
 
 public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
-    final public int WEAPON_SPAWN_COOLDOWN = 5 * 60; // 5 seconds, i.e. 5 * 60 ticks
+    final static public int WEAPON_SPAWN_COOLDOWN = 5 * 60; // 5 seconds, i.e. 5 * 60 ticks
     Random rng = new Random();
     double spawnCooldown = 0;
     public RandomWeaponSpawner(GameModel gameModel) {
