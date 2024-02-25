@@ -1,7 +1,6 @@
 package model.level;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,11 +9,15 @@ import model.ingame.entity.ICollisionEntity;
 public class MapModel {
     private TileModel[][] tiles;
 
-    public MapModel(String path){
+    public MapModel(String path) {
         loadMap(path);
     }
 
-    public static void loadMap(String path){
+    public MapModel(int width, int height, TileModel[][] tiles) {
+        this.tiles = tiles;
+    }
+
+    public static void loadMap(String path) {
         // Load map from file
     }
 
@@ -35,7 +38,7 @@ public class MapModel {
                 int newX = x + i;
                 int newY = y + j;
                 if (!isOutOfBounds(newX, newY)) {
-                    iterators.add(tiles[newX][newY].getCollidablesIterator());
+                    iterators.add(tiles[newY][newX].getCollidablesIterator());
                 }
             }
         }
@@ -46,7 +49,7 @@ public class MapModel {
         if (entity == null)
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
-            throw new IllegalArgumentException("Coordinates out of bounds");
+            return;
         tiles[y][x].addCollidable(entity);
     }
 
@@ -54,7 +57,7 @@ public class MapModel {
         if (entity == null)
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
-            throw new IllegalArgumentException("Coordinates out of bounds");
+            return;
         tiles[y][x].removeCollidable(entity);
     }
 
@@ -66,6 +69,7 @@ public class MapModel {
         return tiles.length;
     }
 
-
-    
+    public TileModel getTile(int x, int y) {
+        return tiles[y][x];
+    }
 }

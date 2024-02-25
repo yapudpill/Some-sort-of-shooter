@@ -2,7 +2,7 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 
-public interface IEntity {
+public interface IEntity{
 
     Coordinates getPos();
     void setPos(Coordinates pos);

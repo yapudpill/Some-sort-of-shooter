@@ -1,8 +1,11 @@
 package model.ingame.entity;
 
-public interface ICombatEntity extends IMobileEntity{
+import model.ingame.weapon.ProjectileWeaponModel;
+
+public interface ICombatEntity extends IMobileEntity, IVulnerableEntity{
 
     void attack();
-    int getDamage();
-
+    // TODO1: replace this with a more general interface that covers non projectile weapons
+    ProjectileWeaponModel getWeapon();
+    void setWeapon(ProjectileWeaponModel weapon);
 }

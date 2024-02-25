@@ -12,6 +12,12 @@ public class Coordinates {
         this.x = x;
         this.y = y;
     }
+
+    public Coordinates(Coordinates other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
+
     /*
      * Constants for the four cardinal directions.
      */
@@ -27,8 +33,8 @@ public class Coordinates {
     }
 
     public void add(Coordinates addedVelocityVector) {
-        x += addedVelocityVector.x;
-        y += addedVelocityVector.y;
+            x += addedVelocityVector.x;
+            y += addedVelocityVector.y;
     }
 
     public Coordinates opposite() {
@@ -37,6 +43,19 @@ public class Coordinates {
 
     public Coordinates normalize() {
         double length = Math.sqrt(x * x + y * y);
+        if(length == 0) return new Coordinates(0, 0);
         return new Coordinates(x / length, y / length);
+    }
+
+    public Coordinates translate(Coordinates other) {
+        return new Coordinates(x + other.x, y + other.y);
+    }
+
+    public Coordinates multiply(double scalar) {
+        return new Coordinates(x * scalar, y * scalar);
+    }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }
