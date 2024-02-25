@@ -86,6 +86,7 @@ public class PhysicsEngineModel {
         if(oldX != newX || oldY != newY){
             map.removeCollidableAt(entity, oldX, oldY);
             map.addCollidableAt(entity, newX, newY);
+            map.applyTileEnterEffect(entity, newX, newY);
         }
     }
 

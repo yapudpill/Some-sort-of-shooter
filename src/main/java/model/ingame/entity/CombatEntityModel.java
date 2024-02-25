@@ -8,12 +8,25 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
 
     public CombatEntityModel(int maxHealth, double width, double height) {
         super(maxHealth, width, height);
+        addCollisionListener(e -> {
+            if (e.getSource() == this) {
+               for (IEntity entity : e.getInvolvedEntitiesList()) {
+                    if (entity instanceof WeaponEntity weaponEntity) {
+                        if (weaponEntity.getWeapon() != null) {
+                            setWeapon(weaponEntity.getWeapon());
+                            weapon.setOwner(this);
+                            // TODO: make the WeaponEntity disappear
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
     public void attack() {
         // TODO1: again, should be more general
-        weapon.shoot(movementHandler.getDirectionVector());
+        if (weapon != null) weapon.shoot(movementHandler.getDirectionVector());
     }
 
     @Override
@@ -29,7 +42,7 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     @Override
     public void update(){
         super.update();
-        weapon.update();
+        if (weapon != null) weapon.update();
     }
 
 }
