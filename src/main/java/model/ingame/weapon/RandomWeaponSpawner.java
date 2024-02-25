@@ -4,9 +4,7 @@ import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
-import model.ingame.entity.IEntity;
 import model.ingame.entity.WeaponEntity;
-import model.ingame.weapon.PistolModel;
 
 import java.util.Random;
 
@@ -14,6 +12,7 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
     final static public int WEAPON_SPAWN_COOLDOWN = 5 * 60; // 5 seconds, i.e. 5 * 60 ticks
     Random rng = new Random();
     double spawnCooldown = 0;
+
     public RandomWeaponSpawner(GameModel gameModel) {
         super(gameModel);
     }
@@ -24,6 +23,17 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
         if (spawnCooldown <= 0) {
             double x = rng.nextDouble(gameModel.getMapModel().getWidth());
             double y = rng.nextDouble(gameModel.getMapModel().getHeight());
+            // Move to the next walkable tile
+            do {
+                ++x;
+                if (x >= gameModel.getMapModel().getWidth()) {
+                    x = 0;
+                    ++y;
+                    if (y >= gameModel.getMapModel().getHeight()) {
+                        y = 0;
+                    }
+                }
+            } while (!gameModel.getMapModel().getTile((int) x, (int) y).isWalkable());
             spawnEntity(x, y);
             spawnCooldown = WEAPON_SPAWN_COOLDOWN;
         }
