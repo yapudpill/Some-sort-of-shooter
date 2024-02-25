@@ -32,7 +32,7 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     public Iterator<CollisionListener> getCollisionListenersIterator() {
         return collisionListeners.iterator();
     }
-    
+
     @Override
     public void notifyCollisionListeners(CollisionEvent e) {
         for (CollisionListener listener : collisionListeners) {

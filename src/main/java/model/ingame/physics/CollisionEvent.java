@@ -2,7 +2,6 @@ package model.ingame.physics;
 
 import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.Iterator;
 import java.util.List;
 
 import model.ingame.entity.ICollisionEntity;
@@ -26,5 +25,5 @@ public class CollisionEvent extends EventObject {
     public List<ICollisionEntity> getInvolvedEntitiesList() {
         return involvedEntities;
     }
-    
+
 }

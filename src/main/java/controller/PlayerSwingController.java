@@ -1,10 +1,16 @@
 package controller;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Map;
+
 import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
-
-import java.awt.event.*;
-import java.util.Map;
 
 /**
  * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.
@@ -34,30 +40,39 @@ public class PlayerSwingController {
      */
     public KeyListener getKeyListener() {
         return new KeyAdapter() {
+            ArrayList<Integer> heldKeys = new ArrayList<>();
+
+
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
+                if(heldKeys.contains(keyCode)) return;
+
                 // Update direction:
                 if (player1KeyDirectionMap.containsKey(keyCode)) {
-                    Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).normalize();
+                    Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode);
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
-                    oldVelocityVector.add(addedVelocityVector.normalize());
+                    oldVelocityVector.add(addedVelocityVector);
                 }
+                heldKeys.add(keyCode);
+
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 int keyCode = e.getKeyCode();
+                if(!heldKeys.contains(keyCode)) return;
+
                 // Update direction:
                 if (player1KeyDirectionMap.containsKey(keyCode)) {
-                    Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).opposite().normalize();
-                    Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
-                    oldVelocityVector.add(addedVelocityVector);
+                     Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).opposite();
+                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
+                     oldVelocityVector.add(addedVelocityVector);
                 }
+                heldKeys.remove((Integer) keyCode);
             }
         };
     }
-
 
     /**
      * @return a mouse listener that updates the held mouse buttons set when a mouse button is pressed or released
