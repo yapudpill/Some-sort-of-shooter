@@ -25,8 +25,13 @@
 - Clarification de la nécessité de FactoryPatterns
 
 ### Objectifs
-- Modélisation complète d'un joueur
-- Modélisation des armes/projectiles
-- Contrôleur pour bouger le joueur
-- Affichage des cartes avec des tuiles de types différents
-- Affichage d'un joueur
+1. Modélisation complète d'un joueur
+    - Déplacement, HP
+2. Modélisation des armes/projectiles
+    - Déplacement des projectiles, affecter les HP d'autres entités, et cooldown avant de pouvoir tirer à nouveau
+3. Contrôleur pour bouger le joueur
+    - Pour l'instant, clavier pour déplacement, clique souris pour tirer (dans la direction de déplacement seulement)
+4. Affichage des cartes avec des tuiles de types différents
+    - -> Pas forcément implémenter des tuiles et des textures (mais faire en sorte le permettre dans le futur), des couleurs différentes pour l'instant suffisent
+5. Affichage d'un joueur
+6. Implémentation d'un système de collisions

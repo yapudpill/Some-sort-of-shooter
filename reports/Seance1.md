@@ -2,7 +2,7 @@
 
 #### Points discutés
 
-- Clarification of the project's specifications and constraints
-- Suggestions of global game concepts
-- Basic model structure
+- Clarification des spécifications du projet et du cahier des charges
+- Suggestions de concept global de jeu
+- Début de conception d'une structure de modèle
 
