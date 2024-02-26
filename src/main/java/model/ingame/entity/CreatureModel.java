@@ -36,6 +36,12 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
 
     @Override
     public void update(){
+        if(isDead()) return;
         movementHandler.update();
+    }
+
+    @Override
+    public boolean isDead() {
+        return health <= 0;
     }
 }

@@ -17,6 +17,7 @@ public abstract class ProjectileWeaponModel {
     protected int coolDown;
     protected Timer coolDownTimer;
     protected boolean isCoolingDown;
+    protected Coordinates directionVector;
 
     public ProjectileWeaponModel(String name, PhysicsEngineModel physicsEngine, IEntity owner, int coolDown) {
         this.name = name;
@@ -36,14 +37,14 @@ public abstract class ProjectileWeaponModel {
 
     public abstract IProjectile createProjectile();
 
-    public void shoot(Coordinates directionVector) {
+    public void shoot() {
         if(isCoolingDown) return;
         isCoolingDown = true;
         IProjectile projectile = createProjectile();
         projectile.setPos(owner.getPos());
         projectile.setSourceWeapon(this);
         System.out.println("Direction vector: " + directionVector.toString());
-        projectile.getMovementHandler().setDirectionVector(new Coordinates(directionVector));
+        projectile.getMovementHandler().setDirectionVector(directionVector);
         shotProjectiles.add(projectile);
         coolDownTimer.start();
     }
@@ -89,4 +90,12 @@ public abstract class ProjectileWeaponModel {
         return shotProjectiles;
     }
 
+
+    public Coordinates getDirectionVector() {
+        return directionVector;
+    }
+
+    public void setDirectionVector(Coordinates directionVector) {
+        this.directionVector = directionVector;
+    }
 }

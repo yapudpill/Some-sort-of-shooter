@@ -1,8 +1,13 @@
 package model.ingame.entity;
 
-import model.ingame.weapon.ProjectileWeaponModel;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity{
+import model.ingame.weapon.ProjectileWeaponModel;
+import model.ingame.weapon.IProjectile;
+
+
+public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity, ICompositeEntity{
     // TODO1: replace this with a more general interface that covers non projectile weapons
     protected ProjectileWeaponModel weapon;
 
@@ -25,8 +30,7 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
 
     @Override
     public void attack() {
-        // TODO1: again, should be more general
-        if (weapon != null) weapon.shoot(movementHandler.getDirectionVector());
+        if (weapon != null) weapon.shoot();
     }
 
     @Override
@@ -43,6 +47,12 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     public void update(){
         super.update();
         if (weapon != null) weapon.update();
+    }
+
+    @Override
+    public List<IProjectile> getChildren() {
+        if (weapon == null) return new ArrayList<>();
+        return weapon.getShotProjectiles();
     }
 
 }

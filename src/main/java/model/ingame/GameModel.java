@@ -1,6 +1,7 @@
 package model.ingame;
 
 import model.ingame.weapon.RandomWeaponSpawner;
+import model.ingame.entity.EnemySpawnerModel;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
 import model.ingame.entity.WalkingEnemyModel;
@@ -31,6 +32,7 @@ public class GameModel implements IUpdateable {
         entityModelList.add(player);
         updateables.add(player);
         updateables.add(new RandomWeaponSpawner(this));
+        updateables.add(new EnemySpawnerModel(this));
     }
 
     @Override
@@ -53,13 +55,6 @@ public class GameModel implements IUpdateable {
     // Probably temporary
     public PlayerModel getPlayer() {
         return player;
-    }
-
-    public void spawnWalking(double x, double y) {
-        WalkingEnemyModel e = new WalkingEnemyModel(player, physicsEngine);
-        e.setPos(new Coordinates(x, y));
-        updateables.add(e);
-        entityModelList.add(e);
     }
 
     public Collection<IUpdateable> getUpdateables() {

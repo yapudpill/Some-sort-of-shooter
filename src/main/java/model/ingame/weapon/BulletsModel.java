@@ -7,10 +7,10 @@ import model.ingame.physics.MovementHandlerModel;
 import model.ingame.physics.PhysicsEngineModel;
 
 public class BulletsModel extends ProjectileModel{
-    public static final double BULLET_SPEED = 0.01;
+    public static final double BULLET_SPEED = 0.2;
     public static final double BULLET_WIDTH = 0.3;
     public static final double BULLET_HEIGHT = 0.3;
-    public static final int BULLET_DAMAGE = 1;
+    public static final int BULLET_DAMAGE = 10;
 
     public BulletsModel(Coordinates pos, PhysicsEngineModel physicsEngine) {
         super(pos, BULLET_WIDTH, BULLET_HEIGHT, BULLET_DAMAGE);

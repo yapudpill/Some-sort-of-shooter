@@ -2,6 +2,8 @@ package gui.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.entity.EntityModel;
+import model.ingame.entity.IVulnerableEntity;
+import model.ingame.weapon.IProjectile;
 
 public class ProjectileRenderer extends AbstractEntityRenderer{
 
@@ -17,6 +19,9 @@ public class ProjectileRenderer extends AbstractEntityRenderer{
     @Override
     protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
+        if(!((IProjectile) entityModel).isActive()) {
+            return;
+        }
         g.setColor(java.awt.Color.BLACK);
         g.fillOval(0, 0, getWidth(), getHeight());
     }

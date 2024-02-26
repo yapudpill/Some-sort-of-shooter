@@ -26,7 +26,7 @@ public class GameView implements IUpdateable {
         this.gameMainArea = new GameMainArea(gameModel);
         this.gameHUD = new GameHUD();
         this.rootPane = new JPanel();
-        this.player1SwingController = new PlayerSwingController(gameModel.getPlayer());
+        this.player1SwingController = new PlayerSwingController(gameModel.getPlayer(), gameMainArea);
         rootPane.setOpaque(true);
 
 

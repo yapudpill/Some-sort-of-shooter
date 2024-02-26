@@ -5,6 +5,7 @@ import gui.ScaleSupplier;
 import gui.ingame.entity.AbstractEntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
 import model.ingame.IUpdateable;
+import model.ingame.entity.ICompositeEntity;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
 import util.SetToMapSynchronisator;
@@ -13,6 +14,7 @@ import javax.swing.*;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 
 
@@ -52,28 +54,41 @@ public class EntitiesPaneLayer implements IUpdateable {
         AbstractEntityRenderer removedEntityRenderer = entityModelRendererMap.remove(entityModel);
         if (removedEntityRenderer != null) entitiesPanel.remove(removedEntityRenderer);
     }
-
     @Override
     public void update() {
-        // temporary code, should be replaced with a composite pattern to unpack entities and render them
-        HashSet<IEntity> newEntityModelSet = new HashSet<>();
-        PlayerModel player = null;
-        for(IEntity entity : entityModelSet) {
-            if(entity instanceof PlayerModel p) player = p;
-            newEntityModelSet.add(entity);
-        }
-        if (player.getWeapon() != null) {
-            for (IEntity entity : player.getWeapon().getProjectiles()) {
-                newEntityModelSet.add(entity);
-            }
-        }
+        // Create a copy of the existing entityModelSet
+        Set<IEntity> entitySetCopy = new HashSet<>(entityModelSet);
+
+        // Clear the existing entityModelSet and entityModelRendererMap
         entityModelSet.clear();
-        entityModelSet.addAll(newEntityModelSet);
+
+        // Add all entities to the entityModelSet
+        for (IEntity entity : entitySetCopy) {
+            addEntityAndChildren(entity);
+        }
+
+        // Synchronize the sets and maps
         SetToMapSynchronisator.synchroniseSetToMap(entityModelSet,
                 entityModelRendererMap,
                 this::addRendererForEntity,
                 this::removeRendererOfEntity);
+
+        // Repaint and do layout
         entitiesPanel.repaint();
         entitiesPanel.doLayout();
+    }
+
+    private void addEntityAndChildren(IEntity entity) {
+        // Add the current entity to the set
+        entityModelSet.add(entity);
+
+        // Check if the entity is a composite entity
+        if (entity instanceof ICompositeEntity) {
+            // Recursively add children of the composite entity
+            List<? extends IEntity> children = ((ICompositeEntity) entity).getChildren();
+            for (IEntity child : children) {
+                addEntityAndChildren(child);
+            }
+        }
     }
 }
