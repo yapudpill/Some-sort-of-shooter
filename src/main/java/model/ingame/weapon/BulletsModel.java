@@ -20,7 +20,7 @@ public class BulletsModel extends ProjectileModel{
             IEntity source = this.getSourceWeapon().getOwner();
             if(e.getSource() != this) return;
             e.getInvolvedEntitiesList().forEach((entity) -> {
-                if(entity instanceof IVulnerableEntity && entity != source) {
+                if(entity instanceof IVulnerableEntity v && entity != source && !v.isDead()) {
                     ((IVulnerableEntity) entity).takeDamage(this.getDamage());
                     this.setActive(false);
                 }

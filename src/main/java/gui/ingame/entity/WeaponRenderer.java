@@ -2,9 +2,13 @@ package gui.ingame.entity;
 
 
 import model.ingame.Coordinates;
+import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.WeaponEntity;
 
 import java.awt.*;
+import java.io.IOException;
+
+import gui.ImageCache;
 
 public class WeaponRenderer extends AbstractEntityRenderer {
     public WeaponRenderer(WeaponEntity entityModel) {
@@ -19,7 +23,12 @@ public class WeaponRenderer extends AbstractEntityRenderer {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(0, 0, getWidth(), getHeight());
+                Image image;
+        try {
+            image = ImageCache.loadImage("/gui/ingame/pistol.png", PlayerRenderer.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 }

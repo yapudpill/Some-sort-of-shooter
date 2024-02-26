@@ -24,7 +24,6 @@ public class EnemySpawnerModel extends EntitySpawner implements IUpdateable {
             double x = rng.nextDouble(gameModel.getMapModel().getWidth());
             double y = rng.nextDouble(gameModel.getMapModel().getHeight());
             // Move to the next walkable tile
-            boolean isInBorder = false;
             do {
                 ++x;
                 if (x >= gameModel.getMapModel().getWidth()) {
@@ -34,8 +33,7 @@ public class EnemySpawnerModel extends EntitySpawner implements IUpdateable {
                         y = 0;
                     }
                 }
-                isInBorder = x == 0 || x == gameModel.getMapModel().getWidth() - 1 || y == 0 || y == gameModel.getMapModel().getHeight() - 1;
-            } while (!gameModel.getMapModel().getTile((int) x, (int) y).isWalkable() || isInBorder);
+            } while (!gameModel.getMapModel().getTile((int) x, (int) y).isWalkable());
             spawnEntity(x, y);
             spawnCooldown = ENEMY_SPAWN_COOLDOWN;
         }

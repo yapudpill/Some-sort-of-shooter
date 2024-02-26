@@ -3,6 +3,7 @@ package model.ingame;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.ingame.entity.EnemySpawnerModel;
 import model.ingame.entity.IEntity;
+import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.PlayerModel;
 import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.physics.PhysicsEngineModel;
@@ -11,14 +12,15 @@ import model.level.MapModel;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class GameModel implements IUpdateable {
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;
     private final PlayerModel player;
 
-    private final Set<IEntity> entityModelList = new HashSet<>();
-    private final Set<IUpdateable> updateables = new HashSet<>();
+    private final Set<IEntity> entityModelList = new CopyOnWriteArraySet<>();
+    private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
 
 
     public GameModel(String path) {
@@ -37,6 +39,8 @@ public class GameModel implements IUpdateable {
 
     @Override
     public void update() {
+        // remove vulnerable entities if dead
+        updateables.removeIf(updateable -> updateable instanceof IVulnerableEntity v && v.isDead());
         for (IUpdateable updateable : updateables) {
             updateable.update();
         }
