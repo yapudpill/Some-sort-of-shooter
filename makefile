@@ -5,8 +5,8 @@ SRC_DIR = src/main/java
 RES_DIR = src/main/resources
 BUILD_DIR = build
 
-MAIN_CLASS = gui.IngameGuiDemo
-MAIN_CLASS_FILE = gui/IngameGuiDemo.java
+MAIN_CLASS = controller.MainController
+MAIN_CLASS_FILE = controller/MainController.java
 
 # Targets
 .PHONY: all clean run

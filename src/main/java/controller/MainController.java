@@ -1,6 +1,7 @@
 package controller;
 
 import gui.launcher.HomeMenu;
+import gui.IngameGuiDemo;
 import gui.MainFrame;
 
 public class MainController {
@@ -13,6 +14,11 @@ public class MainController {
 
     public void loadHomeMenu() {
         mainFrame.loadMenu(new HomeMenu(this));
+    }
+
+    public void loadGame(/* Add arguments if needed */) {
+        IngameGuiDemo demo = new IngameGuiDemo();
+        mainFrame.loadMenu(demo.gameView.getComponent());
     }
 
     public void closeWindow() {

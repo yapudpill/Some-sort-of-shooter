@@ -38,6 +38,7 @@ public class MainFrame extends JFrame {
         EventQueue.invokeLater(() -> {
             setContentPane(menu);
             validate();
+            menu.requestFocus();
         });
     }
 }

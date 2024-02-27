@@ -35,8 +35,7 @@ public class HomeMenu extends JPanel {
 
         constraints.gridx = 0;
         JButton levels = new JButton("Play");
-        // TODO: put the method to launch the game or an other menu here
-        levels.addActionListener(e -> {});
+        levels.addActionListener(e -> controller.loadGame());
         add(levels, constraints);
 
         constraints.gridx = 1;
