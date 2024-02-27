@@ -1,25 +1,49 @@
 package model.level;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import model.ingame.MapComponentModel;
+import model.ingame.entity.ICollisionEntity;
+import model.ingame.entity.IVulnerableEntity;
 
-public class TileModel extends MapComponentModel {
-    private TileType type;
-    private static final List<TileContent> tileContents = new ArrayList<>();
+public abstract class TileModel {
+    protected final List<TileContent> tileContents = new ArrayList<>();
+    protected final List<ICollisionEntity> collidables = new ArrayList<>();
 
-    public TileModel(double x, double y, TileType type) {
-        super(x, y);
-        this.type = type;
-    }
-    
-    public TileType getType() {
-        return type;
+    public TileModel() {
+
     }
 
-    public void setType(TileType type) {
-        this.type = type;
+    public abstract boolean isWalkable();
+
+    public abstract void applyEffect(IVulnerableEntity entity);
+
+    public void addTileContent(TileContent content) {
+        if (content == null)
+            throw new IllegalArgumentException("Content cannot be null");
+        tileContents.add(content);
     }
-    
+
+    public void removeTileContent(TileContent content) {
+        if (content == null)
+            throw new IllegalArgumentException("Content cannot be null");
+        tileContents.remove(content);
+    }
+
+    public void addCollidable(ICollisionEntity entity) {
+        if (entity == null)
+            throw new IllegalArgumentException("Entity cannot be null");
+        collidables.add(entity);
+    }
+
+    public void removeCollidable(ICollisionEntity entity) {
+        if (entity == null)
+            throw new IllegalArgumentException("Entity cannot be null");
+        collidables.remove(entity);
+    }
+
+    public Iterator<ICollisionEntity> getCollidablesIterator() {
+        return collidables.iterator();
+    }
 }
