@@ -24,13 +24,13 @@
 
 
 ## Objectifs pour la semaine prochaine :
-1. Gestion du GameOver (retour au menu d'accueil)
-2. Corriger les collisions pour le ramassage d'armes
-3. Disparition des projectiles lorsqu'ils touchent un mur
-4. Création d'une variété de maps
-5. Intégration du menu (déjà existant) pour lancer le reste du jeu.
+1. Gestion du GameOver (retour au menu d'accueil): Mohamed
+2. Corriger les collisions pour le ramassage d'armes: Yacob
+3. Disparition des projectiles lorsqu'ils touchent un mur: Mohamed
+4. Création d'une variété de maps: Clément
+5. Intégration du menu (déjà existant) pour lancer le reste du jeu: Anthony
 
 Non prioritaire:
-6. Intégration d'autres types d'ennemis et d'armes plus variés.
-7. Intégration d'un menu pour la selection de map.
-8. Affichage d'un HUD pour indiquer les HP et l'arme possédée
+6. Intégration d'autres types d'ennemis et d'armes plus variés: Clément
+7. Intégration d'un menu pour la selection de map: Anthony
+8. Affichage d'un HUD pour indiquer les HP et l'arme possédée: Yacob
