@@ -18,7 +18,7 @@ public class PlayerModel extends CombatEntityModel {
         super(100, 0.5, 0.5);
         movementHandler = new MovementHandlerModel<PlayerModel>(this, physicsEngine);
         movementHandler.setSpeed(0.09);
-        weapon = new PistolModel(this, physicsEngine);
+      //  weapon = new PistolModel(this, physicsEngine);
     }
 
 }
