@@ -80,7 +80,6 @@ public class PhysicsEngineModel {
 
         // move the entity and its collision box
         entity.setPos(newPos);
-        entity.setColisionBox(newX, newY);
 
         // if the entity has moved to a new tile, update the collidables in the old and new tile
         if(oldX != newX || oldY != newY){
