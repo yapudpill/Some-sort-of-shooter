@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import model.ingame.entity.ICollisionEntity;
+import model.ingame.entity.IEntity;
 
 public class MapModel {
     private TileModel[][] tiles;
@@ -71,5 +72,9 @@ public class MapModel {
 
     public TileModel getTile(int x, int y) {
         return tiles[y][x];
+    }
+
+    public void applyTileEnterEffect(IEntity entity, int x, int y) {
+        getTile(x, y).applyEnterEffect(entity);
     }
 }

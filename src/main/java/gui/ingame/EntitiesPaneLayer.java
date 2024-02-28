@@ -62,8 +62,10 @@ public class EntitiesPaneLayer implements IUpdateable {
             if(entity instanceof PlayerModel p) player = p;
             newEntityModelSet.add(entity);
         }
-        for(IEntity entity : player.getWeapon().getProjectiles()) {
-            newEntityModelSet.add(entity);
+        if (player.getWeapon() != null) {
+            for (IEntity entity : player.getWeapon().getProjectiles()) {
+                newEntityModelSet.add(entity);
+            }
         }
         entityModelSet.clear();
         entityModelSet.addAll(newEntityModelSet);
