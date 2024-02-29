@@ -40,7 +40,7 @@ public class GameView implements IUpdateable {
         rootPane.setFocusable(true);
     }
 
-    public Component getComponent() {
+    public JPanel getComponent() {
         return rootPane;
     }
 
