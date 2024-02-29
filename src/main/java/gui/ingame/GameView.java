@@ -34,10 +34,10 @@ public class GameView implements IUpdateable {
         rootPane.setLayout(new BorderLayout());
 
         rootPane.add(gameMainArea.getJComponent());
-        rootPane.addKeyListener(player1SwingController.getKeyListener());
-        rootPane.addMouseListener(player1SwingController.getMouseListener());
+        gameMainArea.getJComponent().addKeyListener(player1SwingController.getKeyListener());
+        gameMainArea.getJComponent().addMouseListener(player1SwingController.getMouseListener());
 
-        rootPane.setFocusable(true);
+        gameMainArea.getJComponent().setFocusable(true);
     }
 
     public JPanel getComponent() {
@@ -48,5 +48,9 @@ public class GameView implements IUpdateable {
     public void update() {
         gameHUD.update();
         gameMainArea.update();
+    }
+
+    public void setFocusToMainArea() {
+        gameMainArea.getJComponent().requestFocus();
     }
 }

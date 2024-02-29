@@ -4,6 +4,8 @@ import gui.launcher.HomeMenu;
 import gui.IngameGuiDemo;
 import gui.MainFrame;
 
+import java.awt.*;
+
 public class MainController {
     private final MainFrame mainFrame;
 
@@ -19,6 +21,7 @@ public class MainController {
     public void loadGame(/* Add arguments if needed */) {
         IngameGuiDemo demo = new IngameGuiDemo();
         mainFrame.loadMenu(demo.gameView.getComponent());
+        EventQueue.invokeLater(demo.gameView::setFocusToMainArea);
     }
 
     public void closeWindow() {
