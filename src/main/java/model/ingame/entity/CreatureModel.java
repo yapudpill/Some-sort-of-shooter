@@ -1,6 +1,7 @@
 package model.ingame.entity;
 
 import model.ingame.Coordinates;
+import model.ingame.GameModel;
 import model.ingame.physics.IMovementHandler;
 
 public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity{
@@ -8,8 +9,8 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     protected int health;
     protected int maxHealth;
 
-    public CreatureModel(int maxHealth, double width, double height) {
-        super(Coordinates.ZERO, width, height);
+    public CreatureModel(int maxHealth, double width, double height, GameModel gameModel) {
+        super(Coordinates.ZERO, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
     }
@@ -36,7 +37,10 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
 
     @Override
     public void update(){
-        if(isDead()) return;
+        if(isDead()){
+            gameModel.detachAsUpdateable(this);
+            gameModel.removeEntity(this);
+        }
         movementHandler.update();
     }
 

@@ -49,6 +49,6 @@ public class EnemySpawnerModel extends EntitySpawner implements IUpdateable {
 
     @Override
     protected WalkingEnemyModel makeEntity(double x, double y) {
-        return new WalkingEnemyModel(gameModel.getPlayer(), gameModel.getPhysicsEngine(), new Coordinates(x, y));
+        return new WalkingEnemyModel(new Coordinates(x, y), gameModel);
     }
 }

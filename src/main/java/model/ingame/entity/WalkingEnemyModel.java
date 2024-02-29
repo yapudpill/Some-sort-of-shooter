@@ -3,6 +3,7 @@ package model.ingame.entity;
 import java.util.Random;
 
 import model.ingame.Coordinates;
+import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.physics.PhysicsEngineModel;
 
@@ -10,10 +11,10 @@ public class WalkingEnemyModel extends CreatureModel {
     private final PlayerModel player;
     Random rng = new Random();
 
-    public WalkingEnemyModel(PlayerModel player, PhysicsEngineModel engine, Coordinates pos) {
-        super(50, 0.8, 0.8);
-        this.player = player;
-        movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, engine);
+    public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
+        super(50, 0.8, 0.8, gameModel);
+        this.player = gameModel.getPlayer();
+        movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.03);
         this.pos = pos;
 

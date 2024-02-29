@@ -1,5 +1,7 @@
 package model.level;
 
+import java.util.List;
+
 import model.ingame.entity.IEntity;
 
 public class StandardTileModel extends TileModel {
@@ -7,4 +9,5 @@ public class StandardTileModel extends TileModel {
     public boolean isWalkable() {
         return true;
     }
+
 }

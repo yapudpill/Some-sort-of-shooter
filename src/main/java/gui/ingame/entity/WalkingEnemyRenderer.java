@@ -23,9 +23,6 @@ public class WalkingEnemyRenderer extends AbstractEntityRenderer {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(((IVulnerableEntity) entityModel).isDead()) {
-            return;
-        }
         Image image;
         try {
             image = ImageCache.loadImage("sprites/EyeBallEnemy.png", PlayerRenderer.class);

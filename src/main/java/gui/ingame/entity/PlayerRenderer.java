@@ -22,9 +22,6 @@ public class PlayerRenderer extends AbstractEntityRenderer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // draw triangle pointing upwards
-        if(((IVulnerableEntity) entityModel).isDead()) {
-            return;
-        }
         Image image;
         try {
             image = ImageCache.loadImage("sprites/player1/playerRightShoot.png", PlayerRenderer.class);

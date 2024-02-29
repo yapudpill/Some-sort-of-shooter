@@ -32,18 +32,17 @@ public class MapModel {
         return tiles[y][x].isWalkable();
     }
 
-    public List<Iterator<ICollisionEntity>> getAllCollidableIteratorsAround(int x, int y) {
-        List<Iterator<ICollisionEntity>> iterators = new ArrayList<>();
+    public List<ICollisionEntity> getAllCollidablesAround(int x, int y) {
+        // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
+        List<ICollisionEntity> involvedEntities = new ArrayList<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                int newX = x + i;
-                int newY = y + j;
-                if (!isOutOfBounds(newX, newY)) {
-                    iterators.add(tiles[newY][newX].getCollidablesIterator());
-                }
+                if (isOutOfBounds(x + i, y + j))
+                    continue;
+                involvedEntities.addAll(tiles[y + j][x + i].getCollidables());
             }
         }
-        return iterators;
+        return involvedEntities;
     }
 
     public void addCollidableAt(ICollisionEntity entity, int x, int y) {

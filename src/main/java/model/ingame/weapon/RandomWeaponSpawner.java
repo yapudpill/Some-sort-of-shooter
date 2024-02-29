@@ -48,6 +48,6 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
 
     @Override
     protected WeaponEntity makeEntity(double x, double y) {
-        return new WeaponEntity(new Coordinates(x, y), new PistolModel(null, gameModel.getPhysicsEngine()));
+        return new WeaponEntity(new Coordinates(x, y), new PistolModel(null, gameModel), gameModel);
     }
 }

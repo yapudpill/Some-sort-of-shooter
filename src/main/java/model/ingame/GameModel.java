@@ -1,7 +1,9 @@
 package model.ingame;
 
+import model.ingame.weapon.IProjectile;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.ingame.entity.EnemySpawnerModel;
+import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.PlayerModel;
@@ -30,7 +32,7 @@ public class GameModel implements IUpdateable {
     public GameModel(MapModel map) {
         this.map = map;
         this.physicsEngine = new PhysicsEngineModel(map);
-        this.player = new PlayerModel(physicsEngine);
+        this.player = new PlayerModel(this);
         entityModelList.add(player);
         updateables.add(player);
         updateables.add(new RandomWeaponSpawner(this));
@@ -39,13 +41,9 @@ public class GameModel implements IUpdateable {
 
     @Override
     public void update() {
-        // remove vulnerable entities if dead
-        updateables.removeIf(updateable -> updateable instanceof IVulnerableEntity v && v.isDead());
-        for (IUpdateable updateable : updateables) {
+        for (IUpdateable updateable : updateables){
             updateable.update();
         }
-        System.out.println("player health : " + player.getHealth());
-        System.out.println("player weapon: " + player.getWeapon());
     }
 
     public MapModel getMapModel() {
@@ -67,5 +65,23 @@ public class GameModel implements IUpdateable {
 
     public PhysicsEngineModel getPhysicsEngine() {
         return physicsEngine;
+    }
+
+    public void attachAsUpdateable(IUpdateable updateable) {
+        updateables.add(updateable);
+    }
+
+    public void detachAsUpdateable(IUpdateable updateable) {
+        updateables.remove(updateable);
+    }
+
+    public void addEntity(IEntity entity) {
+        entityModelList.add(entity);
+    }
+
+    public void removeEntity(IEntity entity) {
+        Coordinates pos = entity.getPos();
+        entityModelList.remove(entity);
+        if(entity instanceof ICollisionEntity col) map.removeCollidableAt(col, (int)pos.x, (int)pos.y);
     }
 }
