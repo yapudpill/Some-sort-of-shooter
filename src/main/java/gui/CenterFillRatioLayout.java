@@ -13,7 +13,6 @@ import java.awt.LayoutManager;
  */
 public class CenterFillRatioLayout implements LayoutManager {
     private double widthHeightRatio;
-
     /**
      * Sets the width/height ratio that the components should keep.
      * @param widthHeightRatio the width/height ratio that the components should keep

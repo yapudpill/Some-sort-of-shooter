@@ -12,6 +12,10 @@ import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.MapModel;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 public class GameModel implements IUpdateable {
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;
@@ -79,5 +83,13 @@ public class GameModel implements IUpdateable {
         Coordinates pos = entity.getPos();
         entityModelList.remove(entity);
         if(entity instanceof ICollisionEntity col) map.removeCollidableAt(col, (int)pos.x, (int)pos.y);
+    }
+
+    public Collection<IUpdateable> getUpdateables() {
+        return updateables;
+    }
+
+    public PhysicsEngineModel getPhysicsEngine() {
+        return physicsEngine;
     }
 }

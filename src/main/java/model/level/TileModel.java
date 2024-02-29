@@ -37,4 +37,14 @@ public abstract class TileModel implements ITileModel {
     public List<ICollisionEntity> getCollidables() {
         return collidables;
     }
+
+    @Override
+    public List<TileContent> getTileContents() {
+        return tileContents;
+    }
+
+    @Override
+    public List<ICollisionEntity> getCollidables() {
+        return collidables;
+    }
 }
