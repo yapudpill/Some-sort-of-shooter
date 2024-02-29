@@ -13,7 +13,7 @@ public class PistolModel extends ProjectileWeaponModel{
     @Override
     public IProjectile createProjectile() {
         return new BulletsModel(owner.getPos(), this, physicsEngine) {{
-            addCollisionListener(new DamageListener());
+            addCollisionListener(new DamageListener(damage));
         }};
     }
 }

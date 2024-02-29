@@ -1,9 +1,9 @@
 package model.ingame.weapon;
 
-import model.ingame.entity.IDamagingEntity;
+import model.ingame.entity.IEffectEntity;
 import model.ingame.entity.IMobileEntity;
 
-public interface IProjectile extends IMobileEntity, IDamagingEntity {
+public interface IProjectile extends IMobileEntity, IEffectEntity {
 
     boolean isActive();
     default boolean notActive() {

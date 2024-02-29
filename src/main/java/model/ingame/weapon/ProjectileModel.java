@@ -19,11 +19,12 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     }
 
     @Override
-    public void inflictDamage(IVulnerableEntity target) {
+    public boolean canApplyEffect(IVulnerableEntity target) {
         if (target != sourceWeapon.getOwner()) {
-            target.takeDamage(damage);
             setActive(false);
+            return true;
         }
+        return false;
     }
 
     @Override

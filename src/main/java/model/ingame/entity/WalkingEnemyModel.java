@@ -5,21 +5,19 @@ import model.ingame.physics.DamageListener;
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.physics.PhysicsEngineModel;
 
-public class WalkingEnemyModel extends CreatureModel implements IDamagingEntity {
+public class WalkingEnemyModel extends CreatureModel implements IEffectEntity {
     private final PlayerModel player;
     public WalkingEnemyModel(PlayerModel player, PhysicsEngineModel engine) {
         super(50, 0.8, 0.8);
         this.player = player;
         movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, engine);
         movementHandler.setSpeed(0.03);
-        addCollisionListener(new DamageListener());
+        addCollisionListener(new DamageListener(10)); //TODO: damages should not be hard coded
     }
 
     @Override
-    public void inflictDamage(IVulnerableEntity target) {
-        if (target instanceof PlayerModel p) {
-            p.takeDamage(10); //TODO: should not be hard coded
-        }
+    public boolean canApplyEffect(IVulnerableEntity target) {
+        return target instanceof PlayerModel;
     }
 
     @Override
