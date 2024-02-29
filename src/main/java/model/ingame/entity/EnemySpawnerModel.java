@@ -1,19 +1,18 @@
-package model.ingame.weapon;
+package model.ingame.entity;
+
+import java.util.Random;
 
 import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
-import model.ingame.entity.WeaponEntity;
 
-import java.util.Random;
-
-public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
-    final static public int WEAPON_SPAWN_COOLDOWN = 5 * 60; // 5 seconds, i.e. 5 * 60 ticks
+public class EnemySpawnerModel extends EntitySpawner implements IUpdateable {
+    final static public int ENEMY_SPAWN_COOLDOWN = 15 * 60; // 15 seconds, i.e. 15 * 60 ticks
     Random rng = new Random();
     double spawnCooldown = 0;
 
-    public RandomWeaponSpawner(GameModel gameModel) {
+    public EnemySpawnerModel(GameModel gameModel) {
         super(gameModel);
     }
 
@@ -35,19 +34,20 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
                 }
             } while (!gameModel.getMapModel().getTile((int) x, (int) y).isWalkable());
             spawnEntity(x, y);
-            spawnCooldown = WEAPON_SPAWN_COOLDOWN;
+            spawnCooldown = ENEMY_SPAWN_COOLDOWN;
         }
     }
 
     @Override
-    public WeaponEntity spawnEntity(double x, double y) {
-        WeaponEntity entity = (WeaponEntity) super.spawnEntity(x, y);
+    public WalkingEnemyModel spawnEntity(double x, double y) {
+        WalkingEnemyModel entity = (WalkingEnemyModel) super.spawnEntity(x, y);
         gameModel.getMapModel().addCollidableAt(entity, (int) x, (int) y);
+        gameModel.getUpdateables().add(entity);
         return entity;
     }
 
     @Override
-    protected WeaponEntity makeEntity(double x, double y) {
-        return new WeaponEntity(new Coordinates(x, y), new PistolModel(null, gameModel), gameModel);
+    protected WalkingEnemyModel makeEntity(double x, double y) {
+        return new WalkingEnemyModel(new Coordinates(x, y), gameModel);
     }
 }

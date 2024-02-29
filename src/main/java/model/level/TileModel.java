@@ -1,15 +1,13 @@
 package model.level;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 public abstract class TileModel implements ITileModel {
-    protected final List<TileContent> tileContents = new ArrayList<>();
-    protected final List<ICollisionEntity> collidables = new ArrayList<>();
+    protected final List<ICollisionEntity> collidables = new CopyOnWriteArrayList<>();
 
     public TileModel() {
 
@@ -19,17 +17,6 @@ public abstract class TileModel implements ITileModel {
 
     @Override
     public void applyEnterEffect(IEntity entity) {
-    }
-
-
-    public void addTileContent(TileContent content) {
-        if (content == null) throw new IllegalArgumentException("Content cannot be null");
-        tileContents.add(content);
-    }
-
-    public void removeTileContent(TileContent content) {
-        if (content == null) throw new IllegalArgumentException("Content cannot be null");
-        tileContents.remove(content);
     }
 
     public void addCollidable(ICollisionEntity entity) {
@@ -42,8 +29,13 @@ public abstract class TileModel implements ITileModel {
         collidables.remove(entity);
     }
 
-    public Iterator<ICollisionEntity> getCollidablesIterator() {
-        return collidables.iterator();
+    public List<ICollisionEntity> getCollidablesList() {
+        return collidables;
+    }
+
+    @Override
+    public List<ICollisionEntity> getCollidables() {
+        return collidables;
     }
 
     @Override

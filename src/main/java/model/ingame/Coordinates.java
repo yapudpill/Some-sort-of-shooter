@@ -55,6 +55,10 @@ public class Coordinates {
         return new Coordinates(x * scalar, y * scalar);
     }
 
+    public boolean isZero(){
+        return x == 0 && y == 0;
+    }
+
     public String toString() {
         return "(" + x + ", " + y + ")";
     }

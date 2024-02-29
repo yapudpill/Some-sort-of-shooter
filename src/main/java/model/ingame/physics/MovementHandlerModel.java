@@ -11,6 +11,7 @@ public class MovementHandlerModel<T extends IMobileEntity> implements IMovementH
     private double speed;
     private Coordinates directionVector = Coordinates.ZERO;
     private PhysicsEngineModel physicsEngine;
+    private boolean isMoving = false;
 
     public MovementHandlerModel(T entity, PhysicsEngineModel physicsEngine) {
         this.entity = entity;
@@ -43,6 +44,18 @@ public class MovementHandlerModel<T extends IMobileEntity> implements IMovementH
 
     public T getEntity() {
         return entity;
+    }
+
+    public void setEntity(T entity) {
+        this.entity = entity;
+    }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    public void setMoving(boolean moving) {
+        isMoving = moving;
     }
 
 }

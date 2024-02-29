@@ -1,13 +1,15 @@
 package model.ingame.entity;
 
+import model.ingame.GameModel;
 import model.ingame.weapon.ProjectileWeaponModel;
 
+
 public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity{
-    // TODO1: replace this with a more general interface that covers non projectile weapons
+    // TODO1: replace this with a more general interface that covers non projectile we
     protected ProjectileWeaponModel weapon;
 
-    public CombatEntityModel(int maxHealth, double width, double height) {
-        super(maxHealth, width, height);
+    public CombatEntityModel(int maxHealth, double width, double height, GameModel gameModel) {
+        super(maxHealth, width, height, gameModel);
         addCollisionListener(e -> {
             if (e.getSource() == this) {
                for (IEntity entity : e.getInvolvedEntitiesList()) {
@@ -25,8 +27,7 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
 
     @Override
     public void attack() {
-        // TODO1: again, should be more general
-        if (weapon != null) weapon.shoot(movementHandler.getDirectionVector());
+        if (weapon != null) weapon.shoot();
     }
 
     @Override
@@ -42,7 +43,6 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     @Override
     public void update(){
         super.update();
-        if (weapon != null) weapon.update();
     }
 
 }

@@ -1,12 +1,14 @@
 package gui.ingame;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+
+import javax.swing.JPanel;
+
 import controller.PlayerSwingController;
 import gui.CenterFillRatioLayout;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * The main View for the game once it is launched. It contains the GameMainArea and the GameHUD. Intended to be the
@@ -29,7 +31,7 @@ public class GameView implements IUpdateable {
         this.gameMainArea = new GameMainArea(gameModel);
         this.gameHUD = new GameHUD();
         this.rootPane = new JPanel();
-        this.player1SwingController = new PlayerSwingController(gameModel.getPlayer());
+        this.player1SwingController = new PlayerSwingController(gameModel.getPlayer(), gameMainArea);
         rootPane.setOpaque(true);
 
 
