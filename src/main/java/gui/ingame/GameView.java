@@ -1,6 +1,7 @@
 package gui.ingame;
 
 import controller.PlayerSwingController;
+import gui.CenterFillRatioLayout;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 
@@ -17,6 +18,8 @@ public class GameView implements IUpdateable {
     private final JPanel rootPane;
     private final GameModel gameModel;
     private final GameMainArea gameMainArea;
+
+    private final JPanel mainAreaWrapper = new JPanel();
     private final GameHUD gameHUD;
 
     private final PlayerSwingController player1SwingController;
@@ -33,9 +36,15 @@ public class GameView implements IUpdateable {
         // TODO: setup gridbaglayout to have HUD on both sides of the gameRenderer (Player 1 & Player 2)
         rootPane.setLayout(new BorderLayout());
 
-        rootPane.add(gameMainArea.getJComponent());
         gameMainArea.getJComponent().addKeyListener(player1SwingController.getKeyListener());
         gameMainArea.getJComponent().addMouseListener(player1SwingController.getMouseListener());
+
+        CenterFillRatioLayout centerFillRatioLayout = new CenterFillRatioLayout();
+        mainAreaWrapper.setLayout(centerFillRatioLayout);
+        centerFillRatioLayout.setWidthHeightRatio((double) gameModel.getMapModel().getWidth() / gameModel.getMapModel().getHeight());
+        mainAreaWrapper.add(gameMainArea.getJComponent());
+
+        rootPane.add(mainAreaWrapper, BorderLayout.CENTER);
 
         gameMainArea.getJComponent().setFocusable(true);
     }
