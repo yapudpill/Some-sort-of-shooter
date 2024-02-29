@@ -1,14 +1,13 @@
 package gui.ingame.entity;
 
 
-import model.ingame.Coordinates;
-import model.ingame.entity.IVulnerableEntity;
-import model.ingame.entity.WeaponEntity;
-
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.io.IOException;
 
 import gui.ImageCache;
+import model.ingame.Coordinates;
+import model.ingame.entity.WeaponEntity;
 
 public class WeaponRenderer extends AbstractEntityRenderer {
     public WeaponRenderer(WeaponEntity entityModel) {

@@ -6,7 +6,6 @@ import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
-import model.ingame.weapon.PistolModel;
 
 public class EnemySpawnerModel extends EntitySpawner implements IUpdateable {
     final static public int ENEMY_SPAWN_COOLDOWN = 15 * 60; // 15 seconds, i.e. 15 * 60 ticks

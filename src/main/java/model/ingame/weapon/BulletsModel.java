@@ -5,7 +5,6 @@ import model.ingame.GameModel;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.physics.MovementHandlerModel;
-import model.ingame.physics.PhysicsEngineModel;
 
 public class BulletsModel extends ProjectileModel{
     public static final double BULLET_SPEED = 0.02;

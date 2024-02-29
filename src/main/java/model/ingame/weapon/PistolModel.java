@@ -3,7 +3,6 @@ package model.ingame.weapon;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.IEntity;
-import model.ingame.physics.PhysicsEngineModel;
 
 public class PistolModel extends ProjectileWeaponModel{
 

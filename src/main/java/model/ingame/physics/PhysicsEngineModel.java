@@ -1,7 +1,6 @@
 package model.ingame.physics;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import model.ingame.Coordinates;
@@ -68,10 +67,12 @@ public class PhysicsEngineModel {
 
         // check if the next position will be on a walkable tile, if not, cancel the movement
         if(!isWalkable(entity, newPos)){
+            entity.getMovementHandler().setMoving(false);
             return;
         }
 
         // move the entity and its collision box
+        entity.getMovementHandler().setMoving(true);
         entity.setPos(newPos);
 
     }

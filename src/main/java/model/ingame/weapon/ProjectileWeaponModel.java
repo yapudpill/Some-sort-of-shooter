@@ -1,8 +1,5 @@
 package model.ingame.weapon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.Timer;
 
 import model.ingame.Coordinates;

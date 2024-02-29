@@ -1,12 +1,10 @@
 package model.level;
 
-import model.ingame.entity.ICollisionEntity;
-import model.ingame.entity.IEntity;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import model.ingame.entity.ICollisionEntity;
+import model.ingame.entity.IEntity;
 
 public abstract class TileModel implements ITileModel {
     protected final List<ICollisionEntity> collidables = new CopyOnWriteArrayList<>();

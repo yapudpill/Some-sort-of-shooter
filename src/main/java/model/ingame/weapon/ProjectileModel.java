@@ -40,7 +40,7 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     @Override
     public void update() {
         movementHandler.update();
-        if(!this.isActive())
+        if(!this.isActive() || !this.getMovementHandler().isMoving())
         {
             gameModel.detachAsUpdateable(this);
             gameModel.removeEntity(this);

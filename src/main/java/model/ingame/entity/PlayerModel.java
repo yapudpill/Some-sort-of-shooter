@@ -2,8 +2,6 @@ package model.ingame.entity;
 
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
-import model.ingame.physics.PhysicsEngineModel;
-import model.ingame.weapon.PistolModel;
 
 public class PlayerModel extends CombatEntityModel {
     /*

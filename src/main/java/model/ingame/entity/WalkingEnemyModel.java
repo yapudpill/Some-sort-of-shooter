@@ -5,7 +5,6 @@ import java.util.Random;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
-import model.ingame.physics.PhysicsEngineModel;
 
 public class WalkingEnemyModel extends CreatureModel {
     private final PlayerModel player;

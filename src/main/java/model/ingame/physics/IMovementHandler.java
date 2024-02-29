@@ -11,5 +11,7 @@ public interface IMovementHandler extends IUpdateable {
     double getSpeed();
     void setSpeed(double speed);
     IEntity getEntity();
+    void setMoving(boolean moving);
+    boolean isMoving();
 
 }

@@ -1,20 +1,16 @@
 package model.ingame;
 
-import model.ingame.weapon.IProjectile;
-import model.ingame.weapon.RandomWeaponSpawner;
+import java.util.Collection;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
 import model.ingame.entity.EnemySpawnerModel;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
-import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.PlayerModel;
-import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.physics.PhysicsEngineModel;
+import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.MapModel;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 public class GameModel implements IUpdateable {
     private final PhysicsEngineModel physicsEngine;

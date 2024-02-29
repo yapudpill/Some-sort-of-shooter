@@ -1,11 +1,7 @@
 package model.ingame.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import model.ingame.weapon.ProjectileWeaponModel;
 import model.ingame.GameModel;
-import model.ingame.weapon.IProjectile;
+import model.ingame.weapon.ProjectileWeaponModel;
 
 
 public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity{

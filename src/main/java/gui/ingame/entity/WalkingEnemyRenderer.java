@@ -30,10 +30,10 @@ public class WalkingEnemyRenderer extends AbstractEntityRenderer {
             throw new RuntimeException(e);
         }
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-                // show health bar
-                g.setColor(Color.RED);
-                g.fillRect(0, 0, getWidth(), 5);
-                g.setColor(Color.GREEN);
-                g.fillRect(0, 0, (int) (getWidth() * ((double) ((IVulnerableEntity) entityModel).getHealth() / ((IVulnerableEntity) entityModel).getMaxHealth())), 5);
+        // show health bar
+        g.setColor(Color.RED);
+        g.fillRect(0, 0, getWidth(), 5);
+        g.setColor(Color.GREEN);
+        g.fillRect(0, 0, (int) (getWidth() * ((double) ((IVulnerableEntity) entityModel).getHealth() / ((IVulnerableEntity) entityModel).getMaxHealth())), 5);
     }
 }
