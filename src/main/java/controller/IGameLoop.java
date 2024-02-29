@@ -1,4 +1,6 @@
-package model.ingame;
+package controller;
+
+import model.ingame.IUpdateable;
 
 /**
  * Represents a generic game loop. The updater method (set with setUpdater) should be called at each tick.
@@ -23,9 +25,4 @@ public interface IGameLoop {
      * Stops the game loop
      */
     void stop();
-
-    /**
-     * @return true if the game loop is running, false otherwise
-     */
-    boolean isRunning();
 }

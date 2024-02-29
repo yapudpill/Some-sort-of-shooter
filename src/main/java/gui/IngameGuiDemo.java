@@ -1,10 +1,11 @@
 package gui;
 
+import controller.IGameLoop;
+import controller.ModelGameLoop;
+import controller.SwingGameLoop;
 import gui.ingame.GameView;
-import gui.ingame.SwingGameLoop;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import model.ingame.IGameLoop;
 import model.level.MapModel;
 import model.level.StandardTileModel;
 import model.level.TileModel;
@@ -31,7 +32,7 @@ public class IngameGuiDemo {
         gameModel.spawnWalking(7.5, 3.5);
 
         gameView = new GameView(gameModel);
-        IGameLoop gameModelLoop = new SwingGameLoop(gameModel);
+        IGameLoop gameModelLoop = new ModelGameLoop(gameModel);
         IGameLoop gameViewLoop = new SwingGameLoop(gameView);
         gameModelLoop.start();
         gameViewLoop.start();

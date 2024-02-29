@@ -1,6 +1,5 @@
-package gui.ingame;
+package controller;
 
-import model.ingame.IGameLoop;
 import model.ingame.IUpdateable;
 
 import javax.swing.*;
@@ -32,10 +31,5 @@ public class SwingGameLoop implements IGameLoop {
     @Override
     public void stop() {
         updateTimer.stop();
-    }
-
-    @Override
-    public boolean isRunning() {
-        return updateTimer.isRunning();
     }
 }
