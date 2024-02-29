@@ -40,8 +40,6 @@ public abstract class ProjectileWeaponModel {
         if(isCoolingDown) return;
         isCoolingDown = true;
         IProjectile projectile = createProjectile();
-        projectile.setPos(owner.getPos());
-        projectile.setSourceWeapon(this);
         System.out.println("Direction vector: " + directionVector.toString());
         projectile.getMovementHandler().setDirectionVector(new Coordinates(directionVector));
         shotProjectiles.add(projectile);

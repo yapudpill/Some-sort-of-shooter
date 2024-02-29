@@ -2,7 +2,6 @@ package model.ingame.entity;
 
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.physics.PhysicsEngineModel;
-import model.ingame.weapon.PistolModel;
 
 public class PlayerModel extends CombatEntityModel {
     /*
@@ -18,7 +17,6 @@ public class PlayerModel extends CombatEntityModel {
         super(100, 0.5, 0.5);
         movementHandler = new MovementHandlerModel<PlayerModel>(this, physicsEngine);
         movementHandler.setSpeed(0.09);
-      //  weapon = new PistolModel(this, physicsEngine);
     }
 
 }

@@ -1,14 +1,14 @@
 package model.ingame.weapon;
 
+import model.ingame.entity.IDamagingEntity;
 import model.ingame.entity.IMobileEntity;
 
-public interface IProjectile extends IMobileEntity {
+public interface IProjectile extends IMobileEntity, IDamagingEntity {
 
     boolean isActive();
-    boolean notActive();
+    default boolean notActive() {
+        return !isActive();
+    }
     void setActive(boolean active);
-    int getDamage();
-    void setSourceWeapon(ProjectileWeaponModel sourceWeapon);
     ProjectileWeaponModel getSourceWeapon();
-
 }

@@ -1,25 +1,25 @@
 package model.ingame.entity;
 
 import model.ingame.Coordinates;
+import model.ingame.physics.DamageListener;
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.physics.PhysicsEngineModel;
 
-public class WalkingEnemyModel extends CreatureModel {
+public class WalkingEnemyModel extends CreatureModel implements IDamagingEntity {
     private final PlayerModel player;
     public WalkingEnemyModel(PlayerModel player, PhysicsEngineModel engine) {
         super(50, 0.8, 0.8);
         this.player = player;
         movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, engine);
         movementHandler.setSpeed(0.03);
+        addCollisionListener(new DamageListener());
+    }
 
-        addCollisionListener(e -> {
-            if (e.getSource() != this) return;
-            for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
-                if (entity instanceof PlayerModel p) {
-                    p.takeDamage(10); //TODO: should not be hard coded
-                }
-            }
-        });
+    @Override
+    public void inflictDamage(IVulnerableEntity target) {
+        if (target instanceof PlayerModel p) {
+            p.takeDamage(10); //TODO: should not be hard coded
+        }
     }
 
     @Override
