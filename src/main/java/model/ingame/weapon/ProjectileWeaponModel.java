@@ -1,18 +1,21 @@
 package model.ingame.weapon;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.swing.Timer;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.IEntity;
 import model.ingame.physics.PhysicsEngineModel;
+import util.ModelTimer;
 
 public abstract class ProjectileWeaponModel {
     protected IEntity owner;
     protected final PhysicsEngineModel physicsEngine;
     protected final String name;
     protected int coolDown;
-    protected Timer coolDownTimer;
+    protected ModelTimer coolDownTimer;
     protected boolean isCoolingDown;
     protected Coordinates directionVector;
     protected GameModel gameModel;
@@ -24,9 +27,9 @@ public abstract class ProjectileWeaponModel {
         this.owner = owner;
         this.coolDown = coolDown;
         this.isCoolingDown = false;
-        coolDownTimer = new Timer(coolDown, e -> {
+        coolDownTimer = new ModelTimer(coolDown, () -> {
             isCoolingDown = false;
-        });
+        }, gameModel);
         coolDownTimer.setRepeats(false);
     }
 
@@ -37,7 +40,11 @@ public abstract class ProjectileWeaponModel {
     public abstract IProjectile createProjectile();
 
     public void shoot() {
-        if(isCoolingDown) return;
+        if (isCoolingDown) {
+            System.out.println("Weapon is cooling down. Cannot shoot.");
+            return;
+        }
+
         isCoolingDown = true;
         IProjectile projectile = createProjectile();
         projectile.setPos(new Coordinates(owner.getPos()));

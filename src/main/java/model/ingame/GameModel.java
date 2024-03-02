@@ -85,11 +85,4 @@ public class GameModel implements IUpdateable {
         if(entity instanceof ICollisionEntity col) map.removeCollidableAt(col, (int)pos.x, (int)pos.y);
     }
 
-    public Collection<IUpdateable> getUpdateables() {
-        return updateables;
-    }
-
-    public PhysicsEngineModel getPhysicsEngine() {
-        return physicsEngine;
-    }
 }

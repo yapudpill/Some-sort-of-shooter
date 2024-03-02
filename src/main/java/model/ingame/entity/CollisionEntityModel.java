@@ -58,12 +58,8 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
         collisionListeners.remove(listener);
     }
 
-    @Override
-    public void setPos(Coordinates pos) {
-        super.setPos(pos);
-        collisionBox.setRect(pos.x, pos.y, collisionBox.getWidth(), collisionBox.getHeight());
+    private void setColisionBox(double x, double y) {
+        collisionBox.setRect(x, y, collisionBox.getWidth(), collisionBox.getHeight());
     }
-
-
 
 }
