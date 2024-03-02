@@ -3,23 +3,29 @@ package model.ingame.weapon;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.CollisionEntityModel;
+import model.ingame.entity.IVulnerableEntity;
 import model.ingame.physics.IMovementHandler;
 
-public abstract class ProjectileModel extends CollisionEntityModel implements IProjectile{
-    protected ProjectileWeaponModel sourceWeapon;
-    protected int damage;
-    protected boolean active;
+public abstract class ProjectileModel extends CollisionEntityModel implements IProjectile {
+    protected final ProjectileWeaponModel sourceWeapon;
+    protected final int damage;
     protected IMovementHandler movementHandler;
+    protected boolean active;
 
-    public ProjectileModel(Coordinates pos, double width, double height, int damage, GameModel gameModel) {
+    public ProjectileModel(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.damage = damage;
+        this.sourceWeapon = source;
         this.active = true;
     }
 
     @Override
-    public int getDamage() {
-        return damage;
+    public boolean canApplyEffect(IVulnerableEntity target) {
+        if (target != sourceWeapon.getOwner()) {
+            setActive(false);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -45,16 +51,6 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
             gameModel.detachAsUpdateable(this);
             gameModel.removeEntity(this);
         }
-    }
-
-    @Override
-    public boolean notActive(){
-        return !active;
-    }
-
-    @Override
-    public void setSourceWeapon(ProjectileWeaponModel sourceWeapon) {
-        this.sourceWeapon = sourceWeapon;
     }
 
     @Override

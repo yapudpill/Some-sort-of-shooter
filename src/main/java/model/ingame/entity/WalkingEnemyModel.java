@@ -3,28 +3,26 @@ package model.ingame.entity;
 import java.util.Random;
 
 import model.ingame.Coordinates;
+import model.ingame.physics.DamageListener;
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
 
-public class WalkingEnemyModel extends CreatureModel {
+public class WalkingEnemyModel extends CreatureModel implements IEffectEntity {
     private final PlayerModel player;
     Random rng = new Random();
 
     public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
         super(50, 0.8, 0.8, gameModel);
         this.player = gameModel.getPlayer();
+        this.pos = pos;
         movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.03);
-        this.pos = pos;
+        addCollisionListener(new DamageListener(10)); //TODO: damages should not be hard coded
+    }
 
-        addCollisionListener(e -> {
-            if (e.getSource() != this) return;
-            for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
-                if (entity instanceof PlayerModel p) {
-                    p.takeDamage(10); //TODO: should not be hard coded
-                }
-            }
-        });
+    @Override
+    public boolean canApplyEffect(IVulnerableEntity target) {
+        return target instanceof PlayerModel;
     }
 
     @Override
