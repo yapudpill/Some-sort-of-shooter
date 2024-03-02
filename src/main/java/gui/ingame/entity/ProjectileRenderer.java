@@ -18,9 +18,6 @@ public class ProjectileRenderer extends AbstractEntityRenderer{
     @Override
     protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
-        if(!((IProjectile) entityModel).isActive()) {
-            return;
-        }
         g.setColor(java.awt.Color.BLACK);
         g.fillOval(0, 0, getWidth(), getHeight());
     }
