@@ -1,19 +1,20 @@
 package gui.ingame;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
 import gui.ProportionalScalerLayout;
 import gui.ScaleSupplier;
 import gui.ingame.entity.AbstractEntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
 import model.ingame.IUpdateable;
 import model.ingame.entity.IEntity;
-import model.ingame.entity.PlayerModel;
 import util.SetToMapSynchronisator;
-
-import javax.swing.*;
-
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Set;
 
 
 public class EntitiesPaneLayer implements IUpdateable {
@@ -22,7 +23,7 @@ public class EntitiesPaneLayer implements IUpdateable {
     private final Set<IEntity> entityModelSet;
     private final ProportionalScalerLayout scaleLayout;
 
-    private final LinkedHashMap<IEntity, AbstractEntityRenderer> entityModelRendererMap = new LinkedHashMap<>();
+    private final Map<IEntity, AbstractEntityRenderer> entityModelRendererMap = new ConcurrentHashMap<>();
 
     public EntitiesPaneLayer(Set<IEntity> entityModelSet, ScaleSupplier scaleSupplier) {
         this.entityModelSet = entityModelSet;
@@ -36,7 +37,7 @@ public class EntitiesPaneLayer implements IUpdateable {
     }
 
     /**
-     * @return the JComponent of this layer
+     * @return the JComponent of this layerq
      */
     public JComponent getJComponent() {
         return entitiesPanel;
@@ -52,27 +53,15 @@ public class EntitiesPaneLayer implements IUpdateable {
         AbstractEntityRenderer removedEntityRenderer = entityModelRendererMap.remove(entityModel);
         if (removedEntityRenderer != null) entitiesPanel.remove(removedEntityRenderer);
     }
-
     @Override
     public void update() {
-        // temporary code, should be replaced with a composite pattern to unpack entities and render them
-        HashSet<IEntity> newEntityModelSet = new HashSet<>();
-        PlayerModel player = null;
-        for(IEntity entity : entityModelSet) {
-            if(entity instanceof PlayerModel p) player = p;
-            newEntityModelSet.add(entity);
-        }
-        if (player.getWeapon() != null) {
-            for (IEntity entity : player.getWeapon().getProjectiles()) {
-                newEntityModelSet.add(entity);
-            }
-        }
-        entityModelSet.clear();
-        entityModelSet.addAll(newEntityModelSet);
+        // Synchronize the sets and maps
         SetToMapSynchronisator.synchroniseSetToMap(entityModelSet,
                 entityModelRendererMap,
                 this::addRendererForEntity,
                 this::removeRendererOfEntity);
+
+        // Repaint and do layout
         entitiesPanel.repaint();
         entitiesPanel.doLayout();
     }

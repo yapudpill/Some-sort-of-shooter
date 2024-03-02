@@ -29,7 +29,6 @@ public class IngameGuiDemo {
         MapModel mapModel = new MapModel(10, 5, tiles);
         GameModel gameModel = new GameModel(mapModel);
         gameModel.getPlayer().setPos(new Coordinates(2, 2));
-        gameModel.spawnWalking(7.5, 3.5);
 
         gameView = new GameView(gameModel);
         IGameLoop gameModelLoop = new ModelGameLoop(gameModel);

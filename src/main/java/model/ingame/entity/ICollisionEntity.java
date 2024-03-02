@@ -6,7 +6,7 @@ import model.ingame.physics.CollisionEvent;
 import model.ingame.physics.CollisionListener;
 
 public interface ICollisionEntity extends IEntity{
-    
+
     Rectangle2D getCollisionBox();
     void addCollisionListener(CollisionListener listener);
     void removeCollisionListener(CollisionListener listener);

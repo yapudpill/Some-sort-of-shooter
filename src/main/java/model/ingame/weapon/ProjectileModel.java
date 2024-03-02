@@ -1,6 +1,7 @@
 package model.ingame.weapon;
 
 import model.ingame.Coordinates;
+import model.ingame.GameModel;
 import model.ingame.entity.CollisionEntityModel;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.physics.IMovementHandler;
@@ -11,8 +12,8 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     protected IMovementHandler movementHandler;
     protected boolean active;
 
-    public ProjectileModel(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage) {
-        super(pos, width, height);
+    public ProjectileModel(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage, GameModel gameModel) {
+        super(pos, width, height, gameModel);
         this.damage = damage;
         this.sourceWeapon = source;
         this.active = true;
@@ -45,6 +46,11 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     @Override
     public void update() {
         movementHandler.update();
+        if(!this.isActive() || !this.getMovementHandler().isMoving())
+        {
+            gameModel.detachAsUpdateable(this);
+            gameModel.removeEntity(this);
+        }
     }
 
     @Override

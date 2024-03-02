@@ -9,8 +9,10 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+import gui.ingame.GameMainArea;
 import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
+import model.ingame.weapon.ProjectileWeaponModel;
 
 /**
  * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.
@@ -26,9 +28,11 @@ public class PlayerSwingController {
             KeyEvent.VK_Q, Coordinates.LEFT
     );
     private final PlayerModel controlledPlayerModel;
+    private final GameMainArea gameMainArea;
 
-    public PlayerSwingController(PlayerModel controlledPlayerModel) {
+    public PlayerSwingController(PlayerModel controlledPlayerModel, GameMainArea gameMainArea) {
         this.controlledPlayerModel = controlledPlayerModel;
+        this.gameMainArea = gameMainArea;
     }
 
     private static Map<Integer, PlayerModel.PlayerAction> getPlayer1KeyActionMap(PlayerModel playerModel) {
@@ -82,6 +86,8 @@ public class PlayerSwingController {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (getPlayer1KeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
+                    ProjectileWeaponModel weapon = controlledPlayerModel.getWeapon();
+                    if(weapon != null) weapon.setDirectionVector(new Coordinates(e.getX()/gameMainArea.getScale() - controlledPlayerModel.getPos().x, e.getY()/gameMainArea.getScale() - controlledPlayerModel.getPos().y));
                     getPlayer1KeyActionMap(controlledPlayerModel).get(e.getButton()).performAction();
                 }
             }

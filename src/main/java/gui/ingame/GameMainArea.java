@@ -1,6 +1,7 @@
 package gui.ingame;
 
 import gui.CenterFillRatioLayout;
+import gui.FillLayout;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 
@@ -30,16 +31,15 @@ public class GameMainArea implements IUpdateable {
         this.effectsPaneLayer = new EffectsPaneLayer();
 
         this.layeredPane = new JLayeredPane();
+        layeredPane.setLayout(new FillLayout());
         // debug
         layeredPane.setBackground(Color.CYAN);
         layeredPane.setOpaque(true);
 
-        CenterFillRatioLayout centerFillRatioLayout = new CenterFillRatioLayout();
-        layeredPane.setLayout(centerFillRatioLayout); // Make the layered panes take all the space
+        //layeredPane.setLayout(new FlowLayout()); // Make the layered panes take all the space
         layeredPane.add(mapBackgroundPaneLayer.getJComponent(), TILES_LAYER);
         layeredPane.add(entitiesPaneLayer.getJComponent(), ENTITIES_LAYER);
         layeredPane.add(effectsPaneLayer, HUD_LAYER);
-        centerFillRatioLayout.setWidthHeightRatio((double) gameModel.getMapModel().getWidth() / gameModel.getMapModel().getHeight());
     }
 
     /**
