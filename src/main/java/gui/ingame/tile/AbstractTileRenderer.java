@@ -1,9 +1,10 @@
 package gui.ingame.tile;
 
-import model.level.TileModel;
+import java.awt.Graphics;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+
+import model.level.TileModel;
 
 public abstract class AbstractTileRenderer extends JPanel {
     private final TileModel tileModel;

@@ -12,10 +12,6 @@ import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.MapModel;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 public class GameModel implements IUpdateable {
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;

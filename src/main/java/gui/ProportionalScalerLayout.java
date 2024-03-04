@@ -1,8 +1,11 @@
 package gui;
 
-import model.ingame.Coordinates;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.LayoutManager;
 
-import java.awt.*;
+import model.ingame.Coordinates;
 
 /**
  * A layout manager that applies a uniform scaling/homothety to all ScalableComponents of a container, according to a
