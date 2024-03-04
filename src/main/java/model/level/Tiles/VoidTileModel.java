@@ -15,7 +15,4 @@ public class VoidTileModel extends TileModel {
         return false;
     }
 
-    @Override
-    public void applyEffect(IVulnerableEntity entity) {
-    }
 }

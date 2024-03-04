@@ -4,11 +4,9 @@ package model.level;
 import model.level.Tiles.*;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import model.ingame.entity.ICollisionEntity;
@@ -121,9 +119,9 @@ public class MapModel {
             for (int i = 0; i < parsedMap.length; i++) {
                 for (int j = 0; j < parsedMap[0].length; j++) {
                     switch (parsedMap[i][j]){
-                        case '#' -> tiles[i][j] = new WallTileModel();
+                        case '#' -> tiles[i][j] = new WaterTileModel();
                         case 'V' -> tiles[i][j] = new VoidTileModel();
-                        default -> tiles[i][j] = new DefaultTileModel();
+                        default -> tiles[i][j] = new StandardTileModel();
                     }
                 }
             }

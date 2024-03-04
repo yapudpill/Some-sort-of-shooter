@@ -9,8 +9,4 @@ public class WaterTileModel extends TileModel {
         return false;
     }
 
-    @Override
-    public void applyEffect(IVulnerableEntity entity) {
-
-    }
 }

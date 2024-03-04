@@ -1,4 +1,6 @@
-package model.level;
+package model.level.Tiles;
+
+import model.level.TileModel;
 
 public class StandardTileModel extends TileModel {
     @Override
