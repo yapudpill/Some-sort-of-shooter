@@ -7,7 +7,9 @@ import gui.ingame.GameView;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.level.MapModel;
+import model.level.TileModel;
 import model.level.Tiles.StandardTileModel;
+import model.level.Tiles.WaterTileModel;
 
 public class IngameGuiDemo {
 
@@ -15,7 +17,8 @@ public class IngameGuiDemo {
 
     // Create a frame, initialise it, and display it
     public IngameGuiDemo() {
-        /* TileModel[][] tiles = new TileModel[5][10];
+        /*
+        TileModel[][] tiles = new TileModel[5][10];
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 10; j++) {
                 tiles[i][j] = new StandardTileModel();
@@ -23,7 +26,8 @@ public class IngameGuiDemo {
         }
         tiles[3][3] = new WaterTileModel();
         */
-        MapModel mapModel = new MapModel("mapTest");
+
+        MapModel mapModel = new MapModel("maps/mapTest.txt");
         GameModel gameModel = new GameModel(mapModel);
         gameModel.getPlayer().setPos(new Coordinates(2, 2));
 
