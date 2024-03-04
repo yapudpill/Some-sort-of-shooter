@@ -15,6 +15,6 @@ public abstract class AbstractTileRenderer extends JPanel {
     @Override
     protected void paintBorder(Graphics g) {
         super.paintBorder(g);
-        g.drawRect(0, 0, getWidth(), getHeight());
+
     }
 }

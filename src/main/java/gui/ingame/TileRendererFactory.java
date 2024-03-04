@@ -5,7 +5,7 @@ import gui.ingame.tile.StandardTileRenderer;
 import gui.ingame.tile.WaterTileRenderer;
 import model.level.StandardTileModel;
 import model.level.TileModel;
-import model.level.Tiles.WaterTileModel;
+import model.level.WaterTileModel;
 
 public class TileRendererFactory {
     static public AbstractTileRenderer makeTileRenderer(TileModel tileModel) {

@@ -1,9 +1,8 @@
 package model.level;
 
-public class StandardTileModel extends TileModel {
+public class WaterTileModel extends TileModel {
     @Override
     public boolean isWalkable() {
-        return true;
+        return false;
     }
-
 }

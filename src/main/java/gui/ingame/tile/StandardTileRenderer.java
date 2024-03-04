@@ -1,13 +1,29 @@
 package gui.ingame.tile;
 
-import gui.ingame.tile.AbstractTileRenderer;
-import model.level.TileModel;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
 
-import java.awt.*;
+import gui.ImageCache;
+import gui.ingame.entity.PlayerRenderer;
+import model.level.TileModel;
 
 public class StandardTileRenderer extends AbstractTileRenderer {
     public StandardTileRenderer(TileModel tileModel) {
         super(tileModel);
-        setBackground(Color.WHITE);
+
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Image image;
+        try {
+            image = ImageCache.loadImage("/gui/ingame/GrassSprite.png", PlayerRenderer.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 }
+

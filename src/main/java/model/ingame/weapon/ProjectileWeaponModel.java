@@ -1,32 +1,31 @@
 package model.ingame.weapon;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Timer;
-
 import model.ingame.Coordinates;
+import model.ingame.GameModel;
 import model.ingame.entity.IEntity;
 import model.ingame.physics.PhysicsEngineModel;
+import util.ModelTimer;
 
 public abstract class ProjectileWeaponModel {
     protected IEntity owner;
-    protected final List<IProjectile> shotProjectiles = new ArrayList<>();
     protected final PhysicsEngineModel physicsEngine;
     protected final String name;
     protected int coolDown;
-    protected Timer coolDownTimer;
+    protected ModelTimer coolDownTimer;
     protected boolean isCoolingDown;
+    protected Coordinates directionVector;
+    protected GameModel gameModel;
 
-    public ProjectileWeaponModel(String name, PhysicsEngineModel physicsEngine, IEntity owner, int coolDown) {
+    public ProjectileWeaponModel(String name, GameModel gameModel, IEntity owner, int coolDown) {
         this.name = name;
-        this.physicsEngine = physicsEngine;
+        this.physicsEngine = gameModel.getPhysicsEngine();
+        this.gameModel = gameModel;
         this.owner = owner;
         this.coolDown = coolDown;
         this.isCoolingDown = false;
-        coolDownTimer = new Timer(coolDown, e -> {
+        coolDownTimer = new ModelTimer(coolDown, () -> {
             isCoolingDown = false;
-        });
+        }, gameModel);
         coolDownTimer.setRepeats(false);
     }
 
@@ -36,28 +35,19 @@ public abstract class ProjectileWeaponModel {
 
     public abstract IProjectile createProjectile();
 
-    public void shoot(Coordinates directionVector) {
-        if(isCoolingDown) return;
+    public void shoot() {
+        if (isCoolingDown) {
+            System.out.println("Weapon is cooling down. Cannot shoot.");
+            return;
+        }
+
         isCoolingDown = true;
         IProjectile projectile = createProjectile();
-        projectile.setPos(owner.getPos());
-        projectile.setSourceWeapon(this);
         System.out.println("Direction vector: " + directionVector.toString());
-        projectile.getMovementHandler().setDirectionVector(new Coordinates(directionVector));
-        shotProjectiles.add(projectile);
+        projectile.getMovementHandler().setDirectionVector(this.directionVector);
+        gameModel.attachAsUpdateable(projectile);
+        gameModel.addEntity(projectile);
         coolDownTimer.start();
-    }
-
-    public List<IProjectile> getShotProjectiles() {
-        return shotProjectiles;
-    }
-
-    public void update() {
-        for (IProjectile projectile : shotProjectiles) {
-            projectile.update();
-        }
-        shotProjectiles.removeIf(projectile -> !projectile.isActive());
-
     }
 
     public void setOwner(IEntity owner) {
@@ -85,8 +75,11 @@ public abstract class ProjectileWeaponModel {
         this.isCoolingDown = isCoolingDown;
     }
 
-    public List<IProjectile> getProjectiles() {
-        return shotProjectiles;
+    public Coordinates getDirectionVector() {
+        return directionVector;
     }
 
+    public void setDirectionVector(Coordinates directionVector) {
+        this.directionVector = directionVector;
+    }
 }
