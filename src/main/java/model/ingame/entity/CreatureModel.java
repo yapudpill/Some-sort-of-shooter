@@ -48,4 +48,8 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     public boolean isDead() {
         return health <= 0;
     }
+
+    public void reset(){
+        health = maxHealth;
+    }
 }

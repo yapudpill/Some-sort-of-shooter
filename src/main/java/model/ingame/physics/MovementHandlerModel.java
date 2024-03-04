@@ -9,7 +9,7 @@ import model.ingame.entity.IMobileEntity;
 public class MovementHandlerModel<T extends IMobileEntity> implements IMovementHandler{
     private T entity;
     private double speed;
-    private Coordinates directionVector = Coordinates.ZERO;
+    private Coordinates directionVector = new Coordinates(0, 0);
     private PhysicsEngineModel physicsEngine;
     private boolean isMoving = false;
 

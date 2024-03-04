@@ -12,14 +12,12 @@ import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.MapModel;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 public class GameModel implements IUpdateable {
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;
     private final PlayerModel player;
+    private boolean isRunning = true;
+
 
     private final Set<IEntity> entityModelList = new CopyOnWriteArraySet<>();
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
@@ -41,8 +39,10 @@ public class GameModel implements IUpdateable {
 
     @Override
     public void update() {
-        for (IUpdateable updateable : updateables){
-            updateable.update();
+        for (IUpdateable updateable : updateables) updateable.update();
+        System.out.println(player.getMovementHandler().getDirectionVector());
+        if(player.isDead()){
+            isRunning = false;
         }
     }
 
@@ -54,7 +54,6 @@ public class GameModel implements IUpdateable {
         return entityModelList;
     }
 
-    // Probably temporary
     public PlayerModel getPlayer() {
         return player;
     }
@@ -85,4 +84,18 @@ public class GameModel implements IUpdateable {
         if(entity instanceof ICollisionEntity col) map.removeCollidableAt(col, (int)pos.x, (int)pos.y);
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void reset() {
+        entityModelList.clear();
+        updateables.clear();
+        isRunning = true;
+        player.reset();
+        entityModelList.add(player);
+        updateables.add(player);
+        updateables.add(new RandomWeaponSpawner(this));
+        updateables.add(new EnemySpawnerModel(this));
+    }
 }

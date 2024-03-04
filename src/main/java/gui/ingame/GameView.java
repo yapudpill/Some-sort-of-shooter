@@ -37,7 +37,7 @@ public class GameView implements IUpdateable {
 
         // TODO: setup gridbaglayout to have HUD on both sides of the gameRenderer (Player 1 & Player 2)
         rootPane.setLayout(new BorderLayout());
-
+        player1SwingController.clearHeldKeys();
         gameMainArea.getJComponent().addKeyListener(player1SwingController.getKeyListener());
         gameMainArea.getJComponent().addMouseListener(player1SwingController.getMouseListener());
 
@@ -53,6 +53,10 @@ public class GameView implements IUpdateable {
 
     public JPanel getComponent() {
         return rootPane;
+    }
+
+    public void resetController() {
+        player1SwingController.clearHeldKeys();
     }
 
     @Override

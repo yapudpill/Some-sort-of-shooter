@@ -29,6 +29,7 @@ public class PlayerSwingController {
     );
     private final PlayerModel controlledPlayerModel;
     private final GameMainArea gameMainArea;
+    ArrayList<Integer> heldKeys = new ArrayList<>();
 
     public PlayerSwingController(PlayerModel controlledPlayerModel, GameMainArea gameMainArea) {
         this.controlledPlayerModel = controlledPlayerModel;
@@ -44,7 +45,6 @@ public class PlayerSwingController {
      */
     public KeyListener getKeyListener() {
         return new KeyAdapter() {
-            ArrayList<Integer> heldKeys = new ArrayList<>();
 
 
             @Override
@@ -92,5 +92,9 @@ public class PlayerSwingController {
                 }
             }
         };
+    }
+
+    public void clearHeldKeys() {
+        heldKeys.clear();
     }
 }

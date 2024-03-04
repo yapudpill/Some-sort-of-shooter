@@ -5,6 +5,7 @@ import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 import model.ingame.entity.WeaponEntity;
+import util.ModelTimer;
 
 import java.util.Random;
 
@@ -34,7 +35,11 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
                     }
                 }
             } while (!gameModel.getMapModel().getTile((int) x, (int) y).isWalkable());
-            spawnEntity(x, y);
+            WeaponEntity entity = spawnEntity(x, y);
+            ModelTimer despawn = new ModelTimer(WEAPON_SPAWN_COOLDOWN, () -> {
+                gameModel.removeEntity(entity);
+            }, gameModel);
+            despawn.start();
             spawnCooldown = WEAPON_SPAWN_COOLDOWN;
         }
     }
