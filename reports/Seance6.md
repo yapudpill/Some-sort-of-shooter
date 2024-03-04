@@ -18,9 +18,19 @@
   - Implémentation du despawn des armes.
   - Amélioration du timer personnalisé créé par Yacob.
 
+## Yacob:
+- Corriger les collisions pour le ramassage d'armes
+
+## Tâches reportées:
+- Affichage d'un HUD pour indiquer les HP et l'arme possédée
+
 
 ## Objectifs pour la semaine prochaine :
 1. Intégration d'autres types d'ennemis et d'armes plus variés : Mohamed
 2. Intégration d'un menu pour la sélection de la carte : Anthony
-3. Intégration du mode "Bullet Rain" : Yacob
-4. Implémentation d'un système de score : Clément
+3. Implémentation d'un système de score : Clément
+4. Ajout d'une arme "couteau" permettant d'infliger des dégâts pendant un court instant dans une petite zone: Yacob
+5. Affichage d'un HUD pour indiquer les HP et l'arme possédée: Yacob
+
+#### Tâches non prioritaires:
+6. Intégration du mode "Bullet Rain" : Yacob
