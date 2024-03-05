@@ -34,6 +34,10 @@
   - Création du listener `DamageListener` permettant d'infliger un nombre fixe
     de dégâts au contact.
 
+## Clément:
+- Ajouts de maps
+- Correction de bugs mineurs sur les spawners
+
 ## Tâches reportées:
 - Affichage d'un HUD pour indiquer les HP et l'arme possédée
 
