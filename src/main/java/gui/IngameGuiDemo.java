@@ -17,19 +17,9 @@ public class IngameGuiDemo {
 
     // Create a frame, initialise it, and display it
     public IngameGuiDemo() {
-        /*
-        TileModel[][] tiles = new TileModel[5][10];
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 10; j++) {
-                tiles[i][j] = new StandardTileModel();
-            }
-        }
-        tiles[3][3] = new WaterTileModel();
-        */
-
-        MapModel mapModel = new MapModel("maps/mapTest.txt");
+        MapModel mapModel = new MapModel("maps/map3.txt");
         GameModel gameModel = new GameModel(mapModel);
-        gameModel.getPlayer().setPos(new Coordinates(2, 2));
+        gameModel.getPlayer().setPos(new Coordinates(9.5, 9.5));
 
         gameView = new GameView(gameModel);
         IGameLoop gameModelLoop = new ModelGameLoop(gameModel);
