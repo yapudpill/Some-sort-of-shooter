@@ -1,12 +1,14 @@
 package gui.ingame.entity;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
+
 import gui.ImageCache;
 import model.ingame.Coordinates;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.PlayerModel;
-
-import java.awt.*;
-import java.io.IOException;
 
 public class PlayerRenderer extends AbstractEntityRenderer {
     public PlayerRenderer(PlayerModel entityModel) {

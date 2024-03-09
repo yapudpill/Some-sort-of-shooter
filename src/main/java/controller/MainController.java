@@ -1,10 +1,10 @@
 package controller;
 
+import java.awt.EventQueue;
+
+import gui.MainFrame;
 import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
-import gui.MainFrame;
-
-import java.awt.*;
 
 public class MainController {
     private final MainFrame mainFrame;

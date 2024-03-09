@@ -9,7 +9,9 @@ import java.util.List;
 
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
-import model.level.tiles.*;
+import model.level.tiles.StandardTileModel;
+import model.level.tiles.VoidTileModel;
+import model.level.tiles.WaterTileModel;
 
 public class MapModel {
     private TileModel[][] tiles;
