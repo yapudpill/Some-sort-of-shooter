@@ -1,7 +1,7 @@
 package controller;
 
 import gui.launcher.HomeMenu;
-import gui.IngameGuiDemo;
+import gui.launcher.MapMenu;
 import gui.MainFrame;
 
 import java.awt.*;
@@ -18,10 +18,14 @@ public class MainController {
         mainFrame.loadMenu(new HomeMenu(this));
     }
 
-    public void loadGame(/* Add arguments if needed */) {
-        IngameGuiDemo demo = new IngameGuiDemo();
-        mainFrame.loadMenu(demo.gameView.getComponent());
-        EventQueue.invokeLater(demo.gameView::setFocusToMainArea);
+    public void loadMapMenu() {
+        mainFrame.loadMenu(new MapMenu(this));
+    }
+
+    public void loadGame(String mapName) {
+        GameController gameController = new GameController(mapName);
+        mainFrame.loadMenu(gameController.gameView);
+        EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
     }
 
     public void closeWindow() {

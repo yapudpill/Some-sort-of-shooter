@@ -14,18 +14,13 @@ import model.level.tiles.*;
 public class MapModel {
     private TileModel[][] tiles;
 
-    public MapModel(String path){
-        tiles = loadMap(path);
-    }
-
-    public MapModel(int width, int height, TileModel[][] tiles) {
-        this.tiles = tiles;
+    public MapModel(String mapName){
+        tiles = loadMap("maps/" + mapName);
     }
 
     /**
-     * the tiles attribute can be loaded from a .txt file in map
-     * about the .txt map format
-     * here is an example of what a map could look like
+     * The tiles attribute can be loaded from a file in resources/model/level/maps
+     * Here is an example of what a map file could look like
      * <pre>
      * +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
      * |         #                                                                     |
@@ -84,11 +79,11 @@ public class MapModel {
 
     /**
      *
-     * @param lines String corresponding to each line of the .txt
+     * @param lines String corresponding to each line of the map file
      * @return array containing the character corresponding to the content of each tile
      * parseMap ignores everything except the center of each square, so it ignores 1/2 lines and 3/4 columns
      */
-    public static char[][] parseMap(String[] lines){
+    public static char[][] parseMap(String[] lines) {
         int height = lines.length/2;
         int width = (lines[0].length())/4;
         String current;
@@ -117,7 +112,7 @@ public class MapModel {
             TileModel[][] tiles = new TileModel[parsedMap.length][parsedMap[0].length];
             for (int i = 0; i < parsedMap.length; i++) {
                 for (int j = 0; j < parsedMap[0].length; j++) {
-                    switch (parsedMap[i][j]){
+                    switch (parsedMap[i][j]) {
                         case '#' -> tiles[i][j] = new WaterTileModel();
                         case 'V' -> tiles[i][j] = new VoidTileModel();
                         default -> tiles[i][j] = new StandardTileModel();
@@ -126,11 +121,12 @@ public class MapModel {
             }
             return tiles;
         }
-        catch (NullPointerException e){
+        catch (NullPointerException e) {
             System.out.println("invalid path");
         }
         return null;
     }
+
     public boolean isOutOfBounds(int x, int y) {
         return x < 0 || x >= tiles[0].length || y < 0 || y >= tiles.length;
     }

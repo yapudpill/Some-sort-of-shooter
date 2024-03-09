@@ -12,12 +12,9 @@ import java.awt.LayoutManager;
  * It makes the components overlap, thus it is intended to be used with layers.
  */
 public class RatioLayout implements LayoutManager {
-    private double widthHeightRatio;
-    /**
-     * Sets the width/height ratio that the components should keep.
-     * @param widthHeightRatio the width/height ratio that the components should keep
-     */
-    public void setWidthHeightRatio(double widthHeightRatio) {
+    private final double widthHeightRatio;
+
+    public RatioLayout(double widthHeightRatio) {
         this.widthHeightRatio = widthHeightRatio;
     }
 

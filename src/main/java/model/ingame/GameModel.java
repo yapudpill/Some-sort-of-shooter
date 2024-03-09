@@ -25,14 +25,10 @@ public class GameModel implements IUpdateable {
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
 
 
-    public GameModel(String path) {
-        this(new MapModel(path));
-    }
-
-    public GameModel(MapModel map) {
-        this.map = map;
-        this.physicsEngine = new PhysicsEngineModel(map);
-        this.player = new PlayerModel(this);
+    public GameModel(String mapName) {
+        map = new MapModel(mapName);
+        physicsEngine = new PhysicsEngineModel(map);
+        player = new PlayerModel(this);
         entityModelList.add(player);
         updateables.add(player);
         updateables.add(new RandomWeaponSpawner(this));
