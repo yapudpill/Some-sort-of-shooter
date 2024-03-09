@@ -17,7 +17,7 @@ public class IngameGuiDemo {
 
     // Create a frame, initialise it, and display it
     public IngameGuiDemo() {
-        MapModel mapModel = new MapModel("maps/map3.txt");
+        MapModel mapModel = new MapModel("maps/map3");
         GameModel gameModel = new GameModel(mapModel);
         gameModel.getPlayer().setPos(new Coordinates(9.5, 9.5));
 
