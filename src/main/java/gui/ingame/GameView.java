@@ -5,8 +5,8 @@ import java.awt.Component;
 
 import javax.swing.JPanel;
 
-import controller.PlayerSwingController;
-import gui.CenterFillRatioLayout;
+import controller.PlayerController;
+import gui.RatioLayout;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 
@@ -24,14 +24,14 @@ public class GameView implements IUpdateable {
     private final JPanel mainAreaWrapper = new JPanel();
     private final GameHUD gameHUD;
 
-    private final PlayerSwingController player1SwingController;
+    private final PlayerController player1SwingController;
 
     public GameView(GameModel gameModel) {
         this.gameModel = gameModel;
         this.gameMainArea = new GameMainArea(gameModel);
         this.gameHUD = new GameHUD();
         this.rootPane = new JPanel();
-        this.player1SwingController = new PlayerSwingController(gameModel.getPlayer(), gameMainArea);
+        this.player1SwingController = new PlayerController(gameModel.getPlayer(), gameMainArea);
         rootPane.setOpaque(true);
 
 
@@ -41,7 +41,7 @@ public class GameView implements IUpdateable {
         gameMainArea.getJComponent().addKeyListener(player1SwingController.getKeyListener());
         gameMainArea.getJComponent().addMouseListener(player1SwingController.getMouseListener());
 
-        CenterFillRatioLayout centerFillRatioLayout = new CenterFillRatioLayout();
+        RatioLayout centerFillRatioLayout = new RatioLayout();
         mainAreaWrapper.setLayout(centerFillRatioLayout);
         centerFillRatioLayout.setWidthHeightRatio((double) gameModel.getMapModel().getWidth() / gameModel.getMapModel().getHeight());
         mainAreaWrapper.add(gameMainArea.getJComponent());

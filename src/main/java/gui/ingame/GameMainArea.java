@@ -1,6 +1,6 @@
 package gui.ingame;
 
-import gui.CenterFillRatioLayout;
+import gui.RatioLayout;
 import gui.FillLayout;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;

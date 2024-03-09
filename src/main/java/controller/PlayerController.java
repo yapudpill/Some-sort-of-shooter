@@ -18,7 +18,7 @@ import model.ingame.weapon.ProjectileWeaponModel;
  * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.
  * To use it, add the KeyListener and MouseListener returned by getKeyListener() and getMouseListener() to a JContainer
  */
-public class PlayerSwingController {
+public class PlayerController {
     // Key bindings for player 1 using WASD keys
     // warning: these are for AZERTY keyboards only
     private static final Map<Integer, Coordinates> player1KeyDirectionMap = Map.of(
@@ -30,7 +30,7 @@ public class PlayerSwingController {
     private final PlayerModel controlledPlayerModel;
     private final GameMainArea gameMainArea;
 
-    public PlayerSwingController(PlayerModel controlledPlayerModel, GameMainArea gameMainArea) {
+    public PlayerController(PlayerModel controlledPlayerModel, GameMainArea gameMainArea) {
         this.controlledPlayerModel = controlledPlayerModel;
         this.gameMainArea = gameMainArea;
     }

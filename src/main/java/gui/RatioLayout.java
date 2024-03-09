@@ -11,7 +11,7 @@ import java.awt.LayoutManager;
  * <p>
  * It makes the components overlap, thus it is intended to be used with layers.
  */
-public class CenterFillRatioLayout implements LayoutManager {
+public class RatioLayout implements LayoutManager {
     private double widthHeightRatio;
     /**
      * Sets the width/height ratio that the components should keep.
