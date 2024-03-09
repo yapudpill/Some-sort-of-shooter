@@ -1,8 +1,6 @@
 package model.level;
 
 
-import model.level.Tiles.*;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,6 +9,7 @@ import java.util.List;
 
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
+import model.level.tiles.*;
 
 public class MapModel {
     private TileModel[][] tiles;

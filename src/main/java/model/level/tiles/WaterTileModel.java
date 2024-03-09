@@ -1,4 +1,4 @@
-package model.level.Tiles;
+package model.level.tiles;
 
 import model.ingame.entity.IVulnerableEntity;
 import model.level.TileModel;

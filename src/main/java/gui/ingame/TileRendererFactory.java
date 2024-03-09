@@ -4,10 +4,10 @@ import gui.ingame.tile.AbstractTileRenderer;
 import gui.ingame.tile.StandardTileRenderer;
 import gui.ingame.tile.VoidTileRenderer;
 import gui.ingame.tile.WaterTileRenderer;
-import model.level.Tiles.StandardTileModel;
 import model.level.TileModel;
-import model.level.Tiles.VoidTileModel;
-import model.level.Tiles.WaterTileModel;
+import model.level.tiles.StandardTileModel;
+import model.level.tiles.VoidTileModel;
+import model.level.tiles.WaterTileModel;
 
 public class TileRendererFactory {
     static public AbstractTileRenderer makeTileRenderer(TileModel tileModel) {

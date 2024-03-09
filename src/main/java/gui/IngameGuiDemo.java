@@ -8,8 +8,8 @@ import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.level.MapModel;
 import model.level.TileModel;
-import model.level.Tiles.StandardTileModel;
-import model.level.Tiles.WaterTileModel;
+import model.level.tiles.StandardTileModel;
+import model.level.tiles.WaterTileModel;
 
 public class IngameGuiDemo {
 
