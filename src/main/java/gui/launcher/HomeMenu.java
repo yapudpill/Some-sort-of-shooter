@@ -34,9 +34,9 @@ public class HomeMenu extends JPanel {
         constraints.gridy = 1;
 
         constraints.gridx = 0;
-        JButton levels = new JButton("Play");
-        levels.addActionListener(e -> controller.loadGame());
-        add(levels, constraints);
+        JButton play = new JButton("Play");
+        play.addActionListener(e -> controller.loadMapMenu());
+        add(play, constraints);
 
         constraints.gridx = 1;
         JButton exit = new JButton("Exit");

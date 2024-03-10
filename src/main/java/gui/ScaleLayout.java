@@ -11,10 +11,10 @@ import model.ingame.Coordinates;
  * A layout manager that applies a uniform scaling/homothety to all ScalableComponents of a container, according to a
  * ScaleSupplier.
  */
-public class ProportionalScalerLayout implements LayoutManager {
+public class ScaleLayout implements LayoutManager {
     private final ScaleSupplier scaleSupplier;
 
-    public ProportionalScalerLayout(ScaleSupplier scaleSupplier) {
+    public ScaleLayout(ScaleSupplier scaleSupplier) {
         this.scaleSupplier = scaleSupplier;
     }
 
