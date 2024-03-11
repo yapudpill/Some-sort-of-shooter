@@ -16,6 +16,8 @@
   - Les ennemis utilisent cette arme par défaut (on ne se fait plus instantanément tuer maintenant)
 
 ### Anthony :
+- Ajout d'un menu de sélection de carte.
+- Suppression de la démo temporaire, tout passe maintenant par les fichiers de carte
 
 ### Clément :
 
