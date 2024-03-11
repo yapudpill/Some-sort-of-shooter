@@ -43,7 +43,7 @@
 
 
 ## Objectifs pour la semaine prochaine :
-1. Intégration d'autres types d'ennemis et d'armes plus variés : Mohamed
+1. Implémentation du pathfinding en utilisant A* : Mohamed
 2. Intégration d'un menu pour la sélection de la carte : Anthony
 3. Implémentation d'un système de score : Clément
 4. Ajout d'une arme "couteau" permettant d'infliger des dégâts pendant un court
