@@ -11,6 +11,9 @@
     - Personnalisation de l'algorithme pour répondre aux besoins du jeu (exclusion de certains cas supplémentaires dans le parcours des voisins).
 
 ### Yacob :
+- Ajout d'une arme 'couteau' (branch feat/issue-26/knife-weapon)
+  - Création de l'arme "couteau" permettant d'infliger des dégâts pendant un court instant dans une petite zone (taille de la zone à calibrer)
+  - Les ennemis utilisent cette arme par défaut (on ne se fait plus instantanément tuer maintenant)
 
 ### Anthony :
 
@@ -23,8 +26,9 @@
 
 1. Ajout de 3 nouveaux ennemis, résolution du bug de la mise à jour du pathfinding : Mohamed.
 2. Intégration d'un système de score débloquant de nouvelles cartes en fonction du highscore : Anthony.
-3. Ajout de 2 nouvelles armes : Yacob.
-4. Écran de Game Over et version basique des paramètres : Clément.
+3. 4. Affichage d'un HUD pour indiquer les HP et l'arme possédée.
+4. Ajout de 2 nouvelles armes : Yacob.
+5. Écran de Game Over et version basique des paramètres : Clément.
 
 ### Tâches Non Prioritaires :
 6. Intégration du mode "Bullet Rain" : Yacob.
