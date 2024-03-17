@@ -37,7 +37,7 @@ public class EntitiesPaneLayer implements IUpdateable {
     }
 
     /**
-     * @return the JComponent of this layerq
+     * @return the JComponent of this layer
      */
     public JComponent getJComponent() {
         return entitiesPanel;
@@ -45,8 +45,10 @@ public class EntitiesPaneLayer implements IUpdateable {
 
     private void addRendererForEntity(IEntity entityModel) {
         AbstractEntityRenderer entityRenderer = EntityRendererFactory.makeEntityRenderer(entityModel);
-        entityModelRendererMap.put(entityModel, entityRenderer);
-        entitiesPanel.add(entityRenderer);
+        if (entityRenderer != null) {
+            entityModelRendererMap.put(entityModel, entityRenderer);
+            entitiesPanel.add(entityRenderer);
+        }
     }
 
     private void removeRendererOfEntity(IEntity entityModel) {

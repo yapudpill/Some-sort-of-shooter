@@ -8,6 +8,7 @@ import java.io.IOException;
 import gui.ImageCache;
 import model.ingame.Coordinates;
 import model.ingame.entity.WeaponEntity;
+import model.ingame.weapon.WeaponModel;
 
 public class WeaponRenderer extends AbstractEntityRenderer {
     public WeaponRenderer(WeaponEntity entityModel) {
@@ -22,12 +23,14 @@ public class WeaponRenderer extends AbstractEntityRenderer {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-                Image image;
+
+        Image image;
         try {
-            image = ImageCache.loadImage("/gui/ingame/pistol.png", PlayerRenderer.class);
+            image = ImageCache.loadImage(String.format("sprites/weapon/%s.png", ((WeaponEntity) entityModel).getWeapon().getIdentifier()), getClass());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 }

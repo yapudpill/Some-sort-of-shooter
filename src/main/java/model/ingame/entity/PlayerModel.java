@@ -19,4 +19,8 @@ public class PlayerModel extends CombatEntityModel {
         movementHandler.setSpeed(0.09);
     }
 
+    @Override
+    public boolean shouldPickWeapons() {
+        return true;
+    }
 }

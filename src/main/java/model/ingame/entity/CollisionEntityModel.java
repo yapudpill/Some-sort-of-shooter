@@ -61,5 +61,4 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     private void setColisionBox(double x, double y) {
         collisionBox.setRect(x, y, collisionBox.getWidth(), collisionBox.getHeight());
     }
-
 }
