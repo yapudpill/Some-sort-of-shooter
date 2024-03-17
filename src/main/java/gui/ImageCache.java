@@ -1,11 +1,12 @@
 package gui;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 public class ImageCache {
     private static final Map<String, Image> cache = new HashMap<>();

@@ -2,17 +2,17 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import model.ingame.weapon.ProjectileWeaponModel;
+import model.ingame.weapon.WeaponModel;
 
 public class WeaponEntity extends CollisionEntityModel {
-    private final ProjectileWeaponModel weapon;
+    private final WeaponModel weapon;
 
-    public WeaponEntity(Coordinates pos, ProjectileWeaponModel weapon, GameModel gameModel) {
+    public WeaponEntity(Coordinates pos, WeaponModel weapon, GameModel gameModel) {
         super(pos, 0.5, 0.5, gameModel);
         this.weapon = weapon;
     }
 
-    public ProjectileWeaponModel getWeapon() {
+    public WeaponModel getWeapon() {
         return weapon;
     }
 }

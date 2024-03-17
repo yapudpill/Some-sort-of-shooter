@@ -5,26 +5,30 @@ import java.util.Random;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
+import model.ingame.weapon.KnifeWeapon;
 
-public class WalkingEnemyModel extends CreatureModel {
+public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;
     Random rng = new Random();
 
     public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
         super(50, 0.8, 0.8, gameModel);
         this.player = gameModel.getPlayer();
-        movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(0.03);
         this.pos = pos;
-
+        movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, gameModel.getPhysicsEngine());
+        movementHandler.setSpeed(0.01);
+        //addCollisionListener(new DamageListener(10)); //TODO: damages should not be hard coded
         addCollisionListener(e -> {
-            if (e.getSource() != this) return;
-            for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
-                if (entity instanceof PlayerModel p) {
-                    p.takeDamage(10); //TODO: should not be hard coded
-                }
+            if (e.getSource() instanceof PlayerModel) {
+                attack();
             }
         });
+        setWeapon(new KnifeWeapon(this, gameModel));
+    }
+
+    @Override
+    public boolean canApplyEffect(IVulnerableEntity target) {
+        return target instanceof PlayerModel;
     }
 
     @Override

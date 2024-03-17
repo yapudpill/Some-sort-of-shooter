@@ -1,8 +1,8 @@
 package controller;
 
-import model.ingame.IUpdateable;
+import javax.swing.Timer;
 
-import javax.swing.*;
+import model.ingame.IUpdateable;
 
 /*
  * This class manages the game loop, implementing a straightforward loop that invokes an updater method every FRAME_TIME

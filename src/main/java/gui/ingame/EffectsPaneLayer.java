@@ -1,7 +1,9 @@
 package gui.ingame;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class EffectsPaneLayer extends JPanel {
     public EffectsPaneLayer() {

@@ -12,13 +12,13 @@ import java.util.Map;
 import gui.ingame.GameMainArea;
 import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
-import model.ingame.weapon.ProjectileWeaponModel;
+import model.ingame.weapon.WeaponModel;
 
 /**
  * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.
  * To use it, add the KeyListener and MouseListener returned by getKeyListener() and getMouseListener() to a JContainer
  */
-public class PlayerSwingController {
+public class PlayerController {
     // Key bindings for player 1 using WASD keys
     // warning: these are for AZERTY keyboards only
     private static final Map<Integer, Coordinates> player1KeyDirectionMap = Map.of(
@@ -31,7 +31,7 @@ public class PlayerSwingController {
     private final GameMainArea gameMainArea;
     ArrayList<Integer> heldKeys = new ArrayList<>();
 
-    public PlayerSwingController(PlayerModel controlledPlayerModel, GameMainArea gameMainArea) {
+    public PlayerController(PlayerModel controlledPlayerModel, GameMainArea gameMainArea) {
         this.controlledPlayerModel = controlledPlayerModel;
         this.gameMainArea = gameMainArea;
     }
@@ -86,7 +86,7 @@ public class PlayerSwingController {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (getPlayer1KeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
-                    ProjectileWeaponModel weapon = controlledPlayerModel.getWeapon();
+                    WeaponModel weapon = controlledPlayerModel.getWeapon();
                     if(weapon != null) weapon.setDirectionVector(new Coordinates(e.getX()/gameMainArea.getScale() - controlledPlayerModel.getPos().x, e.getY()/gameMainArea.getScale() - controlledPlayerModel.getPos().y));
                     getPlayer1KeyActionMap(controlledPlayerModel).get(e.getButton()).performAction();
                 }

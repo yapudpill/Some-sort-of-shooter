@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import gui.ProportionalScalerLayout;
+import gui.ScaleLayout;
 import gui.ScaleSupplier;
 import gui.ingame.entity.AbstractEntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
@@ -21,14 +21,14 @@ public class EntitiesPaneLayer implements IUpdateable {
     private final JPanel entitiesPanel;
 
     private final Set<IEntity> entityModelSet;
-    private final ProportionalScalerLayout scaleLayout;
+    private final ScaleLayout scaleLayout;
 
     private final Map<IEntity, AbstractEntityRenderer> entityModelRendererMap = new ConcurrentHashMap<>();
 
     public EntitiesPaneLayer(Set<IEntity> entityModelSet, ScaleSupplier scaleSupplier) {
         this.entityModelSet = entityModelSet;
         this.entitiesPanel = new JPanel();
-        this.scaleLayout = new ProportionalScalerLayout(scaleSupplier);
+        this.scaleLayout = new ScaleLayout(scaleSupplier);
         this.entitiesPanel.setLayout(scaleLayout);
         entitiesPanel.setOpaque(false);
         // add button to the panel
@@ -37,7 +37,7 @@ public class EntitiesPaneLayer implements IUpdateable {
     }
 
     /**
-     * @return the JComponent of this layerq
+     * @return the JComponent of this layer
      */
     public JComponent getJComponent() {
         return entitiesPanel;
@@ -45,8 +45,10 @@ public class EntitiesPaneLayer implements IUpdateable {
 
     private void addRendererForEntity(IEntity entityModel) {
         AbstractEntityRenderer entityRenderer = EntityRendererFactory.makeEntityRenderer(entityModel);
-        entityModelRendererMap.put(entityModel, entityRenderer);
-        entitiesPanel.add(entityRenderer);
+        if (entityRenderer != null) {
+            entityModelRendererMap.put(entityModel, entityRenderer);
+            entitiesPanel.add(entityRenderer);
+        }
     }
 
     private void removeRendererOfEntity(IEntity entityModel) {
