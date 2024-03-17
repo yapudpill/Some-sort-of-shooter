@@ -4,13 +4,14 @@ import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 
 
-
 public class ModelTimer implements IUpdateable {
-    private GameModel gameModel;
     private final Runnable runnable;
-    private int timer;
     private final int timerDuration;
+    private GameModel gameModel;
+    private int timer;
     private boolean repeats = true;
+
+    private boolean isRunning = false;
 
 
     public ModelTimer(int timerDuration, Runnable runnable, GameModel gameModel) {
@@ -24,23 +25,27 @@ public class ModelTimer implements IUpdateable {
         timer--;
         if (timer <= 0) {
             runnable.run();
-            if(repeats) timer = timerDuration;
-            else gameModel.detachAsUpdateable(this);
+            if (repeats) timer = timerDuration;
+            else stop();
         }
     }
 
     public void start() {
         timer = timerDuration;
+        isRunning = true;
         gameModel.attachAsUpdateable(this);
     }
 
     public void stop() {
         gameModel.detachAsUpdateable(this);
+        isRunning = false;
     }
 
     public void setRepeats(boolean repeats) {
         this.repeats = repeats;
     }
 
-
+    public boolean isRunning() {
+        return isRunning;
+    }
 }

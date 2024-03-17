@@ -7,7 +7,7 @@ import model.ingame.physics.DamageListener;
 public class PistolModel extends ProjectileWeaponModel{
 
     public PistolModel(IEntity owner, GameModel gameModel) {
-        super("Pistol", gameModel, owner, 60);
+        super("Pistol", "pistol", gameModel, owner, 60);
     }
 
     @Override

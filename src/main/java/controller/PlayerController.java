@@ -13,6 +13,7 @@ import gui.ingame.GameMainArea;
 import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
 import model.ingame.weapon.ProjectileWeaponModel;
+import model.ingame.weapon.WeaponModel;
 
 /**
  * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.
@@ -86,7 +87,7 @@ public class PlayerController {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (getPlayer1KeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
-                    ProjectileWeaponModel weapon = controlledPlayerModel.getWeapon();
+                    WeaponModel weapon = controlledPlayerModel.getWeapon();
                     if(weapon != null) weapon.setDirectionVector(new Coordinates(e.getX()/gameMainArea.getScale() - controlledPlayerModel.getPos().x, e.getY()/gameMainArea.getScale() - controlledPlayerModel.getPos().y));
                     getPlayer1KeyActionMap(controlledPlayerModel).get(e.getButton()).performAction();
                 }

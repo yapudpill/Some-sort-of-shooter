@@ -6,10 +6,12 @@ import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 import model.ingame.entity.WeaponEntity;
 
+import java.util.List;
 import java.util.Random;
 
 public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
     final static public int WEAPON_SPAWN_COOLDOWN = 5 * 60; // 5 seconds, i.e. 5 * 60 ticks
+    final static public List<WeaponFactory> availableWeaponsFactories = List.of(PistolModel::new, KnifeWeapon::new);
     Random rng = new Random();
     double spawnCooldown = 0;
 
@@ -48,6 +50,8 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
 
     @Override
     protected WeaponEntity makeEntity(double x, double y) {
-        return new WeaponEntity(new Coordinates(x, y), new PistolModel(null, gameModel), gameModel);
+        WeaponModel weapon = availableWeaponsFactories.get(rng.nextInt(availableWeaponsFactories.size())).createWeapon(null, gameModel);
+        System.out.println("spawning : " + weapon);
+        return new WeaponEntity(new Coordinates(x, y), weapon, gameModel);
     }
 }
