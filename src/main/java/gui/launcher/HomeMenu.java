@@ -11,12 +11,11 @@ import controller.MainController;
 
 public class HomeMenu extends JPanel {
 
-    public HomeMenu(MainController controller) {
+    public HomeMenu(MainController mainController) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
         // Global constraints
-        constraints.fill = GridBagConstraints.BOTH;
         constraints.weightx = 1;
         constraints.weighty = 1;
 
@@ -25,22 +24,21 @@ public class HomeMenu extends JPanel {
 
         constraints.gridx = 0;
         constraints.gridwidth = 2;
-        JLabel title = new JLabel("SOME SORT OF SHOOTER");
-        title.setHorizontalAlignment(JLabel.CENTER);
-        add(title, constraints);
+        add(new JLabel("SOME SORT OF SHOOTER"), constraints);
         constraints.gridwidth = 1;
 
         // Second line
         constraints.gridy = 1;
+        constraints.fill = GridBagConstraints.BOTH;
 
         constraints.gridx = 0;
         JButton play = new JButton("Play");
-        play.addActionListener(e -> controller.loadMapMenu());
+        play.addActionListener(e -> mainController.loadMapMenu());
         add(play, constraints);
 
         constraints.gridx = 1;
-        JButton exit = new JButton("Exit");
-        exit.addActionListener(e -> controller.closeWindow());
-        add(exit, constraints);
+        JButton quit = new JButton("Quit");
+        quit.addActionListener(e -> mainController.closeWindow());
+        add(quit, constraints);
     }
 }

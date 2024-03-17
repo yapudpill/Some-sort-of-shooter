@@ -3,6 +3,7 @@ package controller;
 import java.awt.EventQueue;
 
 import gui.MainFrame;
+import gui.launcher.EndMenu;
 import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
 
@@ -26,6 +27,10 @@ public class MainController {
         GameController gameController = new GameController(this, mapName);
         mainFrame.loadMenu(gameController.gameView);
         EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
+    }
+
+    public void loadEndMenu() {
+        mainFrame.loadMenu(new EndMenu(this));
     }
 
     public void closeWindow() {
