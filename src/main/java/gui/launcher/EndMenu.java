@@ -8,10 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.MainController;
+import model.ingame.Statistics;
 
 public class EndMenu extends JPanel {
 
-    public EndMenu(MainController mainController) {
+    public EndMenu(MainController mainController, Statistics stats) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -30,8 +31,7 @@ public class EndMenu extends JPanel {
         constraints.gridy = 1;
         constraints.gridx = 0;
         constraints.gridwidth = 4;
-        // TODO: stats
-        add(new JLabel("You killed X ennemies and other stats..."), constraints);
+        add(new StatsPanel(stats), constraints);
         constraints.gridwidth = 1;
 
         // Menu and replay (row 2)
@@ -46,8 +46,7 @@ public class EndMenu extends JPanel {
 
         constraints.gridx = 2;
         JButton replay = new JButton("Replay");
-        // TODO: replay
-        replay.addActionListener(e -> mainController.loadHomeMenu());
+        replay.addActionListener(e -> mainController.loadGame(stats.mapName));
         add(replay, constraints);
 
         constraints.gridwidth = 1;

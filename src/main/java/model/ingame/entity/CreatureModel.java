@@ -37,9 +37,10 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
 
     @Override
     public void update(){
-        if(isDead()){
+        if(isDead()) {
             gameModel.detachAsUpdateable(this);
             gameModel.removeEntity(this);
+            gameModel.stats.killedEnemies++;
         }
         movementHandler.update();
     }

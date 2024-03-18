@@ -13,6 +13,7 @@ import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.MapModel;
 
 public class GameModel implements IUpdateable {
+    public final Statistics stats;
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;
     private final PlayerModel player;
@@ -24,6 +25,7 @@ public class GameModel implements IUpdateable {
 
 
     public GameModel(String mapName) {
+        stats = new Statistics(mapName);
         map = new MapModel(mapName);
         physicsEngine = new PhysicsEngineModel(map);
         player = new PlayerModel(this);
@@ -35,6 +37,7 @@ public class GameModel implements IUpdateable {
 
     @Override
     public void update() {
+        stats.survivedFrames++;
         for (IUpdateable updateable : updateables) updateable.update();
         System.out.println(player.getMovementHandler().getDirectionVector());
         if(player.isDead()){

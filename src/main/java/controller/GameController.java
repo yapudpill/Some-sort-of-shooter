@@ -30,7 +30,7 @@ public class GameController {
         } else {
             modelLoop.stop();
             viewLoop.stop();
-            mainController.loadEndMenu();
+            mainController.loadEndMenu(gameModel.stats);
         }
     }
 }

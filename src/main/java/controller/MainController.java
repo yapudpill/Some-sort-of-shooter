@@ -6,6 +6,7 @@ import gui.MainFrame;
 import gui.launcher.EndMenu;
 import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
+import model.ingame.Statistics;
 
 public class MainController {
     private final MainFrame mainFrame;
@@ -29,8 +30,8 @@ public class MainController {
         EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
     }
 
-    public void loadEndMenu() {
-        mainFrame.loadMenu(new EndMenu(this));
+    public void loadEndMenu(Statistics stats) {
+        mainFrame.loadMenu(new EndMenu(this, stats));
     }
 
     public void closeWindow() {
