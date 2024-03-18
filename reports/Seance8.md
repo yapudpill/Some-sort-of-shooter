@@ -20,6 +20,5 @@
 ## Objectifs pour la Semaine Prochaine :
 
 1. Rajouter une projectile à tête chercheuse : Mohamed.
-
-### Tâches Non Prioritaires :
-6. Intégration du mode "Bullet Rain" : Yacob.
+2. Intégration du mode "Bullet Rain" (probablement après les projectiles à tête chercheuse): Yacob
+3. Retravail du moteur de physique pour permettre des deplacements "en glissant" contre les murs: Yacob
