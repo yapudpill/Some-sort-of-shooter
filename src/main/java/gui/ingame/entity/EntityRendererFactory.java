@@ -1,6 +1,10 @@
 package gui.ingame.entity;
 
-import model.ingame.entity.*;
+import model.ingame.entity.AttachedDamageZoneEntity;
+import model.ingame.entity.IEntity;
+import model.ingame.entity.PlayerModel;
+import model.ingame.entity.WalkingEnemyModel;
+import model.ingame.entity.WeaponEntity;
 import model.ingame.weapon.ProjectileModel;
 
 public class EntityRendererFactory {

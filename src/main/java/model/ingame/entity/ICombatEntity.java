@@ -1,6 +1,5 @@
 package model.ingame.entity;
 
-import model.ingame.weapon.ProjectileWeaponModel;
 import model.ingame.weapon.WeaponModel;
 
 public interface ICombatEntity extends IMobileEntity, IVulnerableEntity{

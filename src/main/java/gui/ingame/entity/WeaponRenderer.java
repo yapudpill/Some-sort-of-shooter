@@ -8,7 +8,6 @@ import java.io.IOException;
 import gui.ImageCache;
 import model.ingame.Coordinates;
 import model.ingame.entity.WeaponEntity;
-import model.ingame.weapon.WeaponModel;
 
 public class WeaponRenderer extends AbstractEntityRenderer {
     public WeaponRenderer(WeaponEntity entityModel) {

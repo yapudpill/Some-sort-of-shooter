@@ -3,7 +3,6 @@ package model.ingame.entity;
 import java.util.Random;
 
 import model.ingame.Coordinates;
-import model.ingame.physics.DamageListener;
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.weapon.KnifeWeapon;

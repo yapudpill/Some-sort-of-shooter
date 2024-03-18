@@ -12,7 +12,6 @@ import java.util.Map;
 import gui.ingame.GameMainArea;
 import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
-import model.ingame.weapon.ProjectileWeaponModel;
 import model.ingame.weapon.WeaponModel;
 
 /**
