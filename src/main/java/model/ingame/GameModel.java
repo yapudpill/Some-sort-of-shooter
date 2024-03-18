@@ -39,7 +39,7 @@ public class GameModel implements IUpdateable {
         this.player = new PlayerModel(this);
         entityModelList.add(player);
         updateables.add(player);
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new SmartEnemySpawner(this)), 1*60);
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new EnemySpawnerModel(this), new SmartEnemySpawner(this)), 5*60);
         mainSpawner.start();
         WalkingEnemyModel.setPathFinder(new FloodFillPathFinder(this, 7));
         SmartEnemyModel.setPathFinder(new FloodFillPathFinder(this, 7));
@@ -104,9 +104,10 @@ public class GameModel implements IUpdateable {
         updateables.clear();
         isRunning = true;
         player.reset();
+        map.reset();
         entityModelList.add(player);
         updateables.add(player);
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new SmartEnemySpawner(this)), 1*60);
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new EnemySpawnerModel(this), new SmartEnemySpawner(this)), 5*60);
         mainSpawner.start();
     }
 }

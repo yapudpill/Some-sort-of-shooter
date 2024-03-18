@@ -75,4 +75,12 @@ public class MapModel {
     public void applyTileEnterEffect(IEntity entity, int x, int y) {
         getTile(x, y).applyEnterEffect(entity);
     }
+
+    public void reset(){
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[0].length; j++) {
+                tiles[i][j].reset();
+            }
+        }
+    }
 }

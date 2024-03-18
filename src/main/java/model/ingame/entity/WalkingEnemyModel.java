@@ -1,11 +1,14 @@
 package model.ingame.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandlerModel;
+import model.level.MapModel;
 
 public class WalkingEnemyModel extends CreatureModel {
     private final PlayerModel player;
@@ -34,12 +37,24 @@ public class WalkingEnemyModel extends CreatureModel {
 
     @Override
     public void update() {
-        pathFinder.setTarget(player.getPos());
+        pathFinder.setTargets(getCurrentTargetTiles());
         if(!pathFinder.isRunning()) pathFinder.start();
-        System.out.println(pathFinder.getTargets());
         Coordinates lowestCoord = pathFinder.getLowestNodeAround((int) pos.x, (int) pos.y);
-        System.out.println(lowestCoord);
         if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates( lowestCoord.x - pos.x, lowestCoord.y - pos.y));
         super.update();
+    }
+
+    public List<Coordinates> getCurrentTargetTiles(){
+        PlayerModel player = gameModel.getPlayer();
+        Coordinates playerPos = player.getPos();
+        List<Coordinates> res = new ArrayList<>();
+        MapModel mapModel = gameModel.getMapModel();
+         for(int i = 0; i < 3; i++){
+            if(mapModel.isWalkableAt((int) playerPos.x - 1, (int) playerPos.y - 1 + i)){
+                res.add(new Coordinates((int) playerPos.x - 1, (int) playerPos.y - 1 + i));
+            }
+        }
+        res.add(player.getPos());
+        return res;
     }
 }

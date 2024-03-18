@@ -75,7 +75,7 @@ public class FloodFillPathFinder {
                 if (Math.abs(i) == Math.abs(j)) continue;
                 int newX = x + i;
                 int newY = y + j;
-                if (isValidCoordinate(newX, newY) && nodeGrid.getNode(newX, newY).getValue() < lowestValue && nodeGrid.getNode(newX, newY).getValue() != 0d) {
+                if (isValidCoordinate(newX, newY) && nodeGrid.getNode(newX, newY).getValue() < lowestValue && nodeGrid.getNode(newX, newY).getValue() != 0) {
                     lowestValue = nodeGrid.getNode(newX, newY).getValue();
                     lowestPos = nodeGrid.getNode(newX, newY).getCoordinates();
                 }

@@ -35,7 +35,6 @@ public class SmartEnemyModel extends CreatureModel {
 
     public static void setPathFinder(FloodFillPathFinder pathFinder) {
         SmartEnemyModel.pathFinder = pathFinder;
-        pathFinder.reachTarget(false);
     }
 
     @Override
@@ -47,55 +46,18 @@ public class SmartEnemyModel extends CreatureModel {
         super.update();
     }
 
-    public List<Coordinates> getCurrentTargetTiles() {
-        // attack from the top, meaning the tile below are forbidden
-        Coordinates playerPos = player.getPos();
-        MapModel mapModel = gameModel.getMapModel();
-        List<Coordinates> res = new ArrayList<>();
-        switch(attackDirection){
-            case 0 :
-                if(!mapModel.isOutOfBounds((int) playerPos.x, (int) playerPos.y +1)){
-                    for(int i = 0; i < 3; i++){
-                        if(mapModel.isWalkableAt((int) playerPos.x - 1 + i, (int) playerPos.y + 1)){
-                            res.add(new Coordinates((int) playerPos.x - 1 + i, (int) playerPos.y + 1));
-                            break;
-                        }
-                    }
+        public List<Coordinates> getCurrentTargetTiles(){
+            PlayerModel player = gameModel.getPlayer();
+            Coordinates playerPos = player.getPos();
+            List<Coordinates> res = new ArrayList<>();
+            MapModel mapModel = gameModel.getMapModel();
+            for(int i = 0; i < 3; i++){
+                if(mapModel.isWalkableAt((int) playerPos.x + 1, (int) playerPos.y - 1 + i)){
+                    res.add(new Coordinates((int) playerPos.x + 1, (int) playerPos.y - 1 + i));
                 }
-                break;
-            case 1:
-                if(!mapModel.isOutOfBounds((int) playerPos.x - 1, (int) playerPos.y)){
-                    for(int i = 0; i < 3; i++){
-                        if(mapModel.isWalkableAt((int) playerPos.x - 1, (int) playerPos.y - 1 + i)){
-                            res.add(new Coordinates((int) playerPos.x - 1, (int) playerPos.y - 1 + i));
-                            break;
-                        }
-                    }
-                }
-                break;
-            case 2:
-                if(!mapModel.isOutOfBounds((int) playerPos.x, (int) playerPos.y - 1)){
-                    for(int i = 0; i < 3; i++){
-                        if(mapModel.isWalkableAt((int) playerPos.x - 1 + i, (int) playerPos.y - 1)){
-                            res.add(new Coordinates((int) playerPos.x - 1 + i, (int) playerPos.y - 1));
-                            break;
-                        }
-                    }
-                }
-                break;
-            case 3:
-                if(!mapModel.isOutOfBounds((int) playerPos.x + 1, (int) playerPos.y)){
-                    for(int i = 0; i < 3; i++){
-                        if(mapModel.isWalkableAt((int) playerPos.x + 1, (int) playerPos.y - 1 + i)){
-                            res.add(new Coordinates((int) playerPos.x + 1, (int) playerPos.y - 1 + i));
-                            break;
-                        }
-                    }
-
-                }
-                break;
+            }
+            res.add(playerPos);
+            return res;
         }
-        if(res.isEmpty()) res.add(playerPos);
-        return res;
-    }
+
 }
