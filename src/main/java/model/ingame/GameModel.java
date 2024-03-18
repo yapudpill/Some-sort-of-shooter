@@ -1,6 +1,7 @@
 package model.ingame;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -8,8 +9,13 @@ import model.ingame.entity.EnemySpawnerModel;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
+import model.ingame.entity.RandomSpawnerModel;
+import model.ingame.entity.SmartEnemyModel;
+import model.ingame.entity.SmartEnemySpawner;
+import model.ingame.entity.WalkingEnemyModel;
+import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
-import model.ingame.weapon.RandomWeaponSpawner;
+import model.ingame.weapon.WeaponSpawner;
 import model.level.MapModel;
 
 public class GameModel implements IUpdateable {
@@ -33,14 +39,15 @@ public class GameModel implements IUpdateable {
         this.player = new PlayerModel(this);
         entityModelList.add(player);
         updateables.add(player);
-        updateables.add(new RandomWeaponSpawner(this));
-        updateables.add(new EnemySpawnerModel(this));
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new SmartEnemySpawner(this)), 1*60);
+        mainSpawner.start();
+        WalkingEnemyModel.setPathFinder(new FloodFillPathFinder(this, 7));
+        SmartEnemyModel.setPathFinder(new FloodFillPathFinder(this, 7));
     }
 
     @Override
     public void update() {
         for (IUpdateable updateable : updateables) updateable.update();
-        System.out.println(player.getMovementHandler().getDirectionVector());
         if(player.isDead()){
             isRunning = false;
         }
@@ -88,6 +95,10 @@ public class GameModel implements IUpdateable {
         return isRunning;
     }
 
+    public boolean isAttachedAsUpdateable(IUpdateable updateable) {
+        return updateables.contains(updateable);
+    }
+
     public void reset() {
         entityModelList.clear();
         updateables.clear();
@@ -95,7 +106,7 @@ public class GameModel implements IUpdateable {
         player.reset();
         entityModelList.add(player);
         updateables.add(player);
-        updateables.add(new RandomWeaponSpawner(this));
-        updateables.add(new EnemySpawnerModel(this));
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new SmartEnemySpawner(this)), 1*60);
+        mainSpawner.start();
     }
 }

@@ -50,7 +50,12 @@ public class MainController {
                 tiles[i][j] = new StandardTileModel();
             }
         }
+        tiles[3][2] = new WaterTileModel();
         tiles[3][3] = new WaterTileModel();
+        tiles[3][4] = new WaterTileModel();
+        tiles[3][5] = new WaterTileModel();
+        tiles[3][6] = new WaterTileModel();
+
 
         MapModel mapModel = new MapModel(10, 5, tiles);
         GameModel gameModel = new GameModel(mapModel);

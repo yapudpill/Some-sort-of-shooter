@@ -42,5 +42,8 @@ public class ModelTimer implements IUpdateable {
         this.repeats = repeats;
     }
 
+    public boolean isRunning() {
+        return gameModel.isAttachedAsUpdateable(this);
+    }
 
 }

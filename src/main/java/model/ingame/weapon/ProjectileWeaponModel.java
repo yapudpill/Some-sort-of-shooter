@@ -49,7 +49,6 @@ public abstract class ProjectileWeaponModel {
         IProjectile projectile = createProjectile();
         projectile.setPos(new Coordinates(owner.getPos()));
         projectile.setSourceWeapon(this);
-        System.out.println("Direction vector: " + directionVector.toString());
         projectile.getMovementHandler().setDirectionVector(this.directionVector);
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);

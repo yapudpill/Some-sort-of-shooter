@@ -1,5 +1,8 @@
 package model.ingame.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.IMovementHandler;
@@ -52,4 +55,5 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     public void reset(){
         health = maxHealth;
     }
+
 }
