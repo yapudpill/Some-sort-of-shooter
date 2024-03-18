@@ -16,9 +16,13 @@
 - Adaptation du modèle aux modifications.
 - Ajout d'un sprite pour le nouvel ennemi.
 
+### Anthony :
+- Création d'un menu de game over
+- Ajout de quelques statistiques affichées en fin de partie
 
 ## Objectifs pour la Semaine Prochaine :
 
 1. Rajouter une projectile à tête chercheuse : Mohamed.
 2. Intégration du mode "Bullet Rain" (probablement après les projectiles à tête chercheuse): Yacob
 3. Retravail du moteur de physique pour permettre des deplacements "en glissant" contre les murs: Yacob
+4. Éditeur de map permettant d'exporter au format texte des maps crées graphiquement : Anthony
