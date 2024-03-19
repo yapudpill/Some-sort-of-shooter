@@ -16,7 +16,7 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
                         if (weaponEntity.getWeapon() != null) {
                             setWeapon(weaponEntity.getWeapon());
                             weapon.setOwner(this);
-                            // TODO: make the WeaponEntity disappear
+                            weaponEntity.despawn();
                         }
                     }
                 }

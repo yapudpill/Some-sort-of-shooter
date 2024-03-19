@@ -8,7 +8,7 @@ import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 
 public class EnemySpawnerModel extends EntitySpawner implements IUpdateable {
-    final static public int ENEMY_SPAWN_COOLDOWN = 15 * 60; // 15 seconds, i.e. 15 * 60 ticks
+    final static public int ENEMY_SPAWN_COOLDOWN = 5 * 60; // 15 seconds, i.e. 15 * 60 ticks
     Random rng = new Random();
     double spawnCooldown = 0;
 

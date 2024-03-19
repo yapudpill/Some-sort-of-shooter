@@ -25,11 +25,7 @@ public class AttachedDamageZoneEntity extends CollisionEntityModel implements IU
     }
 
     // FIXME: make this available for all entities
-    void despawn() {
-        gameModel.getEntitySet().remove(this);
-        gameModel.detachAsUpdateable(this);
-        gameModel.getMapModel().removeCollidableAt(this, (int) pos.x, (int) pos.y);
-    }
+
 
     @Override
     public void update() {

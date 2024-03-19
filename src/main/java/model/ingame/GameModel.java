@@ -10,6 +10,7 @@ import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
 import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
+import model.ingame.weapon.RocketLauncher;
 import model.level.MapModel;
 
 public class GameModel implements IUpdateable {
