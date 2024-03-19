@@ -19,6 +19,10 @@ public abstract class AbstractEntityRenderer extends JComponent implements IUpda
         // TODO
     }
 
+    public Coordinates getOriginalSize() {
+        return new Coordinates(entityModel.getWidth(), entityModel.getHeight());
+    }
+
     @Override
     public Coordinates getOriginalPosition() {
         // We translate the position so that the entity sprite is centered around its true position

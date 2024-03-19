@@ -15,10 +15,6 @@ public class PlayerRenderer extends AbstractEntityRenderer {
         super(entityModel);
     }
 
-    @Override
-    public Coordinates getOriginalSize() {
-        return new Coordinates(entityModel.getWidth(), entityModel.getHeight());
-    }
 
     @Override
     protected void paintComponent(Graphics g) {

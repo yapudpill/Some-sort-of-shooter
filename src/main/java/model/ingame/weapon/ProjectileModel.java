@@ -5,6 +5,7 @@ import model.ingame.GameModel;
 import model.ingame.entity.CollisionEntityModel;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.physics.IMovementHandler;
+import model.ingame.physics.MovementHandlerModel;
 
 public abstract class ProjectileModel extends CollisionEntityModel implements IProjectile {
     protected final ProjectileWeaponModel sourceWeapon;
@@ -17,6 +18,7 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
         this.damage = damage;
         this.sourceWeapon = source;
         this.active = true;
+        this.movementHandler = new MovementHandlerModel<ProjectileModel>(this, gameModel.getPhysicsEngine());
     }
 
     @Override
