@@ -15,11 +15,12 @@ import model.level.MapModel;
 public class GameMainArea extends JLayeredPane implements IUpdateable {
     private static final Integer TILES_LAYER = 0;
     private static final Integer ENTITIES_LAYER = 10;
-    private static final Integer HUD_LAYER = 20;
+    private static final Integer HUD_LAYER = 30;
 
     private final MapBackgroundPaneLayer mapBackgroundPaneLayer;
     private final EntitiesPaneLayer entitiesPaneLayer;
     private final EffectsPaneLayer effectsPaneLayer;
+    private final GameHUDLayer gameHUDLayer;
 
     private final int mapWidth, mapHeight;
 
@@ -30,16 +31,17 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
         mapBackgroundPaneLayer = new MapBackgroundPaneLayer(map, this::getScale);
         entitiesPaneLayer = new EntitiesPaneLayer(gameModel.getEntitySet(), this::getScale);
         effectsPaneLayer = new EffectsPaneLayer();
+        gameHUDLayer = new GameHUDLayer(gameModel.getPlayer(), this::getScale);
 
         // debug
         setBackground(Color.CYAN);
         setOpaque(true);
 
         setLayout(new FillLayout());
-        // setLayout(new FlowLayout()); // Make the layered panes take all the space
         add(mapBackgroundPaneLayer.getJComponent(), TILES_LAYER);
         add(entitiesPaneLayer.getJComponent(), ENTITIES_LAYER);
-        add(effectsPaneLayer, HUD_LAYER);
+        // add(effectsPaneLayer, HUD_LAYER);
+        add(gameHUDLayer, HUD_LAYER);
     }
 
     /**
@@ -55,5 +57,6 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
     public void update() {
         mapBackgroundPaneLayer.update();
         entitiesPaneLayer.update();
+        gameHUDLayer.update();
     }
 }
