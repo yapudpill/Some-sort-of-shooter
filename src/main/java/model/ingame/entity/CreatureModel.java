@@ -1,5 +1,8 @@
 package model.ingame.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.IMovementHandler;
@@ -40,6 +43,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
         if(isDead()){
             gameModel.detachAsUpdateable(this);
             gameModel.removeEntity(this);
+            gameModel.getMapModel().removeCollidableAt(this,(int) pos.x, (int) pos.y);
         }
         movementHandler.update();
     }
@@ -48,4 +52,9 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     public boolean isDead() {
         return health <= 0;
     }
+
+    public void reset(){
+        health = maxHealth;
+    }
+
 }

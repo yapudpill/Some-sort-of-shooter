@@ -8,36 +8,31 @@ import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandlerModel;
-import model.ingame.weapon.KnifeWeapon;
-
 import model.level.MapModel;
 
-public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
+public class SmartEnemyModel extends CreatureModel {
     private final PlayerModel player;
     private static FloodFillPathFinder pathFinder;
 
-    public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
+    public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
         super(50, 0.8, 0.8, gameModel);
         this.player = gameModel.getPlayer();
+        movementHandler = new MovementHandlerModel<SmartEnemyModel>(this, gameModel.getPhysicsEngine());
+        movementHandler.setSpeed(0.06);
         this.pos = pos;
-        movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(0.01);
-        //addCollisionListener(new DamageListener(10)); //TODO: damages should not be hard coded
+
         addCollisionListener(e -> {
-            if (e.getSource() instanceof PlayerModel) {
-                attack();
+            if (e.getSource() != this) return;
+            for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
+                if (entity instanceof PlayerModel p) {
+                    p.takeDamage(20); //TODO: should not be hard coded
+                }
             }
         });
-        setWeapon(new KnifeWeapon(this, gameModel));
-    }
-
-    @Override
-    public boolean canApplyEffect(IVulnerableEntity target) {
-        return target instanceof PlayerModel;
     }
 
     public static void setPathFinder(FloodFillPathFinder pathFinder) {
-        WalkingEnemyModel.pathFinder = pathFinder;
+        SmartEnemyModel.pathFinder = pathFinder;
     }
 
     @Override

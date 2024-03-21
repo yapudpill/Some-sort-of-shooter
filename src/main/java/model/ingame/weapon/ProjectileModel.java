@@ -59,4 +59,5 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     public ProjectileWeaponModel getSourceWeapon() {
         return sourceWeapon;
     }
+
 }

@@ -55,6 +55,12 @@ public class Coordinates {
         return new Coordinates(x * scalar, y * scalar);
     }
 
+    public boolean isInCenter() {
+        double centerX = (int) x + 0.5;
+        double centerY = (int) y + 0.5;
+        return Math.abs(x- centerX) < 0.1 && Math.abs(y - centerY) < 0.1;
+    }
+
     public boolean isZero(){
         return x == 0 && y == 0;
     }

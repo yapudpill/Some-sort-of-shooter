@@ -38,4 +38,7 @@ public abstract class TileModel implements ITileModel {
         return collidables;
     }
 
+    public void reset() {
+        collidables.clear();
+    }
 }
