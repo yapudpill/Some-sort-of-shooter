@@ -23,7 +23,6 @@ public class FloodFillPathFinder {
         nodeGrid.reset();
         Queue<Coordinates> queue = new LinkedList<>();
         for (Coordinates pos : targets) {
-            System.out.println(pos);
             queue.add(pos);
         }
         int currentValue = 1;
@@ -48,7 +47,6 @@ public class FloodFillPathFinder {
             }
             currentValue++;
         }
-        nodeGrid.print();
     }
 
     private void addAdjacentNodes(Queue<Coordinates> queue, int x, int y) {

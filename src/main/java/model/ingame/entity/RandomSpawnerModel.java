@@ -35,7 +35,6 @@ public class RandomSpawnerModel {
             if (x == 0) {
                 y = (y + 1) % height;
             }
-            System.out.println("x: " + x + " y: " + y + " isWalkable: " + gameModel.getMapModel().getTile((int) x, (int) y).isWalkable());
 
             // Check if the current tile and its surrounding tiles are walkable
         } while (!isTileAndSurroundingsWalkable((int) x, (int) y));

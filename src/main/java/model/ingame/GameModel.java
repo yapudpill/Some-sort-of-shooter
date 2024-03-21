@@ -39,10 +39,10 @@ public class GameModel implements IUpdateable {
         this.player = new PlayerModel(this);
         entityModelList.add(player);
         updateables.add(player);
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new EnemySpawnerModel(this), new SmartEnemySpawner(this)), 5*60);
-        mainSpawner.start();
-        WalkingEnemyModel.setPathFinder(new FloodFillPathFinder(this, 7));
-        SmartEnemyModel.setPathFinder(new FloodFillPathFinder(this, 7));
+        initSpawner();
+        FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 7);
+        WalkingEnemyModel.setPathFinder(floodFillPathFinder);
+        SmartEnemyModel.setPathFinder(floodFillPathFinder);
     }
 
     @Override
@@ -51,6 +51,11 @@ public class GameModel implements IUpdateable {
         if(player.isDead()){
             isRunning = false;
         }
+    }
+
+    public void initSpawner(){
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new EnemySpawnerModel(this), new SmartEnemySpawner(this)), 2*60);
+        mainSpawner.start();
     }
 
     public MapModel getMapModel() {
@@ -107,7 +112,6 @@ public class GameModel implements IUpdateable {
         map.reset();
         entityModelList.add(player);
         updateables.add(player);
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of( new WeaponSpawner(this), new EnemySpawnerModel(this), new SmartEnemySpawner(this)), 5*60);
-        mainSpawner.start();
+        initSpawner();
     }
 }
