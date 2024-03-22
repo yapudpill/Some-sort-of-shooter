@@ -10,14 +10,13 @@ public class GameController {
     private final IGameLoop modelLoop, viewLoop;
     private final MainController mainController;
 
-    public GameController(MainController mainController, String mapName) {
+    public GameController(String mapName, MainController mainController) {
         this.mainController = mainController;
-
         gameModel = new GameModel(mapName);
         // TODO: should be part of the map reading
         gameModel.getPlayer().setPos(new Coordinates(9.5, 9.5));
-        gameView = new GameView(gameModel);
 
+        gameView = new GameView(gameModel);
         modelLoop = new ModelGameLoop(this::updateModel);
         viewLoop = new SwingGameLoop(gameView);
         modelLoop.start();

@@ -17,17 +17,16 @@ import model.ingame.IUpdateable;
  */
 public class GameView extends JPanel implements IUpdateable {
     private final GameMainArea mainArea;
-    private final GameHUD HUD;
 
     public GameView(GameModel gameModel) {
         mainArea = new GameMainArea(gameModel);
-        HUD = new GameHUD();
         setOpaque(true);
 
         // TODO: setup gridbaglayout to have HUD on the side of the gameRenderer
         setLayout(new BorderLayout());
 
         PlayerController playerController = new PlayerController(gameModel.getPlayer(), mainArea);
+        playerController.clearHeldKeys();
         mainArea.addKeyListener(playerController.getKeyListener());
         mainArea.addMouseListener(playerController.getMouseListener());
 
@@ -41,7 +40,6 @@ public class GameView extends JPanel implements IUpdateable {
 
     @Override
     public void update() {
-        HUD.update();
         mainArea.update();
     }
 

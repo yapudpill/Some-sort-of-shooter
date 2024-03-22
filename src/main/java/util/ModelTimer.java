@@ -48,4 +48,5 @@ public class ModelTimer implements IUpdateable {
     public boolean isRunning() {
         return isRunning;
     }
+
 }

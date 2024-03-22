@@ -25,7 +25,7 @@ public class MainController {
     }
 
     public void loadGame(String mapName) {
-        GameController gameController = new GameController(this, mapName);
+        GameController gameController = new GameController(mapName, this);
         mainFrame.loadMenu(gameController.gameView);
         EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
     }

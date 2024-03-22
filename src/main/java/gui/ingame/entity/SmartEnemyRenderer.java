@@ -1,27 +1,33 @@
 package gui.ingame.entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.io.IOException;
 
 import gui.ImageCache;
+import model.ingame.Coordinates;
 import model.ingame.entity.IVulnerableEntity;
-import model.ingame.entity.PlayerModel;
+import model.ingame.entity.SmartEnemyModel;
 
-public class PlayerRenderer extends AbstractEntityRenderer {
-    public PlayerRenderer(PlayerModel entityModel) {
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+
+
+public class SmartEnemyRenderer extends AbstractEntityRenderer{
+    public SmartEnemyRenderer(SmartEnemyModel entityModel) {
         super(entityModel);
     }
 
+    @Override
+    public Coordinates getOriginalSize() {
+        return new Coordinates(entityModel.getWidth(), entityModel.getHeight());
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // draw triangle pointing upwards
         Image image;
         try {
-            image = ImageCache.loadImage("sprites/player1/playerRightShoot.png", PlayerRenderer.class);
+            image = ImageCache.loadImage("sprites/Brain_of_Cthulhu.png", PlayerRenderer.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -2,6 +2,7 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.IUpdateable;
 
 public abstract class EntityModel implements IEntity{
     protected GameModel gameModel;
@@ -16,6 +17,11 @@ public abstract class EntityModel implements IEntity{
         this.width = width;
         this.height = height;
         this.gameModel = gameModel;
+    }
+
+    public void despawn() {
+        gameModel.getEntitySet().remove(this);
+        if (this instanceof IUpdateable iUpdateable) gameModel.detachAsUpdateable(iUpdateable);
     }
 
     public Coordinates getPos() {

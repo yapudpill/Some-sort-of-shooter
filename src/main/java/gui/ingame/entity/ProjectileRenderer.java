@@ -1,6 +1,5 @@
 package gui.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.EntityModel;
 
 public class ProjectileRenderer extends AbstractEntityRenderer{
@@ -10,15 +9,9 @@ public class ProjectileRenderer extends AbstractEntityRenderer{
     }
 
     @Override
-    public Coordinates getOriginalSize() {
-        return new Coordinates(entityModel.getWidth(), entityModel.getHeight());
-    }
-
-    @Override
     protected void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
         g.setColor(java.awt.Color.BLACK);
         g.fillOval(0, 0, getWidth(), getHeight());
     }
-
 }

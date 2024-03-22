@@ -1,5 +1,6 @@
 package model.ingame.weapon;
 
+import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.IEntity;
 
@@ -17,7 +18,7 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
         }
 
         IProjectile projectile = createProjectile();
-        System.out.println("Direction vector: " + directionVector.toString());
+        projectile.setPos(new Coordinates(owner.getPos()));
         projectile.getMovementHandler().setDirectionVector(this.directionVector);
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);

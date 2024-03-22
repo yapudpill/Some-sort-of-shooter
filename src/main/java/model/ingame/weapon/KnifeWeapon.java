@@ -10,8 +10,8 @@ public class KnifeWeapon extends WeaponModel {
     private static final double DMG_ZONE_ATTACKER_CENTER_SHIFT = 0.5;
     private static final double DMG_ZONE_WIDTH = 1;
     private static final double DMG_ZONE_HEIGHT = 1;
-    private static final int ATTACK_DURATION = 10;
-    private static final int KNIFE_COOLDOWN = 60;
+    private static final int ATTACK_DURATION = 15;
+    private static final int KNIFE_COOLDOWN = 20;
     private static final int DAMAGE = 10;
 
     private final ModelTimer attackDurationTimer;
