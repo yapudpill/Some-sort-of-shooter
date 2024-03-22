@@ -27,8 +27,8 @@ public class StatsPanel extends JPanel {
         constraints.gridy = 1;
         String killMessage = String.format(
             "You killed %d %s by attacking %d %s.",
-            stats.killedEnemies - 1,
-            stats.killedEnemies - 1 <= 1 ? "enemy" : "enemies",
+            stats.killedEnemies,
+            stats.killedEnemies <= 1 ? "enemy" : "enemies",
             stats.nbAttacks,
             stats.nbAttacks <= 1 ? "time" : "times"
         );

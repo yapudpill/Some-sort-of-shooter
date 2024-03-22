@@ -25,8 +25,11 @@ public class PlayerModel extends CombatEntityModel {
     }
 
     @Override
-    public void attack() {
-        super.attack();
-        gameModel.stats.nbAttacks++;
+    public boolean attack() {
+        if (super.attack()) {
+            gameModel.stats.nbAttacks++;
+            return true;
+        }
+        return false;
     }
 }

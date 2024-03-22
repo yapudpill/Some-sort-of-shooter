@@ -29,10 +29,10 @@ public class KnifeWeapon extends WeaponModel {
     }
 
     @Override
-    public void attack() {
+    public boolean attack() {
         if (coolDownTimer.isRunning()) {
             System.out.println("Knife is still cooling down");
-            return;
+            return false;
         }
         coolDownTimer.start();
         attackDurationTimer.start();
@@ -40,5 +40,6 @@ public class KnifeWeapon extends WeaponModel {
         this.damageZone = new AttachedDamageZoneEntity(owner.getPos(), DMG_ZONE_WIDTH, DMG_ZONE_HEIGHT, DMG_ZONE_ATTACKER_CENTER_SHIFT, gameModel, (CombatEntityModel) owner, DAMAGE);
         gameModel.getEntitySet().add(damageZone);
         gameModel.attachAsUpdateable(damageZone);
+        return true;
     }
 }
