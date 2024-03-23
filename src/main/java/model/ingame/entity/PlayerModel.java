@@ -23,4 +23,13 @@ public class PlayerModel extends CombatEntityModel {
     public boolean shouldPickWeapons() {
         return true;
     }
+
+    @Override
+    public boolean attack() {
+        if (super.attack()) {
+            gameModel.stats.nbAttacks++;
+            return true;
+        }
+        return false;
+    }
 }

@@ -11,10 +11,10 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
 
     public abstract IProjectile createProjectile();
 
-    public void attack() {
+    public boolean attack() {
         if (isCoolingDown()) {
             System.out.println("Weapon is cooling down. Cannot shoot.");
-            return;
+            return false;
         }
 
         IProjectile projectile = createProjectile();
@@ -23,5 +23,6 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);
         coolDownTimer.start();
+        return true;
     }
 }

@@ -1,11 +1,8 @@
 package model.ingame.entity;
 
-import java.util.Random;
-
 import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
-import model.ingame.IUpdateable;
 
 public class EnemySpawnerModel extends EntitySpawner {
 

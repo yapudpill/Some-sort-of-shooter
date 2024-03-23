@@ -29,8 +29,11 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     }
 
     @Override
-    public void attack() {
-        if (weapon != null) weapon.attack();
+    public boolean attack() {
+        if (weapon != null) {
+            return weapon.attack();
+        }
+        return false;
     }
 
     @Override

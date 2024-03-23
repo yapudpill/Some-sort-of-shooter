@@ -1,15 +1,16 @@
 package gui.ingame;
 
+import java.awt.Color;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import gui.ScalableComponent;
 import gui.ScaleLayout;
 import gui.ScaleSupplier;
 import model.ingame.Coordinates;
-import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 import model.ingame.entity.PlayerModel;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class GameHUDLayer extends JPanel implements IUpdateable {
     private static final String WEAPON_LABEL = "Current weapon: %s";
@@ -42,6 +43,5 @@ public class GameHUDLayer extends JPanel implements IUpdateable {
     public void update() {
         String weaponName = (playerModel.getWeapon() == null) ? "No weapon" : playerModel.getWeapon().getName();
         weaponLabel.setText(String.format(WEAPON_LABEL, weaponName));
-        System.out.println(getWidth());
     }
 }

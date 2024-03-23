@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.io.IOException;
 
 import gui.ImageCache;
-import model.ingame.Coordinates;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.PlayerModel;
 

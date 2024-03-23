@@ -1,9 +1,9 @@
 package gui.ingame.entity;
 
-import model.ingame.entity.EntityModel;
-import model.ingame.weapon.RocketProjectileModel;
+import java.awt.Color;
+import java.awt.Graphics;
 
-import java.awt.*;
+import model.ingame.weapon.RocketProjectileModel;
 
 public class RocketRenderer extends ProjectileRenderer {
     public RocketRenderer(RocketProjectileModel entityModel) {

@@ -1,14 +1,9 @@
 package model.ingame.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandlerModel;
-import model.level.MapModel;
 
 public class SmartEnemyModel extends CreatureModel {
     private final PlayerModel player;
