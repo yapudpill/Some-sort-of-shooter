@@ -2,7 +2,6 @@ package model.ingame.entity;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import model.ingame.Coordinates;
@@ -27,7 +26,7 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     public void setPos(Coordinates pos) {
         gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
         super.setPos(pos);
-        setColisionBox(pos.x, pos.y);
+        setCollisionBox(pos.x, pos.y);
         gameModel.getMapModel().addCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
     }
 
@@ -70,7 +69,7 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
         gameModel.getMapModel().removeCollidableAt(this, (int) pos.x, (int) pos.y);
     }
 
-    private void setColisionBox(double x, double y) {
+    private void setCollisionBox(double x, double y) {
         collisionBox.setRect(x, y, collisionBox.getWidth(), collisionBox.getHeight());
     }
 }

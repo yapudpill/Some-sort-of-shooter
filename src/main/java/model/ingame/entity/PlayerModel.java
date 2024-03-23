@@ -1,7 +1,6 @@
 package model.ingame.entity;
 
 import model.ingame.GameModel;
-import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.MovementHandlerModel;
 
 public class PlayerModel extends CombatEntityModel {

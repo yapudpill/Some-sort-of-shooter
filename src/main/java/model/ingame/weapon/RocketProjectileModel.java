@@ -24,7 +24,7 @@ public class RocketProjectileModel extends ProjectileModel {
                 }
             }
         });
-        addBlockedMovementListener(_ -> explode());
+        addBlockedMovementListener(e -> explode());
     }
 
     private void explode() {
