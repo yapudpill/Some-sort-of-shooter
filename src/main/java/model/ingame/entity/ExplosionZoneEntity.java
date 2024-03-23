@@ -31,6 +31,6 @@ public class ExplosionZoneEntity extends CollisionEntityModel {
         // FIXME: workaround because the only way to be affected by collisions is by having a movementHandler, which is
         //  not required for static entities, making the separation between Colliding entities and moving entities very broken
         PhysicsEngineModel physicsEngine = gameModel.getPhysicsEngine();
-        physicsEngine.checkForCollisions(this);
+        //physicsEngine.checkForCollisions(this);
     }
 }

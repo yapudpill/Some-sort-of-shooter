@@ -1,5 +1,6 @@
 package model.level.tiles;
 
+import model.ingame.entity.IEntity;
 import model.level.TileModel;
 
 /**
@@ -14,4 +15,8 @@ public class VoidTileModel extends TileModel {
         return false;
     }
 
+    @Override
+    public boolean canEnter(IEntity entity) {
+        return false;
+    }
 }

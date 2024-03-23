@@ -18,13 +18,17 @@ public class RocketProjectileModel extends ProjectileModel {
         super(pos, source, ROCKET_WIDTH, ROCKET_HEIGHT, ROCKET_DAMAGE, gameModel);
         movementHandler.setSpeed(ROCKET_SPEED);
         addCollisionListener(e -> {
-            // FIXME: it's really not practical to send events twice, as this makes these kind of checks necessary
-            if (e.getSource() != source.getOwner() && !(e.getSource() instanceof ExplosionZoneEntity)) {
+            if (e.getSource() != source.getOwner()) {
                 if (e.getInvolvedEntitiesList().stream().anyMatch(entity -> entity instanceof IVulnerableEntity vulnerableEntity && vulnerableEntity != source.getOwner())) {
-                    despawn();
-                    gameModel.addEntity(new ExplosionZoneEntity(getPos(), ROCKET_EXPLOSION_RADIUS, ROCKET_EXPLOSION_RADIUS, ROCKET_DAMAGE, ROCKET_EXPLOSION_DURATION, gameModel));
+                    explode();
                 }
             }
         });
+        addBlockedMovementListener(_ -> explode());
+    }
+
+    private void explode() {
+        despawn();
+        gameModel.addEntity(new ExplosionZoneEntity(getPos(), ROCKET_EXPLOSION_RADIUS, ROCKET_EXPLOSION_RADIUS, ROCKET_DAMAGE, ROCKET_EXPLOSION_DURATION, gameModel));
     }
 }

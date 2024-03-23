@@ -21,8 +21,8 @@ public class MovementHandlerModel<T extends IMobileEntity> implements IMovementH
     public void update() {
         Coordinates pos = entity.getPos();
         Coordinates directionNormalized = directionVector.normalize();
-        Coordinates newPos = new Coordinates(pos.x + directionNormalized.x * speed, pos.y + directionNormalized.y * speed);
-        physicsEngine.move(entity, newPos);
+        Coordinates movementVector = directionNormalized.multiply(speed);
+        physicsEngine.move(entity, movementVector);
     }
 
     public Coordinates getDirectionVector() {
