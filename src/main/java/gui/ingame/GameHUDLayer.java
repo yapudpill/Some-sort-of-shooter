@@ -42,6 +42,5 @@ public class GameHUDLayer extends JPanel implements IUpdateable {
     public void update() {
         String weaponName = (playerModel.getWeapon() == null) ? "No weapon" : playerModel.getWeapon().getName();
         weaponLabel.setText(String.format(WEAPON_LABEL, weaponName));
-        System.out.println(getWidth());
     }
 }

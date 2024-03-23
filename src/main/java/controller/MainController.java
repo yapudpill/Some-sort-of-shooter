@@ -10,7 +10,6 @@ import model.level.MapModel;
 import model.level.tiles.StandardTileModel;
 import model.level.TileModel;
 import model.level.tiles.WaterTileModel;
-import gui.IngameGuiDemo;
 import gui.MainFrame;
 import gui.ingame.GameView;
 

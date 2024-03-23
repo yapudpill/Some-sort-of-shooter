@@ -1,16 +1,10 @@
 package model.ingame.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.weapon.KnifeWeapon;
-
-import model.level.MapModel;
 
 public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;

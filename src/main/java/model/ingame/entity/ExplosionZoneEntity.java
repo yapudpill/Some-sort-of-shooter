@@ -1,13 +1,12 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
-import model.ingame.GameModel;
-import model.ingame.IUpdateable;
-import model.ingame.physics.PhysicsEngineModel;
-import util.ModelTimer;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import model.ingame.Coordinates;
+import model.ingame.GameModel;
+import model.ingame.physics.PhysicsEngineModel;
+import util.ModelTimer;
 
 public class ExplosionZoneEntity extends CollisionEntityModel {
     private final int damage;

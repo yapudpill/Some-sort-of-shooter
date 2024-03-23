@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.level.tiles.StandardTileModel;
@@ -191,4 +192,39 @@ public class MapModel {
             }
         }
     }
+
+    public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2){
+        // Bresenham's algorithm
+
+        int startX = (int) pos1.x;
+        int startY = (int) pos1.y;
+        int endX = (int) pos2.x;
+        int endY = (int) pos2.y;
+
+        int dx = Math.abs(endX - startX);
+        int dy = Math.abs(endY - startY);
+        int x = startX;
+        int y = startY;
+        int n = 1 + dx + dy;
+        int x_inc = (endX > startX) ? 1 : -1;
+        int y_inc = (endY > startY) ? 1 : -1;
+        int error = dx - dy;
+        dx *= 2;
+        dy *= 2;
+
+        for (; n > 0; n--) {
+            if (!isWalkableAt(x, y)) {
+                return true; // Obstacle found
+            }
+            if (error > 0) {
+                x += x_inc;
+                error -= dy;
+            } else {
+                y += y_inc;
+                error += dx;
+            }
+        }
+        return false; // No obstacles found between the two positions
+    }
+
 }

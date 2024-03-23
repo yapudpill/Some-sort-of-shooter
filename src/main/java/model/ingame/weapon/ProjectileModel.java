@@ -3,6 +3,7 @@ package model.ingame.weapon;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.CollisionEntityModel;
+import model.ingame.entity.IEffectEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.physics.IMovementHandler;
 import model.ingame.physics.MovementHandlerModel;
@@ -23,7 +24,10 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
 
     @Override
     public boolean canApplyEffect(IVulnerableEntity target) {
-        if (target != sourceWeapon.getOwner()) {
+        boolean condition = true;
+        if(sourceWeapon.getOwner() instanceof IEffectEntity effectEntity)
+            condition = effectEntity.canApplyEffect(target);
+        if (target != sourceWeapon.getOwner() && condition) {
             setActive(false);
             return true;
         }
