@@ -1,6 +1,7 @@
 package model.ingame.entity;
 
 import model.ingame.GameModel;
+import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.MovementHandlerModel;
 
 public class PlayerModel extends CombatEntityModel {
@@ -17,6 +18,7 @@ public class PlayerModel extends CombatEntityModel {
         super(100, 0.5, 0.5, gameModel);
         movementHandler = new MovementHandlerModel<PlayerModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.09);
+        addBlockedMovementListener(System.out::println);
     }
 
     @Override

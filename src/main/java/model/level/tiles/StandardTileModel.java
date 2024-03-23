@@ -7,5 +7,4 @@ public class StandardTileModel extends TileModel {
     public boolean isWalkable() {
         return true;
     }
-
 }

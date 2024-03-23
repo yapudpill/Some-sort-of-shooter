@@ -19,6 +19,8 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
         this.sourceWeapon = source;
         this.active = true;
         this.movementHandler = new MovementHandlerModel<ProjectileModel>(this, gameModel.getPhysicsEngine());
+
+        addBlockedMovementListener(e -> despawn());
     }
 
     @Override
@@ -48,11 +50,6 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     @Override
     public void update() {
         movementHandler.update();
-        if(!this.isActive() || !this.getMovementHandler().isMoving())
-        {
-            gameModel.detachAsUpdateable(this);
-            gameModel.removeEntity(this);
-        }
     }
 
     @Override
