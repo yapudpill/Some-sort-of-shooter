@@ -39,7 +39,9 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
         if(!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos)){
             if(!shootingTimer.isRunning()) shootingTimer.start();
             // circle around player
-            movementHandler.setDirectionVector(getNextDirectionToCircleAround());
+            Coordinates playerPos = player.getPos();
+            Coordinates direction = new Coordinates(playerPos.x - pos.x, playerPos.y - pos.y);
+            movementHandler.setDirectionVector(direction.rotate(Math.PI/2).normalize());
         }
         else{
             shootingTimer.stop();
@@ -56,14 +58,5 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
         pistol.setDirectionVector(new Coordinates(player.getPos().x - pos.x, player.getPos().y - pos.y));
     }
 
-    public Coordinates getNextDirectionToCircleAround(){
-        Coordinates result = new Coordinates(0,0);
-        int[][] rotation = new int[][]{{0,-1},{1,0}};
-        Coordinates playerPos = player.getPos();
-        Coordinates direction = new Coordinates(playerPos.x - pos.x, playerPos.y - pos.y);
-        result.x = direction.x * rotation[0][0] + direction.y * rotation[0][1];
-        result.y = direction.x * rotation[1][0] + direction.y * rotation[1][1];
-        return result;
-    }
 
 }

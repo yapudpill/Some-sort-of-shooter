@@ -55,6 +55,12 @@ public class Coordinates {
         return new Coordinates(x * scalar, y * scalar);
     }
 
+    public Coordinates rotate(double angle) {
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
+        return new Coordinates(x * cos - y * sin, x * sin + y * cos);
+    }
+
     public boolean isInCenter() {
         double centerX = (int) x + 0.5;
         double centerY = (int) y + 0.5;
