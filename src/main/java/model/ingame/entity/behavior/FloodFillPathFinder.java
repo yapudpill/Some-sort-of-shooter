@@ -6,6 +6,8 @@ import java.util.Queue;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.entity.IMobileEntity;
+import model.ingame.physics.IMovementHandler;
 import util.ModelTimer;
 
 public class FloodFillPathFinder {
@@ -80,6 +82,15 @@ public class FloodFillPathFinder {
             }
         }
         return lowestPos;
+    }
+
+    public void handlePathFindingUpdate(IMobileEntity entity, Coordinates target){
+            this.setTarget(target);
+            Coordinates pos = entity.getPos();
+            IMovementHandler movementHandler = entity.getMovementHandler();
+            if(!this.isRunning()) this.start();
+            Coordinates lowestCoord = this.getLowestNodeAround((int) pos.x, (int) pos.y);
+            if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates(lowestCoord.x - pos.x, lowestCoord.y - pos.y));
     }
 
     public void setTargets(List<Coordinates> targets) {

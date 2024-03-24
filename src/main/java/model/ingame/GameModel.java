@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import model.ingame.entity.EnemySpawnerModel;
+import model.ingame.entity.FirstAidKitSpawner;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
@@ -42,6 +43,10 @@ public class GameModel implements IUpdateable {
         FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 7);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
+        // spawn smart monster
+        SmartEnemyModel smartEnemy = new SmartEnemyModel(new Coordinates(5, 5), this);
+        entityModelList.add(smartEnemy);
+        updateables.add(smartEnemy);
     }
 
     @Override
@@ -55,7 +60,7 @@ public class GameModel implements IUpdateable {
     }
 
     public void initSpawner(){
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of(new EnemySpawnerModel(this), new SmartEnemySpawner(this)), 2*60);
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of(new EnemySpawnerModel(this), new SmartEnemySpawner(this), new FirstAidKitSpawner(this)), 10000000*60);
         mainSpawner.start();
     }
 

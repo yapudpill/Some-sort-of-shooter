@@ -1,14 +1,14 @@
 package model.ingame.physics;
 
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
 import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
 import model.level.MapModel;
 import model.level.TileModel;
 import util.Pair;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The <code>PhysicsEngineModel</code> class is used to handle the physics of the game, such as collision detection and entity movement.
@@ -29,10 +29,10 @@ public class PhysicsEngineModel {
      * @return a list of all entities that are colliding with the given entity
      */
 
-    public List<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
-        List<ICollisionEntity> involvedEntities = new ArrayList<>();
+    public Set<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
+        Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
-        List<ICollisionEntity> potentiallyCollided = map.getAllCollidablesAround((int) entity.getPos().x, (int) entity.getPos().y);
+        Set<ICollisionEntity> potentiallyCollided = map.getAllCollidablesAround((int) entity.getPos().x, (int) entity.getPos().y);
         for (ICollisionEntity other : potentiallyCollided) {
             // check if the entities are actually colliding, make sure not to check the entity with itself
             if (entity.getCollisionBox().intersects(other.getCollisionBox()) && !entity.equals(other)) {
@@ -71,10 +71,11 @@ public class PhysicsEngineModel {
 
     public void checkForCollisions(ICollisionEntity entity) {
         // check if the entity has collision listeners, and if it does, check if it is colliding with anything
-        List<ICollisionEntity> collidedEntities = getCollidedEntities(entity);
+        Set<ICollisionEntity> collidedEntities = getCollidedEntities(entity);
         if (!collidedEntities.isEmpty()) {
             // create a collision event
             CollisionEvent event = new CollisionEvent(entity, collidedEntities);
+            map.getTile((int) entity.getPos().x, (int) entity.getPos().y).printCollidables();
             // notify the entity's collision listeners
             entity.notifyCollisionListeners(event);
             // No need to notify now the IMobileEntities collided as this code will be run for them too.

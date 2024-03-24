@@ -38,9 +38,9 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     @Override
     public void update(){
         if(isDead()) {
-            gameModel.detachAsUpdateable(this);
-            gameModel.removeEntity(this);
-            gameModel.getMapModel().removeCollidableAt(this,(int) pos.x, (int) pos.y);
+            despawn();
+            System.out.println("Killed enemy");
+            gameModel.getMapModel().printCollideables();
             gameModel.stats.killedEnemies++;
         }
         movementHandler.update();
@@ -49,6 +49,12 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     @Override
     public boolean isDead() {
         return health <= 0;
+    }
+
+    @Override
+    public void setHealth(int health) {
+        if(health > maxHealth) this.health = maxHealth;
+        else this.health = health;
     }
 
     public void reset(){

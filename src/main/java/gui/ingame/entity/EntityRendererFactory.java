@@ -2,6 +2,7 @@ package gui.ingame.entity;
 
 import model.ingame.entity.AttachedDamageZoneEntity;
 import model.ingame.entity.ExplosionZoneEntity;
+import model.ingame.entity.FirstAidKit;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
 import model.ingame.entity.SmartEnemyModel;
@@ -20,7 +21,7 @@ public class EntityRendererFactory {
             case WeaponEntity weaponEntity -> new WeaponRenderer(weaponEntity);
             case AttachedDamageZoneEntity debugDamageZoneEntity -> new DebugDamageZoneRenderer(debugDamageZoneEntity);
             case ExplosionZoneEntity explosionZoneEntity -> new ExplosionZoneRenderer(explosionZoneEntity);
-
+            case FirstAidKit firstAidKit -> new FirstAidKitRenderer(firstAidKit);
             case SmartEnemyModel smartEnemy -> new SmartEnemyRenderer(smartEnemy);
             default -> {
                 System.out.println("EntityRendererFactory: unknown entity model: " + entityModel.getClass().getName());

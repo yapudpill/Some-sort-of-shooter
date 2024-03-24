@@ -6,7 +6,6 @@ import model.ingame.entity.IEntity;
 import java.util.List;
 
 public interface ITileModel {
-    List<ICollisionEntity> getCollidables();
 
     boolean isWalkable();
 

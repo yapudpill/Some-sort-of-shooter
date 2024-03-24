@@ -13,6 +13,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class MapModel {
     private TileModel[][] tiles;
@@ -134,14 +136,14 @@ public class MapModel {
         return x < 0 || x >= tiles[0].length || y < 0 || y >= tiles.length;
     }
 
-    public List<ICollisionEntity> getAllCollidablesAround(int x, int y) {
+    public Set<ICollisionEntity> getAllCollidablesAround(int x, int y) {
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
-        List<ICollisionEntity> involvedEntities = new ArrayList<>();
+        Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (isOutOfBounds(x + i, y + j))
                     continue;
-                involvedEntities.addAll(tiles[y + j][x + i].getCollidables());
+                involvedEntities.addAll(tiles[y + j][x + i].getCollidablesSet());
             }
         }
         return involvedEntities;
@@ -187,13 +189,31 @@ public class MapModel {
         }
     }
 
+    public boolean unwalkableAround(int x, int y) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (isOutOfBounds(x + i, y + j))
+                    continue;
+                if (!tiles[y + j][x + i].isWalkable())
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isWalkableAt(int x, int y) {
         if (isOutOfBounds(x, y))
             return false;
         return tiles[y][x].isWalkable();
     }
 
-    public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2){
+    public boolean canEnterAt(IEntity entity, int x, int y) {
+        if (isOutOfBounds(x, y))
+            return false;
+        return tiles[y][x].canEnter(entity);
+    }
+
+    public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity){
         // Bresenham's algorithm
 
         int startX = (int) pos1.x;
@@ -213,7 +233,7 @@ public class MapModel {
         dy *= 2;
 
         for (; n > 0; n--) {
-            if (!isWalkableAt(x, y)) {
+            if (!canEnterAt(entity, x, y)) {
                 return true; // Obstacle found
             }
             if (error > 0) {
@@ -227,4 +247,12 @@ public class MapModel {
         return false; // No obstacles found between the two positions
     }
 
+    public void printCollideables() {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[0].length; j++) {
+                System.out.println("Tile at " + j + ", " + i + " : ");
+                tiles[i][j].printCollidables();
+            }
+        }
+    }
 }

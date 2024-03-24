@@ -1,13 +1,13 @@
 package model.level;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 
 public abstract class TileModel implements ITileModel {
-    protected final List<ICollisionEntity> collidables = new CopyOnWriteArrayList<>();
+    protected final Set<ICollisionEntity> collidables = new CopyOnWriteArraySet<>();
 
     public abstract boolean isWalkable();
 
@@ -29,16 +29,15 @@ public abstract class TileModel implements ITileModel {
         collidables.remove(entity);
     }
 
-    public List<ICollisionEntity> getCollidablesList() {
-        return collidables;
-    }
-
-    @Override
-    public List<ICollisionEntity> getCollidables() {
+    public Set<ICollisionEntity> getCollidablesSet() {
         return collidables;
     }
 
     public void reset() {
         collidables.clear();
+    }
+
+    public void printCollidables() {
+        System.out.println(collidables);
     }
 }
