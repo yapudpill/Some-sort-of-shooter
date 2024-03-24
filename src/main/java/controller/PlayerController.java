@@ -37,7 +37,7 @@ public class PlayerController {
     }
 
     private static Map<Integer, PlayerModel.PlayerAction> getPlayer1KeyActionMap(PlayerModel playerModel) {
-        return Map.of(MouseEvent.BUTTON1, playerModel::attack);
+        return Map.of(MouseEvent.BUTTON1, playerModel::attack, MouseEvent.BUTTON3, playerModel::dash);
     }
 
     /**

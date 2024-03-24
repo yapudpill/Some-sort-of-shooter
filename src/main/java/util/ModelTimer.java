@@ -10,7 +10,6 @@ public class ModelTimer implements IUpdateable {
     private GameModel gameModel;
     private int timer;
     private boolean repeats = true;
-
     private boolean isRunning = false;
 
 
@@ -37,6 +36,7 @@ public class ModelTimer implements IUpdateable {
     }
 
     public void stop() {
+        timer = timerDuration;
         gameModel.detachAsUpdateable(this);
         isRunning = false;
     }

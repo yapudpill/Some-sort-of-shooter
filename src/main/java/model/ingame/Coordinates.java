@@ -54,6 +54,12 @@ public class Coordinates {
         return new Coordinates(x * scalar, y * scalar);
     }
 
+    public Coordinates rotate(double angle) {
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
+        return new Coordinates(x * cos - y * sin, x * sin + y * cos);
+    }
+    
     public Coordinates xProjection() {
         return new Coordinates(x, 0);
     }

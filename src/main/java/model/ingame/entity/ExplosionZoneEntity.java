@@ -5,6 +5,7 @@ import java.util.Set;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.physics.PhysicsEngineModel;
 import util.ModelTimer;
 
 public class ExplosionZoneEntity extends CollisionEntityModel {
