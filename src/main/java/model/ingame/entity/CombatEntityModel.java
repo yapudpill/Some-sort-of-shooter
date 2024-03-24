@@ -10,14 +10,12 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     public CombatEntityModel(int maxHealth, double width, double height, GameModel gameModel) {
         super(maxHealth, width, height, gameModel);
         addCollisionListener(e -> {
-            if (e.getSource() == this) {
-                for (IEntity entity : e.getInvolvedEntitiesList()) {
-                    if (shouldPickWeapons() && entity instanceof WeaponEntity weaponEntity) {
-                        if (weaponEntity.getWeapon() != null) {
-                            setWeapon(weaponEntity.getWeapon());
-                            weapon.setOwner(this);
-                            weaponEntity.despawn();
-                        }
+            for (IEntity entity : e.getInvolvedEntitiesList()) {
+                if (shouldPickWeapons() && entity instanceof WeaponEntity weaponEntity) {
+                    if (weaponEntity.getWeapon() != null) {
+                        setWeapon(weaponEntity.getWeapon());
+                        weapon.setOwner(this);
+                        weaponEntity.despawn();
                     }
                 }
             }
@@ -29,8 +27,11 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     }
 
     @Override
-    public void attack() {
-        if (weapon != null) weapon.attack();
+    public boolean attack() {
+        if (weapon != null) {
+            return weapon.attack();
+        }
+        return false;
     }
 
     @Override

@@ -32,9 +32,8 @@ public class Coordinates {
         return (int) x == (int) other.x && (int) y == (int) other.y;
     }
 
-    public void add(Coordinates addedVelocityVector) {
-            x += addedVelocityVector.x;
-            y += addedVelocityVector.y;
+    public Coordinates add(Coordinates addedVelocityVector) {
+        return new Coordinates(x + addedVelocityVector.x, y + addedVelocityVector.y);
     }
 
     public Coordinates opposite() {
@@ -43,7 +42,7 @@ public class Coordinates {
 
     public Coordinates normalize() {
         double length = Math.sqrt(x * x + y * y);
-        if(length == 0) return new Coordinates(0, 0);
+        if (length == 0) return new Coordinates(0, 0);
         return new Coordinates(x / length, y / length);
     }
 
@@ -59,6 +58,14 @@ public class Coordinates {
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
         return new Coordinates(x * cos - y * sin, x * sin + y * cos);
+    }
+    
+    public Coordinates xProjection() {
+        return new Coordinates(x, 0);
+    }
+
+    public Coordinates yProjection() {
+        return new Coordinates(0, y);
     }
 
     public boolean isInCenter() {

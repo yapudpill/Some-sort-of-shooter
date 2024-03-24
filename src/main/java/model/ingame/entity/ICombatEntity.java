@@ -4,7 +4,7 @@ import model.ingame.weapon.WeaponModel;
 
 public interface ICombatEntity extends IMobileEntity, IVulnerableEntity{
 
-    void attack();
+    boolean attack();
     WeaponModel getWeapon();
     void setWeapon(WeaponModel weapon);
 }

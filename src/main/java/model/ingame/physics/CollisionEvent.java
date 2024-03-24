@@ -1,6 +1,7 @@
 package model.ingame.physics;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EventObject;
 import java.util.List;
 
@@ -12,9 +13,7 @@ public class CollisionEvent extends EventObject {
     public CollisionEvent(ICollisionEntity source, ICollisionEntity... involved) {
         super(source);
         this.involvedEntities = new ArrayList<>();
-        for (ICollisionEntity entity : involved) {
-            this.involvedEntities.add(entity);
-        }
+        Collections.addAll(this.involvedEntities, involved);
     }
 
     public CollisionEvent(ICollisionEntity source, List<ICollisionEntity> involved) {

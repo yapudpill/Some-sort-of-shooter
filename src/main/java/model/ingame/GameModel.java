@@ -19,6 +19,7 @@ import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.MapModel;
 
 public class GameModel implements IUpdateable {
+    public final Statistics stats;
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;
     private final PlayerModel player;
@@ -30,6 +31,7 @@ public class GameModel implements IUpdateable {
 
 
     public GameModel(String mapName) {
+        stats = new Statistics(mapName);
         map = new MapModel(mapName);
         physicsEngine = new PhysicsEngineModel(map);
         player = new PlayerModel(this);
@@ -44,6 +46,7 @@ public class GameModel implements IUpdateable {
 
     @Override
     public void update() {
+        stats.survivedFrames++;
         for (IUpdateable updateable : updateables) updateable.update();
         if(player.isDead()){
             System.out.println("Game Over");
@@ -96,20 +99,5 @@ public class GameModel implements IUpdateable {
 
     public boolean isRunning() {
         return isRunning;
-    }
-
-    public boolean isAttachedAsUpdateable(IUpdateable updateable) {
-        return updateables.contains(updateable);
-    }
-
-    public void reset() {
-        entityModelList.clear();
-        updateables.clear();
-        isRunning = true;
-        player.reset();
-        map.reset();
-        entityModelList.add(player);
-        updateables.add(player);
-        initSpawner();
     }
 }

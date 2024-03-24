@@ -30,7 +30,7 @@ public abstract class WeaponModel {
         return name;
     }
 
-    public abstract void attack();
+    public abstract boolean attack();
 
     public IEntity getOwner() {
         return owner;

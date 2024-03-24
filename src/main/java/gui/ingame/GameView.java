@@ -17,7 +17,6 @@ import model.ingame.IUpdateable;
  */
 public class GameView extends JPanel implements IUpdateable {
     private final GameMainArea mainArea;
-    private PlayerController playerController;
 
     public GameView(GameModel gameModel) {
         mainArea = new GameMainArea(gameModel);
@@ -27,7 +26,6 @@ public class GameView extends JPanel implements IUpdateable {
         setLayout(new BorderLayout());
 
         PlayerController playerController = new PlayerController(gameModel.getPlayer(), mainArea);
-        this.playerController = playerController;
         playerController.clearHeldKeys();
         mainArea.addKeyListener(playerController.getKeyListener());
         mainArea.addMouseListener(playerController.getMouseListener());
@@ -37,13 +35,7 @@ public class GameView extends JPanel implements IUpdateable {
         mainAreaWrapper.add(mainArea);
         add(mainAreaWrapper, BorderLayout.CENTER);
 
-
-
         mainArea.setFocusable(true);
-    }
-
-    public void resetController() {
-        playerController.clearHeldKeys();
     }
 
     @Override

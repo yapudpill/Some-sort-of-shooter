@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
-    final static public int WEAPON_SPAWN_COOLDOWN = 5 * 60; // 5 seconds, i.e. 5 * 60 ticks
+    final static public int WEAPON_SPAWN_COOLDOWN = 01 * 60; // 5 seconds, i.e. 5 * 60 ticks
     final static public List<WeaponFactory> availableWeaponsFactories = List.of(PistolModel::new, KnifeWeapon::new, RocketLauncher::new);
     Random rng = new Random();
     double spawnCooldown = 0;

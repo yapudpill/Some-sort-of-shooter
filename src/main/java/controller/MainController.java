@@ -1,19 +1,15 @@
 package controller;
 
-
 import java.awt.EventQueue;
 
 import gui.MainFrame;
-import gui.ingame.GameView;
+import gui.launcher.EndMenu;
 import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
-import model.ingame.GameModel;
+import model.ingame.Statistics;
 
 public class MainController {
     private final MainFrame mainFrame;
-    private GameModel gameModel;
-    private GameView gameView;
-
 
     public MainController() {
         mainFrame = new MainFrame();
@@ -32,6 +28,10 @@ public class MainController {
         GameController gameController = new GameController(mapName, this);
         mainFrame.loadMenu(gameController.gameView);
         EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
+    }
+
+    public void loadEndMenu(Statistics stats) {
+        mainFrame.loadMenu(new EndMenu(this, stats));
     }
 
     public void closeWindow() {

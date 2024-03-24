@@ -9,11 +9,11 @@ import model.ingame.entity.IEntity;
 public abstract class TileModel implements ITileModel {
     protected final List<ICollisionEntity> collidables = new CopyOnWriteArrayList<>();
 
-    public TileModel() {
-
-    }
-
     public abstract boolean isWalkable();
+
+    public boolean canEnter(IEntity entity) {
+        return true;
+    }
 
     @Override
     public void applyEnterEffect(IEntity entity) {

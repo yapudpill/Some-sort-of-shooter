@@ -56,7 +56,11 @@ public class PlayerController {
                 if (player1KeyDirectionMap.containsKey(keyCode)) {
                     Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode);
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
-                    oldVelocityVector.add(addedVelocityVector);
+                    controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
+                }
+                // DEBUG
+                if (e.getKeyCode() == KeyEvent.VK_F1) {
+                    System.out.println("debug");
                 }
                 heldKeys.add(keyCode);
 
@@ -70,8 +74,8 @@ public class PlayerController {
                 // Update direction:
                 if (player1KeyDirectionMap.containsKey(keyCode)) {
                      Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).opposite();
-                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
-                     oldVelocityVector.add(addedVelocityVector);
+                    Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
+                    controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
                 }
                 heldKeys.remove((Integer) keyCode);
             }

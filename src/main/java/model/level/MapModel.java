@@ -1,18 +1,17 @@
 package model.level;
 
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
-import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapModel {
     private TileModel[][] tiles;
@@ -132,12 +131,6 @@ public class MapModel {
 
     public boolean isOutOfBounds(int x, int y) {
         return x < 0 || x >= tiles[0].length || y < 0 || y >= tiles.length;
-    }
-
-    public boolean isWalkableAt(int x, int y) {
-        if (isOutOfBounds(x, y))
-            return false;
-        return tiles[y][x].isWalkable();
     }
 
     public List<ICollisionEntity> getAllCollidablesAround(int x, int y) {

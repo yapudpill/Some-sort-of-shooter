@@ -9,14 +9,12 @@ import model.ingame.physics.PhysicsEngineModel;
 import util.ModelTimer;
 
 public class ExplosionZoneEntity extends CollisionEntityModel {
-    private final int damage;
     private final ModelTimer despawnTimer;
 
     private final Set<IVulnerableEntity> hitEntities = new HashSet<>();
 
     public ExplosionZoneEntity(Coordinates pos, double width, double height, int damage, int duration, GameModel gameModel) {
         super(pos, width, height, gameModel);
-        this.damage = damage;
         this.despawnTimer = new ModelTimer(duration, this::despawn, gameModel);
         this.despawnTimer.start();
 
@@ -29,10 +27,5 @@ public class ExplosionZoneEntity extends CollisionEntityModel {
                 }
             }
         });
-
-        // FIXME: workaround because the only way to be affected by collisions is by having a movementHandler, which is
-        //  not required for static entities, making the separation between Colliding entities and moving entities very broken
-        PhysicsEngineModel physicsEngine = gameModel.getPhysicsEngine();
-        physicsEngine.checkForCollisions(this);
     }
 }

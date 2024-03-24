@@ -4,6 +4,8 @@ import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
 import model.level.MapModel;
+import model.level.TileModel;
+import util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,26 +46,27 @@ public class PhysicsEngineModel {
     /**
      * Moves the given entity to the given position, and checks for collisions.
      *
-     * @param entity the entity to move
-     * @param newPos the new position of the entity
+     * @param entity         the entity to move
+     * @param movementVector the new position of the entity
      */
-    public void move(IMobileEntity entity, Coordinates newPos) {
-
-        if (entity == null || newPos == null)
-            throw new IllegalArgumentException("Entity or newPos cannot be null");
-
-
-        checkForCollisions(entity);
-
-        // check if the next position will be on a walkable tile, if not, cancel the movement
-        if (!isWalkable(entity, newPos)) {
+    public void move(IMobileEntity entity, Coordinates movementVector) {
+        // Adjust movement to collide with walls
+        var adjustedMovementAndBlockedEventPair = adjustMovement(entity, movementVector);
+        Coordinates adjustedMovement = adjustedMovementAndBlockedEventPair.first();
+        BlockedMovementEvent blockedMovementEvent = adjustedMovementAndBlockedEventPair.second();
+        if (blockedMovementEvent != null) {
+            entity.notifyBlockedMovementListeners(blockedMovementEvent);
+        }
+        if (adjustedMovement.isZero()) {
             entity.getMovementHandler().setMoving(false);
             return;
         }
 
+        checkForCollisions(entity);
+
         // move the entity and its collision box
         entity.getMovementHandler().setMoving(true);
-        entity.setPos(newPos);
+        entity.setPos(entity.getPos().add(adjustedMovement));
     }
 
     public void checkForCollisions(ICollisionEntity entity) {
@@ -74,37 +77,65 @@ public class PhysicsEngineModel {
             CollisionEvent event = new CollisionEvent(entity, collidedEntities);
             // notify the entity's collision listeners
             entity.notifyCollisionListeners(event);
-            // notify the collided entities' collision listeners
-            collidedEntities.forEach(collidedEntity -> collidedEntity.notifyCollisionListeners(event));
-        }
-    }
-
-    /**
-     * Checks if the next position will be on a walkable tile, given the entity's width and height.
-     *
-     * @param entity the entity to check for walkability
-     * @param newPos the new position of the entity
-     * @return true if the next position will be on a walkable tile, false otherwise
-     */
-    public boolean isWalkable(IMobileEntity entity, Coordinates newPos) {
-        if (entity == null || newPos == null) {
-            throw new IllegalArgumentException("Entity or newPos cannot be null");
-        }
-
-        double halfWidth = entity.getWidth() / 2;
-        double halfHeight = entity.getHeight() / 2;
-
-        for (double i = -halfWidth; i <= halfWidth; i += entity.getWidth()) {
-            for (double j = -halfHeight; j <= halfHeight; j += entity.getHeight()) {
-                double newX = newPos.x + i;
-                double newY = newPos.y + j;
-                if (newX < 0 || newY < 0 || !map.isWalkableAt((int) newX, (int) newY)) {
-                    return false; // At least one tile is not walkable
+            // No need to notify now the IMobileEntities collided as this code will be run for them too.
+            // HOWEVER, it needs to be done for the ICollisionEntity that are *not mobiles* (they will not call the move method)
+            event.getInvolvedEntitiesList().add(entity);
+            for (ICollisionEntity e : collidedEntities) {
+                if (!(e instanceof IMobileEntity)) {
+                    e.notifyCollisionListeners(event);
                 }
             }
         }
-
-        return true; // All tiles are walkable
     }
 
+
+    private Pair<Coordinates, BlockedMovementEvent> adjustMovement(IMobileEntity entity, Coordinates movementVector) {
+        Coordinates adjustedMovement = Coordinates.ZERO;
+        // If horizontal movement is blocked, only keep the vertical movement
+        Coordinates newPosX = entity.getPos().add(movementVector.xProjection());
+        BlockedMovementEvent potentialBlockedMovementX = canMoveTo(entity, newPosX);
+        if (potentialBlockedMovementX == null) { // If the movement is not blocked, keep it
+            adjustedMovement = adjustedMovement.add(movementVector.xProjection());
+        }
+        // Same for vertical movement
+        Coordinates newPosY = entity.getPos().add(movementVector.yProjection());
+        BlockedMovementEvent potentialBlockedMovementY = canMoveTo(entity, newPosY);
+        if (potentialBlockedMovementY == null) {
+            adjustedMovement = adjustedMovement.add(movementVector.yProjection());
+        }
+
+        BlockedMovementEvent blockedMovementEvent = mergeBlockedMovementEvents(potentialBlockedMovementX, potentialBlockedMovementY);
+
+        return new Pair<>(adjustedMovement, blockedMovementEvent);
+    }
+
+    private BlockedMovementEvent mergeBlockedMovementEvents(BlockedMovementEvent blockedMovementEvent1, BlockedMovementEvent blockedMovementEvent2) {
+        if (blockedMovementEvent1 == null) return blockedMovementEvent2;
+        if (blockedMovementEvent2 == null) return blockedMovementEvent1;
+        if (blockedMovementEvent1.outOfBounds() || blockedMovementEvent2.outOfBounds()) { // Give priority to Out of bounds events
+            return new BlockedMovementEvent(blockedMovementEvent1.blockedEntity(), null, true);
+        }
+        return blockedMovementEvent1;
+    }
+
+    private BlockedMovementEvent canMoveTo(IMobileEntity entity, Coordinates pos) {
+        double halfWidth = entity.getWidth() / 2;
+        double halfHeight = entity.getHeight() / 2;
+        for (double i = -halfWidth; i <= halfWidth; i += entity.getWidth()) {
+            for (double j = -halfHeight; j <= halfHeight; j += entity.getHeight()) {
+                double newX = pos.x + i;
+                double newY = pos.y + j;
+                if (newX < 0 || newY < 0 || map.isOutOfBounds((int) newX, (int) newY)) {
+                    return new BlockedMovementEvent(entity, null, true);
+                } else {
+                    TileModel tile = map.getTile((int) newX, (int) newY);
+                    if (!tile.canEnter(entity)) {
+                        return new BlockedMovementEvent(entity, map.getTile((int) newX, (int) newY), false);
+                    }
+                }
+            }
+        }
+        return null; // All tiles are walkable
+    }
 }
+

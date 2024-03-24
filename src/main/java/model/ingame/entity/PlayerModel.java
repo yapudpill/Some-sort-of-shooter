@@ -22,6 +22,7 @@ public class PlayerModel extends CombatEntityModel {
         dashTimer.setRepeats(false);
         movementHandler = new MovementHandlerModel<PlayerModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.09);
+        addBlockedMovementListener(System.out::println);
     }
 
     public void update(){
@@ -37,10 +38,20 @@ public class PlayerModel extends CombatEntityModel {
         return true;
     }
 
+
     public void dash(){
         if(dashing) return;
         dashing = true;
         dashTimer.start();
+    }
+
+    @Override
+    public boolean attack() {
+        if (super.attack()) {
+            gameModel.stats.nbAttacks++;
+            return true;
+        }
+        return false;
     }
 
 }
