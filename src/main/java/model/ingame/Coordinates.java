@@ -59,7 +59,7 @@ public class Coordinates {
         double sin = Math.sin(angle);
         return new Coordinates(x * cos - y * sin, x * sin + y * cos);
     }
-    
+
     public Coordinates xProjection() {
         return new Coordinates(x, 0);
     }
@@ -72,6 +72,10 @@ public class Coordinates {
         double centerX = (int) x + 0.5;
         double centerY = (int) y + 0.5;
         return Math.abs(x- centerX) < 0.1 && Math.abs(y - centerY) < 0.1;
+    }
+
+    public double distance(Coordinates other) {
+        return Math.hypot(x - other.x, y - other.y);
     }
 
     public boolean isZero(){

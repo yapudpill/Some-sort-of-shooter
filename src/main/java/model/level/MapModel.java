@@ -1,6 +1,7 @@
 package model.level;
 
 
+import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.level.tiles.StandardTileModel;
@@ -184,6 +185,12 @@ public class MapModel {
                 tiles[i][j].reset();
             }
         }
+    }
+
+    public boolean isWalkableAt(int x, int y) {
+        if (isOutOfBounds(x, y))
+            return false;
+        return tiles[y][x].isWalkable();
     }
 
     public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2){
