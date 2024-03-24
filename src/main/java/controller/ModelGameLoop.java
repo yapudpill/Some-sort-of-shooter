@@ -3,7 +3,6 @@ package controller;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 
 public class ModelGameLoop implements IGameLoop {

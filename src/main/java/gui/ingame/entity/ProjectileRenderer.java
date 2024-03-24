@@ -1,6 +1,5 @@
 package gui.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.EntityModel;
 
 public class ProjectileRenderer extends AbstractEntityRenderer{

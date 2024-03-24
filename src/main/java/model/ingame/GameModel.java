@@ -15,11 +15,7 @@ import model.ingame.entity.SmartEnemySpawner;
 import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
-
 import model.ingame.weapon.RandomWeaponSpawner;
-import model.ingame.weapon.RocketLauncher;
-import model.ingame.weapon.WeaponSpawner;
-
 import model.level.MapModel;
 
 public class GameModel implements IUpdateable {

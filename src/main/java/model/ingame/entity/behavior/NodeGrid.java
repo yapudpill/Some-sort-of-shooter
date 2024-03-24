@@ -1,8 +1,5 @@
 package model.ingame.entity.behavior;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.ingame.Coordinates;
 import model.level.MapModel;
 

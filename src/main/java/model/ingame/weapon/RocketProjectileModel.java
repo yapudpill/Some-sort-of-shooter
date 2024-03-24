@@ -3,9 +3,7 @@ package model.ingame.weapon;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.ExplosionZoneEntity;
-import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IVulnerableEntity;
-import util.ModelTimer;
 
 public class RocketProjectileModel extends ProjectileModel {
     public static final double ROCKET_SPEED = 0.05;

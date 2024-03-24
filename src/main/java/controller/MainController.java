@@ -3,19 +3,11 @@ package controller;
 
 import java.awt.EventQueue;
 
-import gui.launcher.HomeMenu;
-import model.ingame.Coordinates;
-import model.ingame.GameModel;
-import model.level.MapModel;
-import model.level.tiles.StandardTileModel;
-import model.level.TileModel;
-import model.level.tiles.WaterTileModel;
 import gui.MainFrame;
 import gui.ingame.GameView;
-
-import gui.MainFrame;
 import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
+import model.ingame.GameModel;
 
 public class MainController {
     private final MainFrame mainFrame;

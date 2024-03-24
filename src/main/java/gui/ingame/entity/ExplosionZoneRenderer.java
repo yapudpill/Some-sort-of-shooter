@@ -1,9 +1,9 @@
 package gui.ingame.entity;
 
-import model.ingame.Coordinates;
-import model.ingame.entity.EntityModel;
+import java.awt.Color;
+import java.awt.Graphics;
 
-import java.awt.*;
+import model.ingame.entity.EntityModel;
 
 public class ExplosionZoneRenderer extends AbstractEntityRenderer {
     public ExplosionZoneRenderer(EntityModel entityModel) {
