@@ -39,9 +39,8 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     public void update(){
         if(isDead()) {
             despawn();
-            System.out.println("Killed enemy");
-            gameModel.getMapModel().printCollideables();
             gameModel.stats.killedEnemies++;
+            return;
         }
         movementHandler.update();
     }

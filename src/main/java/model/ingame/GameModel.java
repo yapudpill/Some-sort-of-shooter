@@ -43,10 +43,6 @@ public class GameModel implements IUpdateable {
         FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 7);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
-        // spawn smart monster
-        SmartEnemyModel smartEnemy = new SmartEnemyModel(new Coordinates(5, 5), this);
-        entityModelList.add(smartEnemy);
-        updateables.add(smartEnemy);
     }
 
     @Override
@@ -60,7 +56,7 @@ public class GameModel implements IUpdateable {
     }
 
     public void initSpawner(){
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of(new EnemySpawnerModel(this), new SmartEnemySpawner(this), new FirstAidKitSpawner(this)), 10000000*60);
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of(new EnemySpawnerModel(this), new SmartEnemySpawner(this), new FirstAidKitSpawner(this)), 3*60);
         mainSpawner.start();
     }
 

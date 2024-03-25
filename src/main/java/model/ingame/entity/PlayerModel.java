@@ -22,7 +22,6 @@ public class PlayerModel extends CombatEntityModel {
         dashTimer.setRepeats(false);
         movementHandler = new MovementHandlerModel<PlayerModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.09);
-        addBlockedMovementListener(System.out::println);
     }
 
     public void update(){

@@ -26,7 +26,6 @@ public class ShotGun extends ProjectileWeaponModel {
         for (int i = 0; i < 5; i++) {
             setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
             fire();
-            System.out.println("Shotgun attack");
         }
         return true;
     }

@@ -75,7 +75,6 @@ public class PhysicsEngineModel {
         if (!collidedEntities.isEmpty()) {
             // create a collision event
             CollisionEvent event = new CollisionEvent(entity, collidedEntities);
-            map.getTile((int) entity.getPos().x, (int) entity.getPos().y).printCollidables();
             // notify the entity's collision listeners
             entity.notifyCollisionListeners(event);
             // No need to notify now the IMobileEntities collided as this code will be run for them too.
