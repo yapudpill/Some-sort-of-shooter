@@ -1,13 +1,12 @@
 package gui.ingame;
 
-import java.awt.Color;
-
-import javax.swing.JLayeredPane;
-
 import gui.FillLayout;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 import model.level.MapModel;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * The main area of the game, containing the map and the entities but NOT the HUD, buttons to exit, etc.
@@ -30,7 +29,7 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
         mapHeight = map.getHeight();
         mapBackgroundPaneLayer = new MapBackgroundPaneLayer(map, this::getScale);
         entitiesPaneLayer = new EntitiesPaneLayer(gameModel.getEntitySet(), this::getScale);
-        effectsPaneLayer = new EffectsPaneLayer();
+        effectsPaneLayer = new EffectsPaneLayer(gameModel, this::getScale);
         gameHUDLayer = new GameHUDLayer(gameModel.getPlayer(), this::getScale);
 
         // debug
@@ -40,7 +39,7 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
         setLayout(new FillLayout());
         add(mapBackgroundPaneLayer.getJComponent(), TILES_LAYER);
         add(entitiesPaneLayer.getJComponent(), ENTITIES_LAYER);
-        // add(effectsPaneLayer, HUD_LAYER);
+        add(effectsPaneLayer, HUD_LAYER);
         add(gameHUDLayer, HUD_LAYER);
     }
 
@@ -57,6 +56,7 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
     public void update() {
         mapBackgroundPaneLayer.update();
         entitiesPaneLayer.update();
+        effectsPaneLayer.update();
         gameHUDLayer.update();
     }
 }
