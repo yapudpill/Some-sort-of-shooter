@@ -50,6 +50,10 @@ public abstract class WeaponModel {
 
     private void cooldownEndedCallback() {}
 
+    public boolean usesDirectionVector() {
+        return true;
+    }
+
     public Coordinates getDirectionVector() {
         return directionVector;
     }

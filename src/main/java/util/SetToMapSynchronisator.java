@@ -1,7 +1,7 @@
 package util;
 
+import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -9,15 +9,15 @@ import java.util.function.Consumer;
  * removeConsumer for each element in the map that is not in the set.
  */
 public class SetToMapSynchronisator {
-    static public <K, V> void synchroniseSetToMap(Set<K> set, Map<K, V> map, Consumer<K> addConsumer, Consumer<K> removeConsumer) {
+    static public <K, V> void synchroniseCollectionToMap(Collection<K> collection, Map<K, V> map, Consumer<K> addConsumer, Consumer<K> removeConsumer) {
         // TODO: probably inefficient, is there an easier way to do this faster?
-        for (K key : set) {
+        for (K key : collection) {
             if (!map.containsKey(key)) {
                 addConsumer.accept(key);
             }
         }
         for (K key : map.keySet()) {
-            if (!set.contains(key)) {
+            if (!collection.contains(key)) {
                 removeConsumer.accept(key);
             }
         }
