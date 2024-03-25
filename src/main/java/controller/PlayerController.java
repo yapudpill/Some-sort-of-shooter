@@ -1,5 +1,10 @@
 package controller;
 
+import gui.ingame.GameMainArea;
+import model.ingame.Coordinates;
+import model.ingame.entity.PlayerModel;
+import model.ingame.weapon.WeaponModel;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,11 +13,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Map;
-
-import gui.ingame.GameMainArea;
-import model.ingame.Coordinates;
-import model.ingame.entity.PlayerModel;
-import model.ingame.weapon.WeaponModel;
 
 /**
  * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.
@@ -37,7 +37,11 @@ public class PlayerController {
     }
 
     private static Map<Integer, PlayerModel.PlayerAction> getPlayer1KeyActionMap(PlayerModel playerModel) {
-        return Map.of(MouseEvent.BUTTON1, playerModel::attack, MouseEvent.BUTTON3, playerModel::dash);
+        return Map.of(
+                MouseEvent.BUTTON1, playerModel::attack,
+                MouseEvent.BUTTON3, playerModel::dash,
+                KeyEvent.VK_E, playerModel::pickWeapon
+        );
     }
 
     /**
@@ -58,6 +62,9 @@ public class PlayerController {
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
                     controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
                 }
+
+                PlayerModel.PlayerAction action = getPlayer1KeyActionMap(controlledPlayerModel).get(e.getKeyCode());
+                if (action != null) action.performAction();
                 // DEBUG
                 if (e.getKeyCode() == KeyEvent.VK_F1) {
                     System.out.println("debug");

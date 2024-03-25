@@ -7,19 +7,22 @@ import util.ModelTimer;
 public class PlayerModel extends CombatEntityModel {
     private boolean dashing = false;
     private ModelTimer dashTimer;
+    private ModelTimer pickWeaponTimer;
     /*
      * tag interface for player actions, to be used by the controller (e.g. attack, reload, etc.)
      */
-
     @FunctionalInterface
     public interface PlayerAction {
         void performAction();
     }
 
+    private boolean shouldPickWeapons = false;
+
     public PlayerModel(GameModel gameModel) {
         super(100, 0.5, 0.5, gameModel);
         dashTimer = new ModelTimer(30, () -> dashing = false, gameModel);
         dashTimer.setRepeats(false);
+        pickWeaponTimer = new ModelTimer(30, () -> shouldPickWeapons = false, gameModel);
         movementHandler = new MovementHandlerModel<PlayerModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.09);
         addBlockedMovementListener(System.out::println);
@@ -35,7 +38,7 @@ public class PlayerModel extends CombatEntityModel {
 
     @Override
     public boolean shouldPickWeapons() {
-        return true;
+        return shouldPickWeapons;
     }
 
 
@@ -54,4 +57,8 @@ public class PlayerModel extends CombatEntityModel {
         return false;
     }
 
+    public void pickWeapon() {
+        this.pickWeaponTimer.start();
+        this.shouldPickWeapons = true;
+    }
 }
