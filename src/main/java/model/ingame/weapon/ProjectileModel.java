@@ -20,8 +20,6 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
         this.sourceWeapon = source;
         this.active = true;
         this.movementHandler = new MovementHandlerModel<ProjectileModel>(this, gameModel.getPhysicsEngine());
-
-        addBlockedMovementListener(e -> despawn());
     }
 
     @Override

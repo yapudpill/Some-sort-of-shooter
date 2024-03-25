@@ -10,12 +10,14 @@ import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.WeaponEntity;
 import model.ingame.weapon.ProjectileModel;
 import model.ingame.weapon.RocketProjectileModel;
+import model.ingame.weapon.RubberProjectile;
 
 public class EntityRendererFactory {
     static public AbstractEntityRenderer makeEntityRenderer(IEntity entityModel) {
         return switch (entityModel) {
             case PlayerModel playerModel -> new PlayerRenderer(playerModel);
             case RocketProjectileModel rocketProjectileModel -> new RocketRenderer(rocketProjectileModel);
+            case RubberProjectile rubberProjectile -> new RubberBallRenderer(rubberProjectile);
             case ProjectileModel projectileModel -> new ProjectileRenderer(projectileModel);
             case WalkingEnemyModel enemy -> new WalkingEnemyRenderer(enemy);
             case WeaponEntity weaponEntity -> new WeaponRenderer(weaponEntity);

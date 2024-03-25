@@ -207,10 +207,16 @@ public class MapModel {
         return tiles[y][x].isWalkable();
     }
 
-    public boolean canEnterAt(IEntity entity, int x, int y) {
-        if (isOutOfBounds(x, y))
-            return false;
-        return tiles[y][x].canEnter(entity);
+    public boolean canEnterAround(IEntity entity, int x, int y) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (isOutOfBounds(x + i, y + j))
+                    continue;
+                if (!tiles[y + j][x + i].canEnter(entity))
+                    return false;
+            }
+        }
+        return true;
     }
 
     public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity){
@@ -233,7 +239,7 @@ public class MapModel {
         dy *= 2;
 
         for (; n > 0; n--) {
-            if (!canEnterAt(entity, x, y)) {
+            if (!canEnterAround(entity, x, y)) {
                 return true; // Obstacle found
             }
             if (error > 0) {

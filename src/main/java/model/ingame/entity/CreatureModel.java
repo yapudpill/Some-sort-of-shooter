@@ -3,6 +3,7 @@ package model.ingame.entity;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.IMovementHandler;
+import model.ingame.physics.SlidingListener;
 
 public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity{
     protected IMovementHandler movementHandler;
@@ -13,6 +14,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
         super(Coordinates.ZERO, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
+        addBlockedMovementListener(new SlidingListener());
     }
 
     @Override

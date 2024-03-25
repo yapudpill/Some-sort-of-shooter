@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
+import model.ingame.entity.PlayerModel;
 import model.level.MapModel;
 import model.level.TileModel;
 import util.Pair;
@@ -51,11 +52,11 @@ public class PhysicsEngineModel {
      */
     public void move(IMobileEntity entity, Coordinates movementVector) {
         // Adjust movement to collide with walls
-        var adjustedMovementAndBlockedEventPair = adjustMovement(entity, movementVector);
-        Coordinates adjustedMovement = adjustedMovementAndBlockedEventPair.first();
-        BlockedMovementEvent blockedMovementEvent = adjustedMovementAndBlockedEventPair.second();
+        var blockedMovementEvent = handleBlockedMovement(entity, movementVector);
+        Coordinates adjustedMovement = movementVector;
         if (blockedMovementEvent != null) {
             entity.notifyBlockedMovementListeners(blockedMovementEvent);
+            adjustedMovement = blockedMovementEvent.getAdjustedMovement();
         }
         if (adjustedMovement.isZero()) {
             entity.getMovementHandler().setMoving(false);
@@ -89,24 +90,30 @@ public class PhysicsEngineModel {
     }
 
 
-    private Pair<Coordinates, BlockedMovementEvent> adjustMovement(IMobileEntity entity, Coordinates movementVector) {
-        Coordinates adjustedMovement = Coordinates.ZERO;
+    private BlockedMovementEvent handleBlockedMovement(IMobileEntity entity, Coordinates movementVector) {
         // If horizontal movement is blocked, only keep the vertical movement
         Coordinates newPosX = entity.getPos().add(movementVector.xProjection());
         BlockedMovementEvent potentialBlockedMovementX = canMoveTo(entity, newPosX);
+        boolean vertical = false;
+        boolean horizontal = false;
         if (potentialBlockedMovementX == null) { // If the movement is not blocked, keep it
-            adjustedMovement = adjustedMovement.add(movementVector.xProjection());
+            horizontal = true;
         }
         // Same for vertical movement
         Coordinates newPosY = entity.getPos().add(movementVector.yProjection());
         BlockedMovementEvent potentialBlockedMovementY = canMoveTo(entity, newPosY);
         if (potentialBlockedMovementY == null) {
-            adjustedMovement = adjustedMovement.add(movementVector.yProjection());
+            vertical = true;
         }
 
         BlockedMovementEvent blockedMovementEvent = mergeBlockedMovementEvents(potentialBlockedMovementX, potentialBlockedMovementY);
+        if(blockedMovementEvent!=null){
+            blockedMovementEvent.setHorizontalBlocked(horizontal);
+            blockedMovementEvent.setVerticalBlocked(vertical);
+            blockedMovementEvent.setMovementVector(movementVector);
+        }
 
-        return new Pair<>(adjustedMovement, blockedMovementEvent);
+        return blockedMovementEvent;
     }
 
     private BlockedMovementEvent mergeBlockedMovementEvents(BlockedMovementEvent blockedMovementEvent1, BlockedMovementEvent blockedMovementEvent2) {

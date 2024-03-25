@@ -2,6 +2,7 @@ package model.ingame.weapon;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.physics.RicochetListener;
 
 public class BulletsModel extends ProjectileModel {
     public static final double BULLET_SPEED = 0.2;
@@ -12,5 +13,6 @@ public class BulletsModel extends ProjectileModel {
     public BulletsModel(Coordinates pos, ProjectileWeaponModel source, GameModel gameModel) {
         super(pos, source, BULLET_WIDTH, BULLET_HEIGHT, BULLET_DAMAGE, gameModel);
         movementHandler.setSpeed(BULLET_SPEED);
+        addBlockedMovementListener(e -> despawn());
     }
 }
