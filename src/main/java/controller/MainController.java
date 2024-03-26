@@ -3,6 +3,7 @@ package controller;
 import java.awt.EventQueue;
 
 import gui.MainFrame;
+import gui.editor.EditorMenu;
 import gui.launcher.EndMenu;
 import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
@@ -18,6 +19,10 @@ public class MainController {
 
     public void loadHomeMenu() {
         mainFrame.loadMenu(new HomeMenu(this));
+    }
+
+    public void loadEditor() {
+        mainFrame.loadMenu(new EditorMenu(this));
     }
 
     public void loadMapMenu() {
