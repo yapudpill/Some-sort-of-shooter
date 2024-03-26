@@ -17,6 +17,7 @@ import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.MapModel;
+import util.Resource;
 
 public class GameModel implements IUpdateable {
     public final Statistics stats;
@@ -30,9 +31,9 @@ public class GameModel implements IUpdateable {
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
 
 
-    public GameModel(String mapName) {
-        stats = new Statistics(mapName);
-        map = new MapModel(mapName);
+    public GameModel(Resource mapResource) {
+        stats = new Statistics(mapResource);
+        map = new MapModel(mapResource);
         physicsEngine = new PhysicsEngineModel(map);
         player = new PlayerModel(this);
         entityModelList.add(player);

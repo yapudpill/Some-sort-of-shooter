@@ -7,9 +7,9 @@ import model.ingame.entity.IEntity;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
+import util.Resource;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ import java.util.List;
 public class MapModel {
     private TileModel[][] tiles;
 
-    public MapModel(String mapName){
-        tiles = loadMap("maps/" + mapName);
+    public MapModel(Resource map){
+        tiles = loadMap(map);
     }
 
     /**
@@ -85,9 +85,8 @@ public class MapModel {
      * @param path is the path of the map.txt (located in the maps directory in the model.level package of resources)
      * @return a TileModel[][] containing the tiles corresponding to the loaded map.txt
      */
-    private static TileModel[][] loadMap(String path) {
-        InputStream in = MapModel.class.getResourceAsStream(path);
-        char[][] parsedMap = parseMap(in);
+    private static TileModel[][] loadMap(Resource map) {
+        char[][] parsedMap = parseMap(map);
 
         TileModel[][] tiles = new TileModel[parsedMap.length][parsedMap[0].length];
         for (int i = 0; i < parsedMap.length; i++) {
@@ -104,8 +103,8 @@ public class MapModel {
      * @return array containing the character corresponding to the content of each tile
      * parseMap ignores everything except the center of each square, so it ignores 1/2 lines and 3/4 columns
      */
-    public static char[][] parseMap(InputStream in) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+    public static char[][] parseMap(Resource map) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(map.toStream()));
         String[] lines = reader.lines().toArray(String[]::new);
 
         int height = lines.length/2;

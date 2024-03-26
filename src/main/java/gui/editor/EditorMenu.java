@@ -3,7 +3,6 @@ package gui.editor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -15,11 +14,12 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import controller.MainController;
+import gui.MainFrame;
+import util.Resource;
 
 public class EditorMenu extends JPanel {
     private static final int DEFAULT_ROWS = 20;
     private static final int DEFAULT_COLS = 20;
-    private static final JFileChooser fileChooser = new JFileChooser();
 
     private final EditorModel model;
     private final EditorGrid grid;
@@ -117,21 +117,24 @@ public class EditorMenu extends JPanel {
     }
 
     private void open() {
-        int returnCode = fileChooser.showOpenDialog(this);
+        int returnCode = MainFrame.fileChooser.showOpenDialog(this);
         if (returnCode != JFileChooser.APPROVE_OPTION) return;
 
-        File f = fileChooser.getSelectedFile();
-        try {
-            model.readFile(f);
-            rows.setValue(model.getRows());
-            cols.setValue(model.getCols());
-        } catch (FileNotFoundException e) {
+        File f = MainFrame.fileChooser.getSelectedFile();
+        if (!f.exists()) {
             JOptionPane.showMessageDialog(
                 this,
                 "The selected file does not exist.",
                 "Error",
                 JOptionPane.ERROR_MESSAGE
             );
+            return;
+        }
+
+        try {
+            model.readFile(new Resource(f));
+            rows.setValue(model.getRows());
+            cols.setValue(model.getCols());
         } catch (IndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(
                 this,
@@ -145,10 +148,10 @@ public class EditorMenu extends JPanel {
     }
 
     private void save() {
-        int returnCode = fileChooser.showSaveDialog(this);
+        int returnCode = MainFrame.fileChooser.showSaveDialog(this);
         if (returnCode != JFileChooser.APPROVE_OPTION) return;
 
-        File f = fileChooser.getSelectedFile();
+        File f = MainFrame.fileChooser.getSelectedFile();
         if (f.exists()) {
             int response = JOptionPane.showConfirmDialog(
                 this,

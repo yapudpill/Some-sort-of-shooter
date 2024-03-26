@@ -1,16 +1,14 @@
 package gui.editor;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import model.level.MapModel;
 import model.level.TileModel;
+import util.Resource;
 
 public class EditorModel {
     private static final char[] possibleChars = { ' ', '#', 'V' };
@@ -61,9 +59,8 @@ public class EditorModel {
         tileGrid[y][x] = models.get(charGrid[y][x]);
     }
 
-    public void readFile(File f) throws FileNotFoundException {
-        InputStream in = new FileInputStream(f);
-        charGrid = MapModel.parseMap(in);
+    public void readFile(Resource map) {
+        charGrid = MapModel.parseMap(map);
         rows = charGrid.length;
         cols = charGrid[0].length;
 

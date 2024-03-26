@@ -8,6 +8,7 @@ import gui.launcher.EndMenu;
 import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
 import model.ingame.Statistics;
+import util.Resource;
 
 public class MainController {
     private final MainFrame mainFrame;
@@ -29,8 +30,8 @@ public class MainController {
         mainFrame.loadMenu(new MapMenu(this));
     }
 
-    public void loadGame(String mapName) {
-        GameController gameController = new GameController(mapName, this);
+    public void loadGame(Resource map) {
+        GameController gameController = new GameController(map, this);
         mainFrame.loadMenu(gameController.gameView);
         EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
     }

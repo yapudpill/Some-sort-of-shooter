@@ -46,7 +46,7 @@ public class EndMenu extends JPanel {
 
         constraints.gridx = 2;
         JButton replay = new JButton("Replay");
-        replay.addActionListener(e -> mainController.loadGame(stats.mapName));
+        replay.addActionListener(e -> mainController.loadGame(stats.map));
         add(replay, constraints);
 
         constraints.gridwidth = 1;
