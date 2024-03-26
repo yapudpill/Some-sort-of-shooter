@@ -1,7 +1,10 @@
 package gui.editor;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +59,20 @@ public class EditorModel {
         int newIndex = Math.floorMod(indexes.get(charGrid[y][x]) - 1, possibleChars.length);
         charGrid[y][x] = possibleChars[newIndex];
         tileGrid[y][x] = models.get(charGrid[y][x]);
+    }
+
+    public void readFile(File f) throws FileNotFoundException {
+        InputStream in = new FileInputStream(f);
+        charGrid = MapModel.parseMap(in);
+        rows = charGrid.length;
+        cols = charGrid[0].length;
+
+        tileGrid = new TileModel[rows][cols];
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                tileGrid[y][x] = models.get(charGrid[y][x]);
+            }
+        }
     }
 
     public void writeFile(File f) throws IOException {

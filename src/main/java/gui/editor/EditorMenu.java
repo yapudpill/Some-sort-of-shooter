@@ -3,6 +3,7 @@ package gui.editor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -21,6 +22,8 @@ public class EditorMenu extends JPanel {
     private static final JFileChooser fileChooser = new JFileChooser();
 
     private final EditorModel model;
+    private final EditorGrid grid;
+    private final JSpinner rows, cols;
 
     public EditorMenu(MainController mainController) {
         setLayout(new GridBagLayout());
@@ -51,11 +54,11 @@ public class EditorMenu extends JPanel {
         constraints.gridwidth = 2;
 
         constraints.gridx = 0;
-        JSpinner rows = new JSpinner(new SpinnerNumberModel(DEFAULT_ROWS, 5, 25, 1));
+        rows = new JSpinner(new SpinnerNumberModel(DEFAULT_ROWS, 5, 25, 1));
         add(rows, constraints);
 
         constraints.gridx = 2;
-        JSpinner cols = new JSpinner(new SpinnerNumberModel(DEFAULT_COLS, 5, 25, 1));
+        cols = new JSpinner(new SpinnerNumberModel(DEFAULT_COLS, 5, 25, 1));
         add(cols, constraints);
 
 
@@ -69,7 +72,7 @@ public class EditorMenu extends JPanel {
         constraints.weighty = 1;
 
         model = new EditorModel(DEFAULT_ROWS, DEFAULT_COLS);
-        EditorGrid grid = new EditorGrid(model);
+        grid = new EditorGrid(model);
         JPanel gridContainer = new JPanel();
         gridContainer.add(grid);
         add(gridContainer, constraints);
@@ -104,12 +107,41 @@ public class EditorMenu extends JPanel {
 
         constraints.gridx = 2;
         JButton open = new JButton("Open");
+        open.addActionListener(e -> open());
         add(open, constraints);
 
         constraints.gridx = 3;
         JButton save = new JButton("Save");
         save.addActionListener(e -> save());
         add(save, constraints);
+    }
+
+    private void open() {
+        int returnCode = fileChooser.showOpenDialog(this);
+        if (returnCode != JFileChooser.APPROVE_OPTION) return;
+
+        File f = fileChooser.getSelectedFile();
+        try {
+            model.readFile(f);
+            rows.setValue(model.getRows());
+            cols.setValue(model.getCols());
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "The selected file does not exist.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "The selected file is not in the correct format.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+        grid.reset();
     }
 
     private void save() {
