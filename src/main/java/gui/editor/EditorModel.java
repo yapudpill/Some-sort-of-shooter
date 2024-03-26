@@ -1,5 +1,8 @@
 package gui.editor;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +56,28 @@ public class EditorModel {
         int newIndex = Math.floorMod(indexes.get(charGrid[y][x]) - 1, possibleChars.length);
         charGrid[y][x] = possibleChars[newIndex];
         tileGrid[y][x] = models.get(charGrid[y][x]);
+    }
+
+    public void writeFile(File f) throws IOException {
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+
+        PrintWriter out = new PrintWriter(f);
+        String fullLine = "+---".repeat(cols) + "+";
+        String sepLine = "+   ".repeat(cols) + "+";
+
+        for (int y = 0; y < rows; y++) {
+            out.println(y == 0 ? fullLine : sepLine);
+            out.printf("| %c ", charGrid[y][0]);
+            for (int x = 1; x < cols; x++) {
+                out.printf("  %c ", charGrid[y][x]);
+            }
+            out.println("|");
+        }
+        out.print(fullLine);
+
+        out.close();
     }
 
     public TileModel getTile(int x, int y) {

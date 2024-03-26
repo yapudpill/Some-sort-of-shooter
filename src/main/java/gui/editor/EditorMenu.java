@@ -2,9 +2,13 @@ package gui.editor;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -14,6 +18,9 @@ import controller.MainController;
 public class EditorMenu extends JPanel {
     private static final int DEFAULT_ROWS = 20;
     private static final int DEFAULT_COLS = 20;
+    private static final JFileChooser fileChooser = new JFileChooser();
+
+    private final EditorModel model;
 
     public EditorMenu(MainController mainController) {
         setLayout(new GridBagLayout());
@@ -61,7 +68,7 @@ public class EditorMenu extends JPanel {
         constraints.gridx = 0;
         constraints.weighty = 1;
 
-        EditorModel model = new EditorModel(DEFAULT_ROWS, DEFAULT_COLS);
+        model = new EditorModel(DEFAULT_ROWS, DEFAULT_COLS);
         EditorGrid grid = new EditorGrid(model);
         JPanel gridContainer = new JPanel();
         gridContainer.add(grid);
@@ -101,6 +108,35 @@ public class EditorMenu extends JPanel {
 
         constraints.gridx = 3;
         JButton save = new JButton("Save");
+        save.addActionListener(e -> save());
         add(save, constraints);
+    }
+
+    private void save() {
+        int returnCode = fileChooser.showSaveDialog(this);
+        if (returnCode != JFileChooser.APPROVE_OPTION) return;
+
+        File f = fileChooser.getSelectedFile();
+        if (f.exists()) {
+            int response = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to overwrite the contents of this file?",
+                "Override file",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            );
+            if (response != JOptionPane.YES_OPTION) return;
+        }
+
+        try {
+            model.writeFile(f);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Something went wrong.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 }
