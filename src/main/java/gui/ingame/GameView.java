@@ -1,12 +1,13 @@
 package gui.ingame;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JPanel;
+
 import controller.PlayerController;
 import gui.RatioLayout;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * The main View for the game once it is launched. It contains the GameMainArea and the GameHUD. Intended to be the

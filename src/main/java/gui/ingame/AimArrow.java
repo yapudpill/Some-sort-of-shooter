@@ -1,11 +1,16 @@
 package gui.ingame;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
+
+import javax.swing.JComponent;
+
 import gui.ScalableComponent;
 import model.ingame.Coordinates;
 import model.ingame.entity.ICombatEntity;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class AimArrow extends JComponent implements ScalableComponent {
     private final ICombatEntity combatEntity;
