@@ -15,7 +15,7 @@ import javax.swing.SpinnerNumberModel;
 
 import controller.MainController;
 import gui.MainFrame;
-import util.Resource;
+import gui.launcher.MapSelector;
 
 public class EditorMenu extends JPanel {
     private static final int DEFAULT_ROWS = 20;
@@ -117,24 +117,21 @@ public class EditorMenu extends JPanel {
     }
 
     private void open() {
-        int returnCode = MainFrame.fileChooser.showOpenDialog(this);
-        if (returnCode != JFileChooser.APPROVE_OPTION) return;
-
-        File f = MainFrame.fileChooser.getSelectedFile();
-        if (!f.exists()) {
-            JOptionPane.showMessageDialog(
-                this,
-                "The selected file does not exist.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
+        MapSelector selector = new MapSelector();
+        int response = JOptionPane.showConfirmDialog(
+            this,
+            selector,
+            "Map selector",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+        if (response != JOptionPane.OK_OPTION) return;
 
         try {
-            model.readFile(new Resource(f));
+            model.readFile(selector.getSelectedMap());
             rows.setValue(model.getRows());
             cols.setValue(model.getCols());
+            grid.reset();
         } catch (IndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(
                 this,
@@ -143,8 +140,6 @@ public class EditorMenu extends JPanel {
                 JOptionPane.ERROR_MESSAGE
             );
         }
-
-        grid.reset();
     }
 
     private void save() {
