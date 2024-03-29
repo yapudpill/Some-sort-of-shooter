@@ -35,7 +35,7 @@ public class MapSelector extends JPanel {
         constraints.weightx = 1;
 
         constraints.gridy = 0;
-        add(new JLabel("Available maps:"), constraints);
+        add(new JLabel("Default maps:"), constraints);
 
         constraints.gridy = 1;
         add(new JLabel("Load custom map:"), constraints);
