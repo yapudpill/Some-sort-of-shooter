@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -13,12 +14,19 @@ import javax.swing.UIManager;
 public class MainFrame extends JFrame {
 
     /**
+     * Universal file chooser that is used everywhere. This is necessary because
+     * file choosers remember the directory where they where last closed.
+     */
+    public static final JFileChooser fileChooser = new JFileChooser();
+
+    /**
      * Creates a new <code>MainFrame</code>, with size to 900x900 that uses the
      * default look and feel. Then make it visible.
      */
     public MainFrame() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            fileChooser.updateUI(); // make the file chooser use the look and feel
         } catch (Exception e) {}
 
         setSize(900,900);

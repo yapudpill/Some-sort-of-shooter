@@ -1,13 +1,19 @@
 package controller;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Map;
+
 import gui.ingame.GameMainArea;
 import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
 import model.ingame.weapon.WeaponModel;
-
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.

@@ -17,18 +17,19 @@ public class HomeMenu extends JPanel {
 
         // Global constraints
         constraints.weightx = 1;
-        constraints.weighty = 1;
 
-        // First line
+        // Title (row 0)
         constraints.gridy = 0;
+        constraints.weighty = 1;
 
         constraints.gridx = 0;
         constraints.gridwidth = 2;
         add(new JLabel("SOME SORT OF SHOOTER"), constraints);
         constraints.gridwidth = 1;
 
-        // Second line
+        // Play and editor (row 1)
         constraints.gridy = 1;
+        constraints.weighty = 0.5;
         constraints.fill = GridBagConstraints.BOTH;
 
         constraints.gridx = 0;
@@ -37,6 +38,13 @@ public class HomeMenu extends JPanel {
         add(play, constraints);
 
         constraints.gridx = 1;
+        JButton edit = new JButton("Editor");
+        edit.addActionListener(e -> mainController.loadEditor());
+        add(edit, constraints);
+
+        // Quit (row 2)
+        constraints.gridy = 2;
+        constraints.gridx = 0;
         JButton quit = new JButton("Quit");
         quit.addActionListener(e -> mainController.closeWindow());
         add(quit, constraints);

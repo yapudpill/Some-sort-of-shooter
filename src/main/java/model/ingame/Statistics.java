@@ -1,11 +1,13 @@
 package model.ingame;
 
+import util.Resource;
+
 public class Statistics {
-    public final String mapName;
+    public final Resource map;
     public int killedEnemies, nbAttacks;
     public long survivedFrames;
 
-    public Statistics(String mapName) {
-        this.mapName = mapName;
+    public Statistics(Resource map) {
+        this.map = map;
     }
 }
