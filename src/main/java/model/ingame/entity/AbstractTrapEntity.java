@@ -8,8 +8,13 @@ public abstract class AbstractTrapEntity extends CollisionEntityModel {
     public AbstractTrapEntity(Coordinates pos, double width, double height, GameModel gameModel, ICombatEntity owner) {
         super(pos, width, height, gameModel);
         this.owner = owner;
-        addCollisionListener((entity) -> {
-            if (entity instanceof IVulnerableEntity) trigger((IVulnerableEntity) entity);
+        addCollisionListener(e -> {
+            for (ICollisionEntity entity: e.getInvolvedEntitiesList()) {
+                if (entity != owner && entity instanceof IVulnerableEntity vulnerableEntity) {
+                    trigger(vulnerableEntity);
+                    break;
+                }
+            }
         });
     }
 

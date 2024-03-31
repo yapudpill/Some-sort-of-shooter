@@ -4,7 +4,7 @@ import model.ingame.Coordinates;
 import model.ingame.GameModel;
 
 public class SimpleTrap extends AbstractTrapEntity {
-    private static final int DAMAGE = 10;
+    private static final int DAMAGE = 20;
     private static final double WIDTH = 1;
     private static final double HEIGHT = 1;
 
