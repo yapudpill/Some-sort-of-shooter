@@ -1,12 +1,12 @@
 package model.ingame.weapon;
 
 import model.ingame.GameModel;
-import model.ingame.entity.IEntity;
+import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.DamageListener;
 
 public class PistolModel extends ProjectileWeaponModel{
 
-    public PistolModel(IEntity owner, GameModel gameModel) {
+    public PistolModel(ICombatEntity owner, GameModel gameModel) {
         super("Pistol", "pistol", gameModel, owner, 60);
     }
 

@@ -3,7 +3,7 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.entity.CombatEntityModel;
 import model.ingame.entity.AttachedDamageZoneEntity;
-import model.ingame.entity.IEntity;
+import model.ingame.entity.ICombatEntity;
 import util.ModelTimer;
 
 public class KnifeWeapon extends WeaponModel {
@@ -19,7 +19,7 @@ public class KnifeWeapon extends WeaponModel {
     private AttachedDamageZoneEntity damageZone = null;
 
 
-    public KnifeWeapon(IEntity owner, GameModel gameModel) {
+    public KnifeWeapon(ICombatEntity owner, GameModel gameModel) {
         super("Knife", "knife", gameModel, owner, KNIFE_COOLDOWN);
         this.attackDurationTimer = new ModelTimer(ATTACK_DURATION, () -> {
             gameModel.getEntitySet().remove(damageZone);
