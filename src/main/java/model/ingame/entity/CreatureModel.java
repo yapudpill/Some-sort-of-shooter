@@ -25,6 +25,10 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     @Override
     public void takeDamage(int damage) {
         health -= damage;
+        if(isDead()) {
+            despawn();
+            gameModel.stats.killedEnemies++;
+        }
     }
 
     @Override
@@ -39,11 +43,6 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
 
     @Override
     public void update(){
-        if(isDead()) {
-            despawn();
-            gameModel.stats.killedEnemies++;
-            return;
-        }
         movementHandler.update();
     }
 

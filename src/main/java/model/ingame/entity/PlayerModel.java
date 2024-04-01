@@ -2,6 +2,7 @@ package model.ingame.entity;
 
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
+import model.ingame.weapon.RubberWeapon;
 import util.ModelTimer;
 
 public class PlayerModel extends CombatEntityModel {
@@ -18,17 +19,17 @@ public class PlayerModel extends CombatEntityModel {
 
     public PlayerModel(GameModel gameModel) {
         super(100, 0.5, 0.5, gameModel);
-        dashTimer = new ModelTimer(30, () -> dashing = false, gameModel);
+        dashTimer = new ModelTimer(30, () -> {
+            dashing = false;
+            movementHandler.setSpeed(0.09);
+        }, gameModel);
         dashTimer.setRepeats(false);
         movementHandler = new MovementHandlerModel<PlayerModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.09);
+        setWeapon(new RubberWeapon(this, gameModel));
     }
 
     public void update(){
-        if(dashing){
-            movementHandler.setSpeed(0.35);
-        }
-        else movementHandler.setSpeed(0.09);
         super.update();
     }
 
@@ -41,6 +42,7 @@ public class PlayerModel extends CombatEntityModel {
     public void dash(){
         if(dashing) return;
         dashing = true;
+        movementHandler.setSpeed(0.35);
         dashTimer.start();
     }
 
@@ -51,6 +53,15 @@ public class PlayerModel extends CombatEntityModel {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void takeDamage(int damage){
+        health-=damage;
+        if(isDead()){
+            despawn();
+            gameModel.setRunning(false);
+        }
     }
 
 }

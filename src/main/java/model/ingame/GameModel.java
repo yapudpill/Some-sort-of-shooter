@@ -49,10 +49,6 @@ public class GameModel implements IUpdateable {
     public void update() {
         stats.survivedFrames++;
         for (IUpdateable updateable : updateables) updateable.update();
-        if(player.isDead()){
-            System.out.println("Game Over");
-            isRunning = false;
-        }
     }
 
     public void initSpawner(){
@@ -100,5 +96,9 @@ public class GameModel implements IUpdateable {
 
     public boolean isRunning() {
         return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 }

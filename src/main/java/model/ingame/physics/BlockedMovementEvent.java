@@ -9,9 +9,9 @@ public class BlockedMovementEvent {
     private final boolean outOfBounds;
     private final TileModel blockingTile;
     private Coordinates adjustedMovement = Coordinates.ZERO;
+    private Coordinates movementVector;
     private boolean verticalBlocked;
     private boolean horizontalBlocked;
-    private Coordinates movementVector;
 
     public BlockedMovementEvent(IMobileEntity entity, TileModel blockingTile, boolean outOfBounds){
         this.blockedEntity = entity;
