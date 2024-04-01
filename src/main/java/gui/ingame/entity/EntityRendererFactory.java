@@ -1,6 +1,7 @@
 package gui.ingame.entity;
 
 import model.ingame.entity.AttachedDamageZoneEntity;
+import model.ingame.entity.ExplodingEnemy;
 import model.ingame.entity.ExplosionZoneEntity;
 import model.ingame.entity.FirstAidKit;
 import model.ingame.entity.IEntity;
@@ -25,6 +26,7 @@ public class EntityRendererFactory {
             case ExplosionZoneEntity explosionZoneEntity -> new ExplosionZoneRenderer(explosionZoneEntity);
             case FirstAidKit firstAidKit -> new FirstAidKitRenderer(firstAidKit);
             case SmartEnemyModel smartEnemy -> new SmartEnemyRenderer(smartEnemy);
+            case ExplodingEnemy explodingEnemy -> new ExplodingEnemyRenderer(explodingEnemy);
             default -> {
                 System.out.println("EntityRendererFactory: unknown entity model: " + entityModel.getClass().getName());
                 yield null; // TODO: should we throw an exception here? or return a default renderer?

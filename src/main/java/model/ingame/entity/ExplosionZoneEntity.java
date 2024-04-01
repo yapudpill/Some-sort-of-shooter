@@ -20,6 +20,9 @@ public class ExplosionZoneEntity extends CollisionEntityModel {
         addCollisionListener(e -> {
             for (ICollisionEntity entity: e.getInvolvedEntitiesList()) {
                 if (entity instanceof IVulnerableEntity vulnerableEntity && !hitEntities.contains(vulnerableEntity)) {
+                    if(vulnerableEntity instanceof IEffectEntity effectEntity && !effectEntity.canApplyEffect(vulnerableEntity)) {
+                        continue;
+                    }
                     vulnerableEntity.takeDamage(damage);
                     hitEntities.add(vulnerableEntity);
                     System.out.println("explosion hit");

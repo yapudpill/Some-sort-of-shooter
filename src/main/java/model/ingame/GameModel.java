@@ -6,8 +6,9 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
 
-import model.ingame.entity.CombatEntityModel;
 import model.ingame.entity.EnemySpawnerModel;
+import model.ingame.entity.ExplodingEnemy;
+import model.ingame.entity.ExplodingEnemySpawner;
 import model.ingame.entity.FirstAidKitSpawner;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
@@ -44,10 +45,11 @@ public class GameModel implements IUpdateable {
         initSpawner();
         FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 7);
         Predicate<Coordinates> avoidPredicate = (pos) -> map.getTile((int)pos.x, (int)pos.y).getCollidablesSet()
-        .stream().anyMatch((entity) -> entity instanceof CombatEntityModel);
+        .stream().anyMatch((entity) -> !(entity instanceof PlayerModel));
         floodFillPathFinder.setAvoidPredicate(avoidPredicate);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
+        ExplodingEnemy.setPathFinder(floodFillPathFinder);
     }
 
     @Override
@@ -57,7 +59,7 @@ public class GameModel implements IUpdateable {
     }
 
     public void initSpawner(){
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of(new EnemySpawnerModel(this), new SmartEnemySpawner(this), new FirstAidKitSpawner(this)), 3*60);
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of(new EnemySpawnerModel(this), new SmartEnemySpawner(this), new FirstAidKitSpawner(this), new ExplodingEnemySpawner(this)), 3*60);
         mainSpawner.start();
     }
 

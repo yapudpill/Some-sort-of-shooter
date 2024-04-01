@@ -217,38 +217,45 @@ public class MapModel {
         return true;
     }
 
+    public boolean canEnterAt(IEntity entity, int x, int y) {
+        if (isOutOfBounds(x, y))
+            return false;
+        return tiles[y][x].canEnter(entity);
+    }
+
     public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity){
-        // Bresenham's algorithm
+        int x0 = (int) pos1.x;
+        int y0 = (int) pos1.y;
+        int x1 = (int) pos2.x;
+        int y1 = (int) pos2.y;
 
-        int startX = (int) pos1.x;
-        int startY = (int) pos1.y;
-        int endX = (int) pos2.x;
-        int endY = (int) pos2.y;
-
-        int dx = Math.abs(endX - startX);
-        int dy = Math.abs(endY - startY);
-        int x = startX;
-        int y = startY;
+        int dx = Math.abs(x1 - x0);
+        int dy = Math.abs(y1 - y0);
+        int x = x0;
+        int y = y0;
         int n = 1 + dx + dy;
-        int x_inc = (endX > startX) ? 1 : -1;
-        int y_inc = (endY > startY) ? 1 : -1;
+        int x_inc = (x1 > x0) ? 1 : -1;
+        int y_inc = (y1 > y0) ? 1 : -1;
         int error = dx - dy;
         dx *= 2;
         dy *= 2;
 
-        for (; n > 0; n--) {
-            if (!canEnterAround(entity, x, y)) {
-                return true; // Obstacle found
-            }
-            if (error > 0) {
+        for (; n > 0; --n)
+        {
+            if(!canEnterAt(entity, x, y)) return true;
+
+            if (error > 0)
+            {
                 x += x_inc;
                 error -= dy;
-            } else {
+            }
+            else
+            {
                 y += y_inc;
                 error += dx;
             }
         }
-        return false; // No obstacles found between the two positions
+        return false;
     }
 
     public void printCollideables() {

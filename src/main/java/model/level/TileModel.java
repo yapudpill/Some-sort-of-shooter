@@ -30,7 +30,7 @@ public abstract class TileModel implements ITileModel {
     }
 
     public Set<ICollisionEntity> getCollidablesSet() {
-        return collidables;
+        return new CopyOnWriteArraySet<ICollisionEntity>(collidables);
     }
 
     public void reset() {
