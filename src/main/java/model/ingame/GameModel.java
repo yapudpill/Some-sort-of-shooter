@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Predicate;
 
+import model.ingame.entity.CombatEntityModel;
 import model.ingame.entity.EnemySpawnerModel;
 import model.ingame.entity.FirstAidKitSpawner;
 import model.ingame.entity.ICollisionEntity;
@@ -41,6 +43,9 @@ public class GameModel implements IUpdateable {
         updateables.add(new RandomWeaponSpawner(this));
         initSpawner();
         FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 7);
+        Predicate<Coordinates> avoidPredicate = (pos) -> map.getTile((int)pos.x, (int)pos.y).getCollidablesSet()
+        .stream().anyMatch((entity) -> entity instanceof CombatEntityModel);
+        floodFillPathFinder.setAvoidPredicate(avoidPredicate);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
     }

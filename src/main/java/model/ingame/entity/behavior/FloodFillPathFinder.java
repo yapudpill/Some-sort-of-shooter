@@ -3,6 +3,7 @@ package model.ingame.entity.behavior;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
@@ -14,6 +15,7 @@ public class FloodFillPathFinder {
     private NodeGrid nodeGrid;
     private List<Coordinates> targets;
     private ModelTimer updateTimer;
+    private Predicate<Coordinates> shouldAvoid;
     private boolean reachTarget = true;
 
     public FloodFillPathFinder(GameModel gameModel, int updateDelay) {
@@ -42,7 +44,8 @@ public class FloodFillPathFinder {
                 }
 
                 // Set the value of the current node
-                nodeGrid.getNode(x, y).setValue(currentValue);
+                if(shouldAvoid != null && shouldAvoid.test(currentPos)) nodeGrid.getNode(x, y).setValue(1000);
+                else nodeGrid.getNode(x, y).setValue(currentValue);
 
                 // Add adjacent nodes to the queueq
                 addAdjacentNodes(queue, x, y);
@@ -75,7 +78,8 @@ public class FloodFillPathFinder {
                 if (Math.abs(i) == Math.abs(j)) continue;
                 int newX = x + i;
                 int newY = y + j;
-                if (isValidCoordinate(newX, newY) && nodeGrid.getNode(newX, newY).getValue() < lowestValue && nodeGrid.getNode(newX, newY).getValue() != 0) {
+                if (isValidCoordinate(newX, newY) && nodeGrid.getNode(newX, newY).getValue() < lowestValue
+                && nodeGrid.getNode(newX, newY).getValue() != 0) {
                     lowestValue = nodeGrid.getNode(newX, newY).getValue();
                     lowestPos = nodeGrid.getNode(newX, newY).getCoordinates();
                 }
@@ -123,5 +127,9 @@ public class FloodFillPathFinder {
 
     public boolean doesReachTarget() {
         return reachTarget;
+    }
+
+    public void setAvoidPredicate(Predicate<Coordinates> shouldAvoid) {
+        this.shouldAvoid = shouldAvoid;
     }
 }
