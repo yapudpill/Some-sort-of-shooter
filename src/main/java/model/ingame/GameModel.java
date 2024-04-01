@@ -16,6 +16,7 @@ import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
+import model.level.InvalidMapException;
 import model.level.MapModel;
 import util.Resource;
 
@@ -31,11 +32,12 @@ public class GameModel implements IUpdateable {
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
 
 
-    public GameModel(Resource mapResource) {
+    public GameModel(Resource mapResource) throws InvalidMapException {
         stats = new Statistics(mapResource);
         map = new MapModel(mapResource);
         physicsEngine = new PhysicsEngineModel(map);
-        player = new PlayerModel(this);
+        player = new PlayerModel(map.getPlayerSpawn(), this);
+
         entityModelList.add(player);
         updateables.add(player);
         updateables.add(new RandomWeaponSpawner(this));

@@ -1,5 +1,13 @@
 package gui.ingame.effects;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import gui.ScaleLayout;
 import gui.ScaleSupplier;
 import model.ingame.GameModel;
@@ -7,12 +15,6 @@ import model.ingame.IUpdateable;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.entity.IEntity;
 import util.SetToMapSynchronisator;
-
-import javax.swing.*;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class EffectsPaneLayer extends JPanel implements IUpdateable {
     GameModel gameModel;

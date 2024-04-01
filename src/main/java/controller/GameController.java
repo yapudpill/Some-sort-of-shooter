@@ -1,8 +1,8 @@
 package controller;
 
 import gui.ingame.GameView;
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.level.InvalidMapException;
 import util.Resource;
 
 public class GameController {
@@ -11,11 +11,9 @@ public class GameController {
     private final IGameLoop modelLoop, viewLoop;
     private final MainController mainController;
 
-    public GameController(Resource map, MainController mainController) {
+    public GameController(Resource map, MainController mainController) throws InvalidMapException {
         this.mainController = mainController;
         gameModel = new GameModel(map);
-        // TODO: should be part of the map reading
-        gameModel.getPlayer().setPos(new Coordinates(9.5, 9.5));
 
         gameView = new GameView(gameModel);
         modelLoop = new ModelGameLoop(this::updateModel);

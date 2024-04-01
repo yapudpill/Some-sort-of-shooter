@@ -2,7 +2,6 @@ package gui.ingame.tile;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.IOException;
 
 import gui.ImageCache;
 import gui.ingame.entity.PlayerRenderer;

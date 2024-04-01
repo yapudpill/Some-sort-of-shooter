@@ -8,6 +8,7 @@ import gui.launcher.EndMenu;
 import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
 import model.ingame.Statistics;
+import model.level.InvalidMapException;
 import util.Resource;
 
 public class MainController {
@@ -30,7 +31,7 @@ public class MainController {
         mainFrame.loadMenu(new MapMenu(this));
     }
 
-    public void loadGame(Resource map) {
+    public void loadGame(Resource map) throws InvalidMapException {
         GameController gameController = new GameController(map, this);
         mainFrame.loadMenu(gameController.gameView);
         EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
