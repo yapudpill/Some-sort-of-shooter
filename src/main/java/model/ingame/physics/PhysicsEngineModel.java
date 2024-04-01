@@ -6,10 +6,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
-import model.ingame.entity.PlayerModel;
 import model.level.MapModel;
 import model.level.TileModel;
-import util.Pair;
 
 /**
  * The <code>PhysicsEngineModel</code> class is used to handle the physics of the game, such as collision detection and entity movement.
