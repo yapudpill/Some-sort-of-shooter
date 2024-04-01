@@ -5,7 +5,7 @@ import model.ingame.entity.AbstractTrapEntity;
 import model.ingame.entity.ICombatEntity;
 
 public abstract class AbstractTrapPlacer extends WeaponModel {
-    private int trapCount;
+    protected int trapCount;
 
     public AbstractTrapPlacer(String name, String identifier, GameModel gameModel, ICombatEntity owner, int coolDown, int trapCount) {
         super(name, identifier, gameModel, owner, coolDown);
@@ -20,6 +20,9 @@ public abstract class AbstractTrapPlacer extends WeaponModel {
             AbstractTrapEntity trap = makeTrap();
             gameModel.addEntity(trap);
             trapCount--;
+            if (trapCount == 0) {
+                getOwner().setWeapon(null);
+            }
             return true;
         }
         return false;
