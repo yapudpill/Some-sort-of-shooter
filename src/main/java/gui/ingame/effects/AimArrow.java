@@ -1,4 +1,4 @@
-package gui.ingame;
+package gui.ingame.effects;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

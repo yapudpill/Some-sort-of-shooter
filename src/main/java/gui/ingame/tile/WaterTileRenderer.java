@@ -17,11 +17,7 @@ public class WaterTileRenderer extends AbstractTileRenderer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
                 Image image;
-        try {
-            image = ImageCache.loadImage("/gui/ingame/WaterTile.png", PlayerRenderer.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage("/gui/ingame/WaterTile.png", PlayerRenderer.class);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 

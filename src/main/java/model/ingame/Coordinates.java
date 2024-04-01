@@ -60,6 +60,10 @@ public class Coordinates {
         return new Coordinates(x * cos - y * sin, x * sin + y * cos);
     }
 
+    public double getAngle() {
+        return Math.atan2(y, x);
+    }
+
     public Coordinates xProjection() {
         return new Coordinates(x, 0);
     }

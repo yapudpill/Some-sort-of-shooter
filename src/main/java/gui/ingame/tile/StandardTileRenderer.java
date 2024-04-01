@@ -18,11 +18,7 @@ public class StandardTileRenderer extends AbstractTileRenderer {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Image image;
-        try {
-            image = ImageCache.loadImage("/gui/ingame/GrassSprite.png", PlayerRenderer.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage("/gui/ingame/GrassSprite.png", PlayerRenderer.class);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 }

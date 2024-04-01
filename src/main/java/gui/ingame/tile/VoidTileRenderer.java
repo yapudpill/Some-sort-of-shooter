@@ -17,11 +17,7 @@ public class VoidTileRenderer extends AbstractTileRenderer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
                 Image image;
-        try {
-            image = ImageCache.loadImage("/gui/ingame/VoidTileSprite.png", PlayerRenderer.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage("/gui/ingame/VoidTileSprite.png", PlayerRenderer.class);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 
