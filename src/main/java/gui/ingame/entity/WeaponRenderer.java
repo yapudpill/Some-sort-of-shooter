@@ -24,11 +24,7 @@ public class WeaponRenderer extends AbstractEntityRenderer {
         super.paintComponent(g);
 
         Image image;
-        try {
-            image = ImageCache.loadImage(String.format("sprites/weapon/%s.png", ((WeaponEntity) entityModel).getWeapon().getIdentifier()), getClass());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage(String.format("sprites/weapon/%s.png", ((WeaponEntity) entityModel).getWeapon().getIdentifier()), getClass());
 
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }

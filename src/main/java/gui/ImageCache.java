@@ -1,24 +1,33 @@
 package gui;
 
-import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 public class ImageCache {
-    private static final Map<String, Image> cache = new HashMap<>();
+    public static class ImageNotFoundException extends RuntimeException {
+        public ImageNotFoundException(String message) {
+            super(message);
+        }
+    }
+    private static final Map<String, BufferedImage> cache = new HashMap<>();
 
-    public static Image loadImage(String path, Class<?> ressourceBase) throws IOException {
+    public static BufferedImage loadImage(String path, Class<?> ressourceBase) {
         if (cache.get(path) != null) {
             return cache.get(path);
         } else {
             URL url = ressourceBase.getResource(path);
-            if (url == null) throw new IOException(String.format("Image resource %s missing !", path));
-            Image image = ImageIO.read(url);
-            cache.put(path, image);
+            if (url == null) throw new ImageNotFoundException(String.format("Image resource %s missing !", path));
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(url);
+                cache.put(path, image);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return image;
         }
     }
@@ -27,7 +36,7 @@ public class ImageCache {
         cache.clear();
     }
 
-    public static Image loadImage(String path) throws IOException {
+    public static BufferedImage loadImage(String path) {
         return loadImage(path, ImageCache.class);
     }
 }
