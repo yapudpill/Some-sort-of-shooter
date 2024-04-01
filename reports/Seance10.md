@@ -3,10 +3,16 @@
 ## Réalisations de la Semaine
 
 ### Yacob :
-- Ajout de pièges basiques
+- Ajout de pièges basiques en tant qu'entités, placés par le joueur, affectant les ennemis
 - Ajout de traces de pas apparaissant sous les entités et qui disparaissent progressivement
+- Début du travail sur un gestionnaire d'animation, qui permettra de gérer les animations des entités de manière plus propre (feat/animations)
 
 
 
 ## Objectifs pour la Semaine Prochaine :
-todo
+1. Ajout des pièges sur la carte en tant que tuiles, affectant le joueur (Yacob)
+2. Continuer la gestion des animations (Yacob)
+3. Rendre le spawn des armes/ennemis paramétrable dans la map, par exemple faire spawn pendant X secondes seulement certains ennemis/armes (Yacob)
+
+## Objectifs moins prioritaires :
+4. Réfléchir à des pièges plus élaborés, voire peut-être une IA plaçant des pièges (Yacob)
