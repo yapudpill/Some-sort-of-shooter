@@ -13,9 +13,12 @@
 - Les projectiles en caoutchouc disparaissent après 4 contacts.
 - Amélioration de l'algo raycast
 
-
-
-
+### Anthony
+- Meilleure lecture des cartes custom (plus besoin de manip cheloues à base de
+  compilation des resources)
+- Meilleure gestion des mauvais fichiers de maps
+- Ajout du point de spawn du joueur sur le fichier de map (pas merge, j'aime pas
+  comment ça a rendu, je vais le refaire)
 
 ## Objectifs pour la Semaine Prochaine :
 1. Ajout des pièges sur la carte en tant que tuiles, affectant le joueur (Yacob)
