@@ -2,10 +2,10 @@ package model.ingame.weapon;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import model.ingame.entity.IEntity;
+import model.ingame.entity.ICombatEntity;
 
 public abstract class ProjectileWeaponModel extends WeaponModel {
-    public ProjectileWeaponModel(String name, String identifier, GameModel gameModel, IEntity owner, int coolDown) {
+    public ProjectileWeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, int coolDown) {
         super(name, identifier, gameModel, owner, coolDown);
     }
 

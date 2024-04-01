@@ -2,7 +2,7 @@ package model.ingame.weapon;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import model.ingame.entity.IEntity;
+import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.PhysicsEngineModel;
 import util.ModelTimer;
 
@@ -10,13 +10,13 @@ public abstract class WeaponModel {
     protected final PhysicsEngineModel physicsEngine;
     protected final String name;
     protected final String identifier;
-    protected IEntity owner;
+    protected ICombatEntity owner;
     protected int coolDown;
     protected ModelTimer coolDownTimer;
     protected Coordinates directionVector;
     protected GameModel gameModel;
 
-    public WeaponModel(String name, String identifier, GameModel gameModel, IEntity owner, int coolDown) {
+    public WeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, int coolDown) {
         this.name = name;
         this.physicsEngine = gameModel.getPhysicsEngine();
         this.gameModel = gameModel;
@@ -32,11 +32,11 @@ public abstract class WeaponModel {
 
     public abstract boolean attack();
 
-    public IEntity getOwner() {
+    public ICombatEntity getOwner() {
         return owner;
     }
 
-    public void setOwner(IEntity owner) {
+    public void setOwner(ICombatEntity owner) {
         this.owner = owner;
     }
 
