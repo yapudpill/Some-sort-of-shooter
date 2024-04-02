@@ -3,6 +3,7 @@ package model.level;
 import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
+import model.level.tiles.SpawnTileModel;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
@@ -27,7 +28,7 @@ public class MapModel {
 
                 // The function parseMap guaranties that there is exactly one
                 // spawn point
-                if (parsedMap[i][j] == 'S') {
+                if (tiles[i][j] instanceof SpawnTileModel) {
                     playerSpawn = new Coordinates(j + 0.5, i + 0.5);
                 }
             }
@@ -60,12 +61,12 @@ public class MapModel {
                 try {
                     arr[i][j] = current.charAt(4*j + 2);
                 } catch (StringIndexOutOfBoundsException e) {
-                    throw new InvalidMapException();
+                    throw new InvalidMapException("Malformed map");
                 }
 
                 if (arr[i][j] == 'S') {
                     if (foundSpawn) {
-                        throw new InvalidMapException();
+                        throw new InvalidMapException("Map has two spawn points");
                     } else {
                         foundSpawn = true;
                     }
@@ -74,7 +75,7 @@ public class MapModel {
         }
 
         if (!foundSpawn) {
-            throw new InvalidMapException();
+            throw new InvalidMapException("Map has no spawn point");
         }
 
         return arr;
@@ -84,7 +85,8 @@ public class MapModel {
         return switch (c) {
             case '#' -> new WaterTileModel();
             case 'V' -> new VoidTileModel();
-            case ' ', 'S' -> new StandardTileModel();
+            case 'S' -> new SpawnTileModel();
+            case ' '-> new StandardTileModel();
             default -> new StandardTileModel();
         };
     }

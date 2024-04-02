@@ -2,14 +2,13 @@ package gui.editor;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import gui.ingame.TileRendererFactory;
+import gui.ingame.tile.TileRendererFactory;
 import gui.ingame.tile.AbstractTileRenderer;
 import model.level.TileModel;
 import util.Pair;
@@ -71,27 +70,11 @@ public class EditorGrid extends JPanel {
                             updateCell(oldSpawn.first(), oldSpawn.second());
                         }
                         updateCell(x, y);
-                        repaint();
                     }
                 }
             }
         });
         return renderer;
-    }
-
-    @Override
-    protected void paintChildren(Graphics g) {
-        super.paintChildren(g);
-
-        Pair<Integer, Integer> spawn = model.getSpawn();
-        if (spawn != null) {
-            // This component is assumed to displays its cells as squares
-            double cellSize = (double) getHeight() / model.getRows();
-            double cornerX = spawn.first() * cellSize + cellSize / 4;
-            double cornerY = spawn.second() * cellSize + cellSize / 4;
-            double diameter = cellSize / 2;
-            g.fillOval((int) cornerX, (int) cornerY, (int) diameter, (int) diameter);
-        }
     }
 
     @Override

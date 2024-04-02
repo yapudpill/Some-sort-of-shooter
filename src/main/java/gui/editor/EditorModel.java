@@ -9,6 +9,7 @@ import java.util.Map;
 import model.level.InvalidMapException;
 import model.level.MapModel;
 import model.level.TileModel;
+import model.level.tiles.SpawnTileModel;
 import util.Pair;
 import util.Resource;
 
@@ -18,8 +19,7 @@ public class EditorModel {
     private static final Map<Character, Integer> indexes = new HashMap<>();
     static {
         for (int i = 0; i < possibleChars.length; i++) {
-            char c = possibleChars[i];
-            indexes.put(c, i);
+            indexes.put(possibleChars[i], i);
         }
         indexes.put('S', -1);
     }
@@ -51,20 +51,18 @@ public class EditorModel {
     }
 
     public void nextType(int x, int y) {
-        char c = charGrid[y][x];
-        if (c == 'S') {
+        if (spawn.equals(x, y)) {
             spawn = null;
         }
-        int newIndex = (indexes.get(c) + 1) % possibleChars.length;
+        int newIndex = (indexes.get(charGrid[y][x]) + 1) % possibleChars.length;
         updateSquare(x, y, possibleChars[newIndex]);
     }
 
     public void prevType(int x, int y) {
-        char c = charGrid[y][x];
-        if (c == 'S') {
+        if (spawn.equals(x, y)) {
             spawn = null;
         }
-        int newIndex = Math.floorMod(indexes.get(c) - 1, possibleChars.length);
+        int newIndex = Math.floorMod(indexes.get(charGrid[y][x]) - 1, possibleChars.length);
         updateSquare(x, y, possibleChars[newIndex]);
     }
 
@@ -91,7 +89,7 @@ public class EditorModel {
             for (int x = 0; x < cols; x++) {
                 tileGrid[y][x] = MapModel.convertChar(charGrid[y][x]);
 
-                if (charGrid[y][x] == 'S') {
+                if (tileGrid[y][x] instanceof SpawnTileModel) {
                     spawn = new Pair<>(x, y);
                 }
             }
