@@ -51,7 +51,7 @@ public class EditorModel {
     }
 
     public void nextType(int x, int y) {
-        if (spawn.equals(x, y)) {
+        if (spawn != null && spawn.equals(x, y)) {
             spawn = null;
         }
         int newIndex = (indexes.get(charGrid[y][x]) + 1) % possibleChars.length;
@@ -59,7 +59,7 @@ public class EditorModel {
     }
 
     public void prevType(int x, int y) {
-        if (spawn.equals(x, y)) {
+        if (spawn != null && spawn.equals(x, y)) {
             spawn = null;
         }
         int newIndex = Math.floorMod(indexes.get(charGrid[y][x]) - 1, possibleChars.length);

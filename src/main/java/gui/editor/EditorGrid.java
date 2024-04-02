@@ -39,7 +39,6 @@ public class EditorGrid extends JPanel {
         }
 
         revalidate();
-        repaint();
     }
 
     private void updateCell(int x, int y) {
