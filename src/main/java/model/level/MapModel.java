@@ -242,7 +242,8 @@ public class MapModel {
 
         for (; n > 0; --n)
         {
-            if(!canEnterAt(entity, x, y)) return true;
+            boolean notBeginnigOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
+            if(!canEnterAround(entity, x, y) && notBeginnigOrEnd) return true;
 
             if (error > 0)
             {
