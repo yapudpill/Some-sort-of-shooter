@@ -1,8 +1,9 @@
 package gui.ingame.entity;
 
-import model.ingame.entity.SimpleTrap;
+import java.awt.Color;
+import java.awt.Graphics;
 
-import java.awt.*;
+import model.ingame.entity.SimpleTrap;
 
 public class TrapRenderer extends AbstractEntityRenderer {
     public TrapRenderer(SimpleTrap entityModel) {

@@ -1,7 +1,5 @@
 package gui.ingame.entity;
 
-import java.io.IOException;
-
 import gui.ImageCache;
 import model.ingame.Coordinates;
 import model.ingame.entity.IVulnerableEntity;

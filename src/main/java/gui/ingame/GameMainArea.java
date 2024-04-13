@@ -1,14 +1,15 @@
 package gui.ingame;
 
+import java.awt.Color;
+
+import javax.swing.JLayeredPane;
+
 import gui.FillLayout;
 import gui.ingame.effects.EffectsPaneLayer;
 import gui.ingame.footprints.FootprintsLayer;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 import model.level.MapModel;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * The main area of the game, containing the map and the entities but NOT the HUD, buttons to exit, etc.

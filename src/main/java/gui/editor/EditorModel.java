@@ -6,22 +6,26 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.level.InvalidMapException;
 import model.level.MapModel;
 import model.level.TileModel;
+import model.level.tiles.SpawnTileModel;
+import util.Pair;
 import util.Resource;
 
 public class EditorModel {
+    // The first character is considered to be the default tile
     private static final char[] possibleChars = { ' ', '#', 'V' };
     private static final Map<Character, Integer> indexes = new HashMap<>();
-    private static final Map<Character, TileModel> models = new HashMap<>();
     static {
         for (int i = 0; i < possibleChars.length; i++) {
-            char c = possibleChars[i];
-            indexes.put(c, i);
-            models.put(c, MapModel.convertChar(c));
+            indexes.put(possibleChars[i], i);
         }
+        indexes.put('S', -1);
     }
 
+    // Pair rather than Coordinates because x and y in Coordinates are double
+    private Pair<Integer, Integer> spawn;
     private int rows, cols;
     private char[][] charGrid;
     private TileModel[][] tileGrid;
@@ -33,33 +37,49 @@ public class EditorModel {
     }
 
     public void reset() {
+        spawn = null;
         charGrid = new char[rows][cols];
         tileGrid = new TileModel[rows][cols];
 
         char defaultChar = possibleChars[0];
-        TileModel defaultModel = models.get(defaultChar);
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                charGrid[y][x] = defaultChar;
-                tileGrid[y][x] = defaultModel;
+                updateSquare(x, y, defaultChar);
             }
         }
     }
 
     public void nextType(int x, int y) {
-        int newIndex = (indexes.get(charGrid[y][x]) + 1)% possibleChars.length;
-        charGrid[y][x] = possibleChars[newIndex];
-        tileGrid[y][x] = models.get(charGrid[y][x]);
+        if (spawn != null && spawn.equals(x, y)) {
+            spawn = null;
+        }
+        int newIndex = (indexes.get(charGrid[y][x]) + 1) % possibleChars.length;
+        updateSquare(x, y, possibleChars[newIndex]);
     }
 
     public void prevType(int x, int y) {
+        if (spawn != null && spawn.equals(x, y)) {
+            spawn = null;
+        }
         int newIndex = Math.floorMod(indexes.get(charGrid[y][x]) - 1, possibleChars.length);
-        charGrid[y][x] = possibleChars[newIndex];
-        tileGrid[y][x] = models.get(charGrid[y][x]);
+        updateSquare(x, y, possibleChars[newIndex]);
     }
 
-    public void readFile(Resource map) {
+    public void setSpawn(int x, int y) {
+        if (spawn != null) {
+            nextType(spawn.first(), spawn.second());
+        }
+        spawn = new Pair<>(x, y);
+        updateSquare(x, y, 'S');
+    }
+
+    private void updateSquare(int x, int y, char newChar) {
+        charGrid[y][x] = newChar;
+        tileGrid[y][x] = MapModel.convertChar(newChar);
+    }
+
+    public void readFile(Resource map) throws InvalidMapException {
         charGrid = MapModel.parseMap(map);
         rows = charGrid.length;
         cols = charGrid[0].length;
@@ -67,7 +87,11 @@ public class EditorModel {
         tileGrid = new TileModel[rows][cols];
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                tileGrid[y][x] = models.get(charGrid[y][x]);
+                tileGrid[y][x] = MapModel.convertChar(charGrid[y][x]);
+
+                if (tileGrid[y][x] instanceof SpawnTileModel) {
+                    spawn = new Pair<>(x, y);
+                }
             }
         }
     }
@@ -104,6 +128,10 @@ public class EditorModel {
 
     public int getCols() {
         return cols;
+    }
+
+    public Pair<Integer, Integer> getSpawn() {
+        return spawn;
     }
 
     public void setRows(int rows) {
