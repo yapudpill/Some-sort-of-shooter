@@ -19,8 +19,10 @@ public class RocketProjectileModel extends ProjectileModel {
         movementHandler.setSpeed(ROCKET_SPEED);
         addCollisionListener(e -> {
             if (e.getSource() != source.getOwner()) {
-                if (e.getInvolvedEntitiesList().stream().anyMatch(entity -> entity instanceof IVulnerableEntity vulnerableEntity && vulnerableEntity != source.getOwner())) {
-                    explode();
+                if (e.getInvolvedEntitiesList().stream()
+                        .anyMatch(entity -> entity instanceof IVulnerableEntity vulnerableEntity
+                        && vulnerableEntity != source.getOwner())) {
+                                    explode();
                 }
             }
         });
@@ -29,6 +31,8 @@ public class RocketProjectileModel extends ProjectileModel {
 
     private void explode() {
         despawn();
-        gameModel.addEntity(new ExplosionZoneEntity(getPos(), ROCKET_EXPLOSION_RADIUS, ROCKET_EXPLOSION_RADIUS, ROCKET_DAMAGE, ROCKET_EXPLOSION_DURATION, gameModel));
+        gameModel.addEntity(new ExplosionZoneEntity(getPos(), ROCKET_EXPLOSION_RADIUS, ROCKET_EXPLOSION_RADIUS,
+        ROCKET_DAMAGE, ROCKET_EXPLOSION_DURATION, gameModel));
     }
+
 }
