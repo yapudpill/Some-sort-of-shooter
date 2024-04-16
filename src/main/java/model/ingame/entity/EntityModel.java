@@ -17,10 +17,11 @@ public abstract class EntityModel implements IEntity{
         this.width = width;
         this.height = height;
         this.gameModel = gameModel;
+        gameModel.addEntity(this);
     }
 
     public void despawn() {
-        gameModel.getEntitySet().remove(this);
+        gameModel.removeEntity(this);
         if (this instanceof IUpdateable iUpdateable) gameModel.detachAsUpdateable(iUpdateable);
     }
 

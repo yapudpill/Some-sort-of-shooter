@@ -11,8 +11,8 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
     private final int maxHealth;
     private Predicate<IEntity> blockingCondition = e -> e instanceof ProjectileModel;
 
-    public BreakableBarrier(Coordinates pos, double width, double height, GameModel gameModel) {
-        super(pos, width, height, gameModel);
+    public BreakableBarrier(Coordinates pos, GameModel gameModel) {
+        super(pos, 1, 1, gameModel);
         this.health = 100;
         this.maxHealth = 100;
         gameModel.getMapModel().getTile((int)pos.x, (int)pos.y).addCanEnterCondition(blockingCondition);

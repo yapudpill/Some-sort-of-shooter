@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import model.ingame.Coordinates;
+import model.ingame.IUpdateable;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
 import model.level.MapModel;
@@ -12,15 +13,22 @@ import model.level.TileModel;
 /**
  * The <code>PhysicsEngineModel</code> class is used to handle the physics of the game, such as collision detection and entity movement.
  */
-public class PhysicsEngineModel {
+public class PhysicsEngineModel implements IUpdateable{
+    private final Set<ICollisionEntity> collisionEntities;
     private final MapModel map;
 
-    public PhysicsEngineModel(MapModel map) {
+    public PhysicsEngineModel(MapModel map, Set<ICollisionEntity> collisionEntities) {
         if (map == null)
             throw new IllegalArgumentException("Map cannot be null");
         this.map = map;
+        this.collisionEntities = collisionEntities;
     }
 
+    public void update() {
+        for(ICollisionEntity entity : collisionEntities) {
+            checkForCollisions(entity);
+        }
+    }
     /**
      * Returns a list of all entities that are colliding with the given entity.
      *
@@ -59,9 +67,8 @@ public class PhysicsEngineModel {
         if (adjustedMovement.isZero()) {
             entity.getMovementHandler().setMoving(false);
             return;
-        }
 
-        checkForCollisions(entity);
+        }
 
         // move the entity and its collision box
         entity.getMovementHandler().setMoving(true);
@@ -76,14 +83,6 @@ public class PhysicsEngineModel {
             CollisionEvent event = new CollisionEvent(entity, collidedEntities);
             // notify the entity's collision listeners
             entity.notifyCollisionListeners(event);
-            // No need to notify now the IMobileEntities collided as this code will be run for them too.
-            // HOWEVER, it needs to be done for the ICollisionEntity that are *not mobiles* (they will not call the move method)
-            event.getInvolvedEntitiesList().add(entity);
-            for (ICollisionEntity e : collidedEntities) {
-                if (!(e instanceof IMobileEntity)) {
-                    e.notifyCollisionListeners(event);
-                }
-            }
         }
     }
 
