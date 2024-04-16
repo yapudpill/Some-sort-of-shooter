@@ -7,20 +7,25 @@ import java.util.function.Predicate;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.entity.IEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.physics.IMovementHandler;
 import util.ModelTimer;
 
 public class FloodFillPathFinder {
+    private IEntity entityFinder;
     private NodeGrid nodeGrid;
     private List<Coordinates> targets;
     private ModelTimer updateTimer;
     private Predicate<Coordinates> shouldAvoid;
     private boolean reachTarget = true;
+    private GameModel gameModel;
 
-    public FloodFillPathFinder(GameModel gameModel, int updateDelay) {
+    public FloodFillPathFinder(GameModel gameModel, int updateDelay, IEntity entityFinder) {
         this.nodeGrid = new NodeGrid(gameModel.getMapModel());
         this.updateTimer = new ModelTimer(updateDelay, () -> fill(), gameModel);
+        this.entityFinder = entityFinder;
+        this.gameModel = gameModel;
     }
 
     public void fill() {
@@ -66,7 +71,7 @@ public class FloodFillPathFinder {
 
     private boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < nodeGrid.getWidth() && y >= 0 && y < nodeGrid.getHeight()
-                && nodeGrid.getNode(x, y).isWalkable();
+                && gameModel.getMapModel().getTile(x, y).canEnter(entityFinder);
     }
 
     public Coordinates getLowestNodeAround(int x, int y) {

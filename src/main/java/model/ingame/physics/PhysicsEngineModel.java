@@ -7,6 +7,7 @@ import model.ingame.Coordinates;
 import model.ingame.IUpdateable;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
+import model.ingame.entity.IVulnerableEntity;
 import model.level.MapModel;
 import model.level.TileModel;
 
@@ -57,6 +58,7 @@ public class PhysicsEngineModel implements IUpdateable{
      * @param movementVector the new position of the entity
      */
     public void move(IMobileEntity entity, Coordinates movementVector) {
+        if(entity == null || entity instanceof IVulnerableEntity vuln && vuln.isDead()) return;
         // Adjust movement to collide with walls
         var blockedMovementEvent = handleBlockedMovement(entity, movementVector);
         Coordinates adjustedMovement = movementVector;

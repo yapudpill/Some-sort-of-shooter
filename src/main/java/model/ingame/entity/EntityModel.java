@@ -21,7 +21,7 @@ public abstract class EntityModel implements IEntity{
     }
 
     public void despawn() {
-        gameModel.removeEntity(this);
+        gameModel.getEntitySet().remove(this);
         if (this instanceof IUpdateable iUpdateable) gameModel.detachAsUpdateable(iUpdateable);
     }
 

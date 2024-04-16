@@ -67,6 +67,7 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     public void despawn() {
         super.despawn();
         gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
+        gameModel.removeCollisionEntity(this);
     }
 
     private void setCollisionBox(double x, double y) {

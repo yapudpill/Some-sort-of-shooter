@@ -15,6 +15,7 @@ public class ExplosionZoneEntity extends CollisionEntityModel {
     public ExplosionZoneEntity(Coordinates pos, double width, double height, int damage, int duration, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.despawnTimer = new ModelTimer(duration, this::despawn, gameModel);
+        this.despawnTimer.setRepeats(false);
         this.despawnTimer.start();
 
         addCollisionListener(e -> {

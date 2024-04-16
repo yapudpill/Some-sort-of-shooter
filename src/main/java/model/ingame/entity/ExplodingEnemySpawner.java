@@ -13,8 +13,6 @@ public class ExplodingEnemySpawner extends EntitySpawner {
     @Override
     public ExplodingEnemy spawnEntity(double x, double y) {
         ExplodingEnemy entity = (ExplodingEnemy) super.spawnEntity(x, y);
-        gameModel.addEntity(entity);
-        gameModel.attachAsUpdateable(entity);
         return entity;
     }
 
