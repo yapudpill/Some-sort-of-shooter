@@ -1,6 +1,7 @@
 package model.ingame;
 
 import model.ingame.entity.IEntity;
+import util.Coordinates;
 
 public abstract class EntitySpawner {
     protected final GameModel gameModel;
@@ -9,11 +10,19 @@ public abstract class EntitySpawner {
         this.gameModel = gameModel;
     }
 
-    public IEntity spawnEntity(double x, double y) {
-        IEntity entity = makeEntity(x, y);
+    public IEntity spawnEntity(Coordinates pos) {
+        IEntity entity = makeEntity(pos);
         gameModel.addEntity(entity);
         return entity;
     }
 
-    protected abstract IEntity makeEntity(double x, double y);
+    public final IEntity spawnEntity(double x, double y) {
+        return spawnEntity(new Coordinates(x, y));
+    }
+
+    protected abstract IEntity makeEntity(Coordinates pos);
+
+    public final IEntity makeEntity(double x, double y) {
+        return makeEntity(new Coordinates(x, y));
+    }
 }

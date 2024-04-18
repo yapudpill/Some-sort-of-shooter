@@ -11,14 +11,7 @@ public class EnemySpawnerModel extends EntitySpawner {
     }
 
     @Override
-    public WalkingEnemyModel spawnEntity(double x, double y) {
-        WalkingEnemyModel entity = (WalkingEnemyModel) super.spawnEntity(x, y);
-        gameModel.addEntity(entity);
-        return entity;
-    }
-
-    @Override
-    protected WalkingEnemyModel makeEntity(double x, double y) {
-        return new WalkingEnemyModel(new Coordinates(x, y), gameModel);
+    protected WalkingEnemyModel makeEntity(Coordinates pos) {
+        return new WalkingEnemyModel(pos, gameModel);
     }
 }

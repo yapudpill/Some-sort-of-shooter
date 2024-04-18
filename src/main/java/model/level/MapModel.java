@@ -100,6 +100,10 @@ public class MapModel {
         return x < 0 || x >= tiles[0].length || y < 0 || y >= tiles.length;
     }
 
+    public boolean isOutOfBounds(Coordinates pos) {
+        return isOutOfBounds((int) pos.x(), (int) pos.y());
+    }
+
     public Set<ICollisionEntity> getAllCollidablesAround(int x, int y) {
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
         Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
@@ -113,6 +117,10 @@ public class MapModel {
         return involvedEntities;
     }
 
+    public Set<ICollisionEntity> getAllCollidablesAround(Coordinates pos) {
+        return getAllCollidablesAround((int) pos.x(), (int) pos.y());
+    }
+
     public void addCollidableAt(ICollisionEntity entity, int x, int y) {
         if (entity == null)
             throw new IllegalArgumentException("Entity cannot be null");
@@ -121,12 +129,20 @@ public class MapModel {
         tiles[y][x].addCollidable(entity);
     }
 
+    public void addCollidableAt(ICollisionEntity entity, Coordinates pos) {
+        addCollidableAt(entity, (int) pos.x(), (int) pos.y());
+    }
+
     public void removeCollidableAt(ICollisionEntity entity, int x, int y) {
         if (entity == null)
             throw new IllegalArgumentException("Entity cannot be null");
         if (isOutOfBounds(x, y))
             return;
         tiles[y][x].removeCollidable(entity);
+    }
+
+    public void removeCollidableAt(ICollisionEntity entity, Coordinates pos) {
+        removeCollidableAt(entity, (int) pos.x(), (int) pos.y());
     }
 
     public int getWidth() {
@@ -139,6 +155,13 @@ public class MapModel {
 
     public TileModel getTile(int x, int y) {
         return tiles[y][x];
+    }
+
+    /**
+     * Coordinates are floored via a casting from double to int
+     */
+    public TileModel getTile(Coordinates pos) {
+        return getTile((int) pos.x(), (int) pos.y());
     }
 
     public void applyTileEnterEffect(IEntity entity, int x, int y) {
@@ -163,6 +186,10 @@ public class MapModel {
             }
         }
         return false;
+    }
+
+    public boolean unwalkableAround(Coordinates pos) {
+        return unwalkableAround((int) pos.x(), (int) pos.y());
     }
 
     public boolean isWalkableAt(int x, int y) {

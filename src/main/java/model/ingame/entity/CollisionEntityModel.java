@@ -24,10 +24,10 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
 
     @Override
     public void setPos(Coordinates pos) {
-        gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x(), (int)this.pos.y());
-        super.setPos(pos);
-        setCollisionBox(pos.x(), pos.y());
-        gameModel.getMapModel().addCollidableAt(this, (int) this.pos.x(), (int)this.pos.y());
+        gameModel.getMapModel().removeCollidableAt(this, this.pos);
+        setPos(pos);
+        setCollisionBox(pos);
+        gameModel.getMapModel().addCollidableAt(this, this.pos);
     }
 
     @Override
@@ -66,11 +66,11 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     @Override
     public void despawn() {
         super.despawn();
-        gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x(), (int)this.pos.y());
+        gameModel.getMapModel().removeCollidableAt(this, this.pos);
         gameModel.removeCollisionEntity(this);
     }
 
-    private void setCollisionBox(double x, double y) {
-        collisionBox.setRect(x, y, collisionBox.getWidth(), collisionBox.getHeight());
+    private void setCollisionBox(Coordinates pos) {
+        collisionBox.setRect(pos.x(), pos.y(), collisionBox.getWidth(), collisionBox.getHeight());
     }
 }

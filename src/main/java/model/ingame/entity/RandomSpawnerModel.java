@@ -21,7 +21,7 @@ public class RandomSpawnerModel {
             int index = rng.nextInt(spawners.size());
             // Move to the next walkable tile
             Coordinates res = findNextWalkableTile((int) x,(int) y);
-            spawners.get(index).spawnEntity(res.x(), res.y());
+            spawners.get(index).spawnEntity(res);
         }, gameModel);
         this.spawnTimer.start();
     }

@@ -11,14 +11,7 @@ public class FirstAidKitSpawner extends EntitySpawner{
     }
 
     @Override
-    public FirstAidKit spawnEntity(double x, double y) {
-        FirstAidKit entity = (FirstAidKit) super.spawnEntity(x, y);
-        gameModel.addEntity(entity);
-        return entity;
-    }
-
-    @Override
-    protected FirstAidKit makeEntity(double x, double y) {
-        return new FirstAidKit(new Coordinates(x, y), gameModel);
+    protected FirstAidKit makeEntity(Coordinates pos) {
+        return new FirstAidKit(pos, gameModel);
     }
 }

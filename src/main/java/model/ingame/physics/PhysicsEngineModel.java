@@ -40,7 +40,7 @@ public class PhysicsEngineModel implements IUpdateable {
     public Set<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
         Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
-        Set<ICollisionEntity> potentiallyCollided = map.getAllCollidablesAround((int) entity.getPos().x(), (int) entity.getPos().y());
+        Set<ICollisionEntity> potentiallyCollided = map.getAllCollidablesAround(entity.getPos());
         for (ICollisionEntity other : potentiallyCollided) {
             // check if the entities are actually colliding, make sure not to check the entity with itself
             if (entity.getCollisionBox().intersects(other.getCollisionBox()) && !entity.equals(other)) {
@@ -128,14 +128,13 @@ public class PhysicsEngineModel implements IUpdateable {
         double halfHeight = entity.getHeight() / 2;
         for (double i = -halfWidth; i <= halfWidth; i += entity.getWidth()) {
             for (double j = -halfHeight; j <= halfHeight; j += entity.getHeight()) {
-                double newX = pos.x() + i;
-                double newY = pos.y() + j;
-                if (newX < 0 || newY < 0 || map.isOutOfBounds((int) newX, (int) newY)) {
+                Coordinates newPos = pos.add(new Coordinates(i, j));
+                if (map.isOutOfBounds(newPos)) {
                     return new BlockedMovementEvent(entity, null, true);
                 } else {
-                    TileModel tile = map.getTile((int) newX, (int) newY);
+                    TileModel tile = map.getTile(newPos);
                     if (!tile.canEnter(entity)) {
-                        return new BlockedMovementEvent(entity, map.getTile((int) newX, (int) newY), false);
+                        return new BlockedMovementEvent(entity, map.getTile(newPos), false);
                     }
                 }
             }
