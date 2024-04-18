@@ -1,9 +1,9 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
+import util.Coordinates;
 
 public class ExplodingEnemy extends CreatureModel implements IEffectEntity{
     private static FloodFillPathFinder pathFinder;

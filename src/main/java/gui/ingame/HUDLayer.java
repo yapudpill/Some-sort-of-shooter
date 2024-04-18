@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import gui.IScalableComponent;
 import gui.ScaleLayout;
 import gui.ScaleSupplier;
-import model.ingame.Coordinates;
+import util.Coordinates;
 import util.IUpdateable;
 import model.ingame.entity.PlayerModel;
 

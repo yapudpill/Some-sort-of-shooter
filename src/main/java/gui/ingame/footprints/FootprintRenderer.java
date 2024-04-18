@@ -2,7 +2,7 @@ package gui.ingame.footprints;
 
 import gui.ImageCache;
 import gui.IScalableComponent;
-import model.ingame.Coordinates;
+import util.Coordinates;
 import util.IUpdateable;
 
 import javax.swing.JComponent;

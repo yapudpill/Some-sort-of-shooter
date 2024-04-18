@@ -1,7 +1,7 @@
 package model.ingame.weapon;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import util.Coordinates;
 
 public class BulletsModel extends ProjectileModel {
     public static final double BULLET_SPEED = 12;

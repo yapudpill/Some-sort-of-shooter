@@ -24,6 +24,7 @@ import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.InvalidMapException;
 import model.level.MapModel;
+import util.Coordinates;
 import util.IUpdateable;
 import util.Resource;
 

@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import gui.ImageCache;
-import model.ingame.Coordinates;
 import model.ingame.entity.FirstAidKit;
+import util.Coordinates;
 
 public class FirstAidKitRenderer extends AbstractEntityRenderer{
 

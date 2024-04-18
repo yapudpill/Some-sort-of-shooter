@@ -1,6 +1,6 @@
 package model.ingame.physics;
 
-import model.ingame.Coordinates;
+import util.Coordinates;
 
 public class SlidingListener implements BlockedMovementListener {
 

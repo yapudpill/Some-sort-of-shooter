@@ -1,8 +1,8 @@
 package model.ingame.weapon;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
+import util.Coordinates;
 
 public abstract class ProjectileWeaponModel extends WeaponModel {
     public ProjectileWeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {

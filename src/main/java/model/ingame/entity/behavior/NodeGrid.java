@@ -1,7 +1,7 @@
 package model.ingame.entity.behavior;
 
-import model.ingame.Coordinates;
 import model.level.MapModel;
+import util.Coordinates;
 
 public class NodeGrid {
     private final Node[][] nodes;

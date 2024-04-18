@@ -2,9 +2,9 @@ package model.ingame.entity;
 
 import java.util.function.Predicate;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.weapon.ProjectileModel;
+import util.Coordinates;
 
 public class BreakableBarrier extends CollisionEntityModel implements IVulnerableEntity{
     private int health;

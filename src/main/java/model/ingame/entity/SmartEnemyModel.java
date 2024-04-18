@@ -1,6 +1,5 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.behavior.FloodFillPathFinder;
@@ -9,6 +8,7 @@ import model.ingame.weapon.PistolModel;
 import model.ingame.entity.behavior.StandardBehavior;
 import model.ingame.weapon.IProjectile;
 import model.ingame.weapon.ProjectileWeaponModel;
+import util.Coordinates;
 
 public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;

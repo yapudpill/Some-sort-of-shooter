@@ -1,7 +1,7 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import util.Coordinates;
 import util.IUpdateable;
 
 public class AttachedDamageZoneEntity extends CollisionEntityModel implements IUpdateable {

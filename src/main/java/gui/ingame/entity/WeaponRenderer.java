@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import gui.ImageCache;
-import model.ingame.Coordinates;
 import model.ingame.entity.WeaponEntity;
+import util.Coordinates;
 
 public class WeaponRenderer extends AbstractEntityRenderer {
     public WeaponRenderer(WeaponEntity entityModel) {

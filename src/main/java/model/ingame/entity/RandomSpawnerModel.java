@@ -3,10 +3,10 @@ package model.ingame.entity;
 import java.util.List;
 import java.util.Random;
 
-import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
+import util.Coordinates;
 
 public class RandomSpawnerModel {
     private final ModelTimer spawnTimer;

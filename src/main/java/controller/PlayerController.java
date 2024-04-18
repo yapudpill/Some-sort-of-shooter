@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import gui.ingame.GameMainArea;
-import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
 import model.ingame.weapon.WeaponModel;
+import util.Coordinates;
 
 /**
  * A controller for a player using the ZQSD keys. It uses Swing's KeyListener to

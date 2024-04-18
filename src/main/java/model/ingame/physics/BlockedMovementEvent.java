@@ -1,8 +1,8 @@
 package model.ingame.physics;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.IMobileEntity;
 import model.level.TileModel;
+import util.Coordinates;
 
 public class BlockedMovementEvent {
     private final IMobileEntity blockedEntity;

@@ -1,11 +1,11 @@
 package model.ingame.weapon;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.CollisionEntityModel;
 import model.ingame.entity.IEffectEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.physics.MovementHandler;
+import util.Coordinates;
 
 public abstract class ProjectileModel extends CollisionEntityModel implements IProjectile {
     protected final ProjectileWeaponModel sourceWeapon;

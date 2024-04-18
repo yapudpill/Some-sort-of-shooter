@@ -1,9 +1,9 @@
 package model.ingame.weapon;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.DamageListener;
 import model.ingame.physics.RicochetListener;
+import util.Coordinates;
 
 public class RubberProjectile extends ProjectileModel {
     public static final double RUBBER_WIDTH = 0.3;

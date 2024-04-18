@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Queue;
 import java.util.function.Predicate;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.physics.MovementHandler;
+import util.Coordinates;
 
 public class FloodFillPathFinder {
     private IEntity entityFinder;

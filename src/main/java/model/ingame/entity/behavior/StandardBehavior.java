@@ -1,10 +1,10 @@
 package model.ingame.entity.behavior;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.physics.MovementHandler;
 import model.level.MapModel;
+import util.Coordinates;
 
 public class StandardBehavior {
 

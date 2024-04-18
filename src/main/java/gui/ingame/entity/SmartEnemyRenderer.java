@@ -1,9 +1,9 @@
 package gui.ingame.entity;
 
 import gui.ImageCache;
-import model.ingame.Coordinates;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.SmartEnemyModel;
+import util.Coordinates;
 
 import java.awt.Color;
 import java.awt.Graphics;

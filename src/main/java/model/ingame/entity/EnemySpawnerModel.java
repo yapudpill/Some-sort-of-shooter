@@ -1,8 +1,8 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
+import util.Coordinates;
 
 public class EnemySpawnerModel extends EntitySpawner {
 

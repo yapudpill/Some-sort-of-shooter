@@ -6,13 +6,13 @@ import java.io.InputStreamReader;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.level.tiles.SpawnTileModel;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
+import util.Coordinates;
 import util.Resource;
 
 public class MapModel {

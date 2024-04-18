@@ -1,10 +1,10 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.RocketLauncher;
+import util.Coordinates;
 
 public class PlayerModel extends CombatEntityModel {
     private static final double DEFAULT_SPEED = 5.3; // tile/s

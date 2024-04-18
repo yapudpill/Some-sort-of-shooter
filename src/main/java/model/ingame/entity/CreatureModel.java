@@ -1,9 +1,9 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandler;
 import model.ingame.physics.SlidingListener;
+import util.Coordinates;
 
 public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity {
     protected MovementHandler movementHandler;

@@ -4,12 +4,12 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.BlockedMovementListener;
 import model.ingame.physics.CollisionEvent;
 import model.ingame.physics.CollisionListener;
+import util.Coordinates;
 
 public abstract class CollisionEntityModel extends EntityModel implements ICollisionEntity {
     private final List<CollisionListener> collisionListeners = new ArrayList<>();

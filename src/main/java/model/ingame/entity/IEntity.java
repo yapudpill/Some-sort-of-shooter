@@ -1,6 +1,6 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
+import util.Coordinates;
 
 public interface IEntity {
     Coordinates getPos();

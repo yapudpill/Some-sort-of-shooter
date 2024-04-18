@@ -1,9 +1,9 @@
 package model.ingame.weapon;
 
-import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
 import model.ingame.entity.WeaponEntity;
+import util.Coordinates;
 
 public class WeaponSpawner extends EntitySpawner {
 

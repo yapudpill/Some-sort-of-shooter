@@ -1,4 +1,4 @@
-package model.ingame;
+package util;
 
 /**
  * The Coordinates class is used to represent a point/vector in a 2D plane.

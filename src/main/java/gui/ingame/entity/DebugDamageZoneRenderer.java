@@ -3,8 +3,8 @@ package gui.ingame.entity;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.EntityModel;
+import util.Coordinates;
 
 public class DebugDamageZoneRenderer extends AbstractEntityRenderer {
     public DebugDamageZoneRenderer(EntityModel entityModel) {

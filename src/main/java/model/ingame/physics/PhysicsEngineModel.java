@@ -3,12 +3,12 @@ package model.ingame.physics;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.level.MapModel;
 import model.level.TileModel;
+import util.Coordinates;
 import util.IUpdateable;
 
 /**

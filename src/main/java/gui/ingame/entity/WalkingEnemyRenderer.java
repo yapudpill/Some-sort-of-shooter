@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import gui.ImageCache;
-import model.ingame.Coordinates;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.WalkingEnemyModel;
+import util.Coordinates;
 
 public class WalkingEnemyRenderer extends AbstractEntityRenderer {
     public WalkingEnemyRenderer(WalkingEnemyModel entityModel) {

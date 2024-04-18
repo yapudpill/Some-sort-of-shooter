@@ -1,10 +1,10 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.KnifeWeapon;
+import util.Coordinates;
 
 public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;

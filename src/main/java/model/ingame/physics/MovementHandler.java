@@ -1,7 +1,7 @@
 package model.ingame.physics;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.IMobileEntity;
+import util.Coordinates;
 import util.IUpdateable;
 
 /*

@@ -5,7 +5,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 
-import model.ingame.Coordinates;
+import util.Coordinates;
 
 /**
  * A layout manager that applies a uniform scaling/homothety to all ScalableComponents of a container, according to a
