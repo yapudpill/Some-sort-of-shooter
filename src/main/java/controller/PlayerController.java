@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -37,7 +38,11 @@ public class PlayerController {
     }
 
     private static Map<Integer, PlayerModel.PlayerAction> getPlayer1KeyActionMap(PlayerModel playerModel) {
-        return Map.of(MouseEvent.BUTTON1, playerModel::attack, MouseEvent.BUTTON3, playerModel::dash);
+        return Map.of(
+                MouseEvent.BUTTON1, playerModel::attack,
+                MouseEvent.BUTTON3, playerModel::dash,
+                KeyEvent.VK_E, playerModel::pickWeapon
+        );
     }
 
     /**
@@ -50,7 +55,7 @@ public class PlayerController {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if(heldKeys.contains(keyCode)) return;
+                if (heldKeys.contains(keyCode)) return;
 
                 // Update direction:
                 if (player1KeyDirectionMap.containsKey(keyCode)) {
@@ -58,6 +63,9 @@ public class PlayerController {
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
                     controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
                 }
+
+                PlayerModel.PlayerAction action = getPlayer1KeyActionMap(controlledPlayerModel).get(e.getKeyCode());
+                if (action != null) action.performAction();
                 // DEBUG
                 if (e.getKeyCode() == KeyEvent.VK_F1) {
                     System.out.println("debug");
@@ -69,11 +77,11 @@ public class PlayerController {
             @Override
             public void keyReleased(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if(!heldKeys.contains(keyCode)) return;
+                if (!heldKeys.contains(keyCode)) return;
 
                 // Update direction:
                 if (player1KeyDirectionMap.containsKey(keyCode)) {
-                     Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).opposite();
+                    Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).opposite();
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
                     controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
                 }
@@ -91,9 +99,22 @@ public class PlayerController {
             public void mousePressed(MouseEvent e) {
                 if (getPlayer1KeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
                     WeaponModel weapon = controlledPlayerModel.getWeapon();
-                    if(weapon != null) weapon.setDirectionVector(new Coordinates(e.getX()/gameMainArea.getScale() - controlledPlayerModel.getPos().x, e.getY()/gameMainArea.getScale() - controlledPlayerModel.getPos().y));
+                    if (weapon != null)
+                        weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
                     getPlayer1KeyActionMap(controlledPlayerModel).get(e.getButton()).performAction();
                 }
+            }
+        };
+    }
+
+    public MouseMotionListener getMouseMotionListener() {
+        return new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+                WeaponModel weapon = controlledPlayerModel.getWeapon();
+                if (weapon != null && weapon.usesDirectionVector())
+                    weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
             }
         };
     }

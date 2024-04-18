@@ -2,7 +2,6 @@ package gui.ingame.entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
 import java.awt.Image;
 
 import gui.ImageCache;
@@ -24,11 +23,7 @@ public class WalkingEnemyRenderer extends AbstractEntityRenderer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Image image;
-        try {
-            image = ImageCache.loadImage("sprites/EyeBallEnemy.png", PlayerRenderer.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage("sprites/EyeBallEnemy.png", PlayerRenderer.class);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         // show health bar
         g.setColor(Color.RED);

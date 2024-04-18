@@ -3,7 +3,6 @@ package gui.ingame.entity;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.IOException;
 
 import gui.ImageCache;
 import model.ingame.Coordinates;
@@ -24,11 +23,7 @@ public class WeaponRenderer extends AbstractEntityRenderer {
         super.paintComponent(g);
 
         Image image;
-        try {
-            image = ImageCache.loadImage(String.format("sprites/weapon/%s.png", ((WeaponEntity) entityModel).getWeapon().getIdentifier()), getClass());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage(String.format("sprites/weapon/%s.png", ((WeaponEntity) entityModel).getWeapon().getIdentifier()), getClass());
 
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }

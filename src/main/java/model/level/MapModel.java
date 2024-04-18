@@ -10,124 +10,96 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
+import model.level.tiles.SpawnTileModel;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
+import util.Resource;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapModel {
-    private TileModel[][] tiles;
+    private final TileModel[][] tiles;
+    private Coordinates playerSpawn;
 
-    public MapModel(String mapName){
-        tiles = loadMap("maps/" + mapName);
-    }
+    public MapModel(Resource map) throws InvalidMapException {
+        char[][] parsedMap = parseMap(map);
 
-    /**
-     * The tiles attribute can be loaded from a file in resources/model/level/maps
-     * Here is an example of what a map file could look like
-     * <pre>
-     * +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-     * |         #                                                                     |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |         #                                                       b   b         |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |         #       r                                               b   b         |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |         #               #   #   #   #                               b         |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |         #               #   #           s   s                                 |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |         #   #   #   #   #           s   s                                     |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                             #   #   #   #   #   #   #         |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                         #   #                                 |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |         /   /   /                       #   #                                 |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |         /   /   /                       #                   r                 |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |         /   /                                                                 |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-     * |                                                                               |
-     * +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-     * </pre>
-     * the first and last lines and the first and last column are the limits of the map
-     * the different tiles are separated by + at every corner
-     * in this file, the characters are :
-     * <ul>
-     *      <li> '+' is at every corner, it's used to show the grid  </li>
-     *      <li> '---' is a horizontal border of the map </li>
-     *      <li> '|' (pipe) is a vertical border of the map </li>
-     *      <li> ' ' indicates the default empty tile (no effect + walkable) </li>
-     *      <li> '#' indicates the default wall tile (no effect + non walkable) </li>
-     *      <li> 'b', '/', 'r' and 's' are just for the show, no actual meaning for now </li>
-     * </ul>
-     */
+        tiles = new TileModel[parsedMap.length][parsedMap[0].length];
+        for (int i = 0; i < parsedMap.length; i++) {
+            for (int j = 0; j < parsedMap[0].length; j++) {
+                tiles[i][j] = convertChar(parsedMap[i][j]);
 
-    /**
-     *
-     * @param lines String corresponding to each line of the map file
-     * @return array containing the character corresponding to the content of each tile
-     * parseMap ignores everything except the center of each square, so it ignores 1/2 lines and 3/4 columns
-     */
-    public static char[][] parseMap(String[] lines) {
-        int height = lines.length/2;
-        int width = (lines[0].length())/4;
-        String current;
-        char[][] arr = new char[height][width];
-        for (int i = 0; i < height; i++) {
-            current = lines[i*2+1];
-            for (int j = 0; j < width; j++) {
-                arr[i][j] = current.charAt(j*4+2);
+                // The function parseMap guaranties that there is exactly one
+                // spawn point
+                if (tiles[i][j] instanceof SpawnTileModel) {
+                    playerSpawn = new Coordinates(j + 0.5, i + 0.5);
+                }
             }
         }
-        return arr;
     }
 
     /**
+     * Converts a map coming from a Resource into an array of characters.
+     * This function ignores everything except the center of each square, so it
+     * ignores 1/2 lines and 3/4 columns.
      *
-     * @param path is the path of the map.txt (located in the maps directory in the model.level package of resources)
-     * @return a TileModel[][] containing the tiles corresponding to the loaded map.txt
+     * @param map the Resource from where the map is read
+     * @return array containing the character corresponding to the content of
+     *         each tile
+     * @throws InvalidMapException if the map is not square or if it doesn't
+     *                             contain a spawn point
      */
-    public static TileModel[][] loadMap(String path){
-        InputStream in = MapModel.class.getResourceAsStream(path);
-        try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            String[] tab = reader.lines().toArray(String[]::new);
-            char[][] parsedMap = parseMap(tab);
+    public static char[][] parseMap(Resource map) throws InvalidMapException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(map.toStream()));
+        String[] lines = reader.lines().toArray(String[]::new);
 
-            TileModel[][] tiles = new TileModel[parsedMap.length][parsedMap[0].length];
-            for (int i = 0; i < parsedMap.length; i++) {
-                for (int j = 0; j < parsedMap[0].length; j++) {
-                    switch (parsedMap[i][j]) {
-                        case '#' -> tiles[i][j] = new WaterTileModel();
-                        case 'V' -> tiles[i][j] = new VoidTileModel();
-                        default -> tiles[i][j] = new StandardTileModel();
+        int height = lines.length/2;
+        int width = (lines[0].length())/4;
+        char[][] arr = new char[height][width];
+        boolean foundSpawn = false;
+
+        for (int i = 0; i < height; i++) {
+            String current = lines[2*i + 1];
+            for (int j = 0; j < width; j++) {
+                try {
+                    arr[i][j] = current.charAt(4*j + 2);
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new InvalidMapException("Malformed map");
+                }
+
+                if (arr[i][j] == 'S') {
+                    if (foundSpawn) {
+                        throw new InvalidMapException("Map has two spawn points");
+                    } else {
+                        foundSpawn = true;
                     }
                 }
             }
-            return tiles;
         }
-        catch (NullPointerException e) {
-            System.out.println("invalid path");
+
+        if (!foundSpawn) {
+            throw new InvalidMapException("Map has no spawn point");
         }
-        return null;
+
+        return arr;
+    }
+
+    public static TileModel convertChar(char c) {
+        return switch (c) {
+            case '#' -> new WaterTileModel();
+            case 'V' -> new VoidTileModel();
+            case 'S' -> new SpawnTileModel();
+            case ' '-> new StandardTileModel();
+            default -> new StandardTileModel();
+        };
+    }
+
+    public Coordinates getPlayerSpawn() {
+        return playerSpawn;
     }
 
     public boolean isOutOfBounds(int x, int y) {

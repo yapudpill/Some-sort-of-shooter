@@ -16,7 +16,6 @@ public abstract class AbstractEntityRenderer extends JComponent implements IUpda
 
     @Override
     public void update() {
-        // TODO
     }
 
     public Coordinates getOriginalSize() {

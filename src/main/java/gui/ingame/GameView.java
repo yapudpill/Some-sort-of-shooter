@@ -29,6 +29,7 @@ public class GameView extends JPanel implements IUpdateable {
         playerController.clearHeldKeys();
         mainArea.addKeyListener(playerController.getKeyListener());
         mainArea.addMouseListener(playerController.getMouseListener());
+        mainArea.addMouseMotionListener(playerController.getMouseMotionListener());
 
         RatioLayout centerFillRatioLayout = new RatioLayout((double) gameModel.getMapModel().getWidth() / gameModel.getMapModel().getHeight());
         JPanel mainAreaWrapper = new JPanel(centerFillRatioLayout);

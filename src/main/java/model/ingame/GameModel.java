@@ -22,7 +22,9 @@ import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
+import model.level.InvalidMapException;
 import model.level.MapModel;
+import util.Resource;
 
 public class GameModel implements IUpdateable {
     public final Statistics stats;

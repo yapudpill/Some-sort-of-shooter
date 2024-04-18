@@ -5,10 +5,12 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.MainController;
 import model.ingame.Statistics;
+import model.level.InvalidMapException;
 
 public class EndMenu extends JPanel {
 
@@ -46,7 +48,18 @@ public class EndMenu extends JPanel {
 
         constraints.gridx = 2;
         JButton replay = new JButton("Replay");
-        replay.addActionListener(e -> mainController.loadGame(stats.mapName));
+        replay.addActionListener(event -> {
+            try {
+                mainController.loadGame(stats.map);
+            } catch (InvalidMapException e) {
+                JOptionPane.showMessageDialog(
+                this,
+                "The map file changed and is no longer in the correct format.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            }
+        });
         add(replay, constraints);
 
         constraints.gridwidth = 1;

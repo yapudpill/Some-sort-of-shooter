@@ -3,7 +3,6 @@ package gui.ingame.entity;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.IOException;
 
 import gui.ImageCache;
 import model.ingame.entity.IVulnerableEntity;
@@ -20,11 +19,7 @@ public class PlayerRenderer extends AbstractEntityRenderer {
         super.paintComponent(g);
         // draw triangle pointing upwards
         Image image;
-        try {
-            image = ImageCache.loadImage("sprites/player1/playerRightShoot.png", PlayerRenderer.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage("sprites/player1/playerRightShoot.png", PlayerRenderer.class);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         // show health bar
         g.setColor(Color.RED);

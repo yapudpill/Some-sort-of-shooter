@@ -58,7 +58,7 @@ public class EntitiesPaneLayer implements IUpdateable {
     @Override
     public void update() {
         // Synchronize the sets and maps
-        SetToMapSynchronisator.synchroniseSetToMap(entityModelSet,
+        SetToMapSynchronisator.synchroniseCollectionToMap(entityModelSet,
                 entityModelRendererMap,
                 this::addRendererForEntity,
                 this::removeRendererOfEntity);

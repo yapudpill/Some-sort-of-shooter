@@ -7,6 +7,7 @@ import model.ingame.entity.ExplosionZoneEntity;
 import model.ingame.entity.FirstAidKit;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
+import model.ingame.entity.SimpleTrap;
 import model.ingame.entity.SmartEnemyModel;
 import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.WeaponEntity;
@@ -26,6 +27,7 @@ public class EntityRendererFactory {
             case AttachedDamageZoneEntity debugDamageZoneEntity -> new DebugDamageZoneRenderer(debugDamageZoneEntity);
             case ExplosionZoneEntity explosionZoneEntity -> new ExplosionZoneRenderer(explosionZoneEntity);
             case FirstAidKit firstAidKit -> new FirstAidKitRenderer(firstAidKit);
+            case SimpleTrap simpleTrap -> new TrapRenderer(simpleTrap);
             case SmartEnemyModel smartEnemy -> new SmartEnemyRenderer(smartEnemy);
             case ExplodingEnemy explodingEnemy -> new ExplodingEnemyRenderer(explodingEnemy);
             case BreakableBarrier breakableBarrier -> new BreakableBarrierRenderer(breakableBarrier);

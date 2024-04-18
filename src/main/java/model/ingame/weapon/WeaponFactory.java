@@ -1,9 +1,9 @@
 package model.ingame.weapon;
 
 import model.ingame.GameModel;
-import model.ingame.entity.IEntity;
+import model.ingame.entity.ICombatEntity;
 
 @FunctionalInterface
 public interface WeaponFactory {
-    WeaponModel createWeapon(IEntity owner, GameModel gameModel);
+    WeaponModel createWeapon(ICombatEntity owner, GameModel gameModel);
 }

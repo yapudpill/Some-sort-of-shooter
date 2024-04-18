@@ -1,5 +1,6 @@
 package model.ingame.entity;
 
+import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
 import model.ingame.weapon.RubberWeapon;
@@ -7,11 +8,12 @@ import util.ModelTimer;
 
 public class PlayerModel extends CombatEntityModel {
     private boolean dashing = false;
-    private ModelTimer dashTimer;
+    private final ModelTimer dashTimer;
+    private final ModelTimer pickWeaponTimer;
+    private boolean shouldPickWeapons = false;
     /*
      * tag interface for player actions, to be used by the controller (e.g. attack, reload, etc.)
      */
-
     @FunctionalInterface
     public interface PlayerAction {
         void performAction();
@@ -23,7 +25,11 @@ public class PlayerModel extends CombatEntityModel {
             dashing = false;
             movementHandler.setSpeed(0.09);
         }, gameModel);
+
         dashTimer.setRepeats(false);
+
+        pickWeaponTimer = new ModelTimer(30, () -> shouldPickWeapons = false, gameModel);
+
         movementHandler = new MovementHandlerModel<PlayerModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.09);
         setWeapon(new RubberWeapon(this, gameModel));
@@ -35,7 +41,7 @@ public class PlayerModel extends CombatEntityModel {
 
     @Override
     public boolean shouldPickWeapons() {
-        return true;
+        return shouldPickWeapons;
     }
 
 
@@ -62,6 +68,11 @@ public class PlayerModel extends CombatEntityModel {
             despawn();
             gameModel.setRunning(false);
         }
+    }
+
+    public void pickWeapon() {
+        this.pickWeaponTimer.start();
+        this.shouldPickWeapons = true;
     }
 
 }
