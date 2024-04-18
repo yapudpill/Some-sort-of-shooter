@@ -43,7 +43,7 @@ public class GameModel implements IUpdateable {
         stats = new Statistics(mapResource);
         map = new MapModel(mapResource);
         physicsEngine = new PhysicsEngineModel(map, collisionEntities);
-        player = new PlayerModel(new Coordinates(5.5, 8.5),this);
+        player = new PlayerModel(map.getPlayerSpawn(), this);
         this.addEntity(player);
         updateables.add(physicsEngine);
         updateables.add(new RandomWeaponSpawner(this));
