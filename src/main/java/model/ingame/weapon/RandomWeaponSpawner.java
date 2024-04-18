@@ -43,15 +43,14 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
 
     @Override
     public WeaponEntity spawnEntity(double x, double y) {
-        WeaponEntity entity = (WeaponEntity) super.spawnEntity(x, y);
-        gameModel.getMapModel().addCollidableAt(entity, (int) x, (int) y);
+       WeaponEntity entity = (WeaponEntity) super.spawnEntity(x, y);
+        gameModel.addEntity(entity);
         return entity;
     }
 
     @Override
     protected WeaponEntity makeEntity(double x, double y) {
         WeaponModel weapon = availableWeaponsFactories.get(rng.nextInt(availableWeaponsFactories.size())).createWeapon(null, gameModel);
-        System.out.println("spawning : " + weapon);
         return new WeaponEntity(new Coordinates(x, y), weapon, gameModel);
     }
 }

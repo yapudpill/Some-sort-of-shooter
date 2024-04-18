@@ -6,7 +6,7 @@ import model.ingame.GameModel;
 
 public class FirstAidKitSpawner extends EntitySpawner{
 
-        public FirstAidKitSpawner(GameModel gameModel) {
+    public FirstAidKitSpawner(GameModel gameModel) {
         super(gameModel);
     }
 

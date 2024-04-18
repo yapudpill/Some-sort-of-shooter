@@ -17,7 +17,6 @@ public abstract class EntityModel implements IEntity{
         this.width = width;
         this.height = height;
         this.gameModel = gameModel;
-        gameModel.addEntity(this);
     }
 
     public void despawn() {

@@ -58,7 +58,7 @@ public class PhysicsEngineModel implements IUpdateable{
      * @param movementVector the new position of the entity
      */
     public void move(IMobileEntity entity, Coordinates movementVector) {
-        if(entity == null || entity instanceof IVulnerableEntity vuln && vuln.isDead()) return;
+        if(entity == null || (entity instanceof IVulnerableEntity vuln && vuln.isDead())) return;
         // Adjust movement to collide with walls
         var blockedMovementEvent = handleBlockedMovement(entity, movementVector);
         Coordinates adjustedMovement = movementVector;
@@ -69,7 +69,6 @@ public class PhysicsEngineModel implements IUpdateable{
         if (adjustedMovement.isZero()) {
             entity.getMovementHandler().setMoving(false);
             return;
-
         }
 
         // move the entity and its collision box

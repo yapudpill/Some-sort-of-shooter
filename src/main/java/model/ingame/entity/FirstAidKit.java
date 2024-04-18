@@ -8,10 +8,10 @@ public class FirstAidKit extends CollisionEntityModel {
     public FirstAidKit(Coordinates pos, GameModel gameModel) {
         super(pos, 0.5, 0.5, gameModel);
         addCollisionListener(e -> {
-            if (e.getSource() instanceof PlayerModel) {
-                PlayerModel player = (PlayerModel) e.getSource();
+            if (e.getInvolvedEntitiesList().stream().anyMatch(entity -> entity instanceof PlayerModel)) {
+                PlayerModel player = gameModel.getPlayer();
                 player.setHealth(player.getHealth() + 20);
-                despawn();
+                this.despawn();
             }
         });
     }

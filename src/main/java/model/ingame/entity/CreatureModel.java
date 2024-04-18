@@ -61,4 +61,9 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
         health = maxHealth;
     }
 
+    @Override
+    public void despawn() {
+        super.despawn();
+        this.setHealth(0);
+    }
 }

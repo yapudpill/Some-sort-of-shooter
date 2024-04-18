@@ -14,10 +14,12 @@ public class ExplodingEnemy extends CreatureModel implements IEffectEntity{
         this.pos = pos;
         this.player = gameModel.getPlayer();
         movementHandler = new MovementHandlerModel<ExplodingEnemy>(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(0.01);
+        movementHandler.setSpeed(0.09);
         addCollisionListener(e -> {
-            this.takeDamage(30);
-            gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
+            if(e.getInvolvedEntitiesList().contains(player)) {
+                gameModel.addEntity(new ExplosionZoneEntity(this.pos,2, 2, 10,100, gameModel));
+                this.despawn();
+            }
         });
     }
 
