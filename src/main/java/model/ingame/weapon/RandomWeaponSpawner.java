@@ -15,8 +15,10 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
         PistolModel::new,
         KnifeWeapon::new,
         RocketLauncher::new,
+        ShotGun::new,
+        RubberWeapon::new,
         SimpleTrapPlacer::new
-    );
+        );
 
     private final Random rng = new Random();
     private double spawnCooldown = 0;
@@ -49,8 +51,8 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
 
     @Override
     public WeaponEntity spawnEntity(double x, double y) {
-        WeaponEntity entity = (WeaponEntity) super.spawnEntity(x, y);
-        gameModel.getMapModel().addCollidableAt(entity, (int) x, (int) y);
+       WeaponEntity entity = (WeaponEntity) super.spawnEntity(x, y);
+        gameModel.addEntity(entity);
         return entity;
     }
 

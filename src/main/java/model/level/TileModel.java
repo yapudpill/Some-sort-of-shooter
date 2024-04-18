@@ -1,18 +1,21 @@
 package model.level;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Predicate;
 
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 
 public abstract class TileModel implements ITileModel {
-    protected final List<ICollisionEntity> collidables = new CopyOnWriteArrayList<>();
+    protected final Set<ICollisionEntity> collidables = new CopyOnWriteArraySet<>();
+    protected Set<Predicate<IEntity>> canEnterConditions = new CopyOnWriteArraySet<>();
 
     public abstract boolean isWalkable();
 
     public boolean canEnter(IEntity entity) {
-        return true;
+        if(canEnterConditions.isEmpty()) return true;
+        return canEnterConditions.stream().allMatch(condition -> condition.test(entity));
     }
 
     @Override
@@ -29,16 +32,23 @@ public abstract class TileModel implements ITileModel {
         collidables.remove(entity);
     }
 
-    public List<ICollisionEntity> getCollidablesList() {
-        return collidables;
-    }
-
-    @Override
-    public List<ICollisionEntity> getCollidables() {
-        return collidables;
+    public Set<ICollisionEntity> getCollidablesSet() {
+        return new CopyOnWriteArraySet<ICollisionEntity>(collidables);
     }
 
     public void reset() {
         collidables.clear();
+    }
+
+    public void printCollidables() {
+        System.out.println(collidables);
+    }
+
+    public void addCanEnterCondition(Predicate<IEntity> condition) {
+        canEnterConditions.add(condition);
+    }
+
+    public void removeCanEnterCondition(Predicate<IEntity> condition) {
+        canEnterConditions.remove(condition);
     }
 }

@@ -15,13 +15,16 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
         if (isCoolingDown()) {
             return false;
         }
+        fire();
+        coolDownTimer.start();
+        return true;
+    }
 
+    public void fire() {
         IProjectile projectile = createProjectile();
         projectile.setPos(new Coordinates(owner.getPos()));
         projectile.getMovementHandler().setDirectionVector(this.directionVector);
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);
-        coolDownTimer.start();
-        return true;
     }
 }

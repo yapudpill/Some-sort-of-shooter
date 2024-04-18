@@ -1,0 +1,20 @@
+package model.ingame.physics;
+
+import model.ingame.Coordinates;
+
+public class SlidingListener implements BlockedMovementListener {
+
+    @Override
+    public void onMovementBlocked(BlockedMovementEvent e) {
+        Coordinates adjustedMovement = Coordinates.ZERO;
+        Coordinates movementVector = e.getMovementVector();
+        if(e.isHorizontalBlocked()){
+            adjustedMovement = adjustedMovement.add(movementVector.xProjection());
+        }
+        if(e.isVerticalBlocked()){
+            adjustedMovement = adjustedMovement.add(movementVector.yProjection());
+        }
+        e.setAdjustedMovement(adjustedMovement);
+    }
+
+}

@@ -4,25 +4,23 @@ import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
-import model.ingame.weapon.KnifeWeapon;
 
-public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
-    private final PlayerModel player;
+public class ExplodingEnemy extends CreatureModel implements IEffectEntity{
     private static FloodFillPathFinder pathFinder;
+    private final PlayerModel player;
 
-    public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 50, 0.8, 0.8, gameModel);
-        player = gameModel.getPlayer();
+    public ExplodingEnemy(Coordinates pos, GameModel gameModel) {
+        super(pos,50,0.8, 0.8, gameModel);
+        this.pos = pos;
+        this.player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(2.4);
+        movementHandler.setSpeed(5.4);
         addCollisionListener(e -> {
-            for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
-                if (entity instanceof PlayerModel) {
-                    attack();
-                }
+            if(e.getInvolvedEntitiesList().contains(player)) {
+                gameModel.addEntity(new ExplosionZoneEntity(this.pos,2, 2, 10,100, gameModel));
+                this.despawn();
             }
         });
-        setWeapon(new KnifeWeapon(this, gameModel));
     }
 
     @Override
@@ -30,8 +28,13 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
         return target instanceof PlayerModel;
     }
 
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+    }
+
     public static void setPathFinder(FloodFillPathFinder pathFinder) {
-        WalkingEnemyModel.pathFinder = pathFinder;
+        ExplodingEnemy.pathFinder = pathFinder;
     }
 
     @Override
