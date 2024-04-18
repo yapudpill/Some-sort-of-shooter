@@ -1,13 +1,5 @@
 package gui.ingame;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-
 import gui.ScaleLayout;
 import gui.ScaleSupplier;
 import gui.ingame.entity.AbstractEntityRenderer;
@@ -15,6 +7,11 @@ import gui.ingame.entity.EntityRendererFactory;
 import model.ingame.IUpdateable;
 import model.ingame.entity.IEntity;
 import util.SetToMapSynchronisator;
+
+import javax.swing.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class EntitiesPaneLayer implements IUpdateable {
@@ -45,6 +42,7 @@ public class EntitiesPaneLayer implements IUpdateable {
 
     private void addRendererForEntity(IEntity entityModel) {
         AbstractEntityRenderer entityRenderer = EntityRendererFactory.makeEntityRenderer(entityModel);
+
         if (entityRenderer != null) {
             entityModelRendererMap.put(entityModel, entityRenderer);
             entitiesPanel.add(entityRenderer);
@@ -62,6 +60,9 @@ public class EntitiesPaneLayer implements IUpdateable {
                 entityModelRendererMap,
                 this::addRendererForEntity,
                 this::removeRendererOfEntity);
+        for (AbstractEntityRenderer entityRenderer : entityModelRendererMap.values()) {
+            entityRenderer.update();
+        }
 
         // Repaint and do layout
         entitiesPanel.repaint();

@@ -1,11 +1,11 @@
 package gui.ingame.entity;
 
-import javax.swing.JComponent;
-
 import gui.ScalableComponent;
 import model.ingame.Coordinates;
 import model.ingame.IUpdateable;
 import model.ingame.entity.EntityModel;
+
+import javax.swing.*;
 
 public abstract class AbstractEntityRenderer extends JComponent implements IUpdateable, ScalableComponent {
     protected final EntityModel entityModel;

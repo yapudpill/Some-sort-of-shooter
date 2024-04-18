@@ -22,7 +22,6 @@ public class FootprintManager implements IUpdateable {
     }
 
     private void spawnFootprint() {
-        System.out.println("spawning footprint");
         FootprintRenderer footprintRenderer = new FootprintRenderer(entity.getMovementHandler().getDirectionVector(), entity.getPos());
         placedFootprints.add(footprintRenderer);
         footprintsLayer.add(footprintRenderer);
