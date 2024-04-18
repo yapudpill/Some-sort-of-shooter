@@ -2,13 +2,13 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.ModelTimer;
 import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.entity.behavior.StandardBehavior;
-import model.ingame.physics.MovementHandlerModel;
-import model.ingame.weapon.IProjectile;
+import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.PistolModel;
+import model.ingame.entity.behavior.StandardBehavior;
+import model.ingame.weapon.IProjectile;
 import model.ingame.weapon.ProjectileWeaponModel;
-import util.ModelTimer;
 
 public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;
@@ -19,10 +19,10 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
         super(pos, 50, 0.8, 0.8, gameModel);
         player = gameModel.getPlayer();
-        movementHandler = new MovementHandlerModel<SmartEnemyModel>(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(0.06);
+        movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
+        movementHandler.setSpeed(3.6);
         setWeapon(new PistolModel(this, gameModel));
-        shootingTimer = new ModelTimer(1*60, () -> {
+        shootingTimer = new ModelTimer(1, true, () -> {
             aim();
             attack();
         }, gameModel);
@@ -39,21 +39,19 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         if(!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance)){
-            shootingTimer.update();
+            shootingTimer.update(delta);
             StandardBehavior.circleAround(this, player, gameModel.getMapModel());
         }
         else{
             pathFinder.handlePathFindingUpdate(this, player.getPos());
         }
-        super.update();
+        super.update(delta);
     }
 
-    public void aim(){
+    public void aim() {
         PistolModel pistol = (PistolModel) getWeapon();
         pistol.setDirectionVector(new Coordinates(player.getPos().x - pos.x, player.getPos().y - pos.y));
     }
-
-
 }

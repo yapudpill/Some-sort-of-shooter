@@ -5,17 +5,17 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import gui.ScalableComponent;
+import gui.IScalableComponent;
 import gui.ScaleLayout;
 import gui.ScaleSupplier;
 import model.ingame.Coordinates;
-import model.ingame.IUpdateable;
+import util.IUpdateable;
 import model.ingame.entity.PlayerModel;
 
-public class GameHUDLayer extends JPanel implements IUpdateable {
+public class HUDLayer extends JPanel implements IUpdateable {
     private static final String WEAPON_LABEL = "Current weapon: %s";
 
-    private static class WeaponLabel extends JLabel implements ScalableComponent {
+    private static class WeaponLabel extends JLabel implements IScalableComponent {
         @Override
         public Coordinates getOriginalPosition() {
             return new Coordinates(0, 1);
@@ -31,7 +31,7 @@ public class GameHUDLayer extends JPanel implements IUpdateable {
 
     private final PlayerModel playerModel;
 
-    public GameHUDLayer(PlayerModel playerModel, ScaleSupplier scaleSupplier) {
+    public HUDLayer(PlayerModel playerModel, ScaleSupplier scaleSupplier) {
         this.setLayout(new ScaleLayout(scaleSupplier));
         this.setOpaque(false);
         this.playerModel = playerModel;
@@ -40,7 +40,7 @@ public class GameHUDLayer extends JPanel implements IUpdateable {
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         String weaponName = (playerModel.getWeapon() == null) ? "No weapon" : playerModel.getWeapon().getName();
         weaponLabel.setText(String.format(WEAPON_LABEL, weaponName));
     }

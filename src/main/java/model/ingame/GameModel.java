@@ -24,6 +24,7 @@ import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.InvalidMapException;
 import model.level.MapModel;
+import util.IUpdateable;
 import util.Resource;
 
 public class GameModel implements IUpdateable {
@@ -33,11 +34,9 @@ public class GameModel implements IUpdateable {
     private final PlayerModel player;
     private boolean isRunning = true;
 
-
     private final Set<IEntity> entityModelList = new CopyOnWriteArraySet<>();
     private final Set<ICollisionEntity> collisionEntities = new CopyOnWriteArraySet<>();
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
-
 
     public GameModel(Resource mapResource) throws InvalidMapException {
         stats = new Statistics(mapResource);
@@ -48,15 +47,18 @@ public class GameModel implements IUpdateable {
         updateables.add(physicsEngine);
         updateables.add(new RandomWeaponSpawner(this));
         initSpawner();
+
         ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO,this);
         enemyFinderInstance.despawn();
-        FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 7, enemyFinderInstance);
+        FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 0.1, enemyFinderInstance);
         Predicate<Coordinates> avoidPredicate = (pos) -> map.getTile((int)pos.x, (int)pos.y).getCollidablesSet()
         .stream().anyMatch((entity) -> !(entity instanceof PlayerModel) && entity instanceof CombatEntityModel);
         floodFillPathFinder.setAvoidPredicate(avoidPredicate);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
         ExplodingEnemy.setPathFinder(floodFillPathFinder);
+
+        // TODO: read this from map
         // add breakable barriers
         BreakableBarrier barrier1 = new BreakableBarrier(new Coordinates(5.5, 5.5), this);
         BreakableBarrier barrier2 = new BreakableBarrier(new Coordinates(5.5, 6.5), this);
@@ -64,22 +66,25 @@ public class GameModel implements IUpdateable {
         entityModelList.add(barrier1);
         entityModelList.add(barrier2);
         entityModelList.add(barrier3);
-
-        // spawn exploding enemy
-        ExplodingEnemy enemy = new ExplodingEnemy(new Coordinates(3.5, 5.5), this);
-        addEntity(enemy);
     }
 
     @Override
-    public void update() {
-        stats.survivedFrames++;
-        for (IUpdateable updateable : updateables) updateable.update();
+    public void update(double delta) {
+        stats.survivedTime += delta;
+        for (IUpdateable updateable : updateables) {
+            updateable.update(delta);
+        }
     }
 
     public void initSpawner() {
-        RandomSpawnerModel randomSpawnerModel = new RandomSpawnerModel(this,List.of(new ExplodingEnemySpawner(this), new FirstAidKitSpawner(this),
-        new SmartEnemySpawner(this), new EnemySpawnerModel(this)), 2*60);
-        randomSpawnerModel.start();
+        List<EntitySpawner> spawners = List.of(
+            new EnemySpawnerModel(this),
+            new SmartEnemySpawner(this),
+            new ExplodingEnemySpawner(this),
+            new FirstAidKitSpawner(this)
+        );
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, spawners, 3);
+        mainSpawner.start();
     }
 
     public MapModel getMapModel() {

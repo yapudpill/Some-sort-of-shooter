@@ -9,47 +9,43 @@ import javax.swing.JPanel;
 
 import gui.ScaleLayout;
 import gui.ScaleSupplier;
-import model.ingame.GameModel;
-import model.ingame.IUpdateable;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.entity.IEntity;
+import util.IUpdateable;
 import util.SetToMapSynchronisator;
 
 public class FootprintsLayer extends JPanel implements IUpdateable {
-    GameModel gameModel;
-    ScaleLayout scaleLayout;
     private final Map<ICombatEntity, FootprintManager> combatEntitiesFootprintMap = new ConcurrentHashMap<>();
+    private final Set<IEntity> entityModelSet;
 
-    public FootprintsLayer(GameModel gameModel, ScaleSupplier scaleSupplier) {
-        super();
-        this.gameModel = gameModel;
-        this.setOpaque(false);
-        this.scaleLayout = new ScaleLayout(scaleSupplier);
-        setLayout(scaleLayout);
+    public FootprintsLayer(Set<IEntity> entityModelSet, ScaleSupplier scaleSupplier) {
+        this.entityModelSet = entityModelSet;
+        setLayout(new ScaleLayout(scaleSupplier));
+        setOpaque(false);
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         Set<ICombatEntity> combatEntities = new HashSet<>();
-        for (IEntity iEntity : gameModel.getEntitySet()) {
-            if (iEntity instanceof ICombatEntity iCombatEntity) combatEntities.add(iCombatEntity);
+        for (IEntity entity : entityModelSet) {
+            if (entity instanceof ICombatEntity combatEntity)
+                combatEntities.add(combatEntity);
         }
 
-        SetToMapSynchronisator.synchroniseCollectionToMap(combatEntities,
-                combatEntitiesFootprintMap,
-                this::addFootprintSpawner,
-                // Don't immediately remove the footprints, they will fade out thanks to the FootprintManager
-                this::stopFootprintSpawner);
+        SetToMapSynchronisator.synchronise(combatEntities,
+            combatEntitiesFootprintMap,
+            this::addFootprintSpawner,
+            this::stopFootprintSpawner // Don't immediately remove the footprints, they will fade out thanks to the FootprintManager
+        );
 
 
         for (IUpdateable footprintManager : combatEntitiesFootprintMap.values()) {
-            footprintManager.update();
+            footprintManager.update(delta);
         }
 
         doLayout();
         repaint();
     }
-
 
     private void addFootprintSpawner(ICombatEntity iCombatEntity) {
         FootprintManager footprintManager = new FootprintManager(this, iCombatEntity);

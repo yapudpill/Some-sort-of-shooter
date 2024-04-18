@@ -7,7 +7,7 @@ import model.level.tiles.WaterTileModel;
 import model.level.tiles.SpawnTileModel;
 
 public class TileRendererFactory {
-    static public AbstractTileRenderer makeTileRenderer(TileModel tileModel) {
+    static public AbstractTileRenderer make(TileModel tileModel) {
         return switch (tileModel) {
             case StandardTileModel t -> new StandardTileRenderer();
             case WaterTileModel t -> new WaterTileRenderer();

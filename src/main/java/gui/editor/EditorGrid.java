@@ -49,7 +49,7 @@ public class EditorGrid extends JPanel {
     }
 
     private AbstractTileRenderer listeningRenderer(int x, int y, TileModel t) {
-        AbstractTileRenderer renderer = TileRendererFactory.makeTileRenderer(t);
+        AbstractTileRenderer renderer = TileRendererFactory.make(t);
         renderer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

@@ -2,25 +2,23 @@ package controller;
 
 import javax.swing.Timer;
 
-import model.ingame.IUpdateable;
+import util.IUpdateable;
 
 /*
- * This class manages the game loop, implementing a straightforward loop that invokes an updater method every FRAME_TIME
- * milliseconds using Swing's Timer class.
+ * This class manages the game loop, implementing a straightforward loop that
+ * invokes an updater method every FRAME_TIME milliseconds using Swing's Timer
+ * class.
+ * <p>
  * For example, to achieve a frame rate of 60 frames per second, set FRAME_TIME to 16.
  */
-public class SwingGameLoop implements IGameLoop {
-    final static int FRAME_TIME = 16; // ms
-    private IUpdateable updater; // Method to be called at each tick
-    private final Timer updateTimer = new Timer(FRAME_TIME, e -> updater.update());
+public class SwingGameLoop extends GameLoop {
+    private static final int FRAME_TIME = 16; // ms
+
+    private final Timer updateTimer;
 
     public SwingGameLoop(IUpdateable updater) {
-        setUpdater(updater);
-    }
-
-    @Override
-    public void setUpdater(IUpdateable updater) {
-        this.updater = updater;
+        super(updater);
+        updateTimer = new Timer(FRAME_TIME, e -> updater.update(FRAME_TIME / 1000.));
     }
 
     @Override

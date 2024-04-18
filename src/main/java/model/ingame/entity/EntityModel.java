@@ -2,13 +2,12 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import model.ingame.IUpdateable;
+import util.IUpdateable;
 
-public abstract class EntityModel implements IEntity{
+public abstract class EntityModel implements IEntity {
     protected GameModel gameModel;
     protected Coordinates pos;
-    protected double width;
-    protected double height;
+    protected double width, height;
 
     public EntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
         if (pos == null)
@@ -20,8 +19,10 @@ public abstract class EntityModel implements IEntity{
     }
 
     public void despawn() {
-        gameModel.getEntitySet().remove(this);
-        if (this instanceof IUpdateable iUpdateable) gameModel.detachAsUpdateable(iUpdateable);
+        gameModel.removeEntity(this);
+        if (this instanceof IUpdateable iUpdateable) {
+            gameModel.detachAsUpdateable(iUpdateable);
+        }
     }
 
     public Coordinates getPos() {

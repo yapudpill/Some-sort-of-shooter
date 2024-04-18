@@ -7,10 +7,10 @@ import java.util.function.Predicate;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.ModelTimer;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IMobileEntity;
-import model.ingame.physics.IMovementHandler;
-import util.ModelTimer;
+import model.ingame.physics.MovementHandler;
 
 public class FloodFillPathFinder {
     private IEntity entityFinder;
@@ -21,9 +21,9 @@ public class FloodFillPathFinder {
     private boolean reachTarget = true;
     private GameModel gameModel;
 
-    public FloodFillPathFinder(GameModel gameModel, int updateDelay, IEntity entityFinder) {
+    public FloodFillPathFinder(GameModel gameModel, double updateDelay, IEntity entityFinder) {
         this.nodeGrid = new NodeGrid(gameModel.getMapModel());
-        this.updateTimer = new ModelTimer(updateDelay, () -> fill(), gameModel);
+        this.updateTimer = new ModelTimer(updateDelay, true, () -> fill(), gameModel);
         this.entityFinder = entityFinder;
         this.gameModel = gameModel;
     }
@@ -52,7 +52,7 @@ public class FloodFillPathFinder {
                 if(shouldAvoid != null && shouldAvoid.test(currentPos)) nodeGrid.getNode(x, y).setValue(1000);
                 else nodeGrid.getNode(x, y).setValue(currentValue);
 
-                // Add adjacent nodes to the queueq
+                // Add adjacent nodes to the queue
                 addAdjacentNodes(queue, x, y);
             }
             currentValue++;
@@ -96,7 +96,7 @@ public class FloodFillPathFinder {
     public void handlePathFindingUpdate(IMobileEntity entity, Coordinates target){
             this.setTarget(target);
             Coordinates pos = entity.getPos();
-            IMovementHandler movementHandler = entity.getMovementHandler();
+            MovementHandler movementHandler = entity.getMovementHandler();
             if(!this.isRunning()) this.start();
             Coordinates lowestCoord = this.getLowestNodeAround((int) pos.x, (int) pos.y);
             if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates(lowestCoord.x - pos.x, lowestCoord.y - pos.y));

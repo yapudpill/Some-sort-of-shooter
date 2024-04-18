@@ -1,7 +1,7 @@
 package gui.ingame.footprints;
 
 import model.ingame.Coordinates;
-import model.ingame.IUpdateable;
+import util.IUpdateable;
 import model.ingame.entity.ICombatEntity;
 
 import java.util.LinkedList;
@@ -9,11 +9,12 @@ import java.util.List;
 
 public class FootprintManager implements IUpdateable {
     private static final double FOOTPRINT_DISTANCE = 0.7;
-    private final ICombatEntity entity;
-    private final FootprintsLayer footprintsLayer;
+
     private final List<FootprintRenderer> placedFootprints = new LinkedList<>(); // LinkedList since we only act on the first and last elements
-    private boolean stopped = false;
+    private final FootprintsLayer footprintsLayer;
+    private final ICombatEntity entity;
     private Coordinates lastPos;
+    private boolean stopped = false;
 
     public FootprintManager(FootprintsLayer footprintsLayer, ICombatEntity entity) {
         this.footprintsLayer = footprintsLayer;
@@ -22,7 +23,10 @@ public class FootprintManager implements IUpdateable {
     }
 
     private void spawnFootprint() {
-        FootprintRenderer footprintRenderer = new FootprintRenderer(entity.getMovementHandler().getDirectionVector(), entity.getPos());
+        FootprintRenderer footprintRenderer = new FootprintRenderer(
+            entity.getMovementHandler().getDirectionVector(),
+            entity.getPos()
+        );
         placedFootprints.add(footprintRenderer);
         footprintsLayer.add(footprintRenderer);
     }
@@ -46,15 +50,19 @@ public class FootprintManager implements IUpdateable {
     }
 
     @Override
-    public void update() {
-        for (FootprintRenderer footprint : placedFootprints) footprint.update();
-        if (!stopped) {
-            if (lastPos.distance(entity.getPos()) >= FOOTPRINT_DISTANCE) {
-                spawnFootprint();
-                lastPos = entity.getPos();
-            }
+    public void update(double delta) {
+        for (FootprintRenderer footprint : placedFootprints) {
+            footprint.update(delta);
         }
         removeOldFootprints();
-        if (stopped && placedFootprints.isEmpty()) removeSelf();
+
+        if (!stopped && lastPos.distance(entity.getPos()) >= FOOTPRINT_DISTANCE) {
+            spawnFootprint();
+            lastPos = entity.getPos();
+        }
+
+        if (stopped && placedFootprints.isEmpty()) {
+            removeSelf();
+        }
     }
 }

@@ -3,7 +3,7 @@ package model.ingame.entity;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.physics.MovementHandlerModel;
+import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.KnifeWeapon;
 
 public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
@@ -13,8 +13,8 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
     public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
         super(pos, 50, 0.8, 0.8, gameModel);
         player = gameModel.getPlayer();
-        movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(0.01);
+        movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
+        movementHandler.setSpeed(2.4);
         addCollisionListener(e -> {
             for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
                 if (entity instanceof PlayerModel) {
@@ -35,9 +35,8 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         pathFinder.handlePathFindingUpdate(this, player.getPos());
-        super.update();
+        super.update(delta);
     }
-
 }

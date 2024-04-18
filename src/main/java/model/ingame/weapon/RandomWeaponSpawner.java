@@ -3,40 +3,47 @@ package model.ingame.weapon;
 import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
-import model.ingame.IUpdateable;
 import model.ingame.entity.WeaponEntity;
+import util.IUpdateable;
 
 import java.util.List;
 import java.util.Random;
 
 public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
-    final static public int WEAPON_SPAWN_COOLDOWN = 5 * 60; // 5 seconds, i.e. 5 * 60 ticks
-    final static public List<WeaponFactory> availableWeaponsFactories = List.of(PistolModel::new, KnifeWeapon::new, RocketLauncher::new, ShotGun::new, RubberWeapon::new, SimpleTrapPlacer::new);
+    public static final int WEAPON_SPAWN_COOLDOWN = 5;
+    public static final List<WeaponFactory> availableWeaponsFactories = List.of(
+        PistolModel::new,
+        KnifeWeapon::new,
+        RocketLauncher::new,
+        ShotGun::new,
+        RubberWeapon::new,
+        SimpleTrapPlacer::new
+        );
 
-    Random rng = new Random();
-    double spawnCooldown = 0;
+    private final Random rng = new Random();
+    private double spawnCooldown = 0;
 
     public RandomWeaponSpawner(GameModel gameModel) {
         super(gameModel);
     }
 
     @Override
-    public void update() {
-        spawnCooldown--;
+    public void update(double delta) {
+        spawnCooldown -= delta;
         if (spawnCooldown <= 0) {
             double x = rng.nextDouble(gameModel.getMapModel().getWidth());
             double y = rng.nextDouble(gameModel.getMapModel().getHeight());
             // Move to the next walkable tile
             do {
-                ++x;
+                x++;
                 if (x >= gameModel.getMapModel().getWidth()) {
                     x = 0;
-                    ++y;
+                    y++;
                     if (y >= gameModel.getMapModel().getHeight()) {
                         y = 0;
                     }
                 }
-            } while (!gameModel.getMapModel().getTile((int) x, (int) y).isWalkable());
+            } while (!gameModel.getMapModel().getTile((int) x, (int) y).canEnter(gameModel.getPlayer()));
             spawnEntity(x, y);
             spawnCooldown = WEAPON_SPAWN_COOLDOWN;
         }

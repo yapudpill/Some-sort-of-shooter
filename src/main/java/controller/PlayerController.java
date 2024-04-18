@@ -16,33 +16,35 @@ import model.ingame.entity.PlayerModel;
 import model.ingame.weapon.WeaponModel;
 
 /**
- * A controller for a player using the WASD keys. It uses Swing's KeyListener to listen for key presses and releases.
- * To use it, add the KeyListener and MouseListener returned by getKeyListener() and getMouseListener() to a JContainer
+ * A controller for a player using the ZQSD keys. It uses Swing's KeyListener to
+ * listen for key presses and releases. To use it, add the KeyListener and
+ * MouseListener returned by getKeyListener() and getMouseListener() to a JContainer
  */
 public class PlayerController {
-    // Key bindings for player 1 using WASD keys
-    // warning: these are for AZERTY keyboards only
-    private static final Map<Integer, Coordinates> player1KeyDirectionMap = Map.of(
+
+    // warning: Key bindings using ZQSD keys these are for AZERTY keyboards only
+    private static final Map<Integer, Coordinates> keyDirectionMap = Map.of(
             KeyEvent.VK_Z, Coordinates.UP,
             KeyEvent.VK_S, Coordinates.DOWN,
             KeyEvent.VK_D, Coordinates.RIGHT,
             KeyEvent.VK_Q, Coordinates.LEFT
     );
-    private final PlayerModel controlledPlayerModel;
-    private final GameMainArea gameMainArea;
-    ArrayList<Integer> heldKeys = new ArrayList<>();
 
-    public PlayerController(PlayerModel controlledPlayerModel, GameMainArea gameMainArea) {
-        this.controlledPlayerModel = controlledPlayerModel;
-        this.gameMainArea = gameMainArea;
-    }
-
-    private static Map<Integer, PlayerModel.PlayerAction> getPlayer1KeyActionMap(PlayerModel playerModel) {
+    private static Map<Integer, PlayerModel.PlayerAction> getKeyActionMap(PlayerModel playerModel) {
         return Map.of(
                 MouseEvent.BUTTON1, playerModel::attack,
                 MouseEvent.BUTTON3, playerModel::dash,
                 KeyEvent.VK_E, playerModel::pickWeapon
         );
+    }
+
+    private final PlayerModel controlledPlayerModel;
+    private final GameMainArea gameMainArea;
+    private final ArrayList<Integer> heldKeys = new ArrayList<>();
+
+    public PlayerController(PlayerModel controlledPlayerModel, GameMainArea gameMainArea) {
+        this.controlledPlayerModel = controlledPlayerModel;
+        this.gameMainArea = gameMainArea;
     }
 
     /**
@@ -51,20 +53,19 @@ public class PlayerController {
     public KeyListener getKeyListener() {
         return new KeyAdapter() {
 
-
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (heldKeys.contains(keyCode)) return;
 
                 // Update direction:
-                if (player1KeyDirectionMap.containsKey(keyCode)) {
-                    Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode);
+                if (keyDirectionMap.containsKey(keyCode)) {
+                    Coordinates addedVelocityVector = keyDirectionMap.get(keyCode);
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
                     controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
                 }
 
-                PlayerModel.PlayerAction action = getPlayer1KeyActionMap(controlledPlayerModel).get(e.getKeyCode());
+                PlayerModel.PlayerAction action = getKeyActionMap(controlledPlayerModel).get(e.getKeyCode());
                 if (action != null) action.performAction();
                 // DEBUG
                 if (e.getKeyCode() == KeyEvent.VK_F1) {
@@ -80,8 +81,8 @@ public class PlayerController {
                 if (!heldKeys.contains(keyCode)) return;
 
                 // Update direction:
-                if (player1KeyDirectionMap.containsKey(keyCode)) {
-                    Coordinates addedVelocityVector = player1KeyDirectionMap.get(keyCode).opposite();
+                if (keyDirectionMap.containsKey(keyCode)) {
+                    Coordinates addedVelocityVector = keyDirectionMap.get(keyCode).opposite();
                     Coordinates oldVelocityVector = controlledPlayerModel.getMovementHandler().getDirectionVector();
                     controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
                 }
@@ -97,11 +98,11 @@ public class PlayerController {
         return new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (getPlayer1KeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
+                if (getKeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
                     WeaponModel weapon = controlledPlayerModel.getWeapon();
                     if (weapon != null)
                         weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
-                    getPlayer1KeyActionMap(controlledPlayerModel).get(e.getButton()).performAction();
+                    getKeyActionMap(controlledPlayerModel).get(e.getButton()).performAction();
                 }
             }
         };
@@ -117,9 +118,5 @@ public class PlayerController {
                     weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
             }
         };
-    }
-
-    public void clearHeldKeys() {
-        heldKeys.clear();
     }
 }

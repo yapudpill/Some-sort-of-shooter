@@ -2,16 +2,18 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import model.ingame.physics.MovementHandlerModel;
+import model.ingame.ModelTimer;
+import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.RocketLauncher;
-import util.ModelTimer;
 
 public class PlayerModel extends CombatEntityModel {
-    private boolean dashing = false;
+    private static final double DEFAULT_SPEED = 5.3; // tile/s
+    private static final double DASH_SPEED = 21;
+
     private final ModelTimer dashTimer;
     private final ModelTimer pickWeaponTimer;
-    private boolean shouldPickWeapons = false;
-    /*
+
+    /**
      * tag interface for player actions, to be used by the controller (e.g. attack, reload, etc.)
      */
     @FunctionalInterface
@@ -21,34 +23,21 @@ public class PlayerModel extends CombatEntityModel {
 
     public PlayerModel(Coordinates pos, GameModel gameModel) {
         super(pos,100, 0.5, 0.5, gameModel);
-        dashTimer = new ModelTimer(30, () -> {
-            dashing = false;
-            movementHandler.setSpeed(0.09);
-        }, gameModel);
+        dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
+        pickWeaponTimer = new ModelTimer(0.5, false, () -> {}, gameModel);
 
-        dashTimer.setRepeats(false);
-
-        pickWeaponTimer = new ModelTimer(30, () -> shouldPickWeapons = false, gameModel);
-
-        movementHandler = new MovementHandlerModel<PlayerModel>(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(0.09);
+        movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
+        movementHandler.setSpeed(DEFAULT_SPEED);
         setWeapon(new RocketLauncher(this, gameModel));
-    }
-
-    public void update(){
-        super.update();
     }
 
     @Override
     public boolean shouldPickWeapons() {
-        return shouldPickWeapons;
+        return pickWeaponTimer.isRunning();
     }
 
-
-    public void dash(){
-        if(dashing) return;
-        dashing = true;
-        movementHandler.setSpeed(0.35);
+    public void dash() {
+        movementHandler.setSpeed(DASH_SPEED);
         dashTimer.start();
     }
 
@@ -72,7 +61,5 @@ public class PlayerModel extends CombatEntityModel {
 
     public void pickWeapon() {
         this.pickWeaponTimer.start();
-        this.shouldPickWeapons = true;
     }
-
 }

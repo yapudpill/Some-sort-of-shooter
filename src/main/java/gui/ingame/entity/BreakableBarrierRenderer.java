@@ -8,14 +8,9 @@ import gui.ImageCache;
 import model.ingame.entity.EntityModel;
 import model.ingame.entity.IVulnerableEntity;
 
-public class BreakableBarrierRenderer extends AbstractEntityRenderer{
+public class BreakableBarrierRenderer extends AbstractEntityRenderer {
     public BreakableBarrierRenderer(EntityModel entityModel) {
         super(entityModel);
-    }
-
-    @Override
-    public void update() {
-        // TODO
     }
 
     @Override

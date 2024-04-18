@@ -8,11 +8,11 @@ import java.awt.Stroke;
 
 import javax.swing.JComponent;
 
-import gui.ScalableComponent;
+import gui.IScalableComponent;
 import model.ingame.Coordinates;
 import model.ingame.entity.ICombatEntity;
 
-public class AimArrow extends JComponent implements ScalableComponent {
+public class AimArrow extends JComponent implements IScalableComponent {
     private final ICombatEntity combatEntity;
 
     public AimArrow(ICombatEntity combatEntity) {

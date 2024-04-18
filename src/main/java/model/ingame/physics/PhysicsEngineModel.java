@@ -4,17 +4,17 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import model.ingame.Coordinates;
-import model.ingame.IUpdateable;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.level.MapModel;
 import model.level.TileModel;
+import util.IUpdateable;
 
 /**
  * The <code>PhysicsEngineModel</code> class is used to handle the physics of the game, such as collision detection and entity movement.
  */
-public class PhysicsEngineModel implements IUpdateable{
+public class PhysicsEngineModel implements IUpdateable {
     private final Set<ICollisionEntity> collisionEntities;
     private final MapModel map;
 
@@ -25,18 +25,18 @@ public class PhysicsEngineModel implements IUpdateable{
         this.collisionEntities = collisionEntities;
     }
 
-    public void update() {
+    public void update(double delta) {
         for(ICollisionEntity entity : collisionEntities) {
             checkForCollisions(entity);
         }
     }
+
     /**
      * Returns a list of all entities that are colliding with the given entity.
      *
      * @param entity the entity to check for collisions
      * @return a list of all entities that are colliding with the given entity
      */
-
     public Set<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
         Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
@@ -60,7 +60,7 @@ public class PhysicsEngineModel implements IUpdateable{
     public void move(IMobileEntity entity, Coordinates movementVector) {
         if(entity == null || (entity instanceof IVulnerableEntity vuln && vuln.isDead())) return;
         // Adjust movement to collide with walls
-        var blockedMovementEvent = handleBlockedMovement(entity, movementVector);
+        BlockedMovementEvent blockedMovementEvent = handleBlockedMovement(entity, movementVector);
         Coordinates adjustedMovement = movementVector;
         if (blockedMovementEvent != null) {
             entity.notifyBlockedMovementListeners(blockedMovementEvent);

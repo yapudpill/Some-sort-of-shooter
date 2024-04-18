@@ -2,11 +2,11 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import model.ingame.physics.IMovementHandler;
+import model.ingame.physics.MovementHandler;
 import model.ingame.physics.SlidingListener;
 
-public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity{
-    protected IMovementHandler movementHandler;
+public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity {
+    protected MovementHandler movementHandler;
     protected int health;
     protected int maxHealth;
 
@@ -18,7 +18,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     }
 
     @Override
-    public IMovementHandler getMovementHandler() {
+    public MovementHandler getMovementHandler() {
         return movementHandler;
     }
 
@@ -42,8 +42,8 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     }
 
     @Override
-    public void update(){
-        movementHandler.update();
+    public void update(double delta) {
+        movementHandler.update(delta);
     }
 
     @Override
@@ -55,10 +55,6 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     public void setHealth(int health) {
         if(health > maxHealth) this.health = maxHealth;
         else this.health = health;
-    }
-
-    public void reset(){
-        health = maxHealth;
     }
 
     @Override
