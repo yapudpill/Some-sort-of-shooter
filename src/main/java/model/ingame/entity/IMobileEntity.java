@@ -1,8 +1,8 @@
 package model.ingame.entity;
 
-import model.ingame.IUpdateable;
-import model.ingame.physics.IMovementHandler;
+import model.ingame.physics.MovementHandler;
+import util.IUpdateable;
 
-public interface IMobileEntity extends ICollisionEntity, IUpdateable{
-    IMovementHandler getMovementHandler();
+public interface IMobileEntity extends ICollisionEntity, IUpdateable {
+    MovementHandler getMovementHandler();
 }

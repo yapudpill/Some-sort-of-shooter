@@ -3,20 +3,16 @@ package controller;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import model.ingame.IUpdateable;
+import util.IUpdateable;
 
-public class ModelGameLoop implements IGameLoop {
-    final static int FRAME_TIME = 16; // ms
-    private IUpdateable updater; // Method to be called at each tick
-    private final Timer updateTimer = new Timer();
+public class ModelGameLoop extends GameLoop {
+    private static final int FRAME_TIME = 16; // ms
+
+    private final Timer updateTimer;
 
     public ModelGameLoop(IUpdateable updater) {
-        setUpdater(updater);
-    }
-
-    @Override
-    public void setUpdater(IUpdateable updater) {
-        this.updater = updater;
+        super(updater);
+        updateTimer = new Timer();
     }
 
     @Override
@@ -24,7 +20,7 @@ public class ModelGameLoop implements IGameLoop {
         updateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                updater.update();
+                updater.update(FRAME_TIME / 1000.);
             }
         }, 0, FRAME_TIME);
     }

@@ -9,18 +9,18 @@ import javax.swing.JPanel;
 import gui.ScaleSupplier;
 import gui.ingame.tile.AbstractTileRenderer;
 import gui.ingame.tile.TileRendererFactory;
-import model.ingame.IUpdateable;
 import model.level.MapModel;
+import util.IUpdateable;
 
 /**
  * A layer of the game rendering the map background. It is a JPanel containing TileRenderers, each one corresponding
  * to a tile of the map.
  */
-public class MapBackgroundPaneLayer implements IUpdateable {
+public class MapBackgroundLayer implements IUpdateable {
     private final JPanel tilesPanel;
     private final AbstractTileRenderer[][] tileRenderers;
 
-    public MapBackgroundPaneLayer(MapModel mapModel, ScaleSupplier scaleSupplier) {
+    public MapBackgroundLayer(MapModel mapModel, ScaleSupplier scaleSupplier) {
         int width = mapModel.getWidth();
         int height = mapModel.getHeight();
 
@@ -34,7 +34,7 @@ public class MapBackgroundPaneLayer implements IUpdateable {
 
         for (int y = 0; y < mapModel.getHeight(); y++) {
             for (int x = 0; x < mapModel.getWidth(); x++) {
-                AbstractTileRenderer tileRenderer = TileRendererFactory.makeTileRenderer(mapModel.getTile(x, y));
+                AbstractTileRenderer tileRenderer = TileRendererFactory.make(mapModel.getTile(x, y));
                 tileRenderers[y][x] = tileRenderer;
                 tilesPanel.add(tileRenderer);
             }
@@ -49,7 +49,7 @@ public class MapBackgroundPaneLayer implements IUpdateable {
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         tilesPanel.repaint();
     }
 }

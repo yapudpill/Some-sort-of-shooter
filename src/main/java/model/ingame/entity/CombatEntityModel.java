@@ -4,7 +4,6 @@ import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.weapon.WeaponModel;
 
-
 public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity {
     protected WeaponModel weapon;
 
@@ -44,10 +43,4 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     public void setWeapon(WeaponModel weapon) {
         this.weapon = weapon;
     }
-
-    @Override
-    public void update() {
-        super.update();
-    }
-
 }

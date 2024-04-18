@@ -18,6 +18,7 @@ import model.ingame.physics.PhysicsEngineModel;
 import model.ingame.weapon.RandomWeaponSpawner;
 import model.level.InvalidMapException;
 import model.level.MapModel;
+import util.IUpdateable;
 import util.Resource;
 
 public class GameModel implements IUpdateable {
@@ -27,10 +28,8 @@ public class GameModel implements IUpdateable {
     private final PlayerModel player;
     private boolean isRunning = true;
 
-
     private final Set<IEntity> entityModelList = new CopyOnWriteArraySet<>();
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
-
 
     public GameModel(Resource mapResource) throws InvalidMapException {
         stats = new Statistics(mapResource);
@@ -42,23 +41,28 @@ public class GameModel implements IUpdateable {
         updateables.add(player);
         updateables.add(new RandomWeaponSpawner(this));
         initSpawner();
-        FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 7);
+        FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 0.1);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
     }
 
     @Override
-    public void update() {
-        stats.survivedFrames++;
-        for (IUpdateable updateable : updateables) updateable.update();
+    public void update(double delta) {
+        stats.survivedTime += delta;
+        for (IUpdateable updateable : updateables) {
+            updateable.update(delta);
+        }
         if(player.isDead()){
-            System.out.println("Game Over");
             isRunning = false;
         }
     }
 
-    public void initSpawner(){
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, List.of(new EnemySpawnerModel(this), new SmartEnemySpawner(this)), 2*60);
+    public void initSpawner() {
+        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(
+            this,
+            List.of(new EnemySpawnerModel(this), new SmartEnemySpawner(this)),
+            3
+        );
         mainSpawner.start();
     }
 

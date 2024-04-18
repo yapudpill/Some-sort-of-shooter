@@ -2,10 +2,10 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.ModelTimer;
 import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.physics.MovementHandlerModel;
+import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.PistolModel;
-import util.ModelTimer;
 
 public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;
@@ -15,10 +15,10 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
         super(pos, 50, 0.8, 0.8, gameModel);
         player = gameModel.getPlayer();
-        movementHandler = new MovementHandlerModel<SmartEnemyModel>(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(0.06);
+        movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
+        movementHandler.setSpeed(3.6);
         setWeapon(new PistolModel(this, gameModel));
-        shootingTimer = new ModelTimer(1*60, () -> {
+        shootingTimer = new ModelTimer(1, true, () -> {
             aim();
             attack();
         }, gameModel);
@@ -34,28 +34,26 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     }
 
     @Override
-    public void update() {
-        if(!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos)){
+    public void update(double delta) {
+        if(!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos)) {
             if(!shootingTimer.isRunning()) shootingTimer.start();
             // circle around player
             Coordinates playerPos = player.getPos();
             Coordinates direction = new Coordinates(playerPos.x - pos.x, playerPos.y - pos.y);
             movementHandler.setDirectionVector(direction.rotate(Math.PI/2).normalize());
         }
-        else{
+        else {
             shootingTimer.stop();
             pathFinder.setTarget(player.getPos());
             if(!pathFinder.isRunning()) pathFinder.start();
             Coordinates lowestCoord = pathFinder.getLowestNodeAround((int) pos.x, (int) pos.y);
             if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates( lowestCoord.x - pos.x, lowestCoord.y - pos.y));
         }
-        super.update();
+        super.update(delta);
     }
 
-    public void aim(){
+    public void aim() {
         PistolModel pistol = (PistolModel) getWeapon();
         pistol.setDirectionVector(new Coordinates(player.getPos().x - pos.x, player.getPos().y - pos.y));
     }
-
-
 }

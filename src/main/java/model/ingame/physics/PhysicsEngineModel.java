@@ -28,7 +28,6 @@ public class PhysicsEngineModel {
      * @param entity the entity to check for collisions
      * @return a list of all entities that are colliding with the given entity
      */
-
     public List<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
         List<ICollisionEntity> involvedEntities = new ArrayList<>();
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
@@ -51,9 +50,9 @@ public class PhysicsEngineModel {
      */
     public void move(IMobileEntity entity, Coordinates movementVector) {
         // Adjust movement to collide with walls
-        var adjustedMovementAndBlockedEventPair = adjustMovement(entity, movementVector);
-        Coordinates adjustedMovement = adjustedMovementAndBlockedEventPair.first();
-        BlockedMovementEvent blockedMovementEvent = adjustedMovementAndBlockedEventPair.second();
+        Pair<Coordinates, BlockedMovementEvent> adjusted = adjustMovement(entity, movementVector);
+        Coordinates adjustedMovement = adjusted.first();
+        BlockedMovementEvent blockedMovementEvent = adjusted.second();
         if (blockedMovementEvent != null) {
             entity.notifyBlockedMovementListeners(blockedMovementEvent);
         }
@@ -87,7 +86,6 @@ public class PhysicsEngineModel {
             }
         }
     }
-
 
     private Pair<Coordinates, BlockedMovementEvent> adjustMovement(IMobileEntity entity, Coordinates movementVector) {
         Coordinates adjustedMovement = Coordinates.ZERO;

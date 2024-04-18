@@ -41,7 +41,7 @@ public class ScaleLayout implements LayoutManager {
     @Override
     public void layoutContainer(Container parent) {
         for (Component component : parent.getComponents()) {
-            if (component instanceof ScalableComponent scalableComponent) {
+            if (component instanceof IScalableComponent scalableComponent) {
                 Coordinates originalPosition = scalableComponent.getOriginalPosition();
                 Coordinates originalSize = scalableComponent.getOriginalSize();
                 int scale = scaleSupplier.getScale();

@@ -41,7 +41,7 @@ public class Coordinates {
     }
 
     public Coordinates normalize() {
-        double length = Math.sqrt(x * x + y * y);
+        double length = Math.hypot(x, y);
         if (length == 0) return new Coordinates(0, 0);
         return new Coordinates(x / length, y / length);
     }
@@ -86,6 +86,7 @@ public class Coordinates {
         return x == 0 && y == 0;
     }
 
+    @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
     }

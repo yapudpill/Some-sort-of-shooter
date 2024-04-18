@@ -6,7 +6,7 @@ import java.util.Queue;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import util.ModelTimer;
+import model.ingame.ModelTimer;
 
 public class FloodFillPathFinder {
     private NodeGrid nodeGrid;
@@ -14,9 +14,9 @@ public class FloodFillPathFinder {
     private ModelTimer updateTimer;
     private boolean reachTarget = true;
 
-    public FloodFillPathFinder(GameModel gameModel, int updateDelay) {
+    public FloodFillPathFinder(GameModel gameModel, double updateDelay) {
         this.nodeGrid = new NodeGrid(gameModel.getMapModel());
-        this.updateTimer = new ModelTimer(updateDelay, () -> fill(), gameModel);
+        this.updateTimer = new ModelTimer(updateDelay, true, this::fill, gameModel);
     }
 
     public void fill() {
