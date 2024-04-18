@@ -6,17 +6,17 @@ import util.TimeIntervalMappingsCursor;
 import java.awt.image.BufferedImage;
 
 public class AnimationManager {
-    private final AnimationCollection animationCollection;
+    private final AnimationGroup animationGroup;
 
     private TimeIntervalMappingsCursor<String> cursor = null;
 
-    public AnimationManager(AnimationCollection animationCollection) {
-        this.animationCollection = animationCollection;
-        loadAnimation(animationCollection.getDefaultAnimationId());
+    public AnimationManager(AnimationGroup animationGroup) {
+        this.animationGroup = animationGroup;
+        loadAnimation(animationGroup.getDefaultAnimationId());
     }
 
     public void preloadAnimations() {
-        animationCollection.preloadAnimations();
+        animationGroup.preloadAnimations();
     }
 
     public String getCurrentImageName() {
@@ -24,11 +24,11 @@ public class AnimationManager {
     }
 
     public BufferedImage getCurrentImage() {
-        return ImageCache.loadImage(getCurrentImageName(), animationCollection.getResourceBase());
+        return ImageCache.loadImage(getCurrentImageName(), animationGroup.getResourceBase());
     }
 
     public void loadAnimation(String animationName) {
-        Animation animation = animationCollection.get(animationName);
+        Animation animation = animationGroup.get(animationName);
         if (animation == null) throw new IllegalArgumentException("Animation not found: " + animationName);
         cursor = new TimeIntervalMappingsCursor<>(animation);
     }
@@ -36,7 +36,7 @@ public class AnimationManager {
     public BufferedImage nextImage() {
         cursor.advanceTime();
         if (getCurrentImage() == null) {// Ended animation
-            loadAnimation(animationCollection.getDefaultAnimationId());
+            loadAnimation(animationGroup.getDefaultAnimationId());
             return nextImage();
         }
         return getCurrentImage();

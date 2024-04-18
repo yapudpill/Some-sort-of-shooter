@@ -1,5 +1,6 @@
 package gui.ingame.entity;
 
+import gui.animations.AnimationCache;
 import model.ingame.entity.AttachedDamageZoneEntity;
 import model.ingame.entity.ExplosionZoneEntity;
 import model.ingame.entity.IEntity;
@@ -12,6 +13,7 @@ import model.ingame.weapon.RocketProjectileModel;
 
 public class EntityRendererFactory {
     static public AbstractEntityRenderer makeEntityRenderer(IEntity entityModel) {
+        AnimationCache.loadAnimation("animations/explosion.xml", AbstractEntityRenderer.class);
         return switch (entityModel) {
             case PlayerModel playerModel -> new PlayerRenderer(playerModel);
             case RocketProjectileModel rocketProjectileModel -> new RocketRenderer(rocketProjectileModel);

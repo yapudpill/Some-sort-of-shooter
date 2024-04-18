@@ -11,7 +11,7 @@ public class Animation extends TimeIntervalMappings<String> {
         this.animationId = animationId;
     }
 
-    public String getAnimationId() {
+    public String getId() {
         return animationId;
     }
 
