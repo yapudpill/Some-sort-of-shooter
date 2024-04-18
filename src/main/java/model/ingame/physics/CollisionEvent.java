@@ -1,27 +1,27 @@
 package model.ingame.physics;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EventObject;
-import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import model.ingame.entity.ICollisionEntity;
 
 public class CollisionEvent extends EventObject {
-    private final List<ICollisionEntity> involvedEntities;
+    private final Set<ICollisionEntity> involvedEntities;
 
     public CollisionEvent(ICollisionEntity source, ICollisionEntity... involved) {
         super(source);
-        this.involvedEntities = new ArrayList<>();
+        this.involvedEntities = new CopyOnWriteArraySet<>();
         Collections.addAll(this.involvedEntities, involved);
     }
 
-    public CollisionEvent(ICollisionEntity source, List<ICollisionEntity> involved) {
+    public CollisionEvent(ICollisionEntity source, Set<ICollisionEntity> involved) {
         super(source);
         this.involvedEntities = involved;
     }
 
-    public List<ICollisionEntity> getInvolvedEntitiesList() {
+    public Set<ICollisionEntity> getInvolvedEntitiesList() {
         return involvedEntities;
     }
 

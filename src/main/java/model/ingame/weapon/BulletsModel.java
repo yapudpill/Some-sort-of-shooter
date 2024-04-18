@@ -12,5 +12,6 @@ public class BulletsModel extends ProjectileModel {
     public BulletsModel(Coordinates pos, ProjectileWeaponModel source, GameModel gameModel) {
         super(pos, source, BULLET_WIDTH, BULLET_HEIGHT, BULLET_DAMAGE, gameModel);
         movementHandler.setSpeed(BULLET_SPEED);
+        addBlockedMovementListener(e -> despawn());
     }
 }

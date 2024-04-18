@@ -3,6 +3,7 @@ package model.ingame.entity;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.IMovementHandler;
+import model.ingame.physics.SlidingListener;
 
 public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity{
     protected IMovementHandler movementHandler;
@@ -13,6 +14,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
         super(pos, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
+        addBlockedMovementListener(new SlidingListener());
     }
 
     @Override
@@ -23,6 +25,10 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     @Override
     public void takeDamage(int damage) {
         health -= damage;
+        if(isDead()) {
+            despawn();
+            gameModel.stats.killedEnemies++;
+        }
     }
 
     @Override
@@ -37,12 +43,6 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
 
     @Override
     public void update(){
-        if(isDead()) {
-            gameModel.detachAsUpdateable(this);
-            gameModel.removeEntity(this);
-            gameModel.getMapModel().removeCollidableAt(this,(int) pos.x, (int) pos.y);
-            gameModel.stats.killedEnemies++;
-        }
         movementHandler.update();
     }
 
@@ -51,8 +51,19 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
         return health <= 0;
     }
 
+    @Override
+    public void setHealth(int health) {
+        if(health > maxHealth) this.health = maxHealth;
+        else this.health = health;
+    }
+
     public void reset(){
         health = maxHealth;
     }
 
+    @Override
+    public void despawn() {
+        super.despawn();
+        this.setHealth(0);
+    }
 }

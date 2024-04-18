@@ -2,6 +2,7 @@ package model.ingame.physics;
 
 import model.ingame.Coordinates;
 import model.ingame.entity.IMobileEntity;
+import model.ingame.entity.IVulnerableEntity;
 
 /*
  * The MovementHandlerModel class is used to handle the movement of a <code>IMobileEntity</code>.

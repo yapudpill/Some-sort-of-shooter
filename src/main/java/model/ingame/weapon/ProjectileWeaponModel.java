@@ -16,13 +16,16 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
             System.out.println("Weapon is cooling down. Cannot shoot.");
             return false;
         }
+        fire();
+        coolDownTimer.start();
+        return true;
+    }
 
+    public void fire() {
         IProjectile projectile = createProjectile();
         projectile.setPos(new Coordinates(owner.getPos()));
         projectile.getMovementHandler().setDirectionVector(this.directionVector);
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);
-        coolDownTimer.start();
-        return true;
     }
 }

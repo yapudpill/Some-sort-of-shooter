@@ -11,7 +11,8 @@ import java.util.Random;
 
 public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
     final static public int WEAPON_SPAWN_COOLDOWN = 5 * 60; // 5 seconds, i.e. 5 * 60 ticks
-    final static public List<WeaponFactory> availableWeaponsFactories = List.of(PistolModel::new, KnifeWeapon::new, RocketLauncher::new, SimpleTrapPlacer::new);
+    final static public List<WeaponFactory> availableWeaponsFactories = List.of(PistolModel::new, KnifeWeapon::new, RocketLauncher::new, ShotGun::new, RubberWeapon::new, SimpleTrapPlacer::new);
+
     Random rng = new Random();
     double spawnCooldown = 0;
 
@@ -43,15 +44,14 @@ public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
 
     @Override
     public WeaponEntity spawnEntity(double x, double y) {
-        WeaponEntity entity = (WeaponEntity) super.spawnEntity(x, y);
-        gameModel.getMapModel().addCollidableAt(entity, (int) x, (int) y);
+       WeaponEntity entity = (WeaponEntity) super.spawnEntity(x, y);
+        gameModel.addEntity(entity);
         return entity;
     }
 
     @Override
     protected WeaponEntity makeEntity(double x, double y) {
         WeaponModel weapon = availableWeaponsFactories.get(rng.nextInt(availableWeaponsFactories.size())).createWeapon(null, gameModel);
-        System.out.println("spawning : " + weapon);
         return new WeaponEntity(new Coordinates(x, y), weapon, gameModel);
     }
 }

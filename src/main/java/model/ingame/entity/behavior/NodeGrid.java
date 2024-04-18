@@ -11,7 +11,6 @@ public class NodeGrid {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 nodes[x][y] = new Node(new Coordinates(x+0.5,y+0.5), -1);
-                nodes[x][y].setWalkable(map.isWalkableAt(x, y));
             }
         }
     }

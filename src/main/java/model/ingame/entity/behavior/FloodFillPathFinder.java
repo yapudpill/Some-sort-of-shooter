@@ -3,20 +3,29 @@ package model.ingame.entity.behavior;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.ingame.entity.IEntity;
+import model.ingame.entity.IMobileEntity;
+import model.ingame.physics.IMovementHandler;
 import util.ModelTimer;
 
 public class FloodFillPathFinder {
+    private IEntity entityFinder;
     private NodeGrid nodeGrid;
     private List<Coordinates> targets;
     private ModelTimer updateTimer;
+    private Predicate<Coordinates> shouldAvoid;
     private boolean reachTarget = true;
+    private GameModel gameModel;
 
-    public FloodFillPathFinder(GameModel gameModel, int updateDelay) {
+    public FloodFillPathFinder(GameModel gameModel, int updateDelay, IEntity entityFinder) {
         this.nodeGrid = new NodeGrid(gameModel.getMapModel());
         this.updateTimer = new ModelTimer(updateDelay, () -> fill(), gameModel);
+        this.entityFinder = entityFinder;
+        this.gameModel = gameModel;
     }
 
     public void fill() {
@@ -40,7 +49,8 @@ public class FloodFillPathFinder {
                 }
 
                 // Set the value of the current node
-                nodeGrid.getNode(x, y).setValue(currentValue);
+                if(shouldAvoid != null && shouldAvoid.test(currentPos)) nodeGrid.getNode(x, y).setValue(1000);
+                else nodeGrid.getNode(x, y).setValue(currentValue);
 
                 // Add adjacent nodes to the queueq
                 addAdjacentNodes(queue, x, y);
@@ -61,7 +71,7 @@ public class FloodFillPathFinder {
 
     private boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < nodeGrid.getWidth() && y >= 0 && y < nodeGrid.getHeight()
-                && nodeGrid.getNode(x, y).isWalkable();
+                && gameModel.getMapModel().getTile(x, y).canEnter(entityFinder);
     }
 
     public Coordinates getLowestNodeAround(int x, int y) {
@@ -73,13 +83,23 @@ public class FloodFillPathFinder {
                 if (Math.abs(i) == Math.abs(j)) continue;
                 int newX = x + i;
                 int newY = y + j;
-                if (isValidCoordinate(newX, newY) && nodeGrid.getNode(newX, newY).getValue() < lowestValue && nodeGrid.getNode(newX, newY).getValue() != 0) {
+                if (isValidCoordinate(newX, newY) && nodeGrid.getNode(newX, newY).getValue() < lowestValue
+                && nodeGrid.getNode(newX, newY).getValue() != 0) {
                     lowestValue = nodeGrid.getNode(newX, newY).getValue();
                     lowestPos = nodeGrid.getNode(newX, newY).getCoordinates();
                 }
             }
         }
         return lowestPos;
+    }
+
+    public void handlePathFindingUpdate(IMobileEntity entity, Coordinates target){
+            this.setTarget(target);
+            Coordinates pos = entity.getPos();
+            IMovementHandler movementHandler = entity.getMovementHandler();
+            if(!this.isRunning()) this.start();
+            Coordinates lowestCoord = this.getLowestNodeAround((int) pos.x, (int) pos.y);
+            if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates(lowestCoord.x - pos.x, lowestCoord.y - pos.y));
     }
 
     public void setTargets(List<Coordinates> targets) {
@@ -112,5 +132,9 @@ public class FloodFillPathFinder {
 
     public boolean doesReachTarget() {
         return reachTarget;
+    }
+
+    public void setAvoidPredicate(Predicate<Coordinates> shouldAvoid) {
+        this.shouldAvoid = shouldAvoid;
     }
 }

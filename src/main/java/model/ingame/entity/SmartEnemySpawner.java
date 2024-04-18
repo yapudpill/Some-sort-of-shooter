@@ -14,7 +14,6 @@ public class SmartEnemySpawner extends EntitySpawner{
     public SmartEnemyModel spawnEntity(double x, double y) {
         SmartEnemyModel entity = (SmartEnemyModel) super.spawnEntity(x, y);
         gameModel.addEntity(entity);
-        gameModel.attachAsUpdateable(entity);
         return entity;
     }
 

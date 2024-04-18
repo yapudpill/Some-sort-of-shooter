@@ -36,10 +36,7 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
 
     @Override
     public void update() {
-        pathFinder.setTarget(player.getPos());
-        if(!pathFinder.isRunning()) pathFinder.start();
-        Coordinates lowestCoord = pathFinder.getLowestNodeAround((int) pos.x, (int) pos.y);
-        if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates( lowestCoord.x - pos.x, lowestCoord.y - pos.y));
+        pathFinder.handlePathFindingUpdate(this, player.getPos());
         super.update();
     }
 

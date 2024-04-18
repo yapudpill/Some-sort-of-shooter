@@ -38,8 +38,7 @@ public class KnifeWeapon extends WeaponModel {
         attackDurationTimer.start();
 
         this.damageZone = new AttachedDamageZoneEntity(owner.getPos(), DMG_ZONE_WIDTH, DMG_ZONE_HEIGHT, DMG_ZONE_ATTACKER_CENTER_SHIFT, gameModel, (CombatEntityModel) owner, DAMAGE);
-        gameModel.getEntitySet().add(damageZone);
-        gameModel.attachAsUpdateable(damageZone);
+        gameModel.addEntity(damageZone);
         return true;
     }
 }
