@@ -30,7 +30,7 @@ public class PlayerController {
             KeyEvent.VK_Q, Coordinates.LEFT
     );
 
-    private static Map<Integer, PlayerModel.PlayerAction> getKeyActionMap(PlayerModel playerModel) {
+    private static Map<Integer, Runnable> getKeyActionMap(PlayerModel playerModel) {
         return Map.of(
                 MouseEvent.BUTTON1, playerModel::attack,
                 MouseEvent.BUTTON3, playerModel::dash,
@@ -65,8 +65,8 @@ public class PlayerController {
                     controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
                 }
 
-                PlayerModel.PlayerAction action = getKeyActionMap(controlledPlayerModel).get(e.getKeyCode());
-                if (action != null) action.performAction();
+                Runnable action = getKeyActionMap(controlledPlayerModel).get(e.getKeyCode());
+                if (action != null) action.run();
                 // DEBUG
                 if (e.getKeyCode() == KeyEvent.VK_F1) {
                     System.out.println("debug");
@@ -102,7 +102,7 @@ public class PlayerController {
                     WeaponModel weapon = controlledPlayerModel.getWeapon();
                     if (weapon != null)
                         weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
-                    getKeyActionMap(controlledPlayerModel).get(e.getButton()).performAction();
+                    getKeyActionMap(controlledPlayerModel).get(e.getButton()).run();
                 }
             }
         };

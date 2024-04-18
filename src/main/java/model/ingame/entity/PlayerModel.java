@@ -13,14 +13,6 @@ public class PlayerModel extends CombatEntityModel {
     private final ModelTimer dashTimer;
     private final ModelTimer pickWeaponTimer;
 
-    /**
-     * tag interface for player actions, to be used by the controller (e.g. attack, reload, etc.)
-     */
-    @FunctionalInterface
-    public interface PlayerAction {
-        void performAction();
-    }
-
     public PlayerModel(Coordinates pos, GameModel gameModel) {
         super(pos,100, 0.5, 0.5, gameModel);
         dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
