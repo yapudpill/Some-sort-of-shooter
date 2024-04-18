@@ -2,7 +2,6 @@ package model.level;
 
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -15,11 +14,6 @@ import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
 import util.Resource;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MapModel {
     private final TileModel[][] tiles;

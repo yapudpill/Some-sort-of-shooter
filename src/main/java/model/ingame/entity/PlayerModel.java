@@ -19,8 +19,8 @@ public class PlayerModel extends CombatEntityModel {
         void performAction();
     }
 
-    public PlayerModel(GameModel gameModel) {
-        super(100, 0.5, 0.5, gameModel);
+    public PlayerModel(Coordinates pos, GameModel gameModel) {
+        super(pos,100, 0.5, 0.5, gameModel);
         dashTimer = new ModelTimer(30, () -> {
             dashing = false;
             movementHandler.setSpeed(0.09);

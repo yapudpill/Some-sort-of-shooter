@@ -39,11 +39,11 @@ public class GameModel implements IUpdateable {
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
 
 
-    public GameModel(String mapName) {
-        stats = new Statistics(mapName);
-        map = new MapModel(mapName);
+    public GameModel(Resource mapResource) throws InvalidMapException {
+        stats = new Statistics(mapResource);
+        map = new MapModel(mapResource);
         physicsEngine = new PhysicsEngineModel(map, collisionEntities);
-        player = new PlayerModel(this);
+        player = new PlayerModel(new Coordinates(5.5, 8.5),this);
         this.addEntity(player);
         updateables.add(physicsEngine);
         updateables.add(new RandomWeaponSpawner(this));

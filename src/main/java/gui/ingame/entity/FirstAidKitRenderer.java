@@ -1,13 +1,11 @@
 package gui.ingame.entity;
 
-import java.io.IOException;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import gui.ImageCache;
 import model.ingame.Coordinates;
 import model.ingame.entity.FirstAidKit;
-
-import java.awt.Graphics;
-import java.awt.Image;
 
 public class FirstAidKitRenderer extends AbstractEntityRenderer{
 
@@ -24,11 +22,7 @@ public class FirstAidKitRenderer extends AbstractEntityRenderer{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Image image;
-        try {
-            image = ImageCache.loadImage("sprites/firstaid.png", PlayerRenderer.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage("sprites/firstaid.png", PlayerRenderer.class);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 }

@@ -1,9 +1,8 @@
 package gui.ingame.entity;
 
-import java.io.IOException;
-import java.awt.Image;
-import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import gui.ImageCache;
 import model.ingame.entity.EntityModel;
@@ -23,11 +22,7 @@ public class BreakableBarrierRenderer extends AbstractEntityRenderer{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Image image;
-        try {
-            image = ImageCache.loadImage("sprites/breakablebarrier.png", BreakableBarrierRenderer.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        image = ImageCache.loadImage("sprites/breakablebarrier.png", BreakableBarrierRenderer.class);
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
                 // show health bar
         g.setColor(Color.RED);

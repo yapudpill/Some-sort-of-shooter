@@ -1,11 +1,11 @@
 package model.ingame.weapon;
 
 import model.ingame.GameModel;
-import model.ingame.entity.IEntity;
+import model.ingame.entity.ICombatEntity;
 
 public class RubberWeapon extends ProjectileWeaponModel {
 
-    public RubberWeapon(IEntity owner, GameModel gameModel) {
+    public RubberWeapon(ICombatEntity owner, GameModel gameModel) {
         super("Rubber Gun", "rubbergun", gameModel, owner, 1*60);
     }
 
