@@ -101,7 +101,7 @@ public class PlayerController {
                 if (getKeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
                     WeaponModel weapon = controlledPlayerModel.getWeapon();
                     if (weapon != null)
-                        weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
+                        weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(), (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()));
                     getKeyActionMap(controlledPlayerModel).get(e.getButton()).run();
                 }
             }
@@ -115,7 +115,7 @@ public class PlayerController {
                 super.mouseMoved(e);
                 WeaponModel weapon = controlledPlayerModel.getWeapon();
                 if (weapon != null && weapon.usesDirectionVector())
-                    weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
+                    weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(), (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()));
             }
         };
     }

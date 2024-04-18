@@ -190,10 +190,10 @@ public class MapModel {
     }
 
     public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity){
-        int x0 = (int) pos1.x;
-        int y0 = (int) pos1.y;
-        int x1 = (int) pos2.x;
-        int y1 = (int) pos2.y;
+        int x0 = (int) pos1.x();
+        int y0 = (int) pos1.y();
+        int x1 = (int) pos2.x();
+        int y1 = (int) pos2.y();
 
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);

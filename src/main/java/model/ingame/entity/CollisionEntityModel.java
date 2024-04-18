@@ -18,16 +18,16 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
 
     public CollisionEntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
         super(pos, width, height, gameModel);
-        this.collisionBox = new Rectangle2D.Double(pos.x, pos.y, width, height);
+        this.collisionBox = new Rectangle2D.Double(pos.x(), pos.y(), width, height);
         setPos(pos);
     }
 
     @Override
     public void setPos(Coordinates pos) {
-        gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
+        gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x(), (int)this.pos.y());
         super.setPos(pos);
-        setCollisionBox(pos.x, pos.y);
-        gameModel.getMapModel().addCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
+        setCollisionBox(pos.x(), pos.y());
+        gameModel.getMapModel().addCollidableAt(this, (int) this.pos.x(), (int)this.pos.y());
     }
 
     @Override
@@ -66,7 +66,7 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     @Override
     public void despawn() {
         super.despawn();
-        gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
+        gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x(), (int)this.pos.y());
         gameModel.removeCollisionEntity(this);
     }
 

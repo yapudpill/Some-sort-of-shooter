@@ -52,6 +52,6 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
 
     public void aim() {
         PistolModel pistol = (PistolModel) getWeapon();
-        pistol.setDirectionVector(new Coordinates(player.getPos().x - pos.x, player.getPos().y - pos.y));
+        pistol.setDirectionVector(new Coordinates(player.getPos().x() - pos.x(), player.getPos().y() - pos.y()));
     }
 }

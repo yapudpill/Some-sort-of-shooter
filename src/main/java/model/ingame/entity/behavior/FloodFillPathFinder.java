@@ -41,8 +41,8 @@ public class FloodFillPathFinder {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
                 Coordinates currentPos = queue.poll();
-                int x = (int) currentPos.x;
-                int y = (int) currentPos.y;
+                int x = (int) currentPos.x();
+                int y = (int) currentPos.y();
 
                 if (nodeGrid.getNode(x, y).getValue() != -1) {
                     continue;
@@ -98,8 +98,8 @@ public class FloodFillPathFinder {
             Coordinates pos = entity.getPos();
             MovementHandler movementHandler = entity.getMovementHandler();
             if(!this.isRunning()) this.start();
-            Coordinates lowestCoord = this.getLowestNodeAround((int) pos.x, (int) pos.y);
-            if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates(lowestCoord.x - pos.x, lowestCoord.y - pos.y));
+            Coordinates lowestCoord = this.getLowestNodeAround((int) pos.x(), (int) pos.y());
+            if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates(lowestCoord.x() - pos.x(), lowestCoord.y() - pos.y()));
     }
 
     public void setTargets(List<Coordinates> targets) {

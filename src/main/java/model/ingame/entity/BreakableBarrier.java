@@ -15,7 +15,7 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
         super(pos, 1, 1, gameModel);
         this.health = 100;
         this.maxHealth = 100;
-        gameModel.getMapModel().getTile((int)pos.x, (int)pos.y).addCanEnterCondition(blockingCondition);
+        gameModel.getMapModel().getTile((int)pos.x(), (int)pos.y()).addCanEnterCondition(blockingCondition);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
     @Override
     public void despawn() {
         super.despawn();
-        gameModel.getMapModel().getTile((int)pos.x, (int)pos.y).removeCanEnterCondition(blockingCondition);
+        gameModel.getMapModel().getTile((int)pos.x(), (int)pos.y()).removeCanEnterCondition(blockingCondition);
     }
 
 

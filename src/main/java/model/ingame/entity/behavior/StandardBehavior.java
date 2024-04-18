@@ -11,12 +11,12 @@ public class StandardBehavior {
     public static void circleAround(IMobileEntity entity, IEntity target, MapModel map) {
         Coordinates pos = entity.getPos();
         MovementHandler  movementHandler = entity.getMovementHandler();
-        if(map.unwalkableAround((int)pos.x, (int)pos.y)){
+        if(map.unwalkableAround((int)pos.x(), (int)pos.y())){
             movementHandler.setDirectionVector(new Coordinates(0, 0));
             return;
         }
         Coordinates playerPos = target.getPos();
-        Coordinates direction = new Coordinates(playerPos.x - pos.x, playerPos.y - pos.y);
+        Coordinates direction = new Coordinates(playerPos.x() - pos.x(), playerPos.y() - pos.y());
         movementHandler.setDirectionVector(direction.rotate(Math.PI/2).normalize());
     }
 }

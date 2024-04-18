@@ -20,6 +20,6 @@ public abstract class AbstractEntityRenderer extends JComponent implements IScal
     @Override
     public Coordinates getOriginalPosition() {
         // We translate the position so that the entity sprite is centered around its true position
-        return entityModel.getPos().translate(getOriginalSize().multiply(-0.5));
+        return entityModel.getPos().add(getOriginalSize().multiply(-0.5));
     }
 }

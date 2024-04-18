@@ -45,10 +45,10 @@ public class ScaleLayout implements LayoutManager {
                 Coordinates originalPosition = scalableComponent.getOriginalPosition();
                 Coordinates originalSize = scalableComponent.getOriginalSize();
                 int scale = scaleSupplier.getScale();
-                int x = (int) (originalPosition.x * scale);
-                int y = (int) (originalPosition.y * scale);
-                int width = (int) (originalSize.x * scale);
-                int height = (int) (originalSize.y * scale);
+                int x = (int) (originalPosition.x() * scale);
+                int y = (int) (originalPosition.y() * scale);
+                int width = (int) (originalSize.x() * scale);
+                int height = (int) (originalSize.y() * scale);
                 component.setBounds(x, y, width, height);
             }
         }

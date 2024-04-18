@@ -35,24 +35,24 @@ public class AimArrow extends JComponent implements IScalableComponent {
         g2.setStroke(dashed);
 
         Coordinates tip = combatEntity.getWeapon().getDirectionVector().normalize().multiply(arrowLength);
-        g2.drawLine((int) center.x, (int) center.y, (int) (center.x + tip.x), (int) (center.y + tip.y));
+        g2.drawLine((int) center.x(), (int) center.y(), (int) (center.x() + tip.x()), (int) (center.y() + tip.y()));
         Coordinates leftArrowHeadTip = tip.opposite().rotate(Math.PI / 4).normalize().multiply(arrowLength * 0.2);
-        g2.drawLine((int) (center.x + tip.x),
-                (int) (center.y + tip.y),
-                (int) (center.x + tip.x + leftArrowHeadTip.x),
-                (int) (center.y + tip.y + leftArrowHeadTip.y));
+        g2.drawLine((int) (center.x() + tip.x()),
+                (int) (center.y() + tip.y()),
+                (int) (center.x() + tip.x() + leftArrowHeadTip.x()),
+                (int) (center.y() + tip.y() + leftArrowHeadTip.y()));
 
         Coordinates rightArrowHeadTip = tip.opposite().rotate(-Math.PI / 4).normalize().multiply(arrowLength * 0.2);
-        g2.drawLine((int) (center.x + tip.x),
-                (int) (center.y + tip.y),
-                (int) (center.x + tip.x + rightArrowHeadTip.x),
-                (int) (center.y + tip.y + rightArrowHeadTip.y));
+        g2.drawLine((int) (center.x() + tip.x()),
+                (int) (center.y() + tip.y()),
+                (int) (center.x() + tip.x() + rightArrowHeadTip.x()),
+                (int) (center.y() + tip.y() + rightArrowHeadTip.y()));
     }
 
     @Override
     public Coordinates getOriginalPosition() {
         Coordinates translation = getOriginalSize().multiply(0.5);
-        return new Coordinates(combatEntity.getPos().x - translation.x, combatEntity.getPos().y - translation.y);
+        return new Coordinates(combatEntity.getPos().x() - translation.x(), combatEntity.getPos().y() - translation.y());
     }
 
     @Override

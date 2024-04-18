@@ -51,7 +51,7 @@ public class GameModel implements IUpdateable {
         ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO,this);
         enemyFinderInstance.despawn();
         FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 0.1, enemyFinderInstance);
-        Predicate<Coordinates> avoidPredicate = (pos) -> map.getTile((int)pos.x, (int)pos.y).getCollidablesSet()
+        Predicate<Coordinates> avoidPredicate = (pos) -> map.getTile((int)pos.x(), (int)pos.y()).getCollidablesSet()
         .stream().anyMatch((entity) -> !(entity instanceof PlayerModel) && entity instanceof CombatEntityModel);
         floodFillPathFinder.setAvoidPredicate(avoidPredicate);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
