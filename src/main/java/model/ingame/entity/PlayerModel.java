@@ -3,7 +3,7 @@ package model.ingame.entity;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandlerModel;
-import model.ingame.weapon.RubberWeapon;
+import model.ingame.weapon.RocketLauncher;
 import util.ModelTimer;
 
 public class PlayerModel extends CombatEntityModel {
@@ -32,7 +32,7 @@ public class PlayerModel extends CombatEntityModel {
 
         movementHandler = new MovementHandlerModel<PlayerModel>(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(0.09);
-        setWeapon(new RubberWeapon(this, gameModel));
+        setWeapon(new RocketLauncher(this, gameModel));
     }
 
     public void update(){
