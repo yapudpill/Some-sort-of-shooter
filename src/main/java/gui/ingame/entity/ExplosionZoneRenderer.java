@@ -14,8 +14,6 @@ public class ExplosionZoneRenderer extends AnimatedEntityRenderer {
 
     @Override
     protected AnimationGroup getAnimationGroup() {
-        AnimationGroup animationGroup = new AnimationGroup("explosion", getClass());
-        animationGroup.put("explosion", AnimationCache.loadAnimation("animations/explosion.xml", getClass()));
-        return animationGroup;
+        return AnimationCache.loadAnimationGroup("animation_groups/explosion_zone.xml", getClass());
     }
 }

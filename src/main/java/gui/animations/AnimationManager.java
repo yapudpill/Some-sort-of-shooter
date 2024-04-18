@@ -12,7 +12,7 @@ public class AnimationManager {
 
     public AnimationManager(AnimationGroup animationGroup) {
         this.animationGroup = animationGroup;
-        loadAnimation(animationGroup.getDefaultAnimationId());
+        switchToAnimation(animationGroup.getDefaultAnimationId());
     }
 
     public void preloadAnimations() {
@@ -27,7 +27,7 @@ public class AnimationManager {
         return ImageCache.loadImage(getCurrentImageName(), animationGroup.getResourceBase());
     }
 
-    public void loadAnimation(String animationName) {
+    public void switchToAnimation(String animationName) {
         Animation animation = animationGroup.get(animationName);
         if (animation == null) throw new IllegalArgumentException("Animation not found: " + animationName);
         cursor = new TimeIntervalMappingsCursor<>(animation);
@@ -36,7 +36,7 @@ public class AnimationManager {
     public BufferedImage nextImage() {
         cursor.advanceTime();
         if (getCurrentImage() == null) {// Ended animation
-            loadAnimation(animationGroup.getDefaultAnimationId());
+            switchToAnimation(animationGroup.getDefaultAnimationId());
             return nextImage();
         }
         return getCurrentImage();
