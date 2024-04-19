@@ -4,11 +4,11 @@ import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.IUpdateable;
 
-public class AttachedDamageZoneEntity extends CollisionEntityModel implements IUpdateable {
+public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable {
     CombatEntityModel attacker;
     private final double shift;
 
-    public AttachedDamageZoneEntity(Coordinates pos, double width, double height, double shift, GameModel gameModel, CombatEntityModel attacker, int damage) {
+    public KnifeZoneEntity(Coordinates pos, double width, double height, double shift, GameModel gameModel, CombatEntityModel attacker, int damage) {
         super(pos, width, height, gameModel);
         this.attacker = attacker;
         this.shift = shift;
@@ -24,12 +24,15 @@ public class AttachedDamageZoneEntity extends CollisionEntityModel implements IU
         });
     }
 
-    // FIXME: make this available for all entities
-
+    // Used for rendering
+    public Coordinates getDirection() {
+        if (!attacker.getMovementHandler().isMoving()) return attacker.getWeapon().getDirectionVector().normalize();
+        else return attacker.getMovementHandler().getDirectionVector().normalize();
+    }
 
     @Override
     public void update() {
         Coordinates pos = new Coordinates(attacker.getPos());
-        setPos(pos.add(attacker.getMovementHandler().getDirectionVector().multiply(shift)));
+        setPos(pos.add(getDirection().multiply(shift)));
     }
 }

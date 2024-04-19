@@ -1,0 +1,3 @@
+<animationGroup default="knife_slash">
+    <animation id="knife_slash" path="animations/knife_slash.xml"/>
+</animationGroup>

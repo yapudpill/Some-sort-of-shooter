@@ -43,5 +43,4 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
         if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates( lowestCoord.x - pos.x, lowestCoord.y - pos.y));
         super.update();
     }
-
 }

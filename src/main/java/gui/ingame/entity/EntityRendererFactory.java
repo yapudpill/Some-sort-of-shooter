@@ -1,7 +1,7 @@
 package gui.ingame.entity;
 
 import gui.animations.AnimationCache;
-import model.ingame.entity.AttachedDamageZoneEntity;
+import model.ingame.entity.KnifeZoneEntity;
 import model.ingame.entity.ExplosionZoneEntity;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
@@ -20,7 +20,7 @@ public class EntityRendererFactory {
             case ProjectileModel projectileModel -> new ProjectileRenderer(projectileModel);
             case WalkingEnemyModel enemy -> new WalkingEnemyRenderer(enemy);
             case WeaponEntity weaponEntity -> new WeaponRenderer(weaponEntity);
-            case AttachedDamageZoneEntity debugDamageZoneEntity -> new DebugDamageZoneRenderer(debugDamageZoneEntity);
+            case KnifeZoneEntity debugDamageZoneEntity -> new KnifeZoneRenderer(debugDamageZoneEntity);
             case ExplosionZoneEntity explosionZoneEntity -> new ExplosionZoneRenderer(explosionZoneEntity);
 
             case SmartEnemyModel smartEnemy -> new SmartEnemyRenderer(smartEnemy);

@@ -2,7 +2,7 @@ package model.ingame.weapon;
 
 import model.ingame.GameModel;
 import model.ingame.entity.CombatEntityModel;
-import model.ingame.entity.AttachedDamageZoneEntity;
+import model.ingame.entity.KnifeZoneEntity;
 import model.ingame.entity.IEntity;
 import util.ModelTimer;
 
@@ -16,7 +16,7 @@ public class KnifeWeapon extends WeaponModel {
 
     private final ModelTimer attackDurationTimer;
 
-    private AttachedDamageZoneEntity damageZone = null;
+    private KnifeZoneEntity damageZone = null;
 
 
     public KnifeWeapon(IEntity owner, GameModel gameModel) {
@@ -37,9 +37,11 @@ public class KnifeWeapon extends WeaponModel {
         coolDownTimer.start();
         attackDurationTimer.start();
 
-        this.damageZone = new AttachedDamageZoneEntity(owner.getPos(), DMG_ZONE_WIDTH, DMG_ZONE_HEIGHT, DMG_ZONE_ATTACKER_CENTER_SHIFT, gameModel, (CombatEntityModel) owner, DAMAGE);
+        this.damageZone = new KnifeZoneEntity(owner.getPos(), DMG_ZONE_WIDTH, DMG_ZONE_HEIGHT, DMG_ZONE_ATTACKER_CENTER_SHIFT, gameModel, (CombatEntityModel) owner, DAMAGE);
         gameModel.getEntitySet().add(damageZone);
         gameModel.attachAsUpdateable(damageZone);
         return true;
     }
+
+
 }

@@ -1,0 +1,9 @@
+<animation endReachedBehaviour="INFINITE" id="explosion">
+    <frame time="3" path="sprites/knife_slash/slash1.png"/>
+    <frame time="6" path="sprites/knife_slash/slash2.png"/>
+    <frame time="9" path="sprites/knife_slash/slash3.png"/>
+    <frame time="12" path="sprites/knife_slash/slash4.png"/>
+    <frame time="15" path="sprites/knife_slash/slash5.png"/>
+    <frame time="18" path="sprites/knife_slash/slash6.png"/>
+    <frame time="21" path="sprites/knife_slash/slash7.png"/>
+</animation>
