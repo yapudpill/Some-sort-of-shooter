@@ -1,23 +1,18 @@
 package model.ingame;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
 
 import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.CombatEntityModel;
-import model.ingame.entity.EnemySpawnerModel;
 import model.ingame.entity.ExplodingEnemy;
-import model.ingame.entity.ExplodingEnemySpawner;
-import model.ingame.entity.FirstAidKitSpawner;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
-import model.ingame.entity.RandomSpawnerModel;
+import model.ingame.entity.RandomEnemySpawner;
 import model.ingame.entity.SmartEnemyModel;
-import model.ingame.entity.SmartEnemySpawner;
 import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
@@ -42,12 +37,15 @@ public class GameModel implements IUpdateable {
     public GameModel(Resource mapResource) throws InvalidMapException {
         stats = new Statistics(mapResource);
         map = new MapModel(mapResource);
+
         physicsEngine = new PhysicsEngineModel(map, collisionEntities);
-        player = new PlayerModel(map.getPlayerSpawn(), this);
-        this.addEntity(player);
         updateables.add(physicsEngine);
-        updateables.add(new RandomWeaponSpawner(this));
-        initSpawner();
+
+        player = new PlayerModel(map.getPlayerSpawn(), this);
+        addEntity(player);
+
+        updateables.add(new RandomWeaponSpawner(this, 5));
+        updateables.add(new RandomEnemySpawner(this, 4));
 
         ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO,this);
         enemyFinderInstance.despawn();
@@ -75,17 +73,6 @@ public class GameModel implements IUpdateable {
         for (IUpdateable updateable : updateables) {
             updateable.update(delta);
         }
-    }
-
-    public void initSpawner() {
-        List<EntitySpawner> spawners = List.of(
-            new EnemySpawnerModel(this),
-            new SmartEnemySpawner(this),
-            new ExplodingEnemySpawner(this),
-            new FirstAidKitSpawner(this)
-        );
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, spawners, 3);
-        mainSpawner.start();
     }
 
     public MapModel getMapModel() {
