@@ -8,9 +8,4 @@ public class WaterTileModel extends TileModel {
     public WaterTileModel() {
         addCanEnterCondition(entity -> entity instanceof Projectile);
     }
-
-    @Override
-    public boolean isWalkable() {
-        return false;
-    }
 }

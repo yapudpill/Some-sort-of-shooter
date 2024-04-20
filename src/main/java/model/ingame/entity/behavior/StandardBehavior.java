@@ -11,7 +11,7 @@ public class StandardBehavior {
     public static void circleAround(IMobileEntity entity, IEntity target, MapModel map) {
         Coordinates pos = entity.getPos();
         MovementHandler  movementHandler = entity.getMovementHandler();
-        if (map.unwalkableAround(pos)) {
+        if (map.canEnterAround(entity, pos)) {
             movementHandler.setDirectionVector(new Coordinates(0, 0));
             return;
         }

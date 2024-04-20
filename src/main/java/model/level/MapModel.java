@@ -166,37 +166,6 @@ public class MapModel {
         getTile(x, y).applyEnterEffect(entity);
     }
 
-    public void reset() {
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[0].length; j++) {
-                tiles[i][j].reset();
-            }
-        }
-    }
-
-    public boolean unwalkableAround(int x, int y) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (isOutOfBounds(x + i, y + j)) continue;
-                if (!tiles[y + j][x + i].isWalkable()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean unwalkableAround(Coordinates pos) {
-        return unwalkableAround((int) pos.x(), (int) pos.y());
-    }
-
-    public boolean isWalkableAt(int x, int y) {
-        if (isOutOfBounds(x, y)) {
-            return false;
-        }
-        return tiles[y][x].isWalkable();
-    }
-
     public boolean canEnterAround(IEntity entity, int x, int y) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -207,6 +176,10 @@ public class MapModel {
             }
         }
         return true;
+    }
+
+    public boolean canEnterAround(IEntity entity, Coordinates pos) {
+        return canEnterAround(entity, (int) pos.x(), (int) pos.y());
     }
 
     public boolean canEnterAt(IEntity entity, int x, int y) {

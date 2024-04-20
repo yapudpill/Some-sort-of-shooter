@@ -10,9 +10,4 @@ public class VoidTileModel extends TileModel {
     public VoidTileModel() {
         addCanEnterCondition(entity -> false);
     }
-
-    @Override
-    public boolean isWalkable() {
-        return false;
-    }
 }
