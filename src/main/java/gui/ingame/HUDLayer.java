@@ -1,13 +1,13 @@
 package gui.ingame;
 
 import java.awt.Color;
+import java.util.function.IntSupplier;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import gui.IScalableComponent;
 import gui.ScaleLayout;
-import gui.ScaleSupplier;
 import util.Coordinates;
 import util.IUpdateable;
 import model.ingame.entity.PlayerModel;
@@ -31,7 +31,7 @@ public class HUDLayer extends JPanel implements IUpdateable {
 
     private final PlayerModel playerModel;
 
-    public HUDLayer(PlayerModel playerModel, ScaleSupplier scaleSupplier) {
+    public HUDLayer(PlayerModel playerModel, IntSupplier scaleSupplier) {
         this.setLayout(new ScaleLayout(scaleSupplier));
         this.setOpaque(false);
         this.playerModel = playerModel;

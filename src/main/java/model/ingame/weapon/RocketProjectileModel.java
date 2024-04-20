@@ -5,7 +5,7 @@ import model.ingame.entity.ExplosionZoneEntity;
 import model.ingame.entity.IVulnerableEntity;
 import util.Coordinates;
 
-public class RocketProjectileModel extends ProjectileModel {
+public class RocketProjectileModel extends Projectile {
     public static final double ROCKET_SPEED = 4;
     public static final double ROCKET_WIDTH = 0.3;
     public static final double ROCKET_HEIGHT = 0.3;

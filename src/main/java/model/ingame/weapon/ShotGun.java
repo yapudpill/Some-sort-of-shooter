@@ -11,7 +11,7 @@ public class ShotGun extends ProjectileWeaponModel {
     }
 
     @Override
-    public IProjectile createProjectile() {
+    public Projectile createProjectile() {
         return new BulletsModel(owner.getPos(), this, gameModel) {{
             addCollisionListener(new DamageListener(damage, e -> despawn()));
         }};

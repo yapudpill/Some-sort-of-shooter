@@ -7,7 +7,7 @@ import model.ingame.entity.IEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.SimpleTrap;
 import model.ingame.entity.WeaponEntity;
-import model.ingame.weapon.ProjectileModel;
+import model.ingame.weapon.Projectile;
 import model.ingame.weapon.RocketProjectileModel;
 import model.ingame.weapon.RubberProjectile;
 
@@ -18,7 +18,7 @@ public class EntityRendererFactory {
 
             case RocketProjectileModel rocketProjectileModel -> new RocketRenderer(rocketProjectileModel);
             case RubberProjectile rubberProjectile -> new RubberBallRenderer(rubberProjectile);
-            case ProjectileModel projectileModel -> new ProjectileRenderer(projectileModel);
+            case Projectile projectileModel -> new ProjectileRenderer(projectileModel);
 
             case ExplosionZoneEntity explosionZoneEntity -> new ExplosionZoneRenderer(explosionZoneEntity);
             case AttachedDamageZoneEntity debugDamageZoneEntity -> new DebugDamageZoneRenderer(debugDamageZoneEntity);

@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.util.function.IntSupplier;
 
 import util.Coordinates;
 
@@ -12,9 +13,9 @@ import util.Coordinates;
  * ScaleSupplier.
  */
 public class ScaleLayout implements LayoutManager {
-    private final ScaleSupplier scaleSupplier;
+    private final IntSupplier scaleSupplier;
 
-    public ScaleLayout(ScaleSupplier scaleSupplier) {
+    public ScaleLayout(IntSupplier scaleSupplier) {
         this.scaleSupplier = scaleSupplier;
     }
 
@@ -44,7 +45,7 @@ public class ScaleLayout implements LayoutManager {
             if (component instanceof IScalableComponent scalableComponent) {
                 Coordinates originalPosition = scalableComponent.getOriginalPosition();
                 Coordinates originalSize = scalableComponent.getOriginalSize();
-                int scale = scaleSupplier.getScale();
+                int scale = scaleSupplier.getAsInt();
                 int x = (int) (originalPosition.x() * scale);
                 int y = (int) (originalPosition.y() * scale);
                 int width = (int) (originalSize.x() * scale);

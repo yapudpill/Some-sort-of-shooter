@@ -2,11 +2,11 @@ package gui.ingame;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.function.IntSupplier;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import gui.ScaleSupplier;
 import gui.ingame.tile.AbstractTileRenderer;
 import gui.ingame.tile.TileRendererFactory;
 import model.level.MapModel;
@@ -20,7 +20,7 @@ public class MapBackgroundLayer implements IUpdateable {
     private final JPanel tilesPanel;
     private final AbstractTileRenderer[][] tileRenderers;
 
-    public MapBackgroundLayer(MapModel mapModel, ScaleSupplier scaleSupplier) {
+    public MapBackgroundLayer(MapModel mapModel, IntSupplier scaleSupplier) {
         int width = mapModel.getWidth();
         int height = mapModel.getHeight();
 

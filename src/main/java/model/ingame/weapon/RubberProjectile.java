@@ -5,7 +5,7 @@ import model.ingame.physics.DamageListener;
 import model.ingame.physics.RicochetListener;
 import util.Coordinates;
 
-public class RubberProjectile extends ProjectileModel {
+public class RubberProjectile extends Projectile {
     public static final double RUBBER_WIDTH = 0.3;
     public static final double RUBBER_HEIGHT = 0.3;
     public static final int RUBBER_DAMAGE = 20;

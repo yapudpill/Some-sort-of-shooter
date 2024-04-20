@@ -10,7 +10,7 @@ public class RubberWeapon extends ProjectileWeaponModel {
     }
 
     @Override
-    public IProjectile createProjectile() {
+    public Projectile createProjectile() {
         return new RubberProjectile(owner.getPos(), this, gameModel);
     }
 

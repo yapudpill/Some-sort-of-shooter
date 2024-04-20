@@ -3,13 +3,13 @@ package model.ingame.entity;
 import java.util.function.Predicate;
 
 import model.ingame.GameModel;
-import model.ingame.weapon.ProjectileModel;
+import model.ingame.weapon.Projectile;
 import util.Coordinates;
 
 public class BreakableBarrier extends CollisionEntityModel implements IVulnerableEntity{
     private int health;
     private final int maxHealth;
-    private Predicate<IEntity> blockingCondition = e -> e instanceof ProjectileModel;
+    private Predicate<IEntity> blockingCondition = e -> e instanceof Projectile;
 
     public BreakableBarrier(Coordinates pos, GameModel gameModel) {
         super(pos, 1, 1, gameModel);

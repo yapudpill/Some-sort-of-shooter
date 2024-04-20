@@ -10,7 +10,7 @@ public class RocketLauncher extends ProjectileWeaponModel {
     }
 
     @Override
-    public IProjectile createProjectile() {
+    public Projectile createProjectile() {
         return new RocketProjectileModel(getOwner().getPos(), this, gameModel);
     }
 }

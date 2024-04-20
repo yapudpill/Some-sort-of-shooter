@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.IntSupplier;
 
 import javax.swing.JPanel;
 
 import gui.ScaleLayout;
-import gui.ScaleSupplier;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.entity.IEntity;
 import util.IUpdateable;
@@ -18,7 +18,7 @@ public class FootprintsLayer extends JPanel implements IUpdateable {
     private final Map<ICombatEntity, FootprintManager> combatEntitiesFootprintMap = new ConcurrentHashMap<>();
     private final Set<IEntity> entityModelSet;
 
-    public FootprintsLayer(Set<IEntity> entityModelSet, ScaleSupplier scaleSupplier) {
+    public FootprintsLayer(Set<IEntity> entityModelSet, IntSupplier scaleSupplier) {
         this.entityModelSet = entityModelSet;
         setLayout(new ScaleLayout(scaleSupplier));
         setOpaque(false);

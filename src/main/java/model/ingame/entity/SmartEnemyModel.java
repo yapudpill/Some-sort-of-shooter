@@ -6,7 +6,7 @@ import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.PistolModel;
 import model.ingame.entity.behavior.StandardBehavior;
-import model.ingame.weapon.IProjectile;
+import model.ingame.weapon.Projectile;
 import model.ingame.weapon.ProjectileWeaponModel;
 import util.Coordinates;
 
@@ -14,7 +14,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     private final PlayerModel player;
     private static FloodFillPathFinder pathFinder;
     private ModelTimer shootingTimer;
-    private IProjectile projectileInstance;
+    private Projectile projectileInstance;
 
     public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
         super(pos, 50, 0.8, 0.8, gameModel);

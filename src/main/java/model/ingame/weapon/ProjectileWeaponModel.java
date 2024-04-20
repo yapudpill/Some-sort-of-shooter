@@ -9,7 +9,7 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
         super(name, identifier, gameModel, owner, coolDown);
     }
 
-    public abstract IProjectile createProjectile();
+    public abstract Projectile createProjectile();
 
     @Override
     public boolean attack() {
@@ -22,7 +22,7 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
     }
 
     public void fire() {
-        IProjectile projectile = createProjectile();
+        Projectile projectile = createProjectile();
         projectile.setPos(new Coordinates(owner.getPos()));
         projectile.getMovementHandler().setDirectionVector(this.directionVector);
         gameModel.attachAsUpdateable(projectile);

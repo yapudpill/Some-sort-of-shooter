@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.IntSupplier;
 
 import javax.swing.JPanel;
 
 import gui.ScaleLayout;
-import gui.ScaleSupplier;
 import model.ingame.GameModel;
 import util.IUpdateable;
 import model.ingame.entity.ICombatEntity;
@@ -19,7 +19,7 @@ public class EffectsLayer extends JPanel implements IUpdateable {
     private final Map<ICombatEntity, AimArrow> combatEntitiesAimMap = new ConcurrentHashMap<>();
     private final GameModel gameModel;
 
-    public EffectsLayer(GameModel gameModel, ScaleSupplier scaleSupplier) {
+    public EffectsLayer(GameModel gameModel, IntSupplier scaleSupplier) {
         this.gameModel = gameModel;
         this.setOpaque(false);
         setLayout(new ScaleLayout(scaleSupplier));

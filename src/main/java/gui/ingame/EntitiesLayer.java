@@ -3,11 +3,11 @@ package gui.ingame;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.IntSupplier;
 
 import javax.swing.JPanel;
 
 import gui.ScaleLayout;
-import gui.ScaleSupplier;
 import gui.ingame.entity.AbstractEntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
 import util.IUpdateable;
@@ -19,7 +19,7 @@ public class EntitiesLayer extends JPanel implements IUpdateable {
     private final Map<IEntity, AbstractEntityRenderer> modelRendererMap = new ConcurrentHashMap<>();
     private final Set<IEntity> entityModelSet;
 
-    public EntitiesLayer(Set<IEntity> entityModelSet, ScaleSupplier scaleSupplier) {
+    public EntitiesLayer(Set<IEntity> entityModelSet, IntSupplier scaleSupplier) {
         this.entityModelSet = entityModelSet;
         setLayout(new ScaleLayout(scaleSupplier));
         setOpaque(false);

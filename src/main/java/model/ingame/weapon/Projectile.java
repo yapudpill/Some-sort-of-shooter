@@ -3,17 +3,18 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.entity.CollisionEntityModel;
 import model.ingame.entity.IEffectEntity;
+import model.ingame.entity.IMobileEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.physics.MovementHandler;
 import util.Coordinates;
 
-public abstract class ProjectileModel extends CollisionEntityModel implements IProjectile {
+public abstract class Projectile extends CollisionEntityModel implements IMobileEntity, IEffectEntity {
     protected final ProjectileWeaponModel sourceWeapon;
     protected final int damage;
     protected final MovementHandler movementHandler;
     protected boolean active;
 
-    public ProjectileModel(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage, GameModel gameModel) {
+    public Projectile(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.damage = damage;
         this.sourceWeapon = source;
