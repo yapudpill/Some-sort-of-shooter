@@ -101,7 +101,7 @@ public class MapModel {
     }
 
     public boolean isOutOfBounds(Coordinates pos) {
-        return isOutOfBounds((int) pos.x(), (int) pos.y());
+        return pos.x() < 0 || pos.y() < 0 || isOutOfBounds((int) pos.x(), (int) pos.y());
     }
 
     public Set<ICollisionEntity> getAllCollidablesAround(int x, int y) {
