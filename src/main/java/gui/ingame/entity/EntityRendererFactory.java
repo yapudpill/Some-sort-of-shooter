@@ -18,7 +18,7 @@ import model.ingame.weapon.RocketProjectileModel;
 import model.ingame.weapon.RubberProjectile;
 
 public class EntityRendererFactory {
-    static public AbstractEntityRenderer make(IEntity entity) {
+    public static AbstractEntityRenderer make(IEntity entity) {
         return switch (entity) {
             case PlayerModel e       -> new VulnerableRenderer(e, "sprites/player1/playerRightShoot.png");
             case WalkingEnemyModel e -> new VulnerableRenderer(e, "sprites/EyeBallEnemy.png");

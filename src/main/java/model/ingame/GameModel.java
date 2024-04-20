@@ -47,11 +47,11 @@ public class GameModel implements IUpdateable {
         updateables.add(new RandomWeaponSpawner(this, 5));
         updateables.add(new RandomEnemySpawner(this, 4));
 
-        ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO,this);
+        ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO, this);
         enemyFinderInstance.despawn();
         FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 0.1, enemyFinderInstance);
-        Predicate<Coordinates> avoidPredicate = (pos) -> map.getTile(pos).getCollidablesSet()
-        .stream().anyMatch((entity) -> !(entity instanceof PlayerModel) && entity instanceof CombatEntityModel);
+        Predicate<Coordinates> avoidPredicate = pos -> map.getTile(pos).getCollidablesSet()
+        .stream().anyMatch(entity -> !(entity instanceof PlayerModel) && entity instanceof CombatEntityModel);
         floodFillPathFinder.setAvoidPredicate(avoidPredicate);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
@@ -105,7 +105,7 @@ public class GameModel implements IUpdateable {
 
     public void addEntity(IEntity entity) {
         entityModelList.add(entity);
-        if(entity instanceof ICollisionEntity col) {
+        if (entity instanceof ICollisionEntity col) {
             collisionEntities.add(col);
         }
         if (entity instanceof IUpdateable updateable) {

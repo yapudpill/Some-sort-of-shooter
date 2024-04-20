@@ -12,7 +12,7 @@ public abstract class AbstractTrapPlacer extends WeaponModel {
         this.trapCount = trapCount;
     }
 
-    abstract protected AbstractTrapEntity makeTrap();
+    protected abstract AbstractTrapEntity makeTrap();
 
     @Override
     public boolean attack() {

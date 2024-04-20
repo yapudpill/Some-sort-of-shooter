@@ -19,14 +19,15 @@ public class PhysicsEngineModel implements IUpdateable {
     private final MapModel map;
 
     public PhysicsEngineModel(MapModel map, Set<ICollisionEntity> collisionEntities) {
-        if (map == null)
+        if (map == null) {
             throw new IllegalArgumentException("Map cannot be null");
+        }
         this.map = map;
         this.collisionEntities = collisionEntities;
     }
 
     public void update(double delta) {
-        for(ICollisionEntity entity : collisionEntities) {
+        for (ICollisionEntity entity : collisionEntities) {
             checkForCollisions(entity);
         }
     }
@@ -50,7 +51,6 @@ public class PhysicsEngineModel implements IUpdateable {
         return involvedEntities;
     }
 
-
     /**
      * Moves the given entity to the given position, and checks for collisions.
      *
@@ -58,7 +58,7 @@ public class PhysicsEngineModel implements IUpdateable {
      * @param movementVector the new position of the entity
      */
     public void move(IMobileEntity entity, Coordinates movementVector) {
-        if(entity == null || (entity instanceof IVulnerableEntity vuln && vuln.isDead())) return;
+        if (entity == null || (entity instanceof IVulnerableEntity vuln && vuln.isDead())) return;
         // Adjust movement to collide with walls
         BlockedMovementEvent blockedMovementEvent = handleBlockedMovement(entity, movementVector);
         Coordinates adjustedMovement = movementVector;
@@ -87,7 +87,6 @@ public class PhysicsEngineModel implements IUpdateable {
         }
     }
 
-
     private BlockedMovementEvent handleBlockedMovement(IMobileEntity entity, Coordinates movementVector) {
         // If horizontal movement is blocked, only keep the vertical movement
         Coordinates newPosX = entity.getPos().add(movementVector.xProjection());
@@ -105,7 +104,7 @@ public class PhysicsEngineModel implements IUpdateable {
         }
 
         BlockedMovementEvent blockedMovementEvent = mergeBlockedMovementEvents(potentialBlockedMovementX, potentialBlockedMovementY);
-        if(blockedMovementEvent!=null){
+        if (blockedMovementEvent != null) {
             blockedMovementEvent.setHorizontalBlocked(horizontal);
             blockedMovementEvent.setVerticalBlocked(vertical);
             blockedMovementEvent.setMovementVector(movementVector);

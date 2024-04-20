@@ -33,15 +33,18 @@ public class EffectsLayer extends JPanel implements IUpdateable {
 
     private void removeArrowForCombat(ICombatEntity entity) {
         AimArrow aimArrow = combatEntitiesAimMap.remove(entity);
-        if (aimArrow != null) this.remove(aimArrow);
+        if (aimArrow != null) {
+            this.remove(aimArrow);
+        }
     }
 
     @Override
     public void update(double delta) {
         Set<ICombatEntity> combatEntities = new HashSet<>();
         for (IEntity iEntity : gameModel.getEntitySet()) {
-            if (iEntity instanceof ICombatEntity iCombatEntity)
+            if (iEntity instanceof ICombatEntity iCombatEntity) {
                 combatEntities.add(iCombatEntity);
+            }
         }
         // Synchronize the sets and maps
         SetToMapSynchronisator.synchronise(combatEntities,

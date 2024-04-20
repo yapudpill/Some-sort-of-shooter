@@ -8,13 +8,12 @@ public class SlidingListener implements BlockedMovementListener {
     public void onMovementBlocked(BlockedMovementEvent e) {
         Coordinates adjustedMovement = Coordinates.ZERO;
         Coordinates movementVector = e.getMovementVector();
-        if(e.isHorizontalBlocked()){
+        if (e.isHorizontalBlocked()) {
             adjustedMovement = adjustedMovement.add(movementVector.xProjection());
         }
-        if(e.isVerticalBlocked()){
+        if (e.isVerticalBlocked()) {
             adjustedMovement = adjustedMovement.add(movementVector.yProjection());
         }
         e.setAdjustedMovement(adjustedMovement);
     }
-
 }

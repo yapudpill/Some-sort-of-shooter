@@ -13,17 +13,17 @@ public class BlockedMovementEvent {
     private boolean verticalBlocked;
     private boolean horizontalBlocked;
 
-    public BlockedMovementEvent(IMobileEntity entity, TileModel blockingTile, boolean outOfBounds){
+    public BlockedMovementEvent(IMobileEntity entity, TileModel blockingTile, boolean outOfBounds) {
         this.blockedEntity = entity;
         this.outOfBounds = outOfBounds;
         this.blockingTile = blockingTile;
     }
 
-    public IMobileEntity blockedEntity(){
+    public IMobileEntity blockedEntity() {
         return blockedEntity;
     }
 
-    public boolean outOfBounds(){
+    public boolean outOfBounds() {
         return outOfBounds;
     }
 
@@ -31,11 +31,11 @@ public class BlockedMovementEvent {
         return blockingTile;
     }
 
-    public void setAdjustedMovement(Coordinates adjustedMovement){
+    public void setAdjustedMovement(Coordinates adjustedMovement) {
         this.adjustedMovement = adjustedMovement;
     }
 
-    public Coordinates getAdjustedMovement(){
+    public Coordinates getAdjustedMovement() {
         return adjustedMovement;
     }
 
@@ -55,11 +55,11 @@ public class BlockedMovementEvent {
         this.horizontalBlocked = horizontalBlocked;
     }
 
-    public Coordinates getMovementVector(){
+    public Coordinates getMovementVector() {
         return movementVector;
     }
 
-    public void setMovementVector(Coordinates movementVector){
+    public void setMovementVector(Coordinates movementVector) {
         this.movementVector = movementVector;
     }
 }

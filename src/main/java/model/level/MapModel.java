@@ -1,6 +1,5 @@
 package model.level;
 
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Set;
@@ -51,8 +50,8 @@ public class MapModel {
         BufferedReader reader = new BufferedReader(new InputStreamReader(map.toStream()));
         String[] lines = reader.lines().toArray(String[]::new);
 
-        int height = lines.length/2;
-        int width = (lines[0].length())/4;
+        int height = lines.length / 2;
+        int width = (lines[0].length()) / 4;
         char[][] arr = new char[height][width];
         boolean foundSpawn = false;
 
@@ -87,8 +86,8 @@ public class MapModel {
             case '#' -> new WaterTileModel();
             case 'V' -> new VoidTileModel();
             case 'S' -> new SpawnTileModel();
-            case ' '-> new StandardTileModel();
-            default -> new StandardTileModel();
+            case ' ' -> new StandardTileModel();
+            default  -> new StandardTileModel();
         };
     }
 
@@ -109,8 +108,7 @@ public class MapModel {
         Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (isOutOfBounds(x + i, y + j))
-                    continue;
+                if (isOutOfBounds(x + i, y + j)) continue;
                 involvedEntities.addAll(tiles[y + j][x + i].getCollidablesSet());
             }
         }
@@ -122,10 +120,10 @@ public class MapModel {
     }
 
     public void addCollidableAt(ICollisionEntity entity, int x, int y) {
-        if (entity == null)
+        if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
-        if (isOutOfBounds(x, y))
-            return;
+        }
+        if (isOutOfBounds(x, y)) return;
         tiles[y][x].addCollidable(entity);
     }
 
@@ -134,10 +132,10 @@ public class MapModel {
     }
 
     public void removeCollidableAt(ICollisionEntity entity, int x, int y) {
-        if (entity == null)
+        if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
-        if (isOutOfBounds(x, y))
-            return;
+        }
+        if (isOutOfBounds(x, y)) return;
         tiles[y][x].removeCollidable(entity);
     }
 
@@ -168,7 +166,7 @@ public class MapModel {
         getTile(x, y).applyEnterEffect(entity);
     }
 
-    public void reset(){
+    public void reset() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[0].length; j++) {
                 tiles[i][j].reset();
@@ -179,10 +177,10 @@ public class MapModel {
     public boolean unwalkableAround(int x, int y) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (isOutOfBounds(x + i, y + j))
-                    continue;
-                if (!tiles[y + j][x + i].isWalkable())
+                if (isOutOfBounds(x + i, y + j)) continue;
+                if (!tiles[y + j][x + i].isWalkable()) {
                     return true;
+                }
             }
         }
         return false;
@@ -193,30 +191,32 @@ public class MapModel {
     }
 
     public boolean isWalkableAt(int x, int y) {
-        if (isOutOfBounds(x, y))
+        if (isOutOfBounds(x, y)) {
             return false;
+        }
         return tiles[y][x].isWalkable();
     }
 
     public boolean canEnterAround(IEntity entity, int x, int y) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (isOutOfBounds(x + i, y + j))
-                    continue;
-                if (!tiles[y + j][x + i].canEnter(entity))
+                if (isOutOfBounds(x + i, y + j)) continue;
+                if (!tiles[y + j][x + i].canEnter(entity)) {
                     return false;
+                }
             }
         }
         return true;
     }
 
     public boolean canEnterAt(IEntity entity, int x, int y) {
-        if (isOutOfBounds(x, y))
+        if (isOutOfBounds(x, y)) {
             return false;
+        }
         return tiles[y][x].canEnter(entity);
     }
 
-    public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity){
+    public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity) {
         int x0 = (int) pos1.x();
         int y0 = (int) pos1.y();
         int x1 = (int) pos2.x();
@@ -233,18 +233,16 @@ public class MapModel {
         dx *= 2;
         dy *= 2;
 
-        for (; n > 0; --n)
-        {
+        for (; n > 0; --n) {
             boolean notBeginnigOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
-            if(!canEnterAround(entity, x, y) && notBeginnigOrEnd) return true;
+            if (!canEnterAround(entity, x, y) && notBeginnigOrEnd) {
+                return true;
+            }
 
-            if (error > 0)
-            {
+            if (error > 0) {
                 x += x_inc;
                 error -= dy;
-            }
-            else
-            {
+            } else {
                 y += y_inc;
                 error += dx;
             }

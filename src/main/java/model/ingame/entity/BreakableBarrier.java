@@ -6,7 +6,7 @@ import model.ingame.GameModel;
 import model.ingame.weapon.Projectile;
 import util.Coordinates;
 
-public class BreakableBarrier extends CollisionEntityModel implements IVulnerableEntity{
+public class BreakableBarrier extends CollisionEntityModel implements IVulnerableEntity {
     private int health;
     private final int maxHealth;
     private Predicate<IEntity> blockingCondition = e -> e instanceof Projectile;
@@ -21,7 +21,7 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
     @Override
     public void takeDamage(int damage) {
         health -= damage;
-        if(health <= 0) {
+        if (health <= 0) {
             despawn();
         }
     }
@@ -51,6 +51,4 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
         super.despawn();
         gameModel.getMapModel().getTile(pos).removeCanEnterCondition(blockingCondition);
     }
-
-
 }

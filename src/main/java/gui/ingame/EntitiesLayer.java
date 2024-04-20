@@ -14,7 +14,6 @@ import util.IUpdateable;
 import model.ingame.entity.IEntity;
 import util.SetToMapSynchronisator;
 
-
 public class EntitiesLayer extends JPanel implements IUpdateable {
     private final Map<IEntity, AbstractEntityRenderer> modelRendererMap = new ConcurrentHashMap<>();
     private final Set<IEntity> entityModelSet;
@@ -33,7 +32,9 @@ public class EntitiesLayer extends JPanel implements IUpdateable {
 
     private void removeEntityRenderer(IEntity entityModel) {
         AbstractEntityRenderer removedRenderer = modelRendererMap.remove(entityModel);
-        if (removedRenderer != null) remove(removedRenderer);
+        if (removedRenderer != null) {
+            remove(removedRenderer);
+        }
     }
 
     @Override

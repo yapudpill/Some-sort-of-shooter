@@ -10,8 +10,9 @@ public abstract class EntityModel implements IEntity {
     protected double width, height;
 
     public EntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
-        if (pos == null)
+        if (pos == null) {
             throw new IllegalArgumentException("Position cannot be null");
+        }
         this.pos = pos;
         this.width = width;
         this.height = height;

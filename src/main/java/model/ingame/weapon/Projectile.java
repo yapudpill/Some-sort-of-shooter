@@ -25,8 +25,9 @@ public abstract class Projectile extends CollisionEntityModel implements IMobile
     @Override
     public boolean canApplyEffect(IVulnerableEntity target) {
         boolean condition = true;
-        if(sourceWeapon.getOwner() instanceof IEffectEntity effectEntity)
+        if (sourceWeapon.getOwner() instanceof IEffectEntity effectEntity) {
             condition = effectEntity.canApplyEffect(target);
+        }
         if (target != sourceWeapon.getOwner() && condition) {
             return true;
         }

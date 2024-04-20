@@ -14,7 +14,6 @@ public abstract class TileModel implements ITileModel {
     public abstract boolean isWalkable();
 
     public boolean canEnter(IEntity entity) {
-        if(canEnterConditions.isEmpty()) return true;
         return canEnterConditions.stream().allMatch(condition -> condition.test(entity));
     }
 
@@ -23,12 +22,16 @@ public abstract class TileModel implements ITileModel {
     }
 
     public void addCollidable(ICollisionEntity entity) {
-        if (entity == null) throw new IllegalArgumentException("Entity cannot be null");
+        if (entity == null) {
+            throw new IllegalArgumentException("Entity cannot be null");
+        }
         collidables.add(entity);
     }
 
     public void removeCollidable(ICollisionEntity entity) {
-        if (entity == null) throw new IllegalArgumentException("Entity cannot be null");
+        if (entity == null) {
+            throw new IllegalArgumentException("Entity cannot be null");
+        }
         collidables.remove(entity);
     }
 

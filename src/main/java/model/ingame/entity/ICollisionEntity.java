@@ -1,4 +1,5 @@
 package model.ingame.entity;
+
 import java.awt.geom.Rectangle2D;
 
 import model.ingame.physics.BlockedMovementEvent;

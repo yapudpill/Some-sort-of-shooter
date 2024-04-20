@@ -11,8 +11,9 @@ import model.ingame.weapon.ProjectileWeaponModel;
 import util.Coordinates;
 
 public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
-    private final PlayerModel player;
     private static FloodFillPathFinder pathFinder;
+
+    private final PlayerModel player;
     private ModelTimer shootingTimer;
     private Projectile projectileInstance;
 
@@ -40,11 +41,10 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
 
     @Override
     public void update(double delta) {
-        if(!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance)){
+        if (!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance)) {
             shootingTimer.update(delta);
             StandardBehavior.circleAround(this, player, gameModel.getMapModel());
-        }
-        else{
+        } else {
             pathFinder.handlePathFindingUpdate(this, player.getPos());
         }
         super.update(delta);

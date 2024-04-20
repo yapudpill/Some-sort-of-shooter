@@ -50,7 +50,7 @@ public record Coordinates(double x, double y) {
     public boolean isInCenter() {
         double centerX = (int) x + 0.5;
         double centerY = (int) y + 0.5;
-        return Math.abs(x- centerX) < 0.1 && Math.abs(y - centerY) < 0.1;
+        return Math.abs(x - centerX) < 0.1 && Math.abs(y - centerY) < 0.1;
     }
 
     public double distance(Coordinates other) {

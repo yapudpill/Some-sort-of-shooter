@@ -19,7 +19,7 @@ public class ShotGun extends ProjectileWeaponModel {
 
     @Override
     public boolean attack() {
-        if(isCoolingDown()){
+        if (isCoolingDown()) {
             return false;
         }
         for (int i = 0; i < 5; i++) {

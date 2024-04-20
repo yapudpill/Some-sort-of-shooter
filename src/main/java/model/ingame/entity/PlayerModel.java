@@ -14,7 +14,7 @@ public class PlayerModel extends CombatEntityModel {
     private final ModelTimer pickWeaponTimer;
 
     public PlayerModel(Coordinates pos, GameModel gameModel) {
-        super(pos,100, 0.5, 0.5, gameModel);
+        super(pos, 100, 0.5, 0.5, gameModel);
         dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
         pickWeaponTimer = new ModelTimer(0.5, false, () -> {}, gameModel);
 
@@ -43,9 +43,9 @@ public class PlayerModel extends CombatEntityModel {
     }
 
     @Override
-    public void takeDamage(int damage){
-        health-=damage;
-        if(isDead()){
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (isDead()) {
             despawn();
             gameModel.setRunning(false);
         }

@@ -28,8 +28,9 @@ public class FootprintsLayer extends JPanel implements IUpdateable {
     public void update(double delta) {
         Set<ICombatEntity> combatEntities = new HashSet<>();
         for (IEntity entity : entityModelSet) {
-            if (entity instanceof ICombatEntity combatEntity)
+            if (entity instanceof ICombatEntity combatEntity) {
                 combatEntities.add(combatEntity);
+            }
         }
 
         SetToMapSynchronisator.synchronise(combatEntities,
@@ -37,7 +38,6 @@ public class FootprintsLayer extends JPanel implements IUpdateable {
             this::addFootprintSpawner,
             this::stopFootprintSpawner // Don't immediately remove the footprints, they will fade out thanks to the FootprintManager
         );
-
 
         for (IUpdateable footprintManager : combatEntitiesFootprintMap.values()) {
             footprintManager.update(delta);
@@ -54,7 +54,9 @@ public class FootprintsLayer extends JPanel implements IUpdateable {
 
     private void stopFootprintSpawner(ICombatEntity iCombatEntity) {
         FootprintManager footprintManager = combatEntitiesFootprintMap.get(iCombatEntity);
-        if (footprintManager != null) footprintManager.stop();
+        if (footprintManager != null) {
+            footprintManager.stop();
+        }
     }
 
     public void removeFootprintSpawner(ICombatEntity iCombatEntity) {

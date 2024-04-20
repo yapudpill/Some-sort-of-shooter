@@ -5,7 +5,7 @@ import model.level.TileModel;
 
 public class WaterTileModel extends TileModel {
 
-    public WaterTileModel(){
+    public WaterTileModel() {
         addCanEnterCondition(entity -> entity instanceof Projectile);
     }
 
@@ -13,5 +13,4 @@ public class WaterTileModel extends TileModel {
     public boolean isWalkable() {
         return false;
     }
-
 }
