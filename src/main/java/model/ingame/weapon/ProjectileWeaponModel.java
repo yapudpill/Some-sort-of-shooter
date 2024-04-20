@@ -11,6 +11,7 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
 
     public abstract IProjectile createProjectile();
 
+    @Override
     public boolean attack() {
         if (isCoolingDown()) {
             return false;

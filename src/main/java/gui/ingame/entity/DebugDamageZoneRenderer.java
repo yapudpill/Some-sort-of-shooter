@@ -4,16 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import model.ingame.entity.EntityModel;
-import util.Coordinates;
 
 public class DebugDamageZoneRenderer extends AbstractEntityRenderer {
     public DebugDamageZoneRenderer(EntityModel entityModel) {
         super(entityModel);
-    }
-
-    @Override
-    public Coordinates getOriginalSize() {
-        return new Coordinates(entity.getHeight(), entity.getWidth());
     }
 
     @Override

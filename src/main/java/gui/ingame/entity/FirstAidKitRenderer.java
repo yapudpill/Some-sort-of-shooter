@@ -5,17 +5,11 @@ import java.awt.Image;
 
 import gui.ImageCache;
 import model.ingame.entity.FirstAidKit;
-import util.Coordinates;
 
 public class FirstAidKitRenderer extends AbstractEntityRenderer{
 
     public FirstAidKitRenderer(FirstAidKit entityModel) {
         super(entityModel);
-    }
-
-    @Override
-    public Coordinates getOriginalSize() {
-        return new Coordinates(entity.getWidth(), entity.getHeight());
     }
 
     @Override

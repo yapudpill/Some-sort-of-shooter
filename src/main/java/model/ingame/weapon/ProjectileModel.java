@@ -27,7 +27,6 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
         if(sourceWeapon.getOwner() instanceof IEffectEntity effectEntity)
             condition = effectEntity.canApplyEffect(target);
         if (target != sourceWeapon.getOwner() && condition) {
-            setActive(false);
             return true;
         }
         return false;
@@ -39,22 +38,7 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     }
 
     @Override
-    public boolean isActive() {
-        return active;
-    }
-
-    @Override
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    @Override
     public void update(double delta) {
         movementHandler.update(delta);
-    }
-
-    @Override
-    public ProjectileWeaponModel getSourceWeapon() {
-        return sourceWeapon;
     }
 }

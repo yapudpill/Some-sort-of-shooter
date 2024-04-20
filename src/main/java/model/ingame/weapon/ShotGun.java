@@ -20,7 +20,6 @@ public class ShotGun extends ProjectileWeaponModel {
     @Override
     public boolean attack() {
         if(isCoolingDown()){
-            System.out.println("Weapon is cooling down. Cannot shoot.");
             return false;
         }
         for (int i = 0; i < 5; i++) {

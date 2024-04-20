@@ -36,6 +36,11 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     }
 
     @Override
+    public void setCollisionBox(Coordinates pos) {
+        collisionBox.setRect(pos.x(), pos.y(), collisionBox.getWidth(), collisionBox.getHeight());
+    }
+
+    @Override
     public void addCollisionListener(CollisionListener listener) {
         collisionListeners.add(listener);
     }
@@ -59,18 +64,10 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
         }
     }
 
-    public void removeCollisionListener(CollisionListener listener) {
-        collisionListeners.remove(listener);
-    }
-
     @Override
     public void despawn() {
         super.despawn();
         gameModel.getMapModel().removeCollidableAt(this, this.pos);
         gameModel.removeCollisionEntity(this);
-    }
-
-    private void setCollisionBox(Coordinates pos) {
-        collisionBox.setRect(pos.x(), pos.y(), collisionBox.getWidth(), collisionBox.getHeight());
     }
 }
