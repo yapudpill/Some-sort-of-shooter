@@ -4,11 +4,11 @@ import model.ingame.GameModel;
 import util.Coordinates;
 import util.IUpdateable;
 
-public class AttachedDamageZoneEntity extends CollisionEntityModel implements IUpdateable {
+public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable {
     private final CombatEntityModel attacker;
     private final double shift;
 
-    public AttachedDamageZoneEntity(Coordinates pos, double width, double height, double shift, GameModel gameModel, CombatEntityModel attacker, int damage) {
+    public KnifeZoneEntity(Coordinates pos, double width, double height, double shift, GameModel gameModel, CombatEntityModel attacker, int damage) {
         super(pos, width, height, gameModel);
         this.attacker = attacker;
         this.shift = shift;

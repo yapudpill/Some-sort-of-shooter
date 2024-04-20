@@ -1,33 +1,43 @@
 package gui.ingame.entity;
 
-import model.ingame.entity.AttachedDamageZoneEntity;
+import java.awt.Color;
+
+import model.ingame.entity.KnifeZoneEntity;
+import model.ingame.entity.BreakableBarrier;
+import model.ingame.entity.ExplodingEnemy;
 import model.ingame.entity.ExplosionZoneEntity;
 import model.ingame.entity.FirstAidKit;
 import model.ingame.entity.IEntity;
-import model.ingame.entity.IVulnerableEntity;
+import model.ingame.entity.PlayerModel;
 import model.ingame.entity.SimpleTrap;
+import model.ingame.entity.SmartEnemyModel;
+import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.WeaponEntity;
 import model.ingame.weapon.Projectile;
 import model.ingame.weapon.RocketProjectileModel;
 import model.ingame.weapon.RubberProjectile;
 
 public class EntityRendererFactory {
-    static public AbstractEntityRenderer make(IEntity entityModel) {
-        return switch (entityModel) {
-            case IVulnerableEntity vul -> new VulnerableRenderer(vul);
+    static public AbstractEntityRenderer make(IEntity entity) {
+        return switch (entity) {
+            case PlayerModel e       -> new VulnerableRenderer(e, "sprites/player1/playerRightShoot.png");
+            case WalkingEnemyModel e -> new VulnerableRenderer(e, "sprites/EyeBallEnemy.png");
+            case SmartEnemyModel e   -> new VulnerableRenderer(e, "sprites/Brain_of_Cthulhu.png");
+            case ExplodingEnemy e    -> new VulnerableRenderer(e, "sprites/bombman.png");
+            case BreakableBarrier e  -> new VulnerableRenderer(e, "sprites/breakablebarrier.png");
 
-            case RocketProjectileModel rocketProjectileModel -> new RocketRenderer(rocketProjectileModel);
-            case RubberProjectile rubberProjectile -> new RubberBallRenderer(rubberProjectile);
-            case Projectile projectileModel -> new ProjectileRenderer(projectileModel);
+            case RocketProjectileModel e -> new CircleRenderer(e, Color.RED);
+            case RubberProjectile e      -> new CircleRenderer(e, Color.BLUE);
+            case Projectile e            -> new CircleRenderer(e, Color.BLACK);
 
-            case ExplosionZoneEntity explosionZoneEntity -> new ExplosionZoneRenderer(explosionZoneEntity);
-            case AttachedDamageZoneEntity debugDamageZoneEntity -> new DebugDamageZoneRenderer(debugDamageZoneEntity);
+            case ExplosionZoneEntity e -> new RectangleRenderer(e, Color.ORANGE);
+            case KnifeZoneEntity e     -> new RectangleRenderer(e, Color.RED);
+            case SimpleTrap e          -> new RectangleRenderer(e, Color.BLACK);
 
-            case FirstAidKit firstAidKit -> new FirstAidKitRenderer(firstAidKit);
-            case WeaponEntity weaponEntity -> new WeaponRenderer(weaponEntity);
-            case SimpleTrap simpleTrap -> new TrapRenderer(simpleTrap);
+            case FirstAidKit e  -> new SpriteRenderer(e, "sprites/firstaid.png");
+            case WeaponEntity e -> new SpriteRenderer(e, String.format("sprites/weapon/%s.png", e.getWeapon().getIdentifier()));
 
-            default -> throw new IllegalArgumentException("Unknown entity model: " + entityModel.getClass().getName());
+            default -> throw new IllegalArgumentException("Unknown entity model: " + entity.getClass().getName());
         };
     }
 }
