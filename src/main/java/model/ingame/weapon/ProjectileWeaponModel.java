@@ -2,7 +2,6 @@ package model.ingame.weapon;
 
 import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
-import util.Coordinates;
 
 public abstract class ProjectileWeaponModel extends WeaponModel {
     public ProjectileWeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {
@@ -23,7 +22,7 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
 
     public void fire() {
         Projectile projectile = createProjectile();
-        projectile.setPos(new Coordinates(owner.getPos()));
+        projectile.setPos(owner.getPos());
         projectile.getMovementHandler().setDirectionVector(this.directionVector);
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);

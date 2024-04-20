@@ -12,10 +12,6 @@ public record Coordinates(double x, double y) {
     public static final Coordinates RIGHT = new Coordinates(1, 0);
     public static final Coordinates ZERO = new Coordinates(0, 0);
 
-    public Coordinates(Coordinates other) {
-        this(other.x, other.y);
-    }
-
     public Coordinates add(Coordinates other) {
         return new Coordinates(x + other.x, y + other.y);
     }

@@ -25,7 +25,6 @@ public class AttachedDamageZoneEntity extends CollisionEntityModel implements IU
 
     @Override
     public void update(double delta) {
-        Coordinates pos = new Coordinates(attacker.getPos());
-        setPos(pos.add(attacker.getMovementHandler().getDirectionVector().multiply(shift)));
+        setPos(attacker.getPos().add(attacker.getMovementHandler().getDirectionVector().multiply(shift)));
     }
 }
