@@ -1,8 +1,41 @@
-<animationGroup default="walk_back">
-    <animation id="walk_back" endReachedBehaviour="LOOPING">
-        <frame time="0.1" path="sprites/player1/back/back1.png"/>
-        <frame time="0.2" path="sprites/player1/back/back2.png"/>
-        <frame time="0.3" path="sprites/player1/back/back1.png"/>
-        <frame time="0.4" path="sprites/player1/back/back3.png"/>
+<animationGroup default="walk_up">
+    <animation id="idle_up" endReachedBehaviour="INFINITE">
+        <frame time="0.1" path="sprites/player1/up/up1.png"/>
+    </animation>
+    <animation id="walk_up" endReachedBehaviour="LOOPING">
+        <frame time="0.1" path="sprites/player1/up/up1.png"/>
+        <frame time="0.2" path="sprites/player1/up/up2.png"/>
+        <frame time="0.3" path="sprites/player1/up/up1.png"/>
+        <frame time="0.4" path="sprites/player1/up/up3.png"/>
+    </animation>
+
+    <animation id="idle_right" endReachedBehaviour="INFINITE">
+        <frame time="0.1" path="sprites/player1/right/right1.png"/>
+    </animation>
+    <animation id="walk_right" endReachedBehaviour="LOOPING">
+        <frame time="0.1" path="sprites/player1/right/right1.png"/>
+        <frame time="0.2" path="sprites/player1/right/right2.png"/>
+        <frame time="0.3" path="sprites/player1/right/right1.png"/>
+        <frame time="0.4" path="sprites/player1/right/right3.png"/>
+    </animation>
+
+    <animation id="idle_down" endReachedBehaviour="INFINITE">
+        <frame time="0.1" path="sprites/player1/right/right1.png"/>
+    </animation>
+    <animation id="walk_down" endReachedBehaviour="LOOPING">
+        <frame time="0.1" path="sprites/player1/right/right1.png"/>
+        <frame time="0.2" path="sprites/player1/right/right2.png"/>
+        <frame time="0.3" path="sprites/player1/right/right1.png"/>
+        <frame time="0.4" path="sprites/player1/right/right3.png"/>
+    </animation>
+
+    <animation id="idle_left" endReachedBehaviour="INFINITE">
+        <frame time="0.1" path="sprites/player1/left/left1.png"/>
+    </animation>
+    <animation id="walk_left" endReachedBehaviour="LOOPING">
+        <frame time="0.1" path="sprites/player1/left/left1.png"/>
+        <frame time="0.2" path="sprites/player1/left/left2.png"/>
+        <frame time="0.3" path="sprites/player1/left/left1.png"/>
+        <frame time="0.4" path="sprites/player1/left/left3.png"/>
     </animation>
 </animationGroup>

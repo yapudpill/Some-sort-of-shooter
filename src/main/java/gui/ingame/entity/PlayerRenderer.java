@@ -31,4 +31,41 @@ public class PlayerRenderer extends AnimatedEntityRenderer {
     protected AnimationGroup getAnimationGroup() {
         return AnimationCache.loadAnimationGroup("animation_groups/player1.xml", getClass());
     }
+
+    @Override
+    public void update(double deltaT) {
+        super.update(deltaT);
+        PlayerModel playerModel = (PlayerModel) entityModel;
+        if (playerModel.getMovementHandler().isMoving()) {
+            switch (playerModel.getMovementHandler().getDirectionVector().getCardinalDirection()) {
+                case UP:
+                    switchToAnimation("walk_up");
+                    break;
+                case DOWN:
+                    switchToAnimation("walk_down");
+                    break;
+                case LEFT:
+                    switchToAnimation("walk_left");
+                    break;
+                case RIGHT:
+                    switchToAnimation("walk_right");
+                    break;
+            }
+        } else {
+            switch (animationManager.getCurrentAnimationId()) {
+                case "walk_up":
+                    switchToAnimation("idle_up");
+                    break;
+                case "walk_down":
+                    switchToAnimation("idle_down");
+                    break;
+                case "walk_left":
+                    switchToAnimation("idle_left");
+                    break;
+                case "walk_right":
+                default:
+                    switchToAnimation("idle_right");
+            }
+        }
+    }
 }

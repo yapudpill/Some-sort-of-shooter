@@ -5,6 +5,10 @@ package model.ingame;
  */
 
 public class Coordinates {
+    public static enum CardinalDirection {
+        UP, DOWN, LEFT, RIGHT
+    }
+
     public double x;
     public double y;
 
@@ -89,5 +93,15 @@ public class Coordinates {
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
+    }
+
+    public CardinalDirection getCardinalDirection() {
+        if (Math.abs(x) > Math.abs(y)) {
+            if (x > 0) return CardinalDirection.RIGHT;
+            else return CardinalDirection.LEFT;
+        } else {
+            if (y > 0) return CardinalDirection.DOWN;
+            else return CardinalDirection.UP;
+        }
     }
 }

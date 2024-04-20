@@ -8,7 +8,7 @@ import util.IUpdateable;
 import java.awt.*;
 
 public abstract class AnimatedEntityRenderer extends AbstractEntityRenderer implements IUpdateable {
-    private AnimationManager animationManager;
+    protected AnimationManager animationManager;
 
     public AnimatedEntityRenderer(EntityModel entityModel) {
         super(entityModel);
@@ -31,5 +31,9 @@ public abstract class AnimatedEntityRenderer extends AbstractEntityRenderer impl
     @Override
     public void update(double deltaT) {
         animationManager.nextImage(deltaT);
+    }
+
+    protected void switchToAnimation(String animationName) {
+        animationManager.switchToAnimation(animationName);
     }
 }

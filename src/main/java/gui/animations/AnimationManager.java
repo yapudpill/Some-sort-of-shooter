@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class AnimationManager {
     private final AnimationGroup animationGroup;
+    private Animation currentAnimation;
 
     private TimeIntervalMappingsCursor<String> cursor = null;
 
@@ -19,7 +20,7 @@ public class AnimationManager {
         animationGroup.preloadAnimations();
     }
 
-    public String getCurrentImageName() {
+    private String getCurrentImageName() {
         return cursor.getCurrentValue();
     }
 
@@ -28,9 +29,15 @@ public class AnimationManager {
     }
 
     public void switchToAnimation(String animationName) {
-        Animation animation = animationGroup.get(animationName);
-        if (animation == null) throw new IllegalArgumentException("Animation not found: " + animationName);
-        cursor = new TimeIntervalMappingsCursor<>(animation);
+        if (currentAnimation == null || !currentAnimation.getId().equals(animationName)) {
+            currentAnimation = animationGroup.get(animationName);
+            if (currentAnimation == null) throw new IllegalArgumentException("Animation not found: " + animationName);
+            cursor = new TimeIntervalMappingsCursor<>(currentAnimation);
+        }
+    }
+
+    public String getCurrentAnimationId() {
+        return currentAnimation.getId();
     }
 
     public BufferedImage nextImage(double deltaT) {
