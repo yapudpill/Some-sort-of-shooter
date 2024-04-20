@@ -1,0 +1,8 @@
+<animationGroup default="walk_back">
+    <animation id="walk_back" endReachedBehaviour="LOOPING">
+        <frame time="0.1" path="sprites/player1/back/back1.png"/>
+        <frame time="0.2" path="sprites/player1/back/back2.png"/>
+        <frame time="0.3" path="sprites/player1/back/back1.png"/>
+        <frame time="0.4" path="sprites/player1/back/back3.png"/>
+    </animation>
+</animationGroup>

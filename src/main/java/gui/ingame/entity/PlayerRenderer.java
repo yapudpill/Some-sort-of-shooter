@@ -1,14 +1,13 @@
 package gui.ingame.entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-
-import gui.ImageCache;
+import gui.animations.AnimationCache;
+import gui.animations.AnimationGroup;
 import model.ingame.entity.IVulnerableEntity;
 import model.ingame.entity.PlayerModel;
 
-public class PlayerRenderer extends AbstractEntityRenderer {
+import java.awt.*;
+
+public class PlayerRenderer extends AnimatedEntityRenderer {
     public PlayerRenderer(PlayerModel entityModel) {
         super(entityModel);
     }
@@ -18,13 +17,18 @@ public class PlayerRenderer extends AbstractEntityRenderer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // draw triangle pointing upwards
-        Image image;
+        /*Image image;
         image = ImageCache.loadImage("sprites/player1/playerRightShoot.png", PlayerRenderer.class);
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);*/
         // show health bar
         g.setColor(Color.RED);
         g.fillRect(0, 0, getWidth(), 5);
         g.setColor(Color.GREEN);
         g.fillRect(0, 0, (int) (getWidth() * ((double) ((IVulnerableEntity) entityModel).getHealth() / ((IVulnerableEntity) entityModel).getMaxHealth())), 5);
+    }
+
+    @Override
+    protected AnimationGroup getAnimationGroup() {
+        return AnimationCache.loadAnimationGroup("animation_groups/player1.xml", getClass());
     }
 }
