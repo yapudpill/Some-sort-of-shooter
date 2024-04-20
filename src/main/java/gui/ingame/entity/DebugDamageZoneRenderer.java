@@ -13,7 +13,7 @@ public class DebugDamageZoneRenderer extends AbstractEntityRenderer {
 
     @Override
     public Coordinates getOriginalSize() {
-        return new Coordinates(entityModel.getHeight(), entityModel.getWidth());
+        return new Coordinates(entity.getHeight(), entity.getWidth());
     }
 
     @Override

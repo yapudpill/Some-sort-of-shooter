@@ -15,14 +15,14 @@ public class FirstAidKitRenderer extends AbstractEntityRenderer{
 
     @Override
     public Coordinates getOriginalSize() {
-        return new Coordinates(entityModel.getWidth(), entityModel.getHeight());
+        return new Coordinates(entity.getWidth(), entity.getHeight());
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Image image;
-        image = ImageCache.loadImage("sprites/firstaid.png", PlayerRenderer.class);
+        image = ImageCache.loadImage("sprites/firstaid.png", getClass());
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
 }
