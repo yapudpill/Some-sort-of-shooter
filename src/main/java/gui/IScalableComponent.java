@@ -7,7 +7,7 @@ import model.ingame.Coordinates;
  * It has an original position and size, that will be used to compute the displayed position and size
  * @see ScaleLayout
  */
-public interface ScalableComponent {
+public interface IScalableComponent {
     Coordinates getOriginalPosition();
     Coordinates getOriginalSize();
 }

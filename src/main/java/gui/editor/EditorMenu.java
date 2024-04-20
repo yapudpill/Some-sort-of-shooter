@@ -16,6 +16,7 @@ import javax.swing.SpinnerNumberModel;
 import controller.MainController;
 import gui.MainFrame;
 import gui.launcher.MapSelector;
+import model.level.InvalidMapException;
 
 public class EditorMenu extends JPanel {
     private static final int DEFAULT_ROWS = 20;
@@ -132,7 +133,7 @@ public class EditorMenu extends JPanel {
             rows.setValue(model.getRows());
             cols.setValue(model.getCols());
             grid.reset();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (InvalidMapException e) {
             JOptionPane.showMessageDialog(
                 this,
                 "The selected file is not in the correct format.",
@@ -143,6 +144,16 @@ public class EditorMenu extends JPanel {
     }
 
     private void save() {
+        if (model.getSpawn() == null) {
+            JOptionPane.showMessageDialog(
+                this,
+                "No spawn point set.",
+                "No spawn point",
+                JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
         int returnCode = MainFrame.fileChooser.showSaveDialog(this);
         if (returnCode != JFileChooser.APPROVE_OPTION) return;
 

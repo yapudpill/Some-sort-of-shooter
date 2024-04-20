@@ -14,7 +14,7 @@ public class StatsPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
-        long time = stats.survivedFrames / 60;
+        int time = (int) stats.survivedTime;
 
         constraints.gridy = 0;
         String timeMessage = String.format(

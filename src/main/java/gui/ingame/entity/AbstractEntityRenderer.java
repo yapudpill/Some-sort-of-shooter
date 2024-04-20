@@ -1,22 +1,16 @@
 package gui.ingame.entity;
 
-import gui.ScalableComponent;
+import gui.IScalableComponent;
 import model.ingame.Coordinates;
-import model.ingame.IUpdateable;
 import model.ingame.entity.EntityModel;
 
 import javax.swing.*;
 
-public abstract class AbstractEntityRenderer extends JComponent implements IUpdateable, ScalableComponent {
+public abstract class AbstractEntityRenderer extends JComponent implements IScalableComponent {
     protected final EntityModel entityModel;
 
     public AbstractEntityRenderer(EntityModel entityModel) {
         this.entityModel = entityModel;
-    }
-
-    @Override
-    public void update() {
-        // TODO
     }
 
     public Coordinates getOriginalSize() {

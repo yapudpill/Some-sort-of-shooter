@@ -5,7 +5,7 @@ import java.util.Set;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import util.ModelTimer;
+import model.ingame.ModelTimer;
 
 public class ExplosionZoneEntity extends CollisionEntityModel {
     private final ModelTimer despawnTimer;
@@ -14,7 +14,7 @@ public class ExplosionZoneEntity extends CollisionEntityModel {
 
     public ExplosionZoneEntity(Coordinates pos, double width, double height, int damage, int duration, GameModel gameModel) {
         super(pos, width, height, gameModel);
-        this.despawnTimer = new ModelTimer(duration, this::despawn, gameModel);
+        this.despawnTimer = new ModelTimer(duration, false, this::despawn, gameModel);
         this.despawnTimer.start();
 
         addCollisionListener(e -> {
@@ -22,7 +22,6 @@ public class ExplosionZoneEntity extends CollisionEntityModel {
                 if (entity instanceof IVulnerableEntity vulnerableEntity && !hitEntities.contains(vulnerableEntity)) {
                     vulnerableEntity.takeDamage(damage);
                     hitEntities.add(vulnerableEntity);
-                    System.out.println("explosion hit");
                 }
             }
         });

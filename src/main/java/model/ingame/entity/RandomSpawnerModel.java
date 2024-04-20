@@ -6,16 +6,16 @@ import java.util.Random;
 import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
-import util.ModelTimer;
+import model.ingame.ModelTimer;
 
 public class RandomSpawnerModel {
-    private ModelTimer spawnTimer;
-    private GameModel gameModel;
-    Random rng = new Random();
+    private final ModelTimer spawnTimer;
+    private final GameModel gameModel;
+    private final Random rng = new Random();
 
     public RandomSpawnerModel(GameModel gameModel, List<EntitySpawner> spawners, int delay) {
         this.gameModel = gameModel;
-        this.spawnTimer = new ModelTimer(delay, () -> {
+        this.spawnTimer = new ModelTimer(delay, true, () -> {
             double x = rng.nextDouble(gameModel.getMapModel().getWidth());
             double y = rng.nextDouble(gameModel.getMapModel().getHeight());
             int index = rng.nextInt(spawners.size());
@@ -51,7 +51,7 @@ public class RandomSpawnerModel {
             return false;
         }
 
-        // Check if any surrounding tile is unwalkable
+        // Check if any surrounding tile is non walkable
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 int newX = x + i;
@@ -62,7 +62,7 @@ public class RandomSpawnerModel {
                     return false;
                 }
 
-                // Exclude tiles surrounding an unwalkable tile
+                // Exclude tiles surrounding an non walkable tile
                 if (!gameModel.getMapModel().getTile(newX, newY).isWalkable()) {
                     return false;
                 }

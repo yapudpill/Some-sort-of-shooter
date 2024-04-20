@@ -2,7 +2,6 @@ package gui.ingame.entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
 import java.awt.Image;
 
 import gui.ImageCache;

@@ -5,23 +5,20 @@ import model.ingame.GameModel;
 import model.ingame.entity.CollisionEntityModel;
 import model.ingame.entity.IEffectEntity;
 import model.ingame.entity.IVulnerableEntity;
-import model.ingame.physics.IMovementHandler;
-import model.ingame.physics.MovementHandlerModel;
+import model.ingame.physics.MovementHandler;
 
 public abstract class ProjectileModel extends CollisionEntityModel implements IProjectile {
     protected final ProjectileWeaponModel sourceWeapon;
     protected final int damage;
-    protected IMovementHandler movementHandler;
+    protected final MovementHandler movementHandler;
     protected boolean active;
 
     public ProjectileModel(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.damage = damage;
         this.sourceWeapon = source;
+        this.movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         this.active = true;
-        this.movementHandler = new MovementHandlerModel<ProjectileModel>(this, gameModel.getPhysicsEngine());
-
-        addBlockedMovementListener(e -> despawn());
     }
 
     @Override
@@ -37,7 +34,7 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     }
 
     @Override
-    public IMovementHandler getMovementHandler() {
+    public MovementHandler getMovementHandler() {
         return movementHandler;
     }
 
@@ -52,13 +49,12 @@ public abstract class ProjectileModel extends CollisionEntityModel implements IP
     }
 
     @Override
-    public void update() {
-        movementHandler.update();
+    public void update(double delta) {
+        movementHandler.update(delta);
     }
 
     @Override
     public ProjectileWeaponModel getSourceWeapon() {
         return sourceWeapon;
     }
-
 }

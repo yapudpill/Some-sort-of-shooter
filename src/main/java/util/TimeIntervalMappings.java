@@ -15,7 +15,7 @@ public class TimeIntervalMappings<V> {
         LOOPING // Loop over the values
     }
 
-    private final LinkedList<Pair<Long, V>> mappings = new LinkedList<Pair<Long, V>>();
+    private final LinkedList<Pair<Double, V>> mappings = new LinkedList<Pair<Double, V>>();
     private final EndReachedBehaviour endReachedBehaviour;
 
     public V getAssociatedValue(Long time) {
@@ -28,11 +28,11 @@ public class TimeIntervalMappings<V> {
                 case INFINITE:
                     return mappings.getLast().second();
                 case LOOPING:
-                    time %= mappings.getLast().first();
+                    time %= mappings.getLast().first().longValue();
                     break;
             }
         }
-        for (Pair<Long, V> timeValue : mappings) {
+        for (Pair<Double, V> timeValue : mappings) {
             if (time < timeValue.first()) { // return the first interval that stops after time
                 return timeValue.second();
             }
@@ -40,14 +40,14 @@ public class TimeIntervalMappings<V> {
         return null;
     }
 
-    public void addNextAssociation(long endTime, V value) {
+    public void addNextAssociation(double endTime, V value) {
         if (!mappings.isEmpty() && endTime < mappings.getLast().first())
             throw new IllegalArgumentException("endTime has to be lower than last added interval");
-        mappings.add(new Pair<Long,V>(endTime, value));
+        mappings.add(new Pair<Double,V>(endTime, value));
     }
 
 
-    public LinkedList<Pair<Long, V>> getMappings() {
+    public LinkedList<Pair<Double, V>> getMappings() {
         return mappings;
     }
 
@@ -55,7 +55,7 @@ public class TimeIntervalMappings<V> {
         return mappings.stream().map(Pair::second).collect(Collectors.toList());
     }
 
-    public Long getDuration() {
+    public double getDuration() {
         return mappings.getLast().first();
     }
 

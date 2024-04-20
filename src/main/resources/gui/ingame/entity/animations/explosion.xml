@@ -1,5 +1,5 @@
 <animation endReachedBehaviour="INFINITE" id="explosion">
-    <frame time="10" path="sprites/explosion/explosion1.png"/>
-    <frame time="20" path="sprites/explosion/explosion2.png"/>
-    <frame time="30" path="sprites/explosion/explosion3.png"/>
+    <frame time="0.3" path="sprites/explosion/explosion1.png"/>
+    <frame time="0.6" path="sprites/explosion/explosion2.png"/>
+    <frame time="0.8" path="sprites/explosion/explosion3.png"/>
 </animation>

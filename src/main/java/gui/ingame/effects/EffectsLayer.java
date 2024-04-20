@@ -1,33 +1,28 @@
 package gui.ingame.effects;
 
-import gui.ScaleLayout;
-import gui.ScaleSupplier;
-import model.ingame.GameModel;
-import model.ingame.IUpdateable;
-import model.ingame.entity.ICombatEntity;
-import model.ingame.entity.IEntity;
-import util.SetToMapSynchronisator;
-
-import javax.swing.*;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class EffectsPaneLayer extends JPanel implements IUpdateable {
-    GameModel gameModel;
-    ScaleLayout scaleLayout;
-    private final Map<ICombatEntity, AimArrow> combatEntitiesAimMap = new ConcurrentHashMap<>();
+import javax.swing.JPanel;
 
-    public EffectsPaneLayer(GameModel gameModel, ScaleSupplier scaleSupplier) {
-        super();
+import gui.ScaleLayout;
+import gui.ScaleSupplier;
+import model.ingame.GameModel;
+import util.IUpdateable;
+import model.ingame.entity.ICombatEntity;
+import model.ingame.entity.IEntity;
+import util.SetToMapSynchronisator;
+
+public class EffectsLayer extends JPanel implements IUpdateable {
+    private final Map<ICombatEntity, AimArrow> combatEntitiesAimMap = new ConcurrentHashMap<>();
+    private final GameModel gameModel;
+
+    public EffectsLayer(GameModel gameModel, ScaleSupplier scaleSupplier) {
         this.gameModel = gameModel;
         this.setOpaque(false);
-        this.scaleLayout = new ScaleLayout(scaleSupplier);
-        setLayout(scaleLayout);
-
-        JLabel testLabel = new JLabel("Swoosh");
-        this.add(testLabel);
+        setLayout(new ScaleLayout(scaleSupplier));
     }
 
     private void addArrowForCombat(ICombatEntity entity) {
@@ -42,13 +37,14 @@ public class EffectsPaneLayer extends JPanel implements IUpdateable {
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         Set<ICombatEntity> combatEntities = new HashSet<>();
         for (IEntity iEntity : gameModel.getEntitySet()) {
-            if (iEntity instanceof ICombatEntity iCombatEntity) combatEntities.add(iCombatEntity);
+            if (iEntity instanceof ICombatEntity iCombatEntity)
+                combatEntities.add(iCombatEntity);
         }
         // Synchronize the sets and maps
-        SetToMapSynchronisator.synchroniseCollectionToMap(combatEntities,
+        SetToMapSynchronisator.synchronise(combatEntities,
                 combatEntitiesAimMap,
                 this::addArrowForCombat,
                 this::removeArrowForCombat);

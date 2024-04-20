@@ -3,7 +3,7 @@ package model.ingame.entity;
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.physics.MovementHandlerModel;
+import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.KnifeWeapon;
 
 public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
@@ -11,11 +11,10 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
     private static FloodFillPathFinder pathFinder;
 
     public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
-        super(50, 0.8, 0.8, gameModel);
-        this.player = gameModel.getPlayer();
-        this.pos = pos;
-        movementHandler = new MovementHandlerModel<WalkingEnemyModel>(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(0.01);
+        super(pos, 50, 0.8, 0.8, gameModel);
+        player = gameModel.getPlayer();
+        movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
+        movementHandler.setSpeed(2.4);
         addCollisionListener(e -> {
             for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
                 if (entity instanceof PlayerModel) {
@@ -36,11 +35,8 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
     }
 
     @Override
-    public void update() {
-        pathFinder.setTarget(player.getPos());
-        if(!pathFinder.isRunning()) pathFinder.start();
-        Coordinates lowestCoord = pathFinder.getLowestNodeAround((int) pos.x, (int) pos.y);
-        if(pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates( lowestCoord.x - pos.x, lowestCoord.y - pos.y));
-        super.update();
+    public void update(double delta) {
+        pathFinder.handlePathFindingUpdate(this, player.getPos());
+        super.update(delta);
     }
 }

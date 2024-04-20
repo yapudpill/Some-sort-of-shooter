@@ -8,9 +8,10 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import gui.ingame.TileRendererFactory;
+import gui.ingame.tile.TileRendererFactory;
 import gui.ingame.tile.AbstractTileRenderer;
 import model.level.TileModel;
+import util.Pair;
 
 public class EditorGrid extends JPanel {
     private final EditorModel model;
@@ -48,7 +49,7 @@ public class EditorGrid extends JPanel {
     }
 
     private AbstractTileRenderer listeningRenderer(int x, int y, TileModel t) {
-        AbstractTileRenderer renderer = TileRendererFactory.makeTileRenderer(t);
+        AbstractTileRenderer renderer = TileRendererFactory.make(t);
         renderer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -59,6 +60,14 @@ public class EditorGrid extends JPanel {
                     }
                     case MouseEvent.BUTTON3 -> {
                         model.prevType(x, y);
+                        updateCell(x, y);
+                    }
+                    case MouseEvent.BUTTON2 -> {
+                        Pair<Integer, Integer> oldSpawn = model.getSpawn();
+                        model.setSpawn(x, y);
+                        if (oldSpawn != null) {
+                            updateCell(oldSpawn.first(), oldSpawn.second());
+                        }
                         updateCell(x, y);
                     }
                 }

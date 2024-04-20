@@ -14,7 +14,6 @@ public class EnemySpawnerModel extends EntitySpawner {
     public WalkingEnemyModel spawnEntity(double x, double y) {
         WalkingEnemyModel entity = (WalkingEnemyModel) super.spawnEntity(x, y);
         gameModel.addEntity(entity);
-        gameModel.attachAsUpdateable(entity);
         return entity;
     }
 

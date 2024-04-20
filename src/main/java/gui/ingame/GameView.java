@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import controller.PlayerController;
 import gui.RatioLayout;
 import model.ingame.GameModel;
-import model.ingame.IUpdateable;
+import util.IUpdateable;
 
 /**
  * The main View for the game once it is launched. It contains the GameMainArea and the GameHUD. Intended to be the
@@ -21,12 +21,9 @@ public class GameView extends JPanel implements IUpdateable {
     public GameView(GameModel gameModel) {
         mainArea = new GameMainArea(gameModel);
         setOpaque(true);
-
-        // TODO: setup gridbaglayout to have HUD on the side of the gameRenderer
         setLayout(new BorderLayout());
 
         PlayerController playerController = new PlayerController(gameModel.getPlayer(), mainArea);
-        playerController.clearHeldKeys();
         mainArea.addKeyListener(playerController.getKeyListener());
         mainArea.addMouseListener(playerController.getMouseListener());
         mainArea.addMouseMotionListener(playerController.getMouseMotionListener());
@@ -40,8 +37,8 @@ public class GameView extends JPanel implements IUpdateable {
     }
 
     @Override
-    public void update() {
-        mainArea.update();
+    public void update(double delta) {
+        mainArea.update(delta);
     }
 
     public void setFocusToMainArea() {

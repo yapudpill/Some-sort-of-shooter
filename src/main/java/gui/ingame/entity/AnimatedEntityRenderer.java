@@ -3,10 +3,11 @@ package gui.ingame.entity;
 import gui.animations.AnimationGroup;
 import gui.animations.AnimationManager;
 import model.ingame.entity.EntityModel;
+import util.IUpdateable;
 
 import java.awt.*;
 
-public abstract class AnimatedEntityRenderer extends AbstractEntityRenderer {
+public abstract class AnimatedEntityRenderer extends AbstractEntityRenderer implements IUpdateable {
     private AnimationManager animationManager;
 
     public AnimatedEntityRenderer(EntityModel entityModel) {
@@ -28,8 +29,7 @@ public abstract class AnimatedEntityRenderer extends AbstractEntityRenderer {
     }
 
     @Override
-    public void update() {
-        super.update();
-        animationManager.nextImage();
+    public void update(double deltaT) {
+        animationManager.nextImage(deltaT);
     }
 }

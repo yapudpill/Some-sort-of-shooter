@@ -1,52 +1,46 @@
 package gui.ingame;
 
+import java.util.Set;
+
+import javax.swing.JLayeredPane;
+
 import gui.FillLayout;
-import gui.ingame.effects.EffectsPaneLayer;
+import gui.ingame.effects.EffectsLayer;
 import gui.ingame.footprints.FootprintsLayer;
 import model.ingame.GameModel;
-import model.ingame.IUpdateable;
+import util.IUpdateable;
 import model.level.MapModel;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * The main area of the game, containing the map and the entities but NOT the HUD, buttons to exit, etc.
  */
 public class GameMainArea extends JLayeredPane implements IUpdateable {
     private static final Integer TILES_LAYER = 0;
-    private static final Integer FOOTPRINTS_LAYER = 5;
+    private static final Integer FOOTPRINTS_LAYER = 5; // Footprints are drawn below entities (but on top of tiles)
     private static final Integer ENTITIES_LAYER = 10;
     private static final Integer HUD_LAYER = 30;
 
-    private final MapBackgroundPaneLayer mapBackgroundPaneLayer;
-    private final FootprintsLayer footprintsLayer;
-    private final EntitiesPaneLayer entitiesPaneLayer;
-    private final EffectsPaneLayer effectsPaneLayer;
-    private final GameHUDLayer gameHUDLayer;
-
+    private final Set<IUpdateable> layers;
     private final int mapWidth, mapHeight;
 
     public GameMainArea(GameModel gameModel) {
         MapModel map = gameModel.getMapModel();
         mapWidth = map.getWidth();
         mapHeight = map.getHeight();
-        mapBackgroundPaneLayer = new MapBackgroundPaneLayer(map, this::getScale);
-        footprintsLayer = new FootprintsLayer(gameModel, this::getScale);
-        entitiesPaneLayer = new EntitiesPaneLayer(gameModel.getEntitySet(), this::getScale);
-        effectsPaneLayer = new EffectsPaneLayer(gameModel, this::getScale);
-        gameHUDLayer = new GameHUDLayer(gameModel.getPlayer(), this::getScale);
 
-        // debug
-        setBackground(Color.CYAN);
-        setOpaque(true);
+        MapBackgroundLayer mapBackgroundLayer = new MapBackgroundLayer(map, this::getScale);
+        FootprintsLayer footprintsLayer = new FootprintsLayer(gameModel.getEntitySet(), this::getScale);
+        EntitiesLayer entitiesLayer = new EntitiesLayer(gameModel.getEntitySet(), this::getScale);
+        EffectsLayer effectsLayer = new EffectsLayer(gameModel, this::getScale);
+        HUDLayer HUDLayer = new HUDLayer(gameModel.getPlayer(), this::getScale);
+        layers = Set.of(mapBackgroundLayer, footprintsLayer, entitiesLayer, effectsLayer, HUDLayer);
 
         setLayout(new FillLayout());
-        add(mapBackgroundPaneLayer.getJComponent(), TILES_LAYER);
-        add(footprintsLayer, FOOTPRINTS_LAYER); // Footprints are drawn below entities (but on top of tiles)
-        add(entitiesPaneLayer.getJComponent(), ENTITIES_LAYER);
-        add(effectsPaneLayer, HUD_LAYER);
-        add(gameHUDLayer, HUD_LAYER);
+        add(mapBackgroundLayer.getJComponent(), TILES_LAYER);
+        add(footprintsLayer, FOOTPRINTS_LAYER);
+        add(entitiesLayer, ENTITIES_LAYER);
+        add(effectsLayer, HUD_LAYER);
+        add(HUDLayer, HUD_LAYER);
     }
 
     /**
@@ -59,11 +53,9 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
     }
 
     @Override
-    public void update() {
-        mapBackgroundPaneLayer.update();
-        footprintsLayer.update();
-        entitiesPaneLayer.update();
-        effectsPaneLayer.update();
-        gameHUDLayer.update();
+    public void update(double delta) {
+        for (IUpdateable layer : layers) {
+            layer.update(delta);
+        }
     }
 }

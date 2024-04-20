@@ -5,9 +5,11 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.MainController;
+import model.level.InvalidMapException;
 
 public class MapMenu extends JPanel {
 
@@ -47,7 +49,18 @@ public class MapMenu extends JPanel {
 
         constraints.gridx = 1;
         JButton start = new JButton("Start");
-        start.addActionListener(e -> mainController.loadGame(selector.getSelectedMap()));
+        start.addActionListener(event -> {
+            try {
+                mainController.loadGame(selector.getSelectedMap());
+            } catch (InvalidMapException e) {
+                JOptionPane.showMessageDialog(
+                this,
+                "The selected file is not in the correct format.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            }
+        });
         add(start, constraints);
 
         constraints.fill = GridBagConstraints.NONE;

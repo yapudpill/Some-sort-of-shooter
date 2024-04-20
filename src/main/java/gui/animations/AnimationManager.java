@@ -33,11 +33,11 @@ public class AnimationManager {
         cursor = new TimeIntervalMappingsCursor<>(animation);
     }
 
-    public BufferedImage nextImage() {
-        cursor.advanceTime();
+    public BufferedImage nextImage(double deltaT) {
+        cursor.advanceTime(deltaT);
         if (getCurrentImage() == null) {// Ended animation
             switchToAnimation(animationGroup.getDefaultAnimationId());
-            return nextImage();
+            return nextImage(0);
         }
         return getCurrentImage();
     }

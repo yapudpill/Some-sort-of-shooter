@@ -2,10 +2,10 @@ package model.ingame.entity;
 
 import model.ingame.Coordinates;
 import model.ingame.GameModel;
-import model.ingame.IUpdateable;
+import util.IUpdateable;
 
 public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable {
-    CombatEntityModel attacker;
+    private final CombatEntityModel attacker;
     private final double shift;
 
     public KnifeZoneEntity(Coordinates pos, double width, double height, double shift, GameModel gameModel, CombatEntityModel attacker, int damage) {
@@ -31,7 +31,7 @@ public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         Coordinates pos = new Coordinates(attacker.getPos());
         setPos(pos.add(getDirection().multiply(shift)));
     }

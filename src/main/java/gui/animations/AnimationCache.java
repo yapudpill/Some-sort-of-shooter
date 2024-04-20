@@ -63,9 +63,9 @@ public class AnimationCache {
         animationCache.put(url, animation);
         NodeList frames = doc.getDocumentElement().getElementsByTagName("frame");
         for (int i = 0; i < frames.getLength(); i++) {
-            int time;
+            double time;
             try {
-                time = Integer.parseInt(frames.item(i).getAttributes().getNamedItem("time").getNodeValue());
+                time = Double.parseDouble(frames.item(i).getAttributes().getNamedItem("time").getNodeValue());
             } catch (ClassCastException | NumberFormatException e) {
                 throw new InvalidAnimationException("Invalid animation frame");
             }

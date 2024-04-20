@@ -1,15 +1,14 @@
 package util;
 
 
-import model.ingame.IUpdateable;
-
 import java.util.Iterator;
 
-public class TimeIntervalMappingsCursor<V> implements IUpdateable {
-    private Iterator<Pair<Long, V>> associationsIterator;
+public class TimeIntervalMappingsCursor<V> {
+    private Iterator<Pair<Double, V>> associationsIterator;
     private final TimeIntervalMappings<V> timeIntervalMappings;
-    private Pair<Long, V> currentTimeValuePair;
-    private long currentTime = 0;
+    private Pair<Double, V> currentTimeValuePair;
+    private double currentTime = 0;
+
     public TimeIntervalMappingsCursor(TimeIntervalMappings<V> timeIntervalMappings) {
         this.timeIntervalMappings = timeIntervalMappings;
         initIterator();
@@ -22,9 +21,9 @@ public class TimeIntervalMappingsCursor<V> implements IUpdateable {
         }
     }
 
-    public void advanceTime() {
-        currentTime++;
-        if (currentTimeValuePair != null && currentTime == currentTimeValuePair.first()) { // Reached end of interval
+    public void advanceTime(double deltaT) {
+        currentTime += deltaT;
+        if (currentTimeValuePair != null && currentTime >= currentTimeValuePair.first()) { // Reached end of interval
             if (associationsIterator.hasNext()) {
                 currentTimeValuePair = associationsIterator.next();
             } // Reached end of map
@@ -46,17 +45,12 @@ public class TimeIntervalMappingsCursor<V> implements IUpdateable {
         else return null;
     }
 
-    public long getCurrentTime() {
+    public double getCurrentTime() {
         return currentTime;
     }
 
     public void reset() {
         initIterator();
         currentTime = 0;
-    }
-
-    @Override
-    public void update() {
-        advanceTime();
     }
 }
