@@ -15,11 +15,11 @@ public class ImageCache {
     }
     private static final Map<String, BufferedImage> cache = new HashMap<>();
 
-    public static BufferedImage loadImage(String path, Class<?> ressourceBase) {
+    public static BufferedImage loadImage(String path, Class<?> resourceBase) {
         if (cache.get(path) != null) {
             return cache.get(path);
         } else {
-            URL url = ressourceBase.getResource(path);
+            URL url = resourceBase.getResource(path);
             if (url == null) throw new ImageNotFoundException(String.format("Image resource %s missing !", path));
             BufferedImage image = null;
             try {
