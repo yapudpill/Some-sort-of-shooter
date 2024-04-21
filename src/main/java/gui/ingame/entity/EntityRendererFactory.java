@@ -28,8 +28,8 @@ public class EntityRendererFactory {
             case RubberProjectile rubberProjectile -> new RubberBallRenderer(rubberProjectile);
             case ProjectileModel projectileModel -> new ProjectileRenderer(projectileModel);
 
-            case ExplosionZoneEntity explosionZoneEntity -> new ExplosionZoneRenderer(explosionZoneEntity);
-            case KnifeZoneEntity knifeZoneEntity -> new KnifeZoneRenderer(knifeZoneEntity);
+            case ExplosionZoneEntity e -> new AnimatedEntityRenderer(e, "animation_groups/explosion_zone.xml");
+            case KnifeZoneEntity e -> new AnimatedEntityRenderer(e, "animation_groups/knife_zone.xml", e.getDirection()::getAngle);
 
             case BreakableBarrier breakableBarrier -> new BreakableBarrierRenderer(breakableBarrier);
             case FirstAidKit firstAidKit -> new FirstAidKitRenderer(firstAidKit);

@@ -1,39 +1,42 @@
 package gui.ingame.entity;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.function.DoubleSupplier;
+
+import gui.animations.AnimationCache;
 import gui.animations.AnimationGroup;
 import gui.animations.AnimationManager;
 import model.ingame.entity.EntityModel;
 import util.IUpdateable;
 
-import java.awt.*;
+public class AnimatedEntityRenderer extends AbstractEntityRenderer implements IUpdateable {
+    protected final AnimationManager animationManager;
+    protected final DoubleSupplier angle;
 
-public abstract class AnimatedEntityRenderer extends AbstractEntityRenderer implements IUpdateable {
-    protected AnimationManager animationManager;
-
-    public AnimatedEntityRenderer(EntityModel entityModel) {
+    public AnimatedEntityRenderer(EntityModel entityModel, String path, DoubleSupplier angle) {
         super(entityModel);
-        this.animationManager = new AnimationManager(getAnimationGroup());
+        AnimationGroup group = AnimationCache.loadAnimationGroup(path, getClass());
+        this.animationManager = new AnimationManager(group, entityModel.getClass());
+        this.angle = angle;
+    }
+
+    public AnimatedEntityRenderer(EntityModel entityModel, String path) {
+        this(entityModel, path, () -> 0);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        double mid = (double) getWidth() / 2;
-        ((Graphics2D) g).rotate(getRotationAngle(), mid, mid);
-        g.drawImage(animationManager.getCurrentImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST), 0, 0, null);
-    }
 
-    protected abstract AnimationGroup getAnimationGroup();
-    protected double getRotationAngle() {
-        return 0;
+        Graphics2D g2D = (Graphics2D) g.create();
+        double mid = (double) getWidth() / 2;
+        g2D.rotate(angle.getAsDouble(), mid, mid);
+        g.drawImage(animationManager.getCurrentImage(), 0, 0, getWidth(), getHeight(), null);
     }
 
     @Override
-    public void update(double deltaT) {
-        animationManager.nextImage(deltaT);
-    }
-
-    protected void switchToAnimation(String animationName) {
-        animationManager.switchToAnimation(animationName);
+    public void update(double delta) {
+        animationManager.update(delta);
     }
 }

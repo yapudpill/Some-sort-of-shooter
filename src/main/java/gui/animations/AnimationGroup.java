@@ -3,26 +3,19 @@ package gui.animations;
 import java.util.HashMap;
 
 public class AnimationGroup extends HashMap<String, Animation> {
-    private final String defaultAnimationId;
-    private final Class<?> resourceBase;
+    private final String defaultId;
 
-    public AnimationGroup(String defaultAnimationId, Class<?> resourceBase) {
-        super();
-        this.defaultAnimationId = defaultAnimationId;
-        this.resourceBase = resourceBase;
+    public AnimationGroup(String defaultId) {
+        this.defaultId = defaultId;
     }
 
-    public void preloadAnimations() {
-        for (Animation animation : this.values()) {
-            animation.loadImages(resourceBase);
+    public void preloadAnimations(Class<?> resourceBase) {
+        for (Animation animation : values()) {
+            animation.preloadImages(resourceBase);
         }
     }
 
-    public String getDefaultAnimationId() {
-        return defaultAnimationId;
-    }
-
-    public Class<?> getResourceBase() {
-        return resourceBase;
+    public String getDefaultId() {
+        return defaultId;
     }
 }
