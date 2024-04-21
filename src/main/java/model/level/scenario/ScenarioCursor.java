@@ -4,7 +4,7 @@ import model.ingame.entity.IEnemy.EnemyFactory;
 import model.ingame.entity.IEntity.EntityFactory;
 import model.ingame.weapon.WeaponFactory;
 import util.IUpdateable;
-import util.TimeIntervalMappingsCursor;
+import util.IntervalMapCursor;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Queue;
 
 public class ScenarioCursor implements IUpdateable {
     private static final double TICK_LENGTH = 0.1; // Try to spawn every 0.1 seconds
-    private final TimeIntervalMappingsCursor<GameContext> cursor;
+    private final IntervalMapCursor<Double, GameContext> cursor;
     private final WeaponGenerator weaponGenerator = new WeaponGenerator(TICK_LENGTH);
     private final EnemyGenerator enemyGenerator = new EnemyGenerator(TICK_LENGTH);
     private final MiscEntityGenerator miscEntityGenerator = new MiscEntityGenerator(TICK_LENGTH);
@@ -24,13 +24,13 @@ public class ScenarioCursor implements IUpdateable {
     private GameContext currentContext;
 
     public ScenarioCursor(Scenario scenario) {
-        cursor = new TimeIntervalMappingsCursor<>(scenario);
+        cursor = new IntervalMapCursor<>(scenario, Double::sum);
         this.currentContext = cursor.getCurrentValue();
     }
 
     @Override
     public void update(double delta) {
-        cursor.advanceTime(delta);
+        cursor.advance(delta);
         if (currentContext != cursor.getCurrentValue()) {
             currentContext = cursor.getCurrentValue();
             if (currentContext instanceof GameContext.FixedSpawnRateContext fixedSpawnRateContext) {

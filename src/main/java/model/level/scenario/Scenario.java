@@ -1,9 +1,10 @@
 package model.level.scenario;
 
-import util.TimeIntervalMappings;
+import util.EndReachedBehaviour;
+import util.IntervalMap;
 
-public class Scenario extends TimeIntervalMappings<GameContext> {
+public class Scenario extends IntervalMap<Double, GameContext> {
     public Scenario(EndReachedBehaviour endReachedBehaviour) {
-        super(endReachedBehaviour);
+        super(0., Double::sum, endReachedBehaviour);
     }
 }
