@@ -1,51 +1,45 @@
 package gui.animations;
 
 import gui.ImageCache;
-import util.TimeIntervalMappingsCursor;
+import util.IUpdateable;
 
 import java.awt.image.BufferedImage;
 
-public class AnimationManager {
+public class AnimationManager implements IUpdateable {
     private final AnimationGroup animationGroup;
+    private final Class<?> resourceBase;
     private Animation currentAnimation;
+    private AnimationCursor cursor;
 
-    private TimeIntervalMappingsCursor<String> cursor = null;
-
-    public AnimationManager(AnimationGroup animationGroup) {
+    public AnimationManager(AnimationGroup animationGroup, Class<?> resourceBase) {
         this.animationGroup = animationGroup;
-        switchToAnimation(animationGroup.getDefaultAnimationId());
+        this.resourceBase = resourceBase;
+        switchAnimation(animationGroup.getDefaultId());
     }
 
-    public void preloadAnimations() {
-        animationGroup.preloadAnimations();
-    }
-
-    private String getCurrentImageName() {
-        return cursor.getCurrentValue();
+    public void switchAnimation(String id) {
+        if (currentAnimation == null || !currentAnimation.getId().equals(id)) {
+            currentAnimation = animationGroup.get(id);
+            if (currentAnimation == null) {
+                throw new IllegalArgumentException("Animation not found: " + id);
+            }
+            cursor = new AnimationCursor(currentAnimation);
+        }
     }
 
     public BufferedImage getCurrentImage() {
-        return ImageCache.loadImage(getCurrentImageName(), animationGroup.getResourceBase());
-    }
-
-    public void switchToAnimation(String animationName) {
-        if (currentAnimation == null || !currentAnimation.getId().equals(animationName)) {
-            currentAnimation = animationGroup.get(animationName);
-            if (currentAnimation == null) throw new IllegalArgumentException("Animation not found: " + animationName);
-            cursor = new TimeIntervalMappingsCursor<>(currentAnimation);
-        }
+        return ImageCache.loadImage(cursor.getCurrentValue(), resourceBase);
     }
 
     public String getCurrentAnimationId() {
         return currentAnimation.getId();
     }
 
-    public BufferedImage nextImage(double deltaT) {
-        cursor.advanceTime(deltaT);
-        if (getCurrentImage() == null) {// Ended animation
-            switchToAnimation(animationGroup.getDefaultAnimationId());
-            return nextImage(0);
+    @Override
+    public void update(double delta) {
+        cursor.advance(delta);
+        if (getCurrentImage() == null) { // Ended animation
+            switchAnimation(animationGroup.getDefaultId());
         }
-        return getCurrentImage();
     }
 }

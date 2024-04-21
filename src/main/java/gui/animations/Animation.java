@@ -1,23 +1,24 @@
 package gui.animations;
 
 import gui.ImageCache;
-import util.TimeIntervalMappings;
+import util.EndReachedBehaviour;
+import util.IntervalMap;
 
-public class Animation extends TimeIntervalMappings<String> {
-    private final String animationId;
+public class Animation extends IntervalMap<Double, String> {
+    private final String id;
 
-    public Animation(EndReachedBehaviour endReachedBehaviour, String animationId) {
-        super(endReachedBehaviour);
-        this.animationId = animationId;
+    public Animation(EndReachedBehaviour endReachedBehaviour, String id) {
+        super(0., (a, b) -> a % b, endReachedBehaviour);
+        this.id = id;
+    }
+
+    public void preloadImages(Class<?> resourceBase) {
+        for (String imageName : values()) {
+            ImageCache.loadImage(imageName, resourceBase);
+        }
     }
 
     public String getId() {
-        return animationId;
-    }
-
-    public void loadImages(Class<?> resourceBase) {
-        for (String imageName : this.values()) {
-            ImageCache.loadImage(imageName, resourceBase);
-        }
+        return id;
     }
 }

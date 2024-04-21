@@ -1,5 +1,11 @@
 package gui.ingame;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.swing.JPanel;
+
 import gui.ScaleLayout;
 import gui.ScaleSupplier;
 import gui.ingame.entity.AbstractEntityRenderer;
@@ -7,11 +13,6 @@ import gui.ingame.entity.EntityRendererFactory;
 import model.ingame.entity.IEntity;
 import util.IUpdateable;
 import util.SetToMapSynchronisator;
-
-import javax.swing.*;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 public class EntitiesLayer extends JPanel implements IUpdateable {

@@ -1,10 +1,10 @@
 package gui.ingame.entity;
 
+import javax.swing.JComponent;
+
 import gui.IScalableComponent;
 import model.ingame.Coordinates;
 import model.ingame.entity.EntityModel;
-
-import javax.swing.*;
 
 public abstract class AbstractEntityRenderer extends JComponent implements IScalableComponent {
     protected final EntityModel entityModel;
