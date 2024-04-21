@@ -1,12 +1,12 @@
 package model.ingame.entity;
 
-import java.util.List;
-import java.util.Random;
-
 import model.ingame.Coordinates;
 import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
+
+import java.util.List;
+import java.util.Random;
 
 public class RandomSpawnerModel {
     private final ModelTimer spawnTimer;
@@ -37,7 +37,7 @@ public class RandomSpawnerModel {
             }
 
             // Check if the current tile and its surrounding tiles are walkable
-        } while (!isTileAndSurroundingsWalkable((int) x, (int) y));
+        } while (!isTileAndSurroundingsWalkable(x, y));
 
         return new Coordinates(x, y);
     }

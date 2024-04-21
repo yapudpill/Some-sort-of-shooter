@@ -5,7 +5,7 @@ import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
 
-public class ExplodingEnemy extends CreatureModel implements IEffectEntity{
+public class ExplodingEnemy extends CreatureModel implements IEffectEntity, IEnemy {
     private static FloodFillPathFinder pathFinder;
     private final PlayerModel player;
 

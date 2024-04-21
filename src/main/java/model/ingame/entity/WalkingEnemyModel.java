@@ -6,7 +6,7 @@ import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.KnifeWeapon;
 
-public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
+public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity, IEnemy {
     private final PlayerModel player;
     private static FloodFillPathFinder pathFinder;
 

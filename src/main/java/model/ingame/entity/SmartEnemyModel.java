@@ -4,13 +4,13 @@ import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.physics.MovementHandler;
-import model.ingame.weapon.PistolModel;
 import model.ingame.entity.behavior.StandardBehavior;
+import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.IProjectile;
+import model.ingame.weapon.PistolModel;
 import model.ingame.weapon.ProjectileWeaponModel;
 
-public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
+public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity, IEnemy {
     private final PlayerModel player;
     private static FloodFillPathFinder pathFinder;
     private ModelTimer shootingTimer;
