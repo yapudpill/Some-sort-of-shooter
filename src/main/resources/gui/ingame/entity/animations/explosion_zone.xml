@@ -1,0 +1,7 @@
+<animationGroup default="explosion">
+    <animation endReachedBehaviour="INFINITE" id="explosion">
+        <frame time="0.3" path="sprites/explosion/explosion1.png"/>
+        <frame time="0.6" path="sprites/explosion/explosion2.png"/>
+        <frame time="0.8" path="sprites/explosion/explosion3.png"/>
+    </animation>
+</animationGroup>

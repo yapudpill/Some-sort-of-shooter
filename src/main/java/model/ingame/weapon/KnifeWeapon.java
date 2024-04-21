@@ -3,8 +3,8 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.CombatEntityModel;
-import model.ingame.entity.KnifeZoneEntity;
 import model.ingame.entity.ICombatEntity;
+import model.ingame.entity.KnifeZoneEntity;
 
 public class KnifeWeapon extends WeaponModel {
     private static final double DMG_ZONE_ATTACKER_CENTER_SHIFT = 0.5;

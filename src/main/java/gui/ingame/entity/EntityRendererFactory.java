@@ -20,19 +20,21 @@ import model.ingame.weapon.RubberProjectile;
 public class EntityRendererFactory {
     public static AbstractEntityRenderer make(IEntity entity) {
         return switch (entity) {
-            case PlayerModel e       -> new VulnerableRenderer(e, "sprites/player1/playerRightShoot.png");
-            case WalkingEnemyModel e -> new VulnerableRenderer(e, "sprites/EyeBallEnemy.png");
-            case SmartEnemyModel e   -> new VulnerableRenderer(e, "sprites/Brain_of_Cthulhu.png");
-            case ExplodingEnemy e    -> new VulnerableRenderer(e, "sprites/bombman.png");
-            case BreakableBarrier e  -> new VulnerableRenderer(e, "sprites/breakablebarrier.png");
+            case PlayerModel e -> new PlayerRenderer(e);
+
+            case WalkingEnemyModel e -> new VulnerableSpriteRenderer(e, "sprites/EyeBallEnemy.png");
+            case SmartEnemyModel e   -> new VulnerableSpriteRenderer(e, "sprites/Brain_of_Cthulhu.png");
+            case ExplodingEnemy e    -> new VulnerableSpriteRenderer(e, "sprites/bombman.png");
+            case BreakableBarrier e  -> new VulnerableSpriteRenderer(e, "sprites/breakablebarrier.png");
 
             case RocketProjectileModel e -> new CircleRenderer(e, Color.RED);
             case RubberProjectile e      -> new CircleRenderer(e, Color.BLUE);
             case Projectile e            -> new CircleRenderer(e, Color.BLACK);
 
-            case ExplosionZoneEntity e -> new RectangleRenderer(e, Color.ORANGE);
-            case KnifeZoneEntity e     -> new RectangleRenderer(e, Color.RED);
-            case SimpleTrap e          -> new RectangleRenderer(e, Color.BLACK);
+            case ExplosionZoneEntity e -> new AnimatedRenderer(e, "animations/explosion_zone.xml");
+            case KnifeZoneEntity e     -> new AnimatedRenderer(e, "animations/knife_zone.xml", e.getDirection()::getAngle);
+
+            case SimpleTrap e -> new RectangleRenderer(e, Color.BLACK);
 
             case FirstAidKit e  -> new SpriteRenderer(e, "sprites/firstaid.png");
             case WeaponEntity e -> new SpriteRenderer(e, String.format("sprites/weapon/%s.png", e.getWeapon().getIdentifier()));

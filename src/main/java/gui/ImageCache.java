@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ImageCache {
+
     public static class ImageNotFoundException extends RuntimeException {
         public ImageNotFoundException(String message) {
             super(message);
@@ -16,30 +17,22 @@ public class ImageCache {
 
     private static final Map<String, BufferedImage> cache = new HashMap<>();
 
-    public static BufferedImage loadImage(String path, Class<?> ressourceBase) {
+    public static BufferedImage loadImage(String path, Class<?> resourceBase) {
         if (cache.get(path) != null) {
             return cache.get(path);
-        } else {
-            URL url = ressourceBase.getResource(path);
-            if (url == null) {
-                throw new ImageNotFoundException(String.format("Image resource %s missing !", path));
-            }
-            BufferedImage image = null;
-            try {
-                image = ImageIO.read(url);
-                cache.put(path, image);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            return image;
         }
-    }
 
-    public static void clear() {
-        cache.clear();
-    }
+        URL url = resourceBase.getResource(path);
+        if (url == null) {
+            throw new ImageNotFoundException(String.format("Image resource %s missing !", path));
+        }
 
-    public static BufferedImage loadImage(String path) {
-        return loadImage(path, ImageCache.class);
+        try {
+            BufferedImage image = ImageIO.read(url);
+            cache.put(path, image);
+            return image;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -23,8 +23,16 @@ public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable
         });
     }
 
+    // Used for rendering
+    public Coordinates getDirection() {
+        if (attacker.getMovementHandler().isMoving()) {
+            return attacker.getMovementHandler().getDirectionVector().normalize();
+        }
+        return attacker.getWeapon().getDirectionVector().normalize();
+    }
+
     @Override
     public void update(double delta) {
-        setPos(attacker.getPos().add(attacker.getMovementHandler().getDirectionVector().multiply(shift)));
+        setPos(attacker.getPos().add(getDirection().multiply(shift)));
     }
 }

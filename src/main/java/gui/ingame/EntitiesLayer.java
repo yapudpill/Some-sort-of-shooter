@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 import gui.ScaleLayout;
 import gui.ingame.entity.AbstractEntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
-import util.IUpdateable;
 import model.ingame.entity.IEntity;
+import util.IUpdateable;
 import util.SetToMapSynchronisator;
 
 public class EntitiesLayer extends JPanel implements IUpdateable {
@@ -44,6 +44,9 @@ public class EntitiesLayer extends JPanel implements IUpdateable {
                 modelRendererMap,
                 this::addEntityRenderer,
                 this::removeEntityRenderer);
+        for (AbstractEntityRenderer renderer : modelRendererMap.values()) {
+            if (renderer instanceof IUpdateable updateableRenderer) updateableRenderer.update(delta);
+        }
 
         // Repaint and do layout
         repaint();

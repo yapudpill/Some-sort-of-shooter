@@ -4,6 +4,9 @@ package util;
  * The Coordinates class is used to represent a point/vector in a 2D plane.
  */
 public record Coordinates(double x, double y) {
+    public static enum CardinalDirection {
+        UP, DOWN, LEFT, RIGHT
+    }
 
     // Constants for the four cardinal directions.
     public static final Coordinates UP = new Coordinates(0, -1);
@@ -60,5 +63,15 @@ public record Coordinates(double x, double y) {
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
+    }
+
+    public CardinalDirection getCardinalDirection() {
+        if (Math.abs(x) > Math.abs(y)) {
+            if (x > 0) return CardinalDirection.RIGHT;
+            else return CardinalDirection.LEFT;
+        } else {
+            if (y > 0) return CardinalDirection.DOWN;
+            else return CardinalDirection.UP;
+        }
     }
 }
