@@ -4,7 +4,7 @@ import model.ingame.GameModel;
 import util.Coordinates;
 
 public abstract class AbstractTrapEntity extends CollisionEntityModel {
-    public AbstractTrapEntity(Coordinates pos, double width, double height, GameModel gameModel, ICombatEntity owner) {
+    AbstractTrapEntity(Coordinates pos, double width, double height, GameModel gameModel, ICombatEntity owner) {
         super(pos, width, height, gameModel);
         addCollisionListener(e -> {
             for (ICollisionEntity entity: e.getInvolvedEntitiesList()) {

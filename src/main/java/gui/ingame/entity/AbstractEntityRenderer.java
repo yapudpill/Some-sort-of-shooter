@@ -9,7 +9,7 @@ import util.Coordinates;
 public abstract class AbstractEntityRenderer extends JComponent implements IScalableComponent {
     protected final IEntity entity;
 
-    public AbstractEntityRenderer(IEntity entity) {
+    AbstractEntityRenderer(IEntity entity) {
         this.entity = entity;
     }
 

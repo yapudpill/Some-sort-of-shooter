@@ -5,10 +5,10 @@ import java.awt.Graphics;
 
 import model.ingame.entity.IEntity;
 
-public class CircleRenderer extends AbstractEntityRenderer {
+class CircleRenderer extends AbstractEntityRenderer {
     private final Color color;
 
-    public CircleRenderer(IEntity entity, Color color) {
+    CircleRenderer(IEntity entity, Color color) {
         super(entity);
         this.color = color;
     }

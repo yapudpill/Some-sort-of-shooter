@@ -14,7 +14,7 @@ import util.Resource;
 public class MainController {
     private final MainFrame mainFrame;
 
-    public MainController() {
+    private MainController() {
         mainFrame = new MainFrame();
         loadHomeMenu();
     }

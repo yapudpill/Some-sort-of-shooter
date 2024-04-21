@@ -28,7 +28,7 @@ public class FloodFillPathFinder {
         this.gameModel = gameModel;
     }
 
-    public void fill() {
+    void fill() {
         nodeGrid.reset();
         Queue<Coordinates> queue = new LinkedList<>();
         for (Coordinates pos : targets) {
@@ -78,7 +78,7 @@ public class FloodFillPathFinder {
                 && gameModel.getMapModel().getTile(x, y).canEnter(entityFinder);
     }
 
-    public Coordinates getLowestNodeAround(int x, int y) {
+    Coordinates getLowestNodeAround(int x, int y) {
         int lowestValue = Integer.MAX_VALUE;
         Coordinates lowestPos = new Coordinates(x, y);
         // use for loop
@@ -106,35 +106,35 @@ public class FloodFillPathFinder {
             if (pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates(lowestCoord.x() - pos.x(), lowestCoord.y() - pos.y()));
     }
 
-    public void setTargets(List<Coordinates> targets) {
+    void setTargets(List<Coordinates> targets) {
         this.targets = targets;
     }
 
-    public void setTarget(Coordinates target) {
+    void setTarget(Coordinates target) {
         this.targets = List.of(target);
     }
 
-    public List<Coordinates> getTargets() {
+    List<Coordinates> getTargets() {
         return targets;
     }
 
-    public void start() {
+    void start() {
         updateTimer.start();
     }
 
-    public void stop() {
+    void stop() {
         updateTimer.stop();
     }
 
-    public boolean isRunning() {
+    boolean isRunning() {
         return updateTimer.isRunning();
     }
 
-    public void reachTarget(boolean reachTarget) {
+    void reachTarget(boolean reachTarget) {
         this.reachTarget = reachTarget;
     }
 
-    public boolean doesReachTarget() {
+    boolean doesReachTarget() {
         return reachTarget;
     }
 

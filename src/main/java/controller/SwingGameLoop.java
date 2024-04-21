@@ -11,23 +11,23 @@ import util.IUpdateable;
  * <p>
  * For example, to achieve a frame rate of 60 frames per second, set FRAME_TIME to 16.
  */
-public class SwingGameLoop extends GameLoop {
+class SwingGameLoop extends GameLoop {
     private static final int FRAME_TIME = 16; // ms
 
     private final Timer updateTimer;
 
-    public SwingGameLoop(IUpdateable updater) {
+    SwingGameLoop(IUpdateable updater) {
         super(updater);
         updateTimer = new Timer(FRAME_TIME, e -> updater.update(FRAME_TIME / 1000.));
     }
 
     @Override
-    public void start() {
+    void start() {
         updateTimer.start();
     }
 
     @Override
-    public void stop() {
+    void stop() {
         updateTimer.stop();
     }
 }

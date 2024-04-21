@@ -41,7 +41,7 @@ public class MovementHandler implements IUpdateable {
         return isMoving;
     }
 
-    public void setMoving(boolean moving) {
+    void setMoving(boolean moving) {
         isMoving = moving;
     }
 }

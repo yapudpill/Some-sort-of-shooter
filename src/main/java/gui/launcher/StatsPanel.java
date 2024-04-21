@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 
 import model.ingame.Statistics;
 
-public class StatsPanel extends JPanel {
+class StatsPanel extends JPanel {
 
-    public StatsPanel(Statistics stats) {
+    StatsPanel(Statistics stats) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 

@@ -19,7 +19,7 @@ public class IntervalMap<K extends Comparable<K>, V> extends TreeMap<K, V> {
         this.endReachedBehaviour = endReachedBehaviour;
     }
 
-    public K loop(K delta) {
+    K loop(K delta) {
         return mod.apply(delta, lastKey());
     }
 

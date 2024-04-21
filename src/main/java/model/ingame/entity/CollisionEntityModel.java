@@ -16,7 +16,7 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     private final List<BlockedMovementListener> blockedMovementListeners = new ArrayList<>();
     private final Rectangle2D collisionBox;
 
-    public CollisionEntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
+    protected CollisionEntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.collisionBox = new Rectangle2D.Double(pos.x(), pos.y(), width, height);
         setPos(pos);

@@ -5,10 +5,10 @@ import java.awt.Graphics;
 
 import model.ingame.entity.IEntity;
 
-public class RectangleRenderer extends AbstractEntityRenderer {
+class RectangleRenderer extends AbstractEntityRenderer {
     private final Color color;
 
-    public RectangleRenderer(IEntity entity, Color color) {
+    RectangleRenderer(IEntity entity, Color color) {
         super(entity);
         this.color = color;
     }

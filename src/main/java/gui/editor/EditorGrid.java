@@ -13,18 +13,18 @@ import gui.ingame.tile.TileRenderer;
 import model.level.TileModel;
 import util.Pair;
 
-public class EditorGrid extends JPanel {
+class EditorGrid extends JPanel {
     private final EditorModel model;
     private final GridLayout layout;
 
-    public EditorGrid(EditorModel model) {
+    EditorGrid(EditorModel model) {
         this.model = model;
         layout = new GridLayout(1, 1, 1, 1);
         setLayout(layout);
         reset();
     }
 
-    public void reset() {
+    void reset() {
         int rows = model.getRows();
         int cols = model.getCols();
 

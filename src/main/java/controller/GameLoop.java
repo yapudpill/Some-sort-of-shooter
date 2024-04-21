@@ -10,10 +10,10 @@ import util.IUpdateable;
  * for invoking all other update methods on the model but also on other needed
  * components (e.g. the view).
  */
-public abstract class GameLoop {
-    protected final IUpdateable updater;
+abstract class GameLoop {
+    final IUpdateable updater;
 
-    public GameLoop(IUpdateable updater) {
+    GameLoop(IUpdateable updater) {
         this.updater = updater;
     }
 

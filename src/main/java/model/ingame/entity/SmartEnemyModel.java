@@ -17,7 +17,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     private ModelTimer shootingTimer;
     private Projectile projectileInstance;
 
-    public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
+    SmartEnemyModel(Coordinates pos, GameModel gameModel) {
         super(pos, 50, 0.8, 0.8, gameModel);
         player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
@@ -50,7 +50,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
         super.update(delta);
     }
 
-    public void aim() {
+    private void aim() {
         PistolModel pistol = (PistolModel) getWeapon();
         pistol.setDirectionVector(new Coordinates(player.getPos().x() - pos.x(), player.getPos().y() - pos.y()));
     }

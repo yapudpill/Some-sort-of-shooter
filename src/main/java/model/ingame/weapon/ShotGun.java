@@ -4,9 +4,9 @@ import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.DamageListener;
 
-public class ShotGun extends ProjectileWeaponModel {
+class ShotGun extends ProjectileWeaponModel {
 
-    public ShotGun(ICombatEntity owner, GameModel gameModel) {
+    ShotGun(ICombatEntity owner, GameModel gameModel) {
         super("Shotgun", "shotgun", gameModel, owner, 60);
     }
 

@@ -11,7 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class FootprintRenderer extends JComponent implements IScalableComponent, IUpdateable {
+class FootprintRenderer extends JComponent implements IScalableComponent, IUpdateable {
     private static final double FOOTPRINT_SIZE = 0.5;
     private static final double FOOTPRINT_LIFETIME = 0.8;
 
@@ -19,13 +19,13 @@ public class FootprintRenderer extends JComponent implements IScalableComponent,
     private final Coordinates pos;
     private double age;
 
-    public FootprintRenderer(Coordinates entityDirection, Coordinates entityPos) {
+    FootprintRenderer(Coordinates entityDirection, Coordinates entityPos) {
         this.angle = entityDirection.getAngle();
         Coordinates shiftDirection = new Coordinates(-FOOTPRINT_SIZE / 2, -FOOTPRINT_SIZE / 2);
         this.pos = entityPos.add(shiftDirection);
     }
 
-    public boolean hasFaded() {
+    boolean hasFaded() {
         return age >= FOOTPRINT_LIFETIME;
     }
 

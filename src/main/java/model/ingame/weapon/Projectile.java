@@ -14,7 +14,7 @@ public abstract class Projectile extends CollisionEntityModel implements IMobile
     protected final MovementHandler movementHandler;
     protected boolean active;
 
-    public Projectile(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage, GameModel gameModel) {
+    Projectile(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.damage = damage;
         this.sourceWeapon = source;

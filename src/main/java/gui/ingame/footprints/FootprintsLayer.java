@@ -59,7 +59,7 @@ public class FootprintsLayer extends JPanel implements IUpdateable {
         }
     }
 
-    public void removeFootprintSpawner(ICombatEntity iCombatEntity) {
+    void removeFootprintSpawner(ICombatEntity iCombatEntity) {
         combatEntitiesFootprintMap.remove(iCombatEntity);
     }
 }

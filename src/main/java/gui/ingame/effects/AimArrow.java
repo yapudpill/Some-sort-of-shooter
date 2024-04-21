@@ -12,10 +12,10 @@ import gui.IScalableComponent;
 import model.ingame.entity.ICombatEntity;
 import util.Coordinates;
 
-public class AimArrow extends JComponent implements IScalableComponent {
+class AimArrow extends JComponent implements IScalableComponent {
     private final ICombatEntity combatEntity;
 
-    public AimArrow(ICombatEntity combatEntity) {
+    AimArrow(ICombatEntity combatEntity) {
         this.combatEntity = combatEntity;
     }
 

@@ -10,18 +10,18 @@ import gui.animations.AnimationManager;
 import model.ingame.entity.IEntity;
 import util.IUpdateable;
 
-public class AnimatedRenderer extends AbstractEntityRenderer implements IUpdateable {
+class AnimatedRenderer extends AbstractEntityRenderer implements IUpdateable {
     protected final AnimationManager animationManager;
     protected final DoubleSupplier angle;
 
-    public AnimatedRenderer(IEntity entityModel, String path, DoubleSupplier angle) {
+    AnimatedRenderer(IEntity entityModel, String path, DoubleSupplier angle) {
         super(entityModel);
         AnimationGroup group = AnimationCache.loadAnimationGroup(path, getClass());
         this.animationManager = new AnimationManager(group, getClass());
         this.angle = angle;
     }
 
-    public AnimatedRenderer(IEntity entityModel, String path) {
+    AnimatedRenderer(IEntity entityModel, String path) {
         this(entityModel, path, () -> 0);
     }
 

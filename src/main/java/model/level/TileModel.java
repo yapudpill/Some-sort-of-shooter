@@ -11,7 +11,7 @@ public abstract class TileModel {
     protected final Set<ICollisionEntity> collidables = new CopyOnWriteArraySet<>();
     protected Set<Predicate<IEntity>> canEnterConditions = new CopyOnWriteArraySet<>();
 
-    public void applyEnterEffect(IEntity entity) {}
+    void applyEnterEffect(IEntity entity) {}
 
     public boolean canEnter(IEntity entity) {
         return canEnterConditions.stream().allMatch(condition -> condition.test(entity));
@@ -25,14 +25,14 @@ public abstract class TileModel {
         canEnterConditions.remove(condition);
     }
 
-    public void addCollidable(ICollisionEntity entity) {
+    void addCollidable(ICollisionEntity entity) {
         if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
         }
         collidables.add(entity);
     }
 
-    public void removeCollidable(ICollisionEntity entity) {
+    void removeCollidable(ICollisionEntity entity) {
         if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
         }
@@ -46,7 +46,7 @@ public abstract class TileModel {
     /**
      * For debug
      */
-    public void printCollidables() {
+    void printCollidables() {
         System.out.println(collidables);
     }
 }

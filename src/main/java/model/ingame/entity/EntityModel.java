@@ -4,12 +4,12 @@ import model.ingame.GameModel;
 import util.Coordinates;
 import util.IUpdateable;
 
-public abstract class EntityModel implements IEntity {
+abstract class EntityModel implements IEntity {
     protected GameModel gameModel;
     protected Coordinates pos;
     protected double width, height;
 
-    public EntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
+    EntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
         if (pos == null) {
             throw new IllegalArgumentException("Position cannot be null");
         }
@@ -19,7 +19,7 @@ public abstract class EntityModel implements IEntity {
         this.gameModel = gameModel;
     }
 
-    public void despawn() {
+    void despawn() {
         gameModel.removeEntity(this);
         if (this instanceof IUpdateable iUpdateable) {
             gameModel.detachAsUpdateable(iUpdateable);
@@ -34,10 +34,12 @@ public abstract class EntityModel implements IEntity {
         this.pos = pos;
     }
 
+    @Override
     public double getWidth() {
         return width;
     }
 
+    @Override
     public double getHeight() {
         return height;
     }

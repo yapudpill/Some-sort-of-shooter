@@ -14,7 +14,7 @@ public abstract class EntitySpawner implements IUpdateable {
     private final double cooldown;
     private double timeLeft;
 
-    public EntitySpawner(GameModel gameModel, double cooldown) {
+    protected EntitySpawner(GameModel gameModel, double cooldown) {
         this.gameModel = gameModel;
         this.mapModel = gameModel.getMapModel();
         this.cooldown = cooldown;

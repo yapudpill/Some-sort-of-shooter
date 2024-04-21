@@ -5,12 +5,12 @@ import model.ingame.physics.MovementHandler;
 import model.ingame.physics.SlidingListener;
 import util.Coordinates;
 
-public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity {
+abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity {
     protected MovementHandler movementHandler;
     protected int health;
     protected int maxHealth;
 
-    public CreatureModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel) {
+    CreatureModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
@@ -59,6 +59,6 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     @Override
     public void despawn() {
         super.despawn();
-        this.setHealth(0);
+        setHealth(0);
     }
 }

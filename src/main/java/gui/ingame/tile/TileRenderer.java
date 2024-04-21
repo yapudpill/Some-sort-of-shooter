@@ -10,7 +10,7 @@ import gui.ImageCache;
 public class TileRenderer extends JPanel {
     private final Image image;
 
-    public TileRenderer(String path) {
+    TileRenderer(String path) {
         image = ImageCache.loadImage(path, getClass());
     }
 

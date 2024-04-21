@@ -4,9 +4,9 @@ import java.awt.Graphics;
 
 import model.ingame.entity.IVulnerableEntity;
 
-public class VulnerableSpriteRenderer extends SpriteRenderer {
+class VulnerableSpriteRenderer extends SpriteRenderer {
 
-    public VulnerableSpriteRenderer(IVulnerableEntity entity, String path) {
+    VulnerableSpriteRenderer(IVulnerableEntity entity, String path) {
         super(entity, path);
     }
 

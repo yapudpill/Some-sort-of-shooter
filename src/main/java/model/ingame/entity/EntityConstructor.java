@@ -4,6 +4,6 @@ import model.ingame.GameModel;
 import util.Coordinates;
 
 @FunctionalInterface
-public interface EntityConstructor {
+interface EntityConstructor {
     IEntity makeEntity(Coordinates pos, GameModel gameModel);
 }

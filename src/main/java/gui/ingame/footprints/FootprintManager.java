@@ -7,7 +7,7 @@ import model.ingame.entity.ICombatEntity;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FootprintManager implements IUpdateable {
+class FootprintManager implements IUpdateable {
     private static final double FOOTPRINT_DISTANCE = 0.7;
 
     private final List<FootprintRenderer> placedFootprints = new LinkedList<>(); // LinkedList since we only act on the first and last elements
@@ -16,7 +16,7 @@ public class FootprintManager implements IUpdateable {
     private Coordinates lastPos;
     private boolean stopped = false;
 
-    public FootprintManager(FootprintsLayer footprintsLayer, ICombatEntity entity) {
+    FootprintManager(FootprintsLayer footprintsLayer, ICombatEntity entity) {
         this.footprintsLayer = footprintsLayer;
         this.entity = entity;
         this.lastPos = entity.getPos();
@@ -41,7 +41,7 @@ public class FootprintManager implements IUpdateable {
         }
     }
 
-    public void stop() {
+    void stop() {
         stopped = true;
     }
 

@@ -1,6 +1,5 @@
 package model.ingame;
 
-import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
@@ -85,10 +84,6 @@ public class GameModel implements IUpdateable {
 
     public PlayerModel getPlayer() {
         return player;
-    }
-
-    public Collection<IUpdateable> getUpdateables() {
-        return updateables;
     }
 
     public PhysicsEngineModel getPhysicsEngine() {

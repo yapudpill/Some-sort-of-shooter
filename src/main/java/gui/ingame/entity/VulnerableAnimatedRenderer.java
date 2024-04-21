@@ -5,13 +5,13 @@ import java.util.function.DoubleSupplier;
 
 import model.ingame.entity.IVulnerableEntity;
 
-public class VulnerableAnimatedRenderer extends AnimatedRenderer {
+class VulnerableAnimatedRenderer extends AnimatedRenderer {
 
-    public VulnerableAnimatedRenderer(IVulnerableEntity entity, String path, DoubleSupplier angle) {
+    VulnerableAnimatedRenderer(IVulnerableEntity entity, String path, DoubleSupplier angle) {
         super(entity, path, angle);
     }
 
-    public VulnerableAnimatedRenderer(IVulnerableEntity entity, String path) {
+    VulnerableAnimatedRenderer(IVulnerableEntity entity, String path) {
         super(entity, path);
     }
 

@@ -7,7 +7,7 @@ public class Statistics {
     public int killedEnemies, nbAttacks;
     public double survivedTime;
 
-    public Statistics(Resource map) {
+    Statistics(Resource map) {
         this.map = map;
     }
 }

@@ -5,18 +5,18 @@ import java.util.TimerTask;
 
 import util.IUpdateable;
 
-public class ModelGameLoop extends GameLoop {
+class ModelGameLoop extends GameLoop {
     private static final int FRAME_TIME = 16; // ms
 
     private final Timer updateTimer;
 
-    public ModelGameLoop(IUpdateable updater) {
+    ModelGameLoop(IUpdateable updater) {
         super(updater);
         updateTimer = new Timer();
     }
 
     @Override
-    public void start() {
+    void start() {
         updateTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -26,7 +26,7 @@ public class ModelGameLoop extends GameLoop {
     }
 
     @Override
-    public void stop() {
+    void stop() {
         updateTimer.cancel();
     }
 }

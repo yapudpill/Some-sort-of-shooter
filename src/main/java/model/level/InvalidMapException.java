@@ -2,7 +2,7 @@ package model.level;
 
 public class InvalidMapException extends Exception {
 
-    public InvalidMapException(String message) {
+    InvalidMapException(String message) {
         super(message);
     }
 }

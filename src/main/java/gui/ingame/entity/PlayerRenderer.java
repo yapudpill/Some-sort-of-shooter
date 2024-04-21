@@ -2,9 +2,9 @@ package gui.ingame.entity;
 
 import model.ingame.entity.PlayerModel;
 
-public class PlayerRenderer extends VulnerableAnimatedRenderer {
+class PlayerRenderer extends VulnerableAnimatedRenderer {
 
-    public PlayerRenderer(PlayerModel entityModel) {
+    PlayerRenderer(PlayerModel entityModel) {
         super(entityModel, "animation_groups/player1.xml");
     }
 

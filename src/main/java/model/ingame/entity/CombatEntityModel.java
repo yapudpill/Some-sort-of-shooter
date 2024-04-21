@@ -7,7 +7,7 @@ import util.Coordinates;
 public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity {
     protected WeaponModel weapon;
 
-    public CombatEntityModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel) {
+    CombatEntityModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel) {
         super(pos, maxHealth, width, height, gameModel);
         addCollisionListener(e -> {
             for (IEntity entity : e.getInvolvedEntitiesList()) {

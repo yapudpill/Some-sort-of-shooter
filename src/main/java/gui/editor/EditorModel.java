@@ -13,7 +13,7 @@ import model.level.tiles.SpawnTileModel;
 import util.Pair;
 import util.Resource;
 
-public class EditorModel {
+class EditorModel {
     // The first character is considered to be the default tile
     private static final char[] possibleChars = { ' ', '#', 'V' };
     private static final Map<Character, Integer> indexes = new HashMap<>();
@@ -30,13 +30,13 @@ public class EditorModel {
     private char[][] charGrid;
     private TileModel[][] tileGrid;
 
-    public EditorModel(int rows, int cols) {
+    EditorModel(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         reset();
     }
 
-    public void reset() {
+    void reset() {
         spawn = null;
         charGrid = new char[rows][cols];
         tileGrid = new TileModel[rows][cols];
@@ -50,7 +50,7 @@ public class EditorModel {
         }
     }
 
-    public void nextType(int x, int y) {
+    void nextType(int x, int y) {
         if (spawn != null && spawn.equals(x, y)) {
             spawn = null;
         }
@@ -58,7 +58,7 @@ public class EditorModel {
         updateSquare(x, y, possibleChars[newIndex]);
     }
 
-    public void prevType(int x, int y) {
+    void prevType(int x, int y) {
         if (spawn != null && spawn.equals(x, y)) {
             spawn = null;
         }
@@ -66,7 +66,7 @@ public class EditorModel {
         updateSquare(x, y, possibleChars[newIndex]);
     }
 
-    public void setSpawn(int x, int y) {
+    void setSpawn(int x, int y) {
         if (spawn != null) {
             nextType(spawn.first(), spawn.second());
         }
@@ -79,7 +79,7 @@ public class EditorModel {
         tileGrid[y][x] = MapModel.convertChar(newChar);
     }
 
-    public void readFile(Resource map) throws InvalidMapException {
+    void readFile(Resource map) throws InvalidMapException {
         charGrid = MapModel.parseMap(map);
         rows = charGrid.length;
         cols = charGrid[0].length;
@@ -96,7 +96,7 @@ public class EditorModel {
         }
     }
 
-    public void writeFile(File f) throws IOException {
+    void writeFile(File f) throws IOException {
         if (!f.exists()) {
             f.createNewFile();
         }
@@ -118,15 +118,15 @@ public class EditorModel {
         out.close();
     }
 
-    public TileModel getTile(int x, int y) {
+    TileModel getTile(int x, int y) {
         return tileGrid[y][x];
     }
 
-    public int getRows() {
+    int getRows() {
         return rows;
     }
 
-    public int getCols() {
+    int getCols() {
         return cols;
     }
 
@@ -134,14 +134,14 @@ public class EditorModel {
         return spawn;
     }
 
-    public void setRows(int rows) {
+    void setRows(int rows) {
         if (this.rows != rows) {
             this.rows = rows;
             reset();
         }
     }
 
-    public void setCols(int cols) {
+    void setCols(int cols) {
         if (this.cols != cols) {
             this.cols = cols;
             reset();

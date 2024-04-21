@@ -4,10 +4,10 @@ import model.ingame.GameModel;
 import model.ingame.entity.AbstractTrapEntity;
 import model.ingame.entity.ICombatEntity;
 
-public abstract class AbstractTrapPlacer extends WeaponModel {
+abstract class AbstractTrapPlacer extends WeaponModel {
     protected int trapCount;
 
-    public AbstractTrapPlacer(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown, int trapCount) {
+    AbstractTrapPlacer(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown, int trapCount) {
         super(name, identifier, gameModel, owner, coolDown);
         this.trapCount = trapCount;
     }

@@ -6,10 +6,10 @@ import java.awt.Image;
 import gui.ImageCache;
 import model.ingame.entity.IEntity;
 
-public class SpriteRenderer extends AbstractEntityRenderer {
+class SpriteRenderer extends AbstractEntityRenderer {
     private final Image image;
 
-    public SpriteRenderer(IEntity entity, String path) {
+    SpriteRenderer(IEntity entity, String path) {
         super(entity);
         image = ImageCache.loadImage(path, getClass());
     }

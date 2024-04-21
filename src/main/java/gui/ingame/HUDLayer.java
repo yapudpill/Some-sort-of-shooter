@@ -12,7 +12,7 @@ import util.Coordinates;
 import util.IUpdateable;
 import model.ingame.entity.PlayerModel;
 
-public class HUDLayer extends JPanel implements IUpdateable {
+class HUDLayer extends JPanel implements IUpdateable {
     private static final String WEAPON_LABEL = "Current weapon: %s";
 
     private static class WeaponLabel extends JLabel implements IScalableComponent {
@@ -31,7 +31,7 @@ public class HUDLayer extends JPanel implements IUpdateable {
 
     private final PlayerModel playerModel;
 
-    public HUDLayer(PlayerModel playerModel, IntSupplier scaleSupplier) {
+    HUDLayer(PlayerModel playerModel, IntSupplier scaleSupplier) {
         this.setLayout(new ScaleLayout(scaleSupplier));
         this.setOpaque(false);
         this.playerModel = playerModel;

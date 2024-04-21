@@ -14,7 +14,7 @@ public abstract class WeaponModel {
     protected Coordinates directionVector;
     protected GameModel gameModel;
 
-    public WeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {
+    WeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {
         this.name = name;
         this.physicsEngine = gameModel.getPhysicsEngine();
         this.gameModel = gameModel;
@@ -25,7 +25,7 @@ public abstract class WeaponModel {
 
     public abstract boolean attack();
 
-    public ICombatEntity getOwner() {
+    ICombatEntity getOwner() {
         return owner;
     }
 
@@ -33,7 +33,7 @@ public abstract class WeaponModel {
         this.owner = owner;
     }
 
-    public boolean isCoolingDown() {
+    boolean isCoolingDown() {
         return coolDownTimer.isRunning();
     }
 

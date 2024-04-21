@@ -5,13 +5,13 @@ import model.ingame.GameModel;
 import model.level.InvalidMapException;
 import util.Resource;
 
-public class GameController {
+class GameController {
     final GameView gameView;
     private final GameModel gameModel;
     private final GameLoop modelLoop, viewLoop;
     private final MainController mainController;
 
-    public GameController(Resource map, MainController mainController) throws InvalidMapException {
+    GameController(Resource map, MainController mainController) throws InvalidMapException {
         this.mainController = mainController;
 
         gameModel = new GameModel(map);

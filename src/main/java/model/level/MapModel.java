@@ -182,13 +182,6 @@ public class MapModel {
         return canEnterAround(entity, (int) pos.x(), (int) pos.y());
     }
 
-    public boolean canEnterAt(IEntity entity, int x, int y) {
-        if (isOutOfBounds(x, y)) {
-            return false;
-        }
-        return tiles[y][x].canEnter(entity);
-    }
-
     public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity) {
         int x0 = (int) pos1.x();
         int y0 = (int) pos1.y();
@@ -207,8 +200,8 @@ public class MapModel {
         dy *= 2;
 
         for (; n > 0; --n) {
-            boolean notBeginnigOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
-            if (!canEnterAround(entity, x, y) && notBeginnigOrEnd) {
+            boolean notBeginningOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
+            if (!canEnterAround(entity, x, y) && notBeginningOrEnd) {
                 return true;
             }
 
@@ -223,6 +216,7 @@ public class MapModel {
         return false;
     }
 
+    // debug
     public void printCollideables() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[0].length; j++) {

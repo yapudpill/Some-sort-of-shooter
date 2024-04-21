@@ -38,7 +38,7 @@ public class PhysicsEngineModel implements IUpdateable {
      * @param entity the entity to check for collisions
      * @return a list of all entities that are colliding with the given entity
      */
-    public Set<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
+    private Set<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
         Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
         Set<ICollisionEntity> potentiallyCollided = map.getAllCollidablesAround(entity.getPos());
@@ -57,7 +57,7 @@ public class PhysicsEngineModel implements IUpdateable {
      * @param entity         the entity to move
      * @param movementVector the new position of the entity
      */
-    public void move(IMobileEntity entity, Coordinates movementVector) {
+    void move(IMobileEntity entity, Coordinates movementVector) {
         if (entity == null || (entity instanceof IVulnerableEntity vuln && vuln.isDead())) return;
         // Adjust movement to collide with walls
         BlockedMovementEvent blockedMovementEvent = handleBlockedMovement(entity, movementVector);
@@ -76,7 +76,7 @@ public class PhysicsEngineModel implements IUpdateable {
         entity.setPos(entity.getPos().add(adjustedMovement));
     }
 
-    public void checkForCollisions(ICollisionEntity entity) {
+    private void checkForCollisions(ICollisionEntity entity) {
         // check if the entity has collision listeners, and if it does, check if it is colliding with anything
         Set<ICollisionEntity> collidedEntities = getCollidedEntities(entity);
         if (!collidedEntities.isEmpty()) {
