@@ -1,0 +1,11 @@
+<animationGroup default="knife_slash">
+    <animation endReachedBehaviour="INFINITE" id="knife_slash">
+        <frame time="0.1" path="sprites/knife_slash/slash1.png"/>
+        <frame time="0.2" path="sprites/knife_slash/slash2.png"/>
+        <frame time="0.3" path="sprites/knife_slash/slash3.png"/>
+        <frame time="0.4" path="sprites/knife_slash/slash4.png"/>
+        <frame time="0.5" path="sprites/knife_slash/slash5.png"/>
+        <frame time="0.6" path="sprites/knife_slash/slash6.png"/>
+        <frame time="0.7" path="sprites/knife_slash/slash7.png"/>
+    </animation>
+</animationGroup>
