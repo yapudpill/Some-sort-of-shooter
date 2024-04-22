@@ -11,7 +11,7 @@ public class ShotGun extends ProjectileWeaponModel {
     }
 
     @Override
-    public IProjectile createProjectile() {
+    public Projectile createProjectile() {
         return new BulletsModel(owner.getPos(), this, gameModel) {{
             addCollisionListener(new DamageListener(damage, e -> despawn()));
         }};
@@ -19,8 +19,7 @@ public class ShotGun extends ProjectileWeaponModel {
 
     @Override
     public boolean attack() {
-        if(isCoolingDown()){
-            System.out.println("Weapon is cooling down. Cannot shoot.");
+        if (isCoolingDown()) {
             return false;
         }
         for (int i = 0; i < 5; i++) {

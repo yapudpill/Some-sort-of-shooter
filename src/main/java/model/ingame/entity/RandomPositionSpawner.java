@@ -1,7 +1,8 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import model.level.tiles.StandardTileModel;
+import util.Coordinates;
 import util.IUpdateable;
 
 import java.util.Random;
@@ -49,8 +50,8 @@ public class RandomPositionSpawner implements IUpdateable {
         int width = gameModel.getMapModel().getWidth();
         int height = gameModel.getMapModel().getHeight();
 
-        // Check if the current tile is walkable
-        if (!gameModel.getMapModel().getTile(x, y).isWalkable()) {
+        // Check if the current tile is standard
+        if (!(gameModel.getMapModel().getTile(x, y) instanceof StandardTileModel)) {
             return false;
         }
 

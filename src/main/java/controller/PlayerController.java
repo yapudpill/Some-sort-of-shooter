@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import gui.ingame.GameMainArea;
-import model.ingame.Coordinates;
 import model.ingame.entity.PlayerModel;
 import model.ingame.weapon.WeaponModel;
+import util.Coordinates;
 
 /**
  * A controller for a player using the ZQSD keys. It uses Swing's KeyListener to
@@ -30,7 +30,7 @@ public class PlayerController {
             KeyEvent.VK_Q, Coordinates.LEFT
     );
 
-    private static Map<Integer, PlayerModel.PlayerAction> getKeyActionMap(PlayerModel playerModel) {
+    private static Map<Integer, Runnable> getKeyActionMap(PlayerModel playerModel) {
         return Map.of(
                 MouseEvent.BUTTON1, playerModel::attack,
                 MouseEvent.BUTTON3, playerModel::dash,
@@ -65,14 +65,11 @@ public class PlayerController {
                     controlledPlayerModel.getMovementHandler().setDirectionVector(oldVelocityVector.add(addedVelocityVector));
                 }
 
-                PlayerModel.PlayerAction action = getKeyActionMap(controlledPlayerModel).get(e.getKeyCode());
-                if (action != null) action.performAction();
-                // DEBUG
-                if (e.getKeyCode() == KeyEvent.VK_F1) {
-                    System.out.println("debug");
+                Runnable action = getKeyActionMap(controlledPlayerModel).get(e.getKeyCode());
+                if (action != null) {
+                    action.run();
                 }
                 heldKeys.add(keyCode);
-
             }
 
             @Override
@@ -100,9 +97,13 @@ public class PlayerController {
             public void mousePressed(MouseEvent e) {
                 if (getKeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
                     WeaponModel weapon = controlledPlayerModel.getWeapon();
-                    if (weapon != null)
-                        weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
-                    getKeyActionMap(controlledPlayerModel).get(e.getButton()).performAction();
+                    if (weapon != null) {
+                        weapon.setDirectionVector(new Coordinates(
+                            (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
+                            (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
+                        ));
+                    }
+                    getKeyActionMap(controlledPlayerModel).get(e.getButton()).run();
                 }
             }
         };
@@ -114,8 +115,12 @@ public class PlayerController {
             public void mouseMoved(MouseEvent e) {
                 super.mouseMoved(e);
                 WeaponModel weapon = controlledPlayerModel.getWeapon();
-                if (weapon != null && weapon.usesDirectionVector())
-                    weapon.setDirectionVector(new Coordinates((double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x, (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y));
+                if (weapon != null && weapon.usesDirectionVector()) {
+                    weapon.setDirectionVector(new Coordinates(
+                        (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
+                        (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
+                    ));
+                }
             }
         };
     }

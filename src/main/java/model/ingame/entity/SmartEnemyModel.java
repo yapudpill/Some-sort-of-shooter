@@ -1,20 +1,22 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.entity.behavior.StandardBehavior;
 import model.ingame.physics.MovementHandler;
-import model.ingame.weapon.IProjectile;
+import model.ingame.weapon.Projectile;
 import model.ingame.weapon.PistolModel;
+import model.ingame.weapon.Projectile;
 import model.ingame.weapon.ProjectileWeaponModel;
+import util.Coordinates;
 
 public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity, IEnemy {
-    private final PlayerModel player;
     private static FloodFillPathFinder pathFinder;
+
+    private final PlayerModel player;
     private ModelTimer shootingTimer;
-    private IProjectile projectileInstance;
+    private Projectile projectileInstance;
 
     public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
         super(pos, 50, 0.8, 0.8, gameModel);
@@ -40,11 +42,10 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity,
 
     @Override
     public void update(double delta) {
-        if(!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance)){
+        if (!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance)) {
             shootingTimer.update(delta);
             StandardBehavior.circleAround(this, player, gameModel.getMapModel());
-        }
-        else{
+        } else {
             pathFinder.handlePathFindingUpdate(this, player.getPos());
         }
         super.update(delta);
@@ -52,6 +53,6 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity,
 
     public void aim() {
         PistolModel pistol = (PistolModel) getWeapon();
-        pistol.setDirectionVector(new Coordinates(player.getPos().x - pos.x, player.getPos().y - pos.y));
+        pistol.setDirectionVector(new Coordinates(player.getPos().x() - pos.x(), player.getPos().y() - pos.y()));
     }
 }

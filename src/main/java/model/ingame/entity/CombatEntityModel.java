@@ -1,8 +1,8 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.weapon.WeaponModel;
+import util.Coordinates;
 
 public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity {
     protected WeaponModel weapon;
@@ -22,15 +22,16 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
         });
     }
 
-    public boolean shouldPickWeapons() {
-        return false;
-    }
-
     @Override
     public boolean attack() {
         if (weapon != null) {
             return weapon.attack();
         }
+        return false;
+    }
+
+    @Override
+    public boolean shouldPickWeapons() {
         return false;
     }
 

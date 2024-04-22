@@ -5,8 +5,7 @@ import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
 import model.level.InvalidMapException;
 import model.level.MapModel;
-import model.level.scenario.Scenario;
-import model.level.scenario.ScenarioCursor;
+import util.Coordinates;
 import util.IUpdateable;
 
 import java.util.Collection;
@@ -33,19 +32,21 @@ public class GameModel implements IUpdateable {
         this.scenario = scenario;
         this.scenarioCursor = new ScenarioCursor(scenario);
         this.updateables.add(scenarioCursor);
+
         physicsEngine = new PhysicsEngineModel(map, collisionEntities);
         player = new PlayerModel(map.getPlayerSpawn(), this);
         this.addEntity(player);
         updateables.add(physicsEngine);
+
         updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextEnemyFactory));
         updateables.add(new RandomPositionSpawner(this, () -> WeaponEntity.weaponEntityFactory(scenarioCursor.nextWeaponFactory())));
         updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextMiscEntityFactory));
 
-        ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO,this);
+        ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO, this);
         enemyFinderInstance.despawn();
         FloodFillPathFinder floodFillPathFinder = new FloodFillPathFinder(this, 0.1, enemyFinderInstance);
-        Predicate<Coordinates> avoidPredicate = (pos) -> map.getTile((int)pos.x, (int)pos.y).getCollidablesSet()
-        .stream().anyMatch((entity) -> !(entity instanceof PlayerModel) && entity instanceof CombatEntityModel);
+        Predicate<Coordinates> avoidPredicate = pos -> map.getTile(pos).getCollidablesSet()
+        .stream().anyMatch(entity -> !(entity instanceof PlayerModel) && entity instanceof CombatEntityModel);
         floodFillPathFinder.setAvoidPredicate(avoidPredicate);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
@@ -59,15 +60,6 @@ public class GameModel implements IUpdateable {
         entityModelList.add(barrier1);
         entityModelList.add(barrier2);
         entityModelList.add(barrier3);
-
-        new ModelTimer(1, true, () -> {
-            int c = 0;
-            for (IEntity e: entityModelList) {
-                if (e instanceof WalkingEnemyModel) c++;
-            }
-            System.out.println("Walking enemies: " + c);
-            System.out.println("time " + stats.survivedTime);
-        }, this).start();
     }
 
     @Override
@@ -108,7 +100,7 @@ public class GameModel implements IUpdateable {
 
     public void addEntity(IEntity entity) {
         entityModelList.add(entity);
-        if(entity instanceof ICollisionEntity col) {
+        if (entity instanceof ICollisionEntity col) {
             collisionEntities.add(col);
         }
         if (entity instanceof IUpdateable updateable) {

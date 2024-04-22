@@ -1,6 +1,6 @@
 package model.ingame.entity.behavior;
 
-import model.ingame.Coordinates;
+import util.Coordinates;
 
 public class Node {
     private final Coordinates coordinates;

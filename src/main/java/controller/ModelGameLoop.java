@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ModelGameLoop extends GameLoop {
-    public static final int FRAME_TIME = 16; // ms
+    private static final int FRAME_TIME = 16; // ms
 
     private final Timer updateTimer;
 

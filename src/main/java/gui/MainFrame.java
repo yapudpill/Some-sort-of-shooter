@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
             fileChooser.updateUI(); // make the file chooser use the look and feel
         } catch (Exception e) {}
 
-        setSize(900,900);
+        setSize(900, 900);
         setTitle("Some sort of shooter");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);

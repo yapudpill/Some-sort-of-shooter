@@ -1,6 +1,6 @@
 package model.ingame.physics;
 
-import model.ingame.Coordinates;
+import util.Coordinates;
 
 public class RicochetListener implements BlockedMovementListener {
 
@@ -8,21 +8,17 @@ public class RicochetListener implements BlockedMovementListener {
     public void onMovementBlocked(BlockedMovementEvent e) {
         Coordinates adjustedMovement = Coordinates.ZERO;
         Coordinates movementVector = e.getMovementVector();
-        if(e.isHorizontalBlocked()){
+        if (e.isHorizontalBlocked()) {
             adjustedMovement = adjustedMovement.add(movementVector.xProjection());
-        }
-        else {
+        } else {
             adjustedMovement = adjustedMovement.add(movementVector.xProjection().multiply(-1));
         }
-        if(e.isVerticalBlocked()){
+        if (e.isVerticalBlocked()) {
             adjustedMovement = adjustedMovement.add(movementVector.yProjection());
-        }
-        else {
+        } else {
             adjustedMovement = adjustedMovement.add(movementVector.yProjection().multiply(-1));
         }
         e.setAdjustedMovement(adjustedMovement);
         e.blockedEntity().getMovementHandler().setDirectionVector(adjustedMovement);
     }
-
-
 }

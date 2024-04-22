@@ -36,7 +36,7 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
         layers = Set.of(mapBackgroundLayer, footprintsLayer, entitiesLayer, effectsLayer, HUDLayer);
 
         setLayout(new FillLayout());
-        add(mapBackgroundLayer.getJComponent(), TILES_LAYER);
+        add(mapBackgroundLayer, TILES_LAYER);
         add(footprintsLayer, FOOTPRINTS_LAYER);
         add(entitiesLayer, ENTITIES_LAYER);
         add(effectsLayer, HUD_LAYER);

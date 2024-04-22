@@ -1,7 +1,7 @@
 package model.ingame.entity.behavior;
 
-import model.ingame.Coordinates;
 import model.level.MapModel;
+import util.Coordinates;
 
 public class NodeGrid {
     private final Node[][] nodes;
@@ -10,7 +10,7 @@ public class NodeGrid {
         nodes = new Node[map.getWidth()][map.getHeight()];
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
-                nodes[x][y] = new Node(new Coordinates(x+0.5,y+0.5), -1);
+                nodes[x][y] = new Node(new Coordinates(x + 0.5, y + 0.5), -1);
             }
         }
     }
@@ -39,7 +39,7 @@ public class NodeGrid {
         }
     }
 
-    public void print(){
+    public void print() {
         for (int y = 0; y < nodes[0].length; y++) {
             for (int x = 0; x < nodes.length; x++) {
                 System.out.print(nodes[x][y].getValue() + " ");

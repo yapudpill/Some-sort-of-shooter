@@ -3,12 +3,12 @@ package model.ingame.physics;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.entity.IVulnerableEntity;
 import model.level.MapModel;
 import model.level.TileModel;
+import util.Coordinates;
 import util.IUpdateable;
 
 /**
@@ -19,14 +19,15 @@ public class PhysicsEngineModel implements IUpdateable {
     private final MapModel map;
 
     public PhysicsEngineModel(MapModel map, Set<ICollisionEntity> collisionEntities) {
-        if (map == null)
+        if (map == null) {
             throw new IllegalArgumentException("Map cannot be null");
+        }
         this.map = map;
         this.collisionEntities = collisionEntities;
     }
 
     public void update(double delta) {
-        for(ICollisionEntity entity : collisionEntities) {
+        for (ICollisionEntity entity : collisionEntities) {
             checkForCollisions(entity);
         }
     }
@@ -40,7 +41,7 @@ public class PhysicsEngineModel implements IUpdateable {
     public Set<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
         Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
-        Set<ICollisionEntity> potentiallyCollided = map.getAllCollidablesAround((int) entity.getPos().x, (int) entity.getPos().y);
+        Set<ICollisionEntity> potentiallyCollided = map.getAllCollidablesAround(entity.getPos());
         for (ICollisionEntity other : potentiallyCollided) {
             // check if the entities are actually colliding, make sure not to check the entity with itself
             if (entity.getCollisionBox().intersects(other.getCollisionBox()) && !entity.equals(other)) {
@@ -50,7 +51,6 @@ public class PhysicsEngineModel implements IUpdateable {
         return involvedEntities;
     }
 
-
     /**
      * Moves the given entity to the given position, and checks for collisions.
      *
@@ -58,7 +58,7 @@ public class PhysicsEngineModel implements IUpdateable {
      * @param movementVector the new position of the entity
      */
     public void move(IMobileEntity entity, Coordinates movementVector) {
-        if(entity == null || (entity instanceof IVulnerableEntity vuln && vuln.isDead())) return;
+        if (entity == null || (entity instanceof IVulnerableEntity vuln && vuln.isDead())) return;
         // Adjust movement to collide with walls
         BlockedMovementEvent blockedMovementEvent = handleBlockedMovement(entity, movementVector);
         Coordinates adjustedMovement = movementVector;
@@ -66,7 +66,7 @@ public class PhysicsEngineModel implements IUpdateable {
             entity.notifyBlockedMovementListeners(blockedMovementEvent);
             adjustedMovement = blockedMovementEvent.getAdjustedMovement();
         }
-        if (adjustedMovement.isZero()) {
+        if (adjustedMovement.equals(Coordinates.ZERO)) {
             entity.getMovementHandler().setMoving(false);
             return;
         }
@@ -87,7 +87,6 @@ public class PhysicsEngineModel implements IUpdateable {
         }
     }
 
-
     private BlockedMovementEvent handleBlockedMovement(IMobileEntity entity, Coordinates movementVector) {
         // If horizontal movement is blocked, only keep the vertical movement
         Coordinates newPosX = entity.getPos().add(movementVector.xProjection());
@@ -105,7 +104,7 @@ public class PhysicsEngineModel implements IUpdateable {
         }
 
         BlockedMovementEvent blockedMovementEvent = mergeBlockedMovementEvents(potentialBlockedMovementX, potentialBlockedMovementY);
-        if(blockedMovementEvent!=null){
+        if (blockedMovementEvent != null) {
             blockedMovementEvent.setHorizontalBlocked(horizontal);
             blockedMovementEvent.setVerticalBlocked(vertical);
             blockedMovementEvent.setMovementVector(movementVector);
@@ -128,14 +127,13 @@ public class PhysicsEngineModel implements IUpdateable {
         double halfHeight = entity.getHeight() / 2;
         for (double i = -halfWidth; i <= halfWidth; i += entity.getWidth()) {
             for (double j = -halfHeight; j <= halfHeight; j += entity.getHeight()) {
-                double newX = pos.x + i;
-                double newY = pos.y + j;
-                if (newX < 0 || newY < 0 || map.isOutOfBounds((int) newX, (int) newY)) {
+                Coordinates newPos = pos.add(new Coordinates(i, j));
+                if (map.isOutOfBounds(newPos)) {
                     return new BlockedMovementEvent(entity, null, true);
                 } else {
-                    TileModel tile = map.getTile((int) newX, (int) newY);
+                    TileModel tile = map.getTile(newPos);
                     if (!tile.canEnter(entity)) {
-                        return new BlockedMovementEvent(entity, map.getTile((int) newX, (int) newY), false);
+                        return new BlockedMovementEvent(entity, map.getTile(newPos), false);
                     }
                 }
             }

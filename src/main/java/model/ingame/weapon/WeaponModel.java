@@ -1,10 +1,10 @@
 package model.ingame.weapon;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.PhysicsEngineModel;
+import util.Coordinates;
 
 public abstract class WeaponModel {
     protected final PhysicsEngineModel physicsEngine;

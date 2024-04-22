@@ -1,7 +1,7 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import util.Coordinates;
 import util.IUpdateable;
 
 public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable {
@@ -18,7 +18,6 @@ public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable
                 if (entity != attacker && entity instanceof IVulnerableEntity vulnerableEntity) {
                     vulnerableEntity.takeDamage(damage);
                     despawn();
-                    System.out.println("ouch");
                 }
             }
         });
@@ -35,7 +34,6 @@ public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable
 
     @Override
     public void update(double delta) {
-        Coordinates pos = new Coordinates(attacker.getPos());
-        setPos(pos.add(getDirection().multiply(shift)));
+        setPos(attacker.getPos().add(getDirection().multiply(shift)));
     }
 }

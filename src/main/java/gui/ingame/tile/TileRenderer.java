@@ -3,16 +3,20 @@ package gui.ingame.tile;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.JPanel;
+
 import gui.ImageCache;
 
-public class WaterTileRenderer extends AbstractTileRenderer {
+public class TileRenderer extends JPanel {
+    private final Image image;
+
+    public TileRenderer(String path) {
+        image = ImageCache.loadImage(path, getClass());
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-                Image image;
-        image = ImageCache.loadImage("WaterTile.png", getClass());
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     }
-
 }

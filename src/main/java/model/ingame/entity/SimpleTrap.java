@@ -1,7 +1,7 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import util.Coordinates;
 
 public class SimpleTrap extends AbstractTrapEntity {
     private static final int DAMAGE = 20;

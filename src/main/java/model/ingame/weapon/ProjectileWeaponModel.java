@@ -1,6 +1,5 @@
 package model.ingame.weapon;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 
@@ -9,8 +8,9 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
         super(name, identifier, gameModel, owner, coolDown);
     }
 
-    public abstract IProjectile createProjectile();
+    public abstract Projectile createProjectile();
 
+    @Override
     public boolean attack() {
         if (isCoolingDown()) {
             return false;
@@ -21,8 +21,8 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
     }
 
     public void fire() {
-        IProjectile projectile = createProjectile();
-        projectile.setPos(new Coordinates(owner.getPos()));
+        Projectile projectile = createProjectile();
+        projectile.setPos(owner.getPos());
         projectile.getMovementHandler().setDirectionVector(this.directionVector);
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);
