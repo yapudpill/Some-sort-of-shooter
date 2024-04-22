@@ -5,7 +5,7 @@ import model.ingame.entity.PlayerModel;
 public class PlayerRenderer extends VulnerableAnimatedRenderer {
 
     public PlayerRenderer(PlayerModel entityModel) {
-        super(entityModel, "animation_groups/player1.xml");
+        super(entityModel, "animations/player1.xml");
     }
 
     @Override
