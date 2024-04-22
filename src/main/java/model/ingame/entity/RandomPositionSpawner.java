@@ -1,7 +1,6 @@
 package model.ingame.entity;
 
 import model.ingame.GameModel;
-import model.level.tiles.StandardTileModel;
 import util.Coordinates;
 import util.IUpdateable;
 
@@ -26,11 +25,11 @@ public class RandomPositionSpawner implements IUpdateable {
         double x = rng.nextInt(gameModel.getMapModel().getWidth());
         double y = rng.nextInt(gameModel.getMapModel().getHeight());
         // Move to the next walkable tile
-        Coordinates pos = findNextWalkableTile((int) x, (int) y);
+        Coordinates pos = findNextWalkableTile((int) x, (int) y, entityFactory);
         gameModel.addEntity(entityFactory.make(pos, gameModel));
     }
 
-    private Coordinates findNextWalkableTile(int x, int y) {
+    private Coordinates findNextWalkableTile(int x, int y, IEntityFactory entity) {
         int width = gameModel.getMapModel().getWidth();
         int height = gameModel.getMapModel().getHeight();
 
@@ -41,17 +40,17 @@ public class RandomPositionSpawner implements IUpdateable {
             }
 
             // Check if the current tile and its surrounding tiles are walkable
-        } while (!isTileAndSurroundingsWalkable(x, y));
+        } while (!canTileSpawn(x, y, entity));
 
         return new Coordinates(x, y);
     }
 
-    private boolean isTileAndSurroundingsWalkable(int x, int y) {
+    private boolean canTileSpawn(int x, int y, IEntityFactory entity) {
         int width = gameModel.getMapModel().getWidth();
         int height = gameModel.getMapModel().getHeight();
 
         // Check if the current tile is standard
-        if (!(gameModel.getMapModel().getTile(x, y) instanceof StandardTileModel)) {
+        if (!gameModel.getMapModel().getTile(x, y).canSpawn(entity)) {
             return false;
         }
 
@@ -66,8 +65,7 @@ public class RandomPositionSpawner implements IUpdateable {
                     return false;
                 }
 
-                // Exclude non standard tiles
-                if (!(gameModel.getMapModel().getTile(newX, newY) instanceof StandardTileModel)) {
+                if (!gameModel.getMapModel().getTile(newX, newY).canSpawn(entity)) {
                     return false;
                 }
             }
