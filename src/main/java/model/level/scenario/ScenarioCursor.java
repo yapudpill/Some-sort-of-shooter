@@ -12,7 +12,7 @@ import java.util.Queue;
 
 
 public class ScenarioCursor implements IUpdateable {
-    private static final double TICK_LENGTH = 1; // Try to spawn every 0.1 seconds
+    private static final double TICK_LENGTH = 0.1; // Try to spawn every 0.1 seconds
     private final IntervalMapCursor<Double, GameContext> cursor;
     private final WeaponGenerator weaponGenerator = new WeaponGenerator(TICK_LENGTH);
     private final EnemyGenerator enemyGenerator = new EnemyGenerator(TICK_LENGTH);
@@ -68,5 +68,9 @@ public class ScenarioCursor implements IUpdateable {
 
     public IEntityFactory nextMiscEntityFactory() {
         return miscEntities.poll();
+    }
+
+    public boolean isGameFinished() {
+        return cursor.hasEnded();
     }
 }

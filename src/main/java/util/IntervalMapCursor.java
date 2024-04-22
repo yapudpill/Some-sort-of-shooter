@@ -52,4 +52,8 @@ public class IntervalMapCursor<K extends Comparable<K>, V> {
     public boolean hasLooped() {
         return hasLooped;
     }
+
+    public boolean hasEnded() {
+        return currentKey == null;
+    }
 }

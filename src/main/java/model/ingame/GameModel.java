@@ -70,6 +70,8 @@ public class GameModel implements IUpdateable {
         for (IUpdateable updateable : updateables) {
             updateable.update(delta);
         }
+
+        if (scenarioCursor.isGameFinished()) isRunning = false;
     }
 
     public MapModel getMapModel() {
