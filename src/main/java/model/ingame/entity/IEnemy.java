@@ -1,7 +1,7 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
+import util.Coordinates;
 
 // Tag interface for enemies
 public interface IEnemy extends IEntity {

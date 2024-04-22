@@ -5,6 +5,8 @@ import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
 import model.level.InvalidMapException;
 import model.level.MapModel;
+import model.level.scenario.Scenario;
+import model.level.scenario.ScenarioCursor;
 import util.Coordinates;
 import util.IUpdateable;
 

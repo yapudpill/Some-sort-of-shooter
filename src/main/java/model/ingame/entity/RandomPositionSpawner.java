@@ -66,8 +66,8 @@ public class RandomPositionSpawner implements IUpdateable {
                     return false;
                 }
 
-                // Exclude tiles surrounding an non walkable tile
-                if (!gameModel.getMapModel().getTile(newX, newY).isWalkable()) {
+                // Exclude non standard tiles
+                if (!(gameModel.getMapModel().getTile(newX, newY) instanceof StandardTileModel)) {
                     return false;
                 }
             }
