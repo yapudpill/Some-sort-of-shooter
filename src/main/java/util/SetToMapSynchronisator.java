@@ -10,7 +10,7 @@ import java.util.function.Consumer;
  * map that is not in the set.
  */
 public class SetToMapSynchronisator {
-    static public <K, V> void synchronise(Collection<K> collection, Map<K, V> map, Consumer<K> addConsumer, Consumer<K> removeConsumer) {
+    public static <K, V> void synchronise(Collection<K> collection, Map<K, V> map, Consumer<K> addConsumer, Consumer<K> removeConsumer) {
         for (K key : collection) {
             if (!map.containsKey(key)) {
                 addConsumer.accept(key);

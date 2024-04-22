@@ -1,23 +1,23 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
+import util.Coordinates;
 
-public class ExplodingEnemy extends CreatureModel implements IEffectEntity{
+public class ExplodingEnemy extends CreatureModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
     private final PlayerModel player;
 
     public ExplodingEnemy(Coordinates pos, GameModel gameModel) {
-        super(pos,50,0.8, 0.8, gameModel);
+        super(pos, 50, 0.8, 0.8, gameModel);
         this.pos = pos;
         this.player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(5.4);
         addCollisionListener(e -> {
-            if(e.getInvolvedEntitiesList().contains(player)) {
-                gameModel.addEntity(new ExplosionZoneEntity(this.pos,2, 2, 10,1, gameModel));
+            if (e.getInvolvedEntitiesList().contains(player)) {
+                gameModel.addEntity(new ExplosionZoneEntity(this.pos, 2, 2, 10, 1, gameModel));
                 this.despawn();
             }
         });

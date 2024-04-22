@@ -55,6 +55,4 @@ public class KnifeWeapon extends WeaponModel {
         gameModel.attachAsUpdateable(damageZone);
         return true;
     }
-
-
 }

@@ -1,6 +1,5 @@
 package util;
 
-
 public record Pair<T, U>(T first, U second) {
 
     public boolean equals(T f, U s) {

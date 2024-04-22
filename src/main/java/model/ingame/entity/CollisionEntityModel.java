@@ -4,12 +4,12 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.BlockedMovementListener;
 import model.ingame.physics.CollisionEvent;
 import model.ingame.physics.CollisionListener;
+import util.Coordinates;
 
 public abstract class CollisionEntityModel extends EntityModel implements ICollisionEntity {
     private final List<CollisionListener> collisionListeners = new ArrayList<>();
@@ -18,21 +18,26 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
 
     public CollisionEntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
         super(pos, width, height, gameModel);
-        this.collisionBox = new Rectangle2D.Double(pos.x, pos.y, width, height);
+        this.collisionBox = new Rectangle2D.Double(pos.x(), pos.y(), width, height);
         setPos(pos);
     }
 
     @Override
     public void setPos(Coordinates pos) {
-        gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
+        gameModel.getMapModel().removeCollidableAt(this, this.pos);
         super.setPos(pos);
-        setCollisionBox(pos.x, pos.y);
-        gameModel.getMapModel().addCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
+        setCollisionBox(pos);
+        gameModel.getMapModel().addCollidableAt(this, this.pos);
     }
 
     @Override
     public Rectangle2D getCollisionBox() {
         return collisionBox;
+    }
+
+    @Override
+    public void setCollisionBox(Coordinates pos) {
+        collisionBox.setRect(pos.x(), pos.y(), collisionBox.getWidth(), collisionBox.getHeight());
     }
 
     @Override
@@ -59,18 +64,10 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
         }
     }
 
-    public void removeCollisionListener(CollisionListener listener) {
-        collisionListeners.remove(listener);
-    }
-
     @Override
     public void despawn() {
         super.despawn();
-        gameModel.getMapModel().removeCollidableAt(this, (int) this.pos.x, (int)this.pos.y);
+        gameModel.getMapModel().removeCollidableAt(this, this.pos);
         gameModel.removeCollisionEntity(this);
-    }
-
-    private void setCollisionBox(double x, double y) {
-        collisionBox.setRect(x, y, collisionBox.getWidth(), collisionBox.getHeight());
     }
 }

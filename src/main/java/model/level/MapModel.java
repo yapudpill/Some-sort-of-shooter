@@ -1,18 +1,17 @@
 package model.level;
 
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import model.ingame.Coordinates;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.level.tiles.SpawnTileModel;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
+import util.Coordinates;
 import util.Resource;
 
 public class MapModel {
@@ -51,8 +50,8 @@ public class MapModel {
         BufferedReader reader = new BufferedReader(new InputStreamReader(map.toStream()));
         String[] lines = reader.lines().toArray(String[]::new);
 
-        int height = lines.length/2;
-        int width = (lines[0].length())/4;
+        int height = lines.length / 2;
+        int width = (lines[0].length()) / 4;
         char[][] arr = new char[height][width];
         boolean foundSpawn = false;
 
@@ -87,8 +86,8 @@ public class MapModel {
             case '#' -> new WaterTileModel();
             case 'V' -> new VoidTileModel();
             case 'S' -> new SpawnTileModel();
-            case ' '-> new StandardTileModel();
-            default -> new StandardTileModel();
+            case ' ' -> new StandardTileModel();
+            default  -> new StandardTileModel();
         };
     }
 
@@ -100,33 +99,48 @@ public class MapModel {
         return x < 0 || x >= tiles[0].length || y < 0 || y >= tiles.length;
     }
 
+    public boolean isOutOfBounds(Coordinates pos) {
+        return pos.x() < 0 || pos.y() < 0 || isOutOfBounds((int) pos.x(), (int) pos.y());
+    }
+
     public Set<ICollisionEntity> getAllCollidablesAround(int x, int y) {
         // Get all the entities that could be colliding with the given entity, i.e the entities in the 3x3 grid around the given entity.
         Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (isOutOfBounds(x + i, y + j))
-                    continue;
+                if (isOutOfBounds(x + i, y + j)) continue;
                 involvedEntities.addAll(tiles[y + j][x + i].getCollidablesSet());
             }
         }
         return involvedEntities;
     }
 
+    public Set<ICollisionEntity> getAllCollidablesAround(Coordinates pos) {
+        return getAllCollidablesAround((int) pos.x(), (int) pos.y());
+    }
+
     public void addCollidableAt(ICollisionEntity entity, int x, int y) {
-        if (entity == null)
+        if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
-        if (isOutOfBounds(x, y))
-            return;
+        }
+        if (isOutOfBounds(x, y)) return;
         tiles[y][x].addCollidable(entity);
     }
 
+    public void addCollidableAt(ICollisionEntity entity, Coordinates pos) {
+        addCollidableAt(entity, (int) pos.x(), (int) pos.y());
+    }
+
     public void removeCollidableAt(ICollisionEntity entity, int x, int y) {
-        if (entity == null)
+        if (entity == null) {
             throw new IllegalArgumentException("Entity cannot be null");
-        if (isOutOfBounds(x, y))
-            return;
+        }
+        if (isOutOfBounds(x, y)) return;
         tiles[y][x].removeCollidable(entity);
+    }
+
+    public void removeCollidableAt(ICollisionEntity entity, Coordinates pos) {
+        removeCollidableAt(entity, (int) pos.x(), (int) pos.y());
     }
 
     public int getWidth() {
@@ -141,59 +155,45 @@ public class MapModel {
         return tiles[y][x];
     }
 
+    /**
+     * Coordinates are floored via a casting from double to int
+     */
+    public TileModel getTile(Coordinates pos) {
+        return getTile((int) pos.x(), (int) pos.y());
+    }
+
     public void applyTileEnterEffect(IEntity entity, int x, int y) {
         getTile(x, y).applyEnterEffect(entity);
-    }
-
-    public void reset(){
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[0].length; j++) {
-                tiles[i][j].reset();
-            }
-        }
-    }
-
-    public boolean unwalkableAround(int x, int y) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (isOutOfBounds(x + i, y + j))
-                    continue;
-                if (!tiles[y + j][x + i].isWalkable())
-                    return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isWalkableAt(int x, int y) {
-        if (isOutOfBounds(x, y))
-            return false;
-        return tiles[y][x].isWalkable();
     }
 
     public boolean canEnterAround(IEntity entity, int x, int y) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (isOutOfBounds(x + i, y + j))
-                    continue;
-                if (!tiles[y + j][x + i].canEnter(entity))
+                if (isOutOfBounds(x + i, y + j)) continue;
+                if (!tiles[y + j][x + i].canEnter(entity)) {
                     return false;
+                }
             }
         }
         return true;
     }
 
+    public boolean canEnterAround(IEntity entity, Coordinates pos) {
+        return canEnterAround(entity, (int) pos.x(), (int) pos.y());
+    }
+
     public boolean canEnterAt(IEntity entity, int x, int y) {
-        if (isOutOfBounds(x, y))
+        if (isOutOfBounds(x, y)) {
             return false;
+        }
         return tiles[y][x].canEnter(entity);
     }
 
-    public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity){
-        int x0 = (int) pos1.x;
-        int y0 = (int) pos1.y;
-        int x1 = (int) pos2.x;
-        int y1 = (int) pos2.y;
+    public boolean obstaclesBetween(Coordinates pos1, Coordinates pos2, IEntity entity) {
+        int x0 = (int) pos1.x();
+        int y0 = (int) pos1.y();
+        int x1 = (int) pos2.x();
+        int y1 = (int) pos2.y();
 
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);
@@ -206,18 +206,16 @@ public class MapModel {
         dx *= 2;
         dy *= 2;
 
-        for (; n > 0; --n)
-        {
+        for (; n > 0; --n) {
             boolean notBeginnigOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
-            if(!canEnterAround(entity, x, y) && notBeginnigOrEnd) return true;
+            if (!canEnterAround(entity, x, y) && notBeginnigOrEnd) {
+                return true;
+            }
 
-            if (error > 0)
-            {
+            if (error > 0) {
                 x += x_inc;
                 error -= dy;
-            }
-            else
-            {
+            } else {
                 y += y_inc;
                 error += dx;
             }

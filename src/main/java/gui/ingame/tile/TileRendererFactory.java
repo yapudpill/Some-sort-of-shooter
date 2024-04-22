@@ -7,13 +7,14 @@ import model.level.tiles.WaterTileModel;
 import model.level.tiles.SpawnTileModel;
 
 public class TileRendererFactory {
-    static public AbstractTileRenderer make(TileModel tileModel) {
+    public static TileRenderer make(TileModel tileModel) {
         return switch (tileModel) {
-            case StandardTileModel t -> new StandardTileRenderer();
-            case WaterTileModel t -> new WaterTileRenderer();
-            case VoidTileModel t -> new VoidTileRenderer();
-            case SpawnTileModel t -> new SpawnTileRenderer();
-            default -> new StandardTileRenderer(); // Fallback to normal renderer
+            case StandardTileModel t -> new TileRenderer("GrassTile.png");
+            case WaterTileModel t    -> new TileRenderer("WaterTile.png");
+            case VoidTileModel t     -> new TileRenderer("VoidTile.png");
+            case SpawnTileModel t    -> new TileRenderer("SpawnTile.png");
+
+            default -> throw new IllegalArgumentException("Unknown tile model " + tileModel.getClass().getName());
         };
     }
 }

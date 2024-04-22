@@ -1,8 +1,8 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.weapon.WeaponModel;
+import util.Coordinates;
 
 public class WeaponEntity extends CollisionEntityModel {
     private final WeaponModel weapon;

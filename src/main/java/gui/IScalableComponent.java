@@ -1,6 +1,6 @@
 package gui;
 
-import model.ingame.Coordinates;
+import util.Coordinates;
 
 /**
  * A component that can be scaled

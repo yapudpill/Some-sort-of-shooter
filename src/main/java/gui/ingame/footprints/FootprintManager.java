@@ -1,6 +1,6 @@
 package gui.ingame.footprints;
 
-import model.ingame.Coordinates;
+import util.Coordinates;
 import util.IUpdateable;
 import model.ingame.entity.ICombatEntity;
 

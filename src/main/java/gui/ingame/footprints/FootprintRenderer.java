@@ -2,7 +2,7 @@ package gui.ingame.footprints;
 
 import gui.ImageCache;
 import gui.IScalableComponent;
-import model.ingame.Coordinates;
+import util.Coordinates;
 import util.IUpdateable;
 
 import javax.swing.JComponent;
@@ -21,7 +21,7 @@ public class FootprintRenderer extends JComponent implements IScalableComponent,
 
     public FootprintRenderer(Coordinates entityDirection, Coordinates entityPos) {
         this.angle = entityDirection.getAngle();
-        Coordinates shiftDirection = new Coordinates(-FOOTPRINT_SIZE/2,- FOOTPRINT_SIZE/2);
+        Coordinates shiftDirection = new Coordinates(-FOOTPRINT_SIZE / 2, -FOOTPRINT_SIZE / 2);
         this.pos = entityPos.add(shiftDirection);
     }
 

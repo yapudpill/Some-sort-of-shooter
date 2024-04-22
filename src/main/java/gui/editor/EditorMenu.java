@@ -62,7 +62,6 @@ public class EditorMenu extends JPanel {
         cols = new JSpinner(new SpinnerNumberModel(DEFAULT_COLS, 5, 25, 1));
         add(cols, constraints);
 
-
         constraints.fill = GridBagConstraints.BOTH;
 
         // Interactive grid (row 3)

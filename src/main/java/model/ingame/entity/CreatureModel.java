@@ -1,9 +1,9 @@
 package model.ingame.entity;
 
-import model.ingame.Coordinates;
 import model.ingame.GameModel;
 import model.ingame.physics.MovementHandler;
 import model.ingame.physics.SlidingListener;
+import util.Coordinates;
 
 public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity {
     protected MovementHandler movementHandler;
@@ -25,7 +25,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     @Override
     public void takeDamage(int damage) {
         health -= damage;
-        if(isDead()) {
+        if (isDead()) {
             despawn();
             gameModel.stats.killedEnemies++;
         }
@@ -53,8 +53,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
 
     @Override
     public void setHealth(int health) {
-        if(health > maxHealth) this.health = maxHealth;
-        else this.health = health;
+        this.health = Math.min(health, maxHealth);
     }
 
     @Override
