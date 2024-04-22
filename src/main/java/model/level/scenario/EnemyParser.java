@@ -6,16 +6,16 @@ import model.ingame.entity.WalkingEnemyModel;
 
 import java.util.Map;
 
-import static model.ingame.entity.IEnemy.EnemyFactory;
+import static model.ingame.entity.IEnemy.IEnemyFactory;
 
 public class EnemyParser {
-    public static final Map<String, EnemyFactory> AVAILABLE_ENEMIES = Map.of(
+    public static final Map<String, IEnemyFactory> AVAILABLE_ENEMIES = Map.of(
             "ExplodingEnemy", ExplodingEnemy::new,
             "SmartEnemy", SmartEnemyModel::new,
             "WalkingEnemy", WalkingEnemyModel::new
     );
 
-    public static EnemyFactory getEnemyFactory(String enemyName) {
+    public static IEnemyFactory getEnemyFactory(String enemyName) {
         return AVAILABLE_ENEMIES.get(enemyName);
     }
 }

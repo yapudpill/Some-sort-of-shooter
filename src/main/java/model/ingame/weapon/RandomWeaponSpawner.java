@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class RandomWeaponSpawner extends EntitySpawner implements IUpdateable {
     public static final int WEAPON_SPAWN_COOLDOWN = 5;
-    public static final List<WeaponFactory> availableWeaponsFactories = List.of(
+    public static final List<WeaponModel.IWeaponFactory> availableWeaponsFactories = List.of(
         PistolModel::new,
         KnifeWeapon::new,
         RocketLauncher::new,

@@ -1,16 +1,16 @@
 package model.level.scenario;
 
-import model.ingame.weapon.WeaponFactory;
+import model.ingame.weapon.WeaponModel;
 
 import java.util.Collection;
 
-public class WeaponGenerator extends WeightedRandomElementGenerator<WeaponFactory> {
+public class WeaponGenerator extends WeightedRandomElementGenerator<WeaponModel.IWeaponFactory> {
     public WeaponGenerator(double tickRate) {
         super(tickRate);
     }
 
     @Override
-    public Collection<WeaponFactory> getAllowedElements() {
+    public Collection<WeaponModel.IWeaponFactory> getAllowedElements() {
         return WeaponParser.AVAILABLE_WEAPONS.values();
     }
 }

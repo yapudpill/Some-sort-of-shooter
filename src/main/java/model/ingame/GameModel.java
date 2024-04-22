@@ -1,36 +1,25 @@
 package model.ingame;
 
+import model.ingame.entity.*;
+import model.ingame.entity.behavior.FloodFillPathFinder;
+import model.ingame.physics.PhysicsEngineModel;
+import model.level.InvalidMapException;
+import model.level.MapModel;
+import model.level.scenario.Scenario;
+import model.level.scenario.ScenarioCursor;
+import util.IUpdateable;
+
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
-
-import model.ingame.entity.BreakableBarrier;
-import model.ingame.entity.CombatEntityModel;
-import model.ingame.entity.EnemySpawnerModel;
-import model.ingame.entity.ExplodingEnemy;
-import model.ingame.entity.ExplodingEnemySpawner;
-import model.ingame.entity.FirstAidKitSpawner;
-import model.ingame.entity.ICollisionEntity;
-import model.ingame.entity.IEntity;
-import model.ingame.entity.PlayerModel;
-import model.ingame.entity.RandomSpawnerModel;
-import model.ingame.entity.SmartEnemyModel;
-import model.ingame.entity.SmartEnemySpawner;
-import model.ingame.entity.WalkingEnemyModel;
-import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.physics.PhysicsEngineModel;
-import model.ingame.weapon.RandomWeaponSpawner;
-import model.level.InvalidMapException;
-import model.level.MapModel;
-import util.IUpdateable;
-import util.Resource;
 
 public class GameModel implements IUpdateable {
     public final Statistics stats;
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;
+    private final Scenario scenario;
+    private final ScenarioCursor scenarioCursor;
     private final PlayerModel player;
     private boolean isRunning = true;
 
@@ -38,15 +27,19 @@ public class GameModel implements IUpdateable {
     private final Set<ICollisionEntity> collisionEntities = new CopyOnWriteArraySet<>();
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
 
-    public GameModel(Resource mapResource) throws InvalidMapException {
-        stats = new Statistics(mapResource);
-        map = new MapModel(mapResource);
+    public GameModel(MapModel map, Statistics stats, Scenario scenario) throws InvalidMapException {
+        this.stats = stats;
+        this.map = map;
+        this.scenario = scenario;
+        this.scenarioCursor = new ScenarioCursor(scenario);
+        this.updateables.add(scenarioCursor);
         physicsEngine = new PhysicsEngineModel(map, collisionEntities);
         player = new PlayerModel(map.getPlayerSpawn(), this);
         this.addEntity(player);
         updateables.add(physicsEngine);
-        updateables.add(new RandomWeaponSpawner(this));
-        initSpawner();
+        updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextEnemyFactory));
+        updateables.add(new RandomPositionSpawner(this, () -> WeaponEntity.weaponEntityFactory(scenarioCursor.nextWeaponFactory())));
+        updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextMiscEntityFactory));
 
         ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO,this);
         enemyFinderInstance.despawn();
@@ -66,6 +59,15 @@ public class GameModel implements IUpdateable {
         entityModelList.add(barrier1);
         entityModelList.add(barrier2);
         entityModelList.add(barrier3);
+
+        new ModelTimer(1, true, () -> {
+            int c = 0;
+            for (IEntity e: entityModelList) {
+                if (e instanceof WalkingEnemyModel) c++;
+            }
+            System.out.println("Walking enemies: " + c);
+            System.out.println("time " + stats.survivedTime);
+        }, this).start();
     }
 
     @Override
@@ -74,17 +76,6 @@ public class GameModel implements IUpdateable {
         for (IUpdateable updateable : updateables) {
             updateable.update(delta);
         }
-    }
-
-    public void initSpawner() {
-        List<EntitySpawner> spawners = List.of(
-            new EnemySpawnerModel(this),
-            new SmartEnemySpawner(this),
-            new ExplodingEnemySpawner(this),
-            new FirstAidKitSpawner(this)
-        );
-        RandomSpawnerModel mainSpawner = new RandomSpawnerModel(this, spawners, 3);
-        mainSpawner.start();
     }
 
     public MapModel getMapModel() {

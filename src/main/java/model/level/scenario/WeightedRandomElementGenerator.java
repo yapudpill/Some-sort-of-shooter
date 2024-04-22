@@ -18,11 +18,11 @@ public abstract class WeightedRandomElementGenerator<E> {
         this.elementRates = rates;
     }
 
-    public Set<E> nextElements() {
+    public Set<E> nextElements(double delta) {
         Set<E> res = new HashSet<>();
         for (Map.Entry<Double, E> entry : elementRates.entrySet()) {
             double pick = rng.nextDouble();
-            if (pick < entry.getKey() * tickLength) {
+            if (pick < entry.getKey() * delta) {
                 res.add(entry.getValue());
             }
         }

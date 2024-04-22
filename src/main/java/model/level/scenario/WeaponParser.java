@@ -5,7 +5,7 @@ import model.ingame.weapon.*;
 import java.util.Map;
 
 public class WeaponParser {
-    public static final Map<String, WeaponFactory> AVAILABLE_WEAPONS = Map.of(
+    public static final Map<String, WeaponModel.IWeaponFactory> AVAILABLE_WEAPONS = Map.of(
             "Pistol", PistolModel::new,
             "Knife", KnifeWeapon::new,
             "RocketLauncher", RocketLauncher::new,
@@ -14,7 +14,7 @@ public class WeaponParser {
             "TrapPlacer", SimpleTrapPlacer::new
     );
 
-    public static WeaponFactory parseWeapon(String weaponName) {
+    public static WeaponModel.IWeaponFactory parseWeapon(String weaponName) {
         return AVAILABLE_WEAPONS.get(weaponName);
     }
 }

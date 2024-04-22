@@ -2,7 +2,10 @@ package controller;
 
 import gui.ingame.GameView;
 import model.ingame.GameModel;
+import model.ingame.Statistics;
 import model.level.InvalidMapException;
+import model.level.MapModel;
+import model.level.scenario.Scenario;
 import util.Resource;
 
 public class GameController {
@@ -11,10 +14,10 @@ public class GameController {
     private final GameLoop modelLoop, viewLoop;
     private final MainController mainController;
 
-    public GameController(Resource map, MainController mainController) throws InvalidMapException {
+    public GameController(Resource mapResource, MainController mainController) throws InvalidMapException {
         this.mainController = mainController;
 
-        gameModel = new GameModel(map);
+        gameModel = new GameModel(new MapModel(mapResource), new Statistics(mapResource), Scenario.loadScenario(null));
         gameView = new GameView(gameModel);
 
         modelLoop = new ModelGameLoop(this::updateModel);

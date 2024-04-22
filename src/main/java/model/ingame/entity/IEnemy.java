@@ -6,7 +6,8 @@ import model.ingame.GameModel;
 // Tag interface for enemies
 public interface IEnemy extends IEntity {
     @FunctionalInterface
-    interface EnemyFactory {
+    interface IEnemyFactory extends IEntityFactory {
+        @Override
         IEnemy make(Coordinates pos, GameModel gameModel);
     }
 }

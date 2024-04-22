@@ -5,8 +5,8 @@ import model.ingame.GameModel;
 
 public interface IEntity {
     @FunctionalInterface
-    public static interface EntityFactory {
-        EntityModel make(Coordinates pos, GameModel gameModel);
+    interface IEntityFactory {
+        IEntity make(Coordinates pos, GameModel gameModel);
     }
     Coordinates getPos();
     void setPos(Coordinates pos);

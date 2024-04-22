@@ -6,7 +6,7 @@ import model.ingame.entity.IEntity;
 import java.util.Map;
 
 public class MiscEntityParser {
-    public static final Map<String, IEntity.EntityFactory> AVAILABLE_MISC_ENTITIES = Map.of(
+    public static final Map<String, IEntity.IEntityFactory> AVAILABLE_MISC_ENTITIES = Map.of(
             "Bandages", FirstAidKit::new
     );
 }

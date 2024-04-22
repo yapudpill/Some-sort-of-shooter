@@ -1,29 +1,32 @@
 package model.ingame.entity;
 
 import model.ingame.Coordinates;
-import model.ingame.EntitySpawner;
 import model.ingame.GameModel;
-import model.ingame.ModelTimer;
+import util.IUpdateable;
 
-import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 
-public class RandomSpawnerModel {
-    private final ModelTimer spawnTimer;
+import static model.ingame.entity.IEntity.IEntityFactory;
+
+public class RandomPositionSpawner implements IUpdateable {
     private final GameModel gameModel;
+    private final Supplier<IEntityFactory> entityFactorySupplier;
     private final Random rng = new Random();
 
-    public RandomSpawnerModel(GameModel gameModel, List<EntitySpawner> spawners, int delay) {
+    public RandomPositionSpawner(GameModel gameModel, Supplier<IEntityFactory> entityFactorySupplier) {
         this.gameModel = gameModel;
-        this.spawnTimer = new ModelTimer(delay, true, () -> {
-            double x = rng.nextDouble(gameModel.getMapModel().getWidth());
-            double y = rng.nextDouble(gameModel.getMapModel().getHeight());
-            int index = rng.nextInt(spawners.size());
-            // Move to the next walkable tile
-            Coordinates res = findNextWalkableTile((int) x,(int) y);
-            spawners.get(index).spawnEntity(res.x, res.y);
-        }, gameModel);
-        this.spawnTimer.start();
+        this.entityFactorySupplier = entityFactorySupplier;
+    }
+
+    public void spawnEntity() {
+        IEntityFactory entityFactory = entityFactorySupplier.get();
+        if (entityFactory == null) return;
+        double x = rng.nextInt(gameModel.getMapModel().getWidth());
+        double y = rng.nextInt(gameModel.getMapModel().getHeight());
+        // Move to the next walkable tile
+        Coordinates pos = findNextWalkableTile((int) x, (int) y);
+        gameModel.addEntity(entityFactory.make(pos, gameModel));
     }
 
     private Coordinates findNextWalkableTile(int x, int y) {
@@ -73,12 +76,8 @@ public class RandomSpawnerModel {
         return true;
     }
 
-    public void stop() {
-        spawnTimer.stop();
+    @Override
+    public void update(double delta) {
+        spawnEntity();
     }
-
-    public void start() {
-        spawnTimer.start();
-    }
-
 }
