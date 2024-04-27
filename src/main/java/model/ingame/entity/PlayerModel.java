@@ -21,7 +21,6 @@ public class PlayerModel extends CombatEntityModel {
 
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(DEFAULT_SPEED);
-        setWeapon(new RocketLauncher(this, gameModel));
     }
 
     @Override

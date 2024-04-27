@@ -1,7 +1,5 @@
 package controller;
 
-import java.awt.EventQueue;
-
 import gui.MainFrame;
 import gui.editor.EditorMenu;
 import gui.launcher.EndMenu;
@@ -9,7 +7,10 @@ import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
 import model.ingame.Statistics;
 import model.level.InvalidMapException;
+import model.level.scenario.InvalidScenarioException;
 import util.Resource;
+
+import java.awt.*;
 
 public class MainController {
     private final MainFrame mainFrame;
@@ -31,8 +32,8 @@ public class MainController {
         mainFrame.loadMenu(new MapMenu(this));
     }
 
-    public void loadGame(Resource map) throws InvalidMapException {
-        GameController gameController = new GameController(map, this);
+    public void loadGame(Resource mapResource, Resource scenarioResource) throws InvalidMapException, InvalidScenarioException {
+        GameController gameController = new GameController(mapResource, scenarioResource, this);
         mainFrame.loadMenu(gameController.gameView);
         EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
     }

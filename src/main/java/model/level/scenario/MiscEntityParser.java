@@ -9,4 +9,8 @@ public class MiscEntityParser {
     public static final Map<String, IEntity.IEntityFactory> AVAILABLE_MISC_ENTITIES = Map.of(
             "Bandages", FirstAidKit::new
     );
+
+    public static IEntity.IEntityFactory parseMiscEntity(String name) {
+        return AVAILABLE_MISC_ENTITIES.get(name);
+    }
 }

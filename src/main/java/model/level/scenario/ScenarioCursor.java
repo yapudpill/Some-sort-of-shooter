@@ -13,7 +13,7 @@ import java.util.Queue;
 
 public class ScenarioCursor implements IUpdateable {
     private static final double TICK_LENGTH = 0.1; // Try to spawn every 0.1 seconds
-    private final IntervalMapCursor<Double, GameContext> cursor;
+    private final IntervalMapCursor<Double, IGameContext> cursor;
     private final WeaponGenerator weaponGenerator = new WeaponGenerator(TICK_LENGTH);
     private final EnemyGenerator enemyGenerator = new EnemyGenerator(TICK_LENGTH);
     private final MiscEntityGenerator miscEntityGenerator = new MiscEntityGenerator(TICK_LENGTH);
@@ -22,7 +22,7 @@ public class ScenarioCursor implements IUpdateable {
     private final Queue<IEnemyFactory> enemies = new LinkedList<>();
     private final Queue<IEntityFactory> miscEntities = new LinkedList<>();
 
-    private GameContext currentContext;
+    private IGameContext currentContext;
 
     public ScenarioCursor(Scenario scenario) {
         cursor = new IntervalMapCursor<>(scenario, Double::sum);
@@ -33,11 +33,11 @@ public class ScenarioCursor implements IUpdateable {
         cursor.advance(delta);
         if (cursor.hasChanged() || cursor.hasLooped() || currentContext == null) {
             currentContext = cursor.getCurrentValue();
-            if (currentContext instanceof GameContext.FixedSpawnRateContext fixedSpawnRateContext) {
+            if (currentContext instanceof IGameContext.FixedSpawnRateContext fixedSpawnRateContext) {
                 weaponGenerator.setElementRates(fixedSpawnRateContext.weaponRates());
                 enemyGenerator.setElementRates(fixedSpawnRateContext.enemyRates());
                 miscEntityGenerator.setElementRates(fixedSpawnRateContext.miscEntityRates());
-            } else if (currentContext instanceof GameContext.OneShotSpawnContext oneShotSpawnContext) {
+            } else if (currentContext instanceof IGameContext.OneShotSpawnContext oneShotSpawnContext) {
                 // Disable the random generators
                 weaponGenerator.setElementRates(Map.of());
                 enemyGenerator.setElementRates(Map.of());
@@ -51,7 +51,7 @@ public class ScenarioCursor implements IUpdateable {
         }
 
         // If spawning at a fixed rate, add the next elements to the spawn queue
-        if (currentContext instanceof GameContext.FixedSpawnRateContext) {
+        if (currentContext instanceof IGameContext.FixedSpawnRateContext) {
             weapons.addAll(weaponGenerator.nextElements(delta));
             enemies.addAll(enemyGenerator.nextElements(delta));
             miscEntities.addAll(miscEntityGenerator.nextElements(delta));
