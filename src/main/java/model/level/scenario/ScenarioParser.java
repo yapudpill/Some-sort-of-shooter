@@ -127,7 +127,7 @@ public class ScenarioParser {
         return new Pair<>(time, context);
     }
 
-    public static Scenario loadScenario(InputStream stream) throws InvalidScenarioException {
+    public static IScenario loadScenario(InputStream stream) throws InvalidScenarioException {
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(stream);
@@ -148,7 +148,7 @@ public class ScenarioParser {
             }
 
 
-            Scenario scenario = new Scenario(endReachedBehaviour);
+            FixedScenario scenario = new FixedScenario(endReachedBehaviour);
             NodeList contextNodes = root.getElementsByTagName("interval");
 
             for (int i = 0; i < contextNodes.getLength(); i++) {

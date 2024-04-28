@@ -3,7 +3,6 @@ package model.level.scenario;
 import model.ingame.entity.IEnemy.IEnemyFactory;
 import model.ingame.entity.IEntity.IEntityFactory;
 import model.ingame.weapon.WeaponModel.IWeaponFactory;
-import util.IUpdateable;
 import util.IntervalMapCursor;
 
 import java.util.LinkedList;
@@ -11,12 +10,11 @@ import java.util.Map;
 import java.util.Queue;
 
 
-public class ScenarioCursor implements IUpdateable {
-    private static final double TICK_LENGTH = 0.1; // Try to spawn every 0.1 seconds
+public class FixedScenarioCursor implements IScenarioCursor {
     private final IntervalMapCursor<Double, IGameContext> cursor;
-    private final WeaponGenerator weaponGenerator = new WeaponGenerator(TICK_LENGTH);
-    private final EnemyGenerator enemyGenerator = new EnemyGenerator(TICK_LENGTH);
-    private final MiscEntityGenerator miscEntityGenerator = new MiscEntityGenerator(TICK_LENGTH);
+    private final WeaponGenerator weaponGenerator = new WeaponGenerator();
+    private final EnemyGenerator enemyGenerator = new EnemyGenerator();
+    private final MiscEntityGenerator miscEntityGenerator = new MiscEntityGenerator();
 
     private final Queue<IWeaponFactory> weapons = new LinkedList<>();
     private final Queue<IEnemyFactory> enemies = new LinkedList<>();
@@ -24,7 +22,7 @@ public class ScenarioCursor implements IUpdateable {
 
     private IGameContext currentContext;
 
-    public ScenarioCursor(Scenario scenario) {
+    public FixedScenarioCursor(FixedScenario scenario) {
         cursor = new IntervalMapCursor<>(scenario, Double::sum);
     }
 
@@ -58,18 +56,22 @@ public class ScenarioCursor implements IUpdateable {
         }
     }
 
-    public IWeaponFactory nextWeaponFactory() {
+    @Override
+    public IWeaponFactory nextWeapon() {
         return weapons.poll();
     }
 
-    public IEnemyFactory nextEnemyFactory() {
+    @Override
+    public IEnemyFactory nextEnemy() {
         return enemies.poll();
     }
 
-    public IEntityFactory nextMiscEntityFactory() {
+    @Override
+    public IEntityFactory nextMiscEntity() {
         return miscEntities.poll();
     }
 
+    @Override
     public boolean isGameFinished() {
         return cursor.hasEnded();
     }
