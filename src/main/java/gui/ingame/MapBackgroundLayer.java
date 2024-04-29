@@ -1,14 +1,13 @@
 package gui.ingame;
 
-import java.awt.GridLayout;
-import java.util.function.IntSupplier;
-
-import javax.swing.JComponent;
-
 import gui.ingame.tile.TileRenderer;
 import gui.ingame.tile.TileRendererFactory;
 import model.level.MapModel;
 import util.IUpdateable;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.function.IntSupplier;
 
 /**
  * A layer of the game rendering the map background. It is a JPanel containing TileRenderers, each one corresponding
@@ -36,5 +35,13 @@ public class MapBackgroundLayer extends JComponent implements IUpdateable {
     }
 
     @Override
-    public void update(double delta) {}
+    public void update(double delta) {
+        for (TileRenderer[] row : tileRenderers) {
+            for (TileRenderer tileRenderer : row) {
+                if (tileRenderer instanceof IUpdateable updateable) {
+                    updateable.update(delta);
+                }
+            }
+        }
+    }
 }
