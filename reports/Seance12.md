@@ -24,7 +24,8 @@
 2. Amélioration de l'animation du joueur (Mohamed)
 3. Ajout des pièges sur la carte en tant que tuiles, affectant le joueur (potentiellement même tâche que pour les murs cassables dans la map) (Yacob)
 4. Implémentation du mode marathon (Yacob)
+5. Création de quelques scénarios (Yacob)
 
-
-5. Documenter le code
-6. Amélioration générale de l'esthétique
+5. Équilibrage du jeu (vitesse notamment)
+6. Documenter le code
+7. Amélioration générale de l'esthétique
