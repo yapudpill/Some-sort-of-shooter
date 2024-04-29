@@ -1,15 +1,12 @@
 package gui.launcher;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import controller.MainController;
 import model.level.InvalidMapException;
+import model.level.scenario.InvalidScenarioException;
+import util.Resource;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class MapMenu extends JPanel {
 
@@ -33,13 +30,17 @@ public class MapMenu extends JPanel {
         constraints.fill = GridBagConstraints.BOTH;
 
         constraints.weighty = 1;
-        MapSelector selector = new MapSelector();
-        add(selector, constraints);
+        MapSelector mapSelector = new MapSelector();
+        add(mapSelector, constraints);
+
+        constraints.gridy += 1;
+        ScenarioSelector scenarioSelector = new ScenarioSelector();
+        add(scenarioSelector, constraints);
 
         constraints.gridwidth = 1;
 
         // Back and start buttons (row 2)
-        constraints.gridy = 2;
+        constraints.gridy += 2;
         constraints.weighty = 0.5;
 
         constraints.gridx = 0;
@@ -51,11 +52,13 @@ public class MapMenu extends JPanel {
         JButton start = new JButton("Start");
         start.addActionListener(event -> {
             try {
-                mainController.loadGame(selector.getSelectedMap());
-            } catch (InvalidMapException e) {
+                Resource selectedMapResource = mapSelector.getSelectedMap();
+                Resource selectedScenarioResource = scenarioSelector.getSelectedScenario();
+                mainController.loadGame(selectedMapResource, selectedScenarioResource);
+            } catch (InvalidMapException | InvalidScenarioException e) {
                 JOptionPane.showMessageDialog(
                 this,
-                "The selected file is not in the correct format.",
+                String.format("The selected %s is not in the correct format.", e instanceof InvalidMapException ? "map" : "scenario"),
                 "Error",
                 JOptionPane.ERROR_MESSAGE
             );

@@ -1,9 +1,9 @@
 package controller;
 
+import util.IUpdateable;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
-import util.IUpdateable;
 
 public class ModelGameLoop extends GameLoop {
     private static final int FRAME_TIME = 16; // ms

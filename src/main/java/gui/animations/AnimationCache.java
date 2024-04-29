@@ -82,7 +82,6 @@ public class AnimationCache {
 
             String defaultId = root.getAttribute("default");
             AnimationGroup group = new AnimationGroup(defaultId);
-            animationGroupCache.put(url, group);
 
             NodeList nodes = root.getElementsByTagName("animation");
 
@@ -94,6 +93,8 @@ public class AnimationCache {
 
             group.preloadAnimations(resourceBase);
 
+
+            animationGroupCache.put(url, group);
             return group;
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
