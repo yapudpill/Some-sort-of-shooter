@@ -13,14 +13,16 @@ public class PlayerModel extends CombatEntityModel {
     private final ModelTimer dashTimer;
     private final ModelTimer pickWeaponTimer;
 
+
     public PlayerModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 100, 0.5, 0.5, gameModel);
+        super(pos, 100, 0.8, 0.8, gameModel);
         dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
         pickWeaponTimer = new ModelTimer(0.5, false, () -> {}, gameModel);
 
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(DEFAULT_SPEED);
         setWeapon(new RocketLauncher(this, gameModel));
+
     }
 
     @Override

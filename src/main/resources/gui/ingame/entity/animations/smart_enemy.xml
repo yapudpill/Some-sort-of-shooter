@@ -1,0 +1,8 @@
+<animationGroup default="smart">
+    <animation endReachedBehaviour="LOOPING" id="smart">
+        <frame time="0.1" path="sprites/smart_enemy/smart1.png"/>
+        <frame time="0.2" path="sprites/smart_enemy/smart2.png"/>
+        <frame time="0.3" path="sprites/smart_enemy/smart3.png"/>
+        <frame time="0.4 " path="sprites/smart_enemy/smart4.png"/>
+    </animation>
+</animationGroup>

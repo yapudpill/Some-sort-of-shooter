@@ -18,7 +18,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     private Projectile projectileInstance;
 
     public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 50, 0.8, 0.8, gameModel);
+        super(pos, 50, 1,1, gameModel);
         player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(3.6);

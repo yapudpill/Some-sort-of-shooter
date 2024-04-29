@@ -1,6 +1,7 @@
 package model.ingame.entity;
 
 import java.awt.geom.Rectangle2D;
+import java.util.Set;
 
 import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.BlockedMovementListener;
@@ -15,4 +16,5 @@ public interface ICollisionEntity extends IEntity {
     void addBlockedMovementListener(BlockedMovementListener listener);
     void notifyCollisionListeners(CollisionEvent e);
     void notifyBlockedMovementListeners(BlockedMovementEvent e);
+    void updateCollidedEntities(Set<ICollisionEntity> collidedEntities);
 }

@@ -1,0 +1,8 @@
+<animationGroup default="explode">
+    <animation endReachedBehaviour="LOOPING" id="explode">
+        <frame time="0.1" path="sprites/exploding_enemy/explode1.png"/>
+        <frame time="0.2" path="sprites/exploding_enemy/explode2.png"/>
+        <frame time="0.3" path="sprites/exploding_enemy/explode3.png"/>
+        <frame time="0.4 " path="sprites/exploding_enemy/explode4.png"/>
+    </animation>
+</animationGroup>

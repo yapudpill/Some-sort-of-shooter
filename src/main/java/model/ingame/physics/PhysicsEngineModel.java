@@ -48,6 +48,7 @@ public class PhysicsEngineModel implements IUpdateable {
                 involvedEntities.add(other);
             }
         }
+        entity.updateCollidedEntities(involvedEntities);
         return involvedEntities;
     }
 

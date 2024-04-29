@@ -23,14 +23,14 @@ public class EntityRendererFactory {
             case PlayerModel e -> new PlayerRenderer(e);
 
             case WalkingEnemyModel e -> new VulnerableSpriteRenderer(e, "sprites/EyeBallEnemy.png");
-            case SmartEnemyModel e   -> new VulnerableSpriteRenderer(e, "sprites/Brain_of_Cthulhu.png");
-            case ExplodingEnemy e    -> new VulnerableSpriteRenderer(e, "sprites/bombman.png");
-            case BreakableBarrier e  -> new VulnerableSpriteRenderer(e, "sprites/breakablebarrier.png");
+            case BreakableBarrier e  -> new BreakableBarrierRenderer(e);
 
             case RocketProjectileModel e -> new CircleRenderer(e, Color.RED);
             case RubberProjectile e      -> new CircleRenderer(e, Color.BLUE);
             case Projectile e            -> new CircleRenderer(e, Color.BLACK);
 
+            case SmartEnemyModel e   -> new AnimatedRenderer(e, "animations/smart_enemy.xml");
+            case ExplodingEnemy e   -> new AnimatedRenderer(e, "animations/exploding_enemy.xml");
             case ExplosionZoneEntity e -> new AnimatedRenderer(e, "animations/explosion_zone.xml");
             case KnifeZoneEntity e     -> new AnimatedRenderer(e, "animations/knife_zone.xml", e.getDirection()::getAngle);
 

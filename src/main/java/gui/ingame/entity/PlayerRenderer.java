@@ -1,6 +1,8 @@
 package gui.ingame.entity;
 
+import gui.ingame.HUDLayer;
 import model.ingame.entity.PlayerModel;
+import model.ingame.entity.WeaponEntity;
 
 public class PlayerRenderer extends VulnerableAnimatedRenderer {
 
@@ -13,6 +15,11 @@ public class PlayerRenderer extends VulnerableAnimatedRenderer {
         super.update(deltaT);
 
         PlayerModel player = (PlayerModel) entity;
+        if(player.isCurrentlyCollidingWith(e -> e instanceof WeaponEntity)) {
+            HUDLayer.setMessage("Press E to pick up weapon");
+        } else {
+            HUDLayer.setMessage("");
+        }
         if (player.getMovementHandler().isMoving()) {
             animationManager.switchAnimation(
                 switch (player.getMovementHandler().getDirectionVector().getCardinalDirection()) {
