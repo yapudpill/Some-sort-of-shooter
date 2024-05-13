@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="40px"
+   viewBox="0 -960 960 960"
+   width="40px"
+   fill="#003399"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="question.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   inkscape:export-filename="../Cours/L2/shooter/src/main/resources/gui/laf/icon/question.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="19.65"
+     inkscape:cx="20"
+     inkscape:cy="20"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="40"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="m 481.8,-268.203 q 15.903,0 26.847,-10.944 10.953,-10.953 10.953,-26.856 0,-15.894 -10.953,-26.847 -10.944,-10.953 -26.847,-10.953 -15.903,0 -26.847,10.953 -10.953,10.953 -10.953,26.847 0,15.903 10.953,26.856 10.944,10.944 26.847,10.944 z m -31.797,-133.794 h 57.6 q 0,-25.506 6.147,-44.1 6.147,-18.603 37.053,-45.306 26.397,-23.4 38.7,-45.45 12.294,-22.05 12.294,-49.95 0,-48.6 -32.994,-76.797 -33.003,-28.197 -84.006,-28.197 -46.494,0 -79.65,23.697 Q 372,-644.403 357.6,-606 l 51.597,19.8 q 8.1,-22.203 26.55,-37.8 18.45,-15.597 47.25,-15.597 30.006,0 47.403,16.344 17.397,16.353 17.397,40.05 0,19.206 -11.394,36.153 -11.403,16.947 -31.806,34.047 -31.194,27.306 -42.894,48.6 -11.7,21.303 -11.7,62.406 z M 480,-120 q -74.097,0 -139.797,-28.35 -65.7,-28.35 -114.606,-77.247 Q 176.7,-274.503 148.35,-340.203 120,-405.903 120,-480 q 0,-74.7 28.35,-140.4 28.35,-65.7 77.247,-114.3 48.906,-48.6 114.606,-76.95 Q 405.903,-840 480,-840 q 74.7,0 140.4,28.35 65.7,28.35 114.3,76.95 48.6,48.6 76.95,114.3 28.35,65.7 28.35,140.4 0,74.097 -28.35,139.797 -28.35,65.7 -76.95,114.606 Q 686.1,-176.7 620.4,-148.35 554.7,-120 480,-120 Z m 0,-60.003 q 125.397,0 212.697,-87.597 87.3,-87.597 87.3,-212.4 0,-125.397 -87.3,-212.697 -87.3,-87.3 -212.697,-87.3 -124.803,0 -212.4,87.3 -87.597,87.3 -87.597,212.697 0,124.803 87.597,212.4 87.597,87.597 212.4,87.597 z M 480,-480 Z"
+     id="path1"
+     style="fill:#003399;stroke-width:0.9" />
+</svg>

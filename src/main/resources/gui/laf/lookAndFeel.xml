@@ -1,0 +1,232 @@
+<synth>
+
+    <!-- Objects shared by multiple components -->
+    <color id="foreground"      value="WHITE"/>
+    <color id="background"      value="#151515"/>
+    <color id="lightBackground" value="#252525"/>
+    <color id="disabled"        value="#404040"/>
+    <color id="selected"        value="YELLOW"/>
+    <imageIcon id="ok"     path="laf/icon/ok.png"/>
+    <imageIcon id="cancel" path="laf/icon/cancel.png"/>
+    <imagePainter id="defaultBorder"  path="laf/border/border.png"         sourceInsets="10 10 10 10"/>
+    <imagePainter id="hoverBorder"    path="laf/border/hoverBorder.png"    sourceInsets="10 10 10 10"/>
+    <imagePainter id="disabledBorder" path="laf/border/disabledBorder.png" sourceInsets="10 10 10 10"/>
+
+
+    <!-- Base style used by default by all components -->
+    <style id="base">
+        <opaque value="true"/>
+        <font name="Determination Extended Regular" size="30"/>
+        <state>
+            <color idref="background" type="BACKGROUND"/>
+            <color idref="foreground" type="FOREGROUND"/>
+            <color idref="foreground" type="TEXT_FOREGROUND"/>
+        </state>
+        <state value="DISABLED">
+            <color idref="disabled" type="TEXT_FOREGROUND"/>
+        </state>
+    </style>
+    <bind style="base" type="region" key=".*"/>
+
+
+    <!-- Insets around Label -->
+    <style id="label">
+        <insets top="10" bottom="10" right="10" left="10"/>
+    </style>
+    <bind style="label" type="region" key="Label"/>
+
+
+    <!-- Button and ToggleButton borders (ToggleButton is used by FileChooser) -->
+    <style id="button">
+        <property key="Button.iconTextGap" type="integer" value="10"/>
+        <insets top="20" bottom="20" right="20" left="20"/>
+
+        <imagePainter idref="defaultBorder" method="buttonBorder"/>
+        <imagePainter idref="defaultBorder" method="toggleButtonBorder"/>
+
+        <state value="MOUSE_OVER">
+            <imagePainter idref="hoverBorder" method="buttonBorder"/>
+            <imagePainter idref="hoverBorder" method="toggleButtonBorder"/>
+        </state>
+
+        <state value="DISABLED">
+            <imagePainter idref="disabledBorder" method="buttonBorder"/>
+            <imagePainter idref="disabledBorder" method="toggleButtonBorder"/>
+        </state>
+
+        <state value="SELECTED">
+            <imagePainter idref="hoverBorder" method="toggleButtonBorder"/>
+        </state>
+    </style>
+    <bind style="button" type="region" key="Button"/>
+    <bind style="button" type="region" key="ToggleButton"/>
+
+
+    <!-- Lighter background for the selected cell in List and Table (used by ComboBox and FileChooser) -->
+    <style id="selector">
+        <state>
+            <color idref="disabled" type="TEXT_BACKGROUND"/>
+        </state>
+    </style>
+    <bind style="selector" type="region" key="List"/>
+    <bind style="selector" type="region" key="Table"/>
+
+
+    <!-- ComboBox borders -->
+    <style id="comboBox">
+        <insets top="20" bottom="20" right="20" left="20"/>
+        <imagePainter idref="defaultBorder" method="comboBoxBorder"/>
+
+        <state value="DISABLED">
+            <imagePainter idref="disabledBorder" method="comboBoxBorder"/>
+        </state>
+    </style>
+    <bind style="comboBox" type="region" key="ComboBox"/>
+
+    <!-- ComboBox mouse over background change -->
+    <style id="comboBoxOver">
+        <opaque value="true"/>
+        <state>
+            <color idref="lightBackground" type="BACKGROUND"/> <!-- used by listRenderer -->
+            <color idref="foreground" type="TEXT_FOREGROUND"/> <!-- used by list -->
+        </state>
+    </style>
+    <bind style="comboBoxOver" type="name" key="ComboBox.listRenderer"/>
+    <bind style="comboBoxOver" type="name" key="ComboBox.list"/>
+
+
+    <!-- ScrollBar rendering -->
+    <style id="scrollBar">
+        <opaque value="true"/>
+        <state>
+            <color idref="foreground" type="BACKGROUND"/>
+        </state>
+        <state value="PRESSED">
+            <color idref="selected" type="BACKGROUND"/>
+        </state>
+    </style>
+    <bind style="scrollBar" type="region" key="ScrollBarThumb"/>
+
+
+    <!-- CheckBox style and icons -->
+    <style id="checkBox">
+        <imageIcon id="empty" path="laf/icon/checkboxEmpty.png"/>
+        <imageIcon id="full" path="laf/icon/checkboxFull.png"/>
+
+        <property key="CheckBox.icon" value="empty"/>
+
+        <state value="SELECTED and MOUSE_OVER">
+            <property key="CheckBox.icon" value="full"/>
+            <color idref="selected" type="TEXT_FOREGROUND"/>
+        </state>
+
+        <state value="SELECTED">
+            <property key="CheckBox.icon" value="full"/>
+        </state>
+
+        <state value="MOUSE_OVER">
+            <color idref="selected" type="TEXT_FOREGROUND"/>
+        </state>
+    </style>
+    <bind style="checkBox" type="region" key="CheckBox"/>
+
+    <!-- OptionPane icons -->
+    <style id="optionPane">
+        <property key="OptionPane.cancelIcon" value="cancel"/>
+
+        <property key="OptionPane.noIcon" value="cancel"/>
+
+        <property key="OptionPane.okIcon" value="ok"/>
+
+        <property key="OptionPane.yesIcon" value="ok"/>
+
+        <imageIcon id="error" path="laf/icon/error.png"/>
+        <property key="OptionPane.errorIcon" value="error"/>
+
+        <imageIcon id="info" path="laf/icon/info.png"/>
+        <property key="OptionPane.informationIcon" value="info"/>
+
+        <imageIcon id="question" path="laf/icon/question.png"/>
+        <property key="OptionPane.questionIcon" value="question"/>
+
+        <imageIcon id="warning" path="laf/icon/warning.png"/>
+        <property key="OptionPane.warningIcon" value="warning"/>
+    </style>
+    <bind style="optionPane" type="region" key="OptionPane"/>
+
+
+    <!-- ArrowButton icons (used by Spinner, ScrollBar and ComboBox) -->
+    <style id="arrow">
+        <imagePainter method="arrowButtonForeground" direction="north" path="laf/arrow/north.png" sourceInsets="0 0 0 0"/>
+        <imagePainter method="arrowButtonForeground" direction="west"  path="laf/arrow/west.png"  sourceInsets="0 0 0 0"/>
+        <imagePainter method="arrowButtonForeground" direction="south" path="laf/arrow/south.png" sourceInsets="0 0 0 0"/>
+        <imagePainter method="arrowButtonForeground" direction="east"  path="laf/arrow/east.png"  sourceInsets="0 0 0 0"/>
+
+        <state value="MOUSE_OVER">
+            <imagePainter method="arrowButtonForeground" direction="north" path="laf/arrow/hoverNorth.png" sourceInsets="0 0 0 0"/>
+            <imagePainter method="arrowButtonForeground" direction="west"  path="laf/arrow/hoverWest.png"  sourceInsets="0 0 0 0"/>
+            <imagePainter method="arrowButtonForeground" direction="south" path="laf/arrow/hoverSouth.png" sourceInsets="0 0 0 0"/>
+            <imagePainter method="arrowButtonForeground" direction="east"  path="laf/arrow/hoverEast.png"  sourceInsets="0 0 0 0"/>
+        </state>
+
+        <state value="DISABLED">
+            <imagePainter method="arrowButtonForeground" direction="north" path="laf/arrow/disabledNorth.png" sourceInsets="0 0 0 0"/>
+            <imagePainter method="arrowButtonForeground" direction="west"  path="laf/arrow/disabledWest.png"  sourceInsets="0 0 0 0"/>
+            <imagePainter method="arrowButtonForeground" direction="south" path="laf/arrow/disabledSouth.png" sourceInsets="0 0 0 0"/>
+            <imagePainter method="arrowButtonForeground" direction="east"  path="laf/arrow/disabledEast.png"  sourceInsets="0 0 0 0"/>
+        </state>
+    </style>
+    <bind style="arrow" type="region" key="ArrowButton"/>
+
+
+    <!-- FileChooser icons -->
+    <style id="fileChooser">
+        <property key="FileChooser.cancelIcon" value="cancel"/>
+
+        <property key="FileChooser.okIcon" value="ok"/>
+
+        <imageIcon id="directory" path="laf/icon/directory.png"/>
+        <property key="FileView.directoryIcon" value="directory"/>
+
+        <imageIcon id="home" path="laf/icon/home.png"/>
+        <property key="FileChooser.homeFolderIcon" value="home"/>
+
+        <imageIcon id="parentFolder" path="laf/icon/parentFolder.png"/>
+        <property key="FileChooser.upFolderIcon" value="parentFolder"/>
+
+        <imageIcon id="newFolder" path="laf/icon/newFolder.png"/>
+        <property key="FileChooser.newFolderIcon" value="newFolder"/>
+
+        <imageIcon id="file" path="laf/icon/file.png"/>
+        <property key="FileView.fileIcon" value="file"/>
+
+        <imageIcon id="detailsView" path="laf/icon/detailsView.png"/>
+        <property key="FileChooser.detailsViewIcon" value="detailsView"/>
+
+        <imageIcon id="listView" path="laf/icon/listView.png"/>
+        <property key="FileChooser.listViewIcon" value="listView"/>
+
+        <imageIcon id="floppyDrive" path="laf/icon/floppyDrive.png"/>
+        <property key="FileView.floppyDriveIcon" value="floppyDrive"/>
+
+        <imageIcon id="computer" path="laf/icon/computer.png"/>
+        <property key="FileView.computerIcon" value="computer"/>
+
+        <imageIcon id="hardDrive" path="laf/icon/hardDrive.png"/>
+        <property key="FileView.hardDriveIcon" value="hardDrive"/>
+    </style>
+    <bind style="fileChooser" type="region" key="FileChooser"/>
+
+
+    <!-- TextField normal and selected text background (used by FileChooser) -->
+    <style id="textField">
+        <opaque value="true"/>
+        <insets top="10" bottom="10" right="10" left="10"/>
+        <state>
+            <color value="#003399" type="TEXT_BACKGROUND"/>
+            <color idref="lightBackground" type="BACKGROUND"/>
+        </state>
+    </style>
+    <bind style="textField" type="region" key="TextField"/>
+
+</synth>
