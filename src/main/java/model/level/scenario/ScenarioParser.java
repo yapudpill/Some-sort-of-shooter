@@ -40,7 +40,7 @@ public class ScenarioParser {
         Element weaponsNode = (Element) contextElement.getElementsByTagName("weapons").item(0);
         NodeList weaponNodes = weaponsNode.getElementsByTagName("weapon");
 
-        Map<Double, WeaponModel.IWeaponFactory> weaponRates = new HashMap<>();
+        Map<WeaponModel.IWeaponFactory, Double> weaponRates = new HashMap<>();
         List<WeaponModel.IWeaponFactory> oneShotWeapons = new ArrayList<>();
 
         for (int i = 0; i < weaponNodes.getLength(); i++) {
@@ -59,7 +59,7 @@ public class ScenarioParser {
             if (oneshot) {
                 oneShotWeapons.add(weaponFactory);
             } else {
-                weaponRates.put(rate, weaponFactory);
+                weaponRates.put(weaponFactory, rate);
             }
         }
 
@@ -67,7 +67,7 @@ public class ScenarioParser {
         Element enemiesNode = (Element) contextElement.getElementsByTagName("enemies").item(0);
         NodeList enemyNodes = enemiesNode.getElementsByTagName("enemy");
 
-        Map<Double, IEnemy.IEnemyFactory> enemyRates = new HashMap<>();
+        Map<IEnemy.IEnemyFactory, Double> enemyRates = new HashMap<>();
         List<IEnemy.IEnemyFactory> oneShotEnemies = new ArrayList<>();
 
         for (int i = 0; i < enemyNodes.getLength(); i++) {
@@ -86,14 +86,14 @@ public class ScenarioParser {
             if (oneshot) {
                 oneShotEnemies.add(enemyFactory);
             } else {
-                enemyRates.put(rate, enemyFactory);
+                enemyRates.put(enemyFactory, rate);
             }
         }
 
         Element miscsNode = (Element) contextElement.getElementsByTagName("miscs").item(0);
         NodeList miscNodes = miscsNode.getElementsByTagName("misc");
 
-        Map<Double, IEntity.IEntityFactory> miscRates = new HashMap<>();
+        Map<IEntity.IEntityFactory, Double> miscRates = new HashMap<>();
         List<IEntity.IEntityFactory> oneShotMiscs = new ArrayList<>();
 
 
@@ -113,7 +113,7 @@ public class ScenarioParser {
             if (oneshot) {
                 oneShotMiscs.add(miscEntityFactory);
             } else {
-                miscRates.put(rate, miscEntityFactory);
+                miscRates.put(miscEntityFactory, rate);
             }
         }
 

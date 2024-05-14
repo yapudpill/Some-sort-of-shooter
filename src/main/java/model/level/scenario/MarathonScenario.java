@@ -29,13 +29,13 @@ public class MarathonScenario implements IScenario {
     public MarathonScenario() {
     }
 
-    // Values that should later be configurable from GUI
+    // Values that may later be configured in the GUI
     public int initialWaveCooldown() {
-        return 10;
+        return 5;
     }
 
     public int initialWaveDuration() {
-        return 30;
+        return 20;
     }
 
     public List<IEnemyFactory> enemiesByDifficulty() {

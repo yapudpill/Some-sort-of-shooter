@@ -15,8 +15,8 @@ public interface IGameContext {
                                Collection<IEntityFactory> miscEntities) implements IGameContext {
     }
 
-    record FixedSpawnRateContext(Map<Double, WeaponModel.IWeaponFactory> weaponRates,
-                                 Map<Double, IEnemyFactory> enemyRates,
-                                 Map<Double, IEntityFactory> miscEntityRates) implements IGameContext {
+    record FixedSpawnRateContext(Map<WeaponModel.IWeaponFactory, Double> weaponRates,
+                                 Map<IEnemyFactory, Double> enemyRates,
+                                 Map<IEntityFactory, Double> miscEntityRates) implements IGameContext {
     }
 }

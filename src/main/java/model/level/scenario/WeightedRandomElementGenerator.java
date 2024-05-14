@@ -7,18 +7,19 @@ public abstract class WeightedRandomElementGenerator<E> {
 
     public abstract Collection<E> getAllowedElements();
 
-    private Map<Double, E> elementRates; // Rate in probability of spawn per second
+    private Map<E, Double> elementRates; // Rate in probability of spawn per second
 
-    public void setElementRates(Map<Double, E> rates) {
+    public void setElementRates(Map<E, Double> rates) {
         this.elementRates = rates;
     }
 
     public Set<E> nextElements(double delta) {
+        if (elementRates == null) return Set.of();
         Set<E> res = new HashSet<>();
-        for (Map.Entry<Double, E> entry : elementRates.entrySet()) {
+        for (Map.Entry<E, Double> entry : elementRates.entrySet()) {
             double pick = rng.nextDouble();
-            if (pick < entry.getKey() * delta) {
-                res.add(entry.getValue());
+            if (pick < entry.getValue() * delta) {
+                res.add(entry.getKey());
             }
         }
         return res;

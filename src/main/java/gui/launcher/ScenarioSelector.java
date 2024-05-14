@@ -72,7 +72,7 @@ public class ScenarioSelector extends JPanel {
         constraints.gridy = 2;
         constraints.gridx = 1;
         constraints.gridwidth = 2;
-        marathonCheckbox = new JCheckBox("Marathon mode (Coming soon!)", true);
+        marathonCheckbox = new JCheckBox("Marathon mode", true);
         setMarathonMode(true);
         marathonCheckbox.addItemListener(e -> setMarathonMode(e.getStateChange() == ItemEvent.SELECTED));
         add(marathonCheckbox, constraints);
