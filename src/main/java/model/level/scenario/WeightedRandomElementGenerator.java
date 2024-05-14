@@ -1,6 +1,10 @@
 package model.level.scenario;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 public abstract class WeightedRandomElementGenerator<E> {
     private final Random rng = new Random();

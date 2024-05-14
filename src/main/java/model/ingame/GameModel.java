@@ -1,6 +1,20 @@
 package model.ingame;
 
-import model.ingame.entity.*;
+import java.util.Collection;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Predicate;
+
+import model.ingame.entity.BreakableBarrier;
+import model.ingame.entity.CombatEntityModel;
+import model.ingame.entity.ExplodingEnemy;
+import model.ingame.entity.ICollisionEntity;
+import model.ingame.entity.IEntity;
+import model.ingame.entity.PlayerModel;
+import model.ingame.entity.RandomPositionSpawner;
+import model.ingame.entity.SmartEnemyModel;
+import model.ingame.entity.WalkingEnemyModel;
+import model.ingame.entity.WeaponEntity;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
 import model.level.InvalidMapException;
@@ -9,11 +23,6 @@ import model.level.scenario.Scenario;
 import model.level.scenario.ScenarioCursor;
 import util.Coordinates;
 import util.IUpdateable;
-
-import java.util.Collection;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Predicate;
 
 public class GameModel implements IUpdateable {
     public final Statistics stats;

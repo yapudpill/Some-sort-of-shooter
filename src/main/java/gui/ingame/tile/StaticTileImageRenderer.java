@@ -1,8 +1,9 @@
 package gui.ingame.tile;
 
-import gui.ImageCache;
+import java.awt.Graphics;
+import java.awt.Image;
 
-import java.awt.*;
+import gui.ImageCache;
 
 public class StaticTileImageRenderer extends TileRenderer {
     private final Image image;

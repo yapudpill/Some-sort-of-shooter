@@ -1,14 +1,17 @@
 package gui.editor;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JPanel;
+
 import gui.ingame.tile.TileRenderer;
 import gui.ingame.tile.TileRendererFactory;
 import model.level.TileModel;
 import util.Pair;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class EditorGrid extends JPanel {
     private final EditorModel model;
