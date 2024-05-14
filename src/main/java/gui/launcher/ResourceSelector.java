@@ -6,8 +6,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import gui.ImageCache;
 import gui.MainFrame;
 import util.Resource;
 
@@ -65,12 +68,14 @@ public class ResourceSelector extends JPanel {
         constraints.gridy = 1;
 
         constraints.gridx = 1;
-        openButton = new JButton("Open");
+        Image openIcon = ImageCache.loadImage("laf/icon/directory.png", MainFrame.class);
+        openButton = new JButton("Open", new ImageIcon(openIcon));
         openButton.addActionListener(e -> open());
         add(openButton, constraints);
 
         constraints.gridx = 2;
-        clearButton = new JButton("Clear");
+        Image clearIcon = ImageCache.loadImage("laf/icon/cancel.png", MainFrame.class);
+        clearButton = new JButton("Clear", new ImageIcon(clearIcon));
         clearButton.addActionListener(e -> clear());
         add(clearButton, constraints);
 

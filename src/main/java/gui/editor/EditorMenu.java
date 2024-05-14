@@ -2,10 +2,12 @@ package gui.editor;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import controller.MainController;
+import gui.ImageCache;
 import gui.MainFrame;
 import gui.launcher.MapSelector;
 import model.level.InvalidMapException;
@@ -102,17 +105,20 @@ public class EditorMenu extends JPanel {
         add(menu, constraints);
 
         constraints.gridx = 1;
-        JButton clear = new JButton("Clear");
+        Image clearIcon = ImageCache.loadImage("laf/icon/cancel.png", MainFrame.class);
+        JButton clear = new JButton("Clear", new ImageIcon(clearIcon));
         clear.addActionListener(e -> { model.reset(); grid.reset(); });
         add(clear, constraints);
 
         constraints.gridx = 2;
-        JButton open = new JButton("Open");
+        Image openIcon = ImageCache.loadImage("laf/icon/directory.png", MainFrame.class);
+        JButton open = new JButton("Open", new ImageIcon(openIcon));
         open.addActionListener(e -> open());
         add(open, constraints);
 
         constraints.gridx = 3;
-        JButton save = new JButton("Save");
+        Image saveIcon = ImageCache.loadImage("laf/icon/floppyDrive.png", MainFrame.class);
+        JButton save = new JButton("Save", new ImageIcon(saveIcon));
         save.addActionListener(e -> save());
         add(save, constraints);
     }
