@@ -18,7 +18,7 @@ public class ExplodingEnemy extends CreatureModel implements IEffectEntity {
         addCollisionListener(e -> {
             if (e.getInvolvedEntitiesList().contains(player)) {
                 gameModel.addEntity(new ExplosionZoneEntity(this.pos, 2, 2, 10, 1, gameModel));
-                this.despawn();
+                this.takeDamage(health);
             }
         });
     }

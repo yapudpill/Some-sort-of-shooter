@@ -8,10 +8,14 @@ import javax.swing.JPanel;
 import gui.ImageCache;
 
 public class TileRenderer extends JPanel {
-    private final Image image;
+    protected Image image;
 
     public TileRenderer(String path) {
         image = ImageCache.loadImage(path, getClass());
+    }
+
+    public TileRenderer(){
+        image = null;
     }
 
     @Override

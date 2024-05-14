@@ -29,8 +29,8 @@ public class EntityRendererFactory {
             case RubberProjectile e      -> new CircleRenderer(e, Color.BLUE);
             case Projectile e            -> new CircleRenderer(e, Color.BLACK);
 
-            case SmartEnemyModel e   -> new AnimatedRenderer(e, "animations/smart_enemy.xml");
-            case ExplodingEnemy e   -> new AnimatedRenderer(e, "animations/exploding_enemy.xml");
+            case SmartEnemyModel e   -> new VulnerableAnimatedRenderer(e, "animations/smart_enemy.xml");
+            case ExplodingEnemy e   -> new VulnerableAnimatedRenderer(e, "animations/exploding_enemy.xml");
             case ExplosionZoneEntity e -> new AnimatedRenderer(e, "animations/explosion_zone.xml");
             case KnifeZoneEntity e     -> new AnimatedRenderer(e, "animations/knife_zone.xml", e.getDirection()::getAngle);
 

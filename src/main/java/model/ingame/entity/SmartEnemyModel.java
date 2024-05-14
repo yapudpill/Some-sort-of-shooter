@@ -43,7 +43,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     public void update(double delta) {
         if (!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance)) {
             shootingTimer.update(delta);
-            StandardBehavior.circleAround(this, player, gameModel.getMapModel());
+            movementHandler.setDirectionVector(Coordinates.ZERO);
         } else {
             pathFinder.handlePathFindingUpdate(this, player.getPos());
         }

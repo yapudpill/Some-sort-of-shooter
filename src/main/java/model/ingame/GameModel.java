@@ -59,9 +59,9 @@ public class GameModel implements IUpdateable {
 
         // TODO: read this from map
         // add breakable barriers
-        BreakableBarrier barrier1 = new BreakableBarrier(new Coordinates(5.5, 5.5), this);
-        BreakableBarrier barrier2 = new BreakableBarrier(new Coordinates(5.5, 6.5), this);
-        BreakableBarrier barrier3 = new BreakableBarrier(new Coordinates(5.5, 7.5), this);
+        BreakableBarrier barrier1 = new BreakableBarrier(new Coordinates(3.5, 5.5), this);
+        BreakableBarrier barrier2 = new BreakableBarrier(new Coordinates(3.5, 6.5), this);
+        BreakableBarrier barrier3 = new BreakableBarrier(new Coordinates(3.5, 7.5), this);
         entityModelList.add(barrier1);
         entityModelList.add(barrier2);
         entityModelList.add(barrier3);

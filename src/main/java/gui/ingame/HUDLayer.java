@@ -14,11 +14,11 @@ import gui.ingame.entity.PlayerRenderer;
 import util.Coordinates;
 import util.IUpdateable;
 import model.ingame.entity.PlayerModel;
+import model.ingame.entity.WeaponEntity;
 import model.level.MapModel;
 
 public class HUDLayer extends JPanel implements IUpdateable {
-    private static final String WEAPON_LABEL = "Current weapon: %s";
-    private static String currentMessString = "";
+    private String currentMessString = "";
 
     private static class WeaponLabel extends JLabel implements IScalableComponent {
         @Override
@@ -62,14 +62,14 @@ public class HUDLayer extends JPanel implements IUpdateable {
         this.map = map;
     }
 
-    public static void setMessage(String message) {
-        currentMessString = message;
-    }
-
     @Override
     public void update(double delta) {
-        String weaponName = (playerModel.getWeapon() == null) ? "No weapon" : playerModel.getWeapon().getName();
         weaponLabel.setIcon(new ImageIcon(ImageCache.loadImage(String.format("sprites/weapon/%s.png", playerModel.getWeapon().getIdentifier()),PlayerRenderer.class)));
+        if(playerModel.isCurrentlyCollidingWith(e -> e instanceof WeaponEntity)) {
+            currentMessString = "Press E to pick up weapon";
+        } else {
+            currentMessString = "";
+        }
         messageLabel.setText(currentMessString);
     }
 }
