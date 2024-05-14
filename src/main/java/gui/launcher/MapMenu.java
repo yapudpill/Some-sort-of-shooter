@@ -1,12 +1,18 @@
 package gui.launcher;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import controller.MainController;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
 import util.Resource;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class MapMenu extends JPanel {
 
@@ -23,12 +29,16 @@ public class MapMenu extends JPanel {
         constraints.gridwidth = 2;
 
         constraints.weighty = 0.5;
-        add(new JLabel("SELECT A MAP"), constraints);
+        JLabel title = new JLabel("MAP SELECTOR");
+        title.setName("titleLabel");
+        add(title, constraints);
 
-        // Map selection (row 1)
+        // Insets for the rest of the components
         constraints.gridy = 1;
         constraints.fill = GridBagConstraints.BOTH;
+        constraints.insets = new Insets(10, 10, 10, 10);
 
+        // Map selection (row 1)
         constraints.weighty = 1;
         MapSelector mapSelector = new MapSelector();
         add(mapSelector, constraints);
@@ -52,16 +62,16 @@ public class MapMenu extends JPanel {
         JButton start = new JButton("Start");
         start.addActionListener(event -> {
             try {
-                Resource selectedMapResource = mapSelector.getSelectedMap();
-                Resource selectedScenarioResource = scenarioSelector.getSelectedScenario();
-                mainController.loadGame(selectedMapResource, selectedScenarioResource);
+                Resource map = mapSelector.getSelectedResource();
+                Resource scenario = scenarioSelector.getSelectedResource();
+                mainController.loadGame(map, scenario);
             } catch (InvalidMapException | InvalidScenarioException e) {
                 JOptionPane.showMessageDialog(
-                this,
-                String.format("The selected %s is not in the correct format.", e instanceof InvalidMapException ? "map" : "scenario"),
-                "Error",
-                JOptionPane.ERROR_MESSAGE
-            );
+                    this,
+                    String.format("The selected %s is not formatted correctly.", e instanceof InvalidMapException ? "map" : "scenario"),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
             }
         });
         add(start, constraints);

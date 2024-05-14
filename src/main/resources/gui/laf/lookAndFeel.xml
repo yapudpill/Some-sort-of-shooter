@@ -36,6 +36,23 @@
     <bind style="label" type="region" key="Label"/>
 
 
+    <!-- Special font for title labels -->
+    <style id="title">
+        <font name="Determination Extended Regular" size="50"/>
+        <state>
+            <color idref="selected" type="TEXT_FOREGROUND"/>
+        </state>
+    </style>
+    <bind style="title" type="name" key="titleLabel"/>
+
+
+    <!-- Patting between Spinner editor and arrows -->
+    <style id="spinner">
+        <insets top="0" bottom="0" right="15" left="0"/>
+    </style>
+    <bind style="spinner" type="name" key="Spinner.editor"/>
+
+
     <!-- Button and ToggleButton borders (ToggleButton is used by FileChooser) -->
     <style id="button">
         <property key="Button.iconTextGap" type="integer" value="10"/>
