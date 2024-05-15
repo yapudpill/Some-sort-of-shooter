@@ -25,33 +25,30 @@ public class MarathonCursor implements IScenarioCursor {
     private ModelTimer waveTimer;
     private int waveNumber = 0;
     private int rawDifficulty;
-    private ModelTimer updateDifficultyTimer;
     private int time;
-    private Random rng = new Random();
-    private GameModel gameModel;
+    private final Random rng = new Random();
+    private final GameModel gameModel;
 
-    private WeightedRandomElementGenerator<IEnemyFactory> enemyGenerator;
-    private WeightedRandomElementGenerator<IWeaponFactory> weaponGenerator;
+    private final WeightedRandomElementGenerator<IEnemyFactory> enemyGenerator;
+    private final WeightedRandomElementGenerator<IWeaponFactory> weaponGenerator;
 
-    private ModelTimer spawnTimer;
+    private final Queue<IWeaponFactory> weaponsQueue = new LinkedList<>();
+    private final Queue<IEnemyFactory> enemiesQueue = new LinkedList<>();
 
-    private Queue<IWeaponFactory> weaponsQueue = new LinkedList<>();
-    private Queue<IEnemyFactory> enemiesQueue = new LinkedList<>();
-
-    private Queue<IEntityFactory> miscEntitiesQueue = new LinkedList<>();
+    private final Queue<IEntityFactory> miscEntitiesQueue = new LinkedList<>();
 
 
     public MarathonCursor(MarathonScenario scenario, GameModel gameModel) {
         this.scenario = scenario;
         this.gameModel = gameModel;
-        this.updateDifficultyTimer = new ModelTimer(1, true, this::updateDifficulty, gameModel);
+        ModelTimer updateDifficultyTimer = new ModelTimer(1, true, this::updateDifficulty, gameModel);
         updateDifficultyTimer.start();
         this.cooldownDuration = scenario.initialWaveCooldown();
         this.waveDuration = scenario.initialWaveDuration();
 
         this.enemyGenerator = new EnemyGenerator();
         this.weaponGenerator = new WeaponGenerator();
-        this.spawnTimer = new ModelTimer(1, true, this::spawnStuff, gameModel);
+        ModelTimer spawnTimer = new ModelTimer(1, true, this::spawnStuff, gameModel);
         spawnTimer.start();
 
 
@@ -91,7 +88,7 @@ public class MarathonCursor implements IScenarioCursor {
 
     @Override
     public void update(double delta) {
-        time += delta;
+        time += (int) delta;
     }
 
     private double adjustedDifficulty() {

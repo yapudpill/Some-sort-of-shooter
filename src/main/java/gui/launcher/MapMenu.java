@@ -1,21 +1,16 @@
 package gui.launcher;
 
+import controller.MainController;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import controller.MainController;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
 import util.Resource;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class MapMenu extends JPanel {
 

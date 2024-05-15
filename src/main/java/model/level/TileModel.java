@@ -1,14 +1,11 @@
 package model.level;
 
-import model.ingame.entity.ICollisionEntity;
-import model.ingame.entity.IEntity;
-import model.ingame.entity.IEntity.IEntityFactory;
-
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
-
-import static model.ingame.entity.IEntity.*;
+import model.ingame.entity.ICollisionEntity;
+import model.ingame.entity.IEntity;
+import model.ingame.entity.IEntity.IEntityFactory;
 
 public abstract class TileModel {
     protected final Set<ICollisionEntity> collidables = new CopyOnWriteArraySet<>();
