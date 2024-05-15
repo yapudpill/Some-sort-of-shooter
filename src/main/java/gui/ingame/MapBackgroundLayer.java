@@ -36,5 +36,13 @@ public class MapBackgroundLayer extends JComponent implements IUpdateable {
     }
 
     @Override
-    public void update(double delta) {}
+    public void update(double delta) {
+        for (TileRenderer[] row : tileRenderers) {
+            for (TileRenderer tileRenderer : row) {
+                if (tileRenderer instanceof IUpdateable updateable) {
+                    updateable.update(delta);
+                }
+            }
+        }
+    }
 }

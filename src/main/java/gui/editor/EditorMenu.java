@@ -2,9 +2,12 @@ package gui.editor;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -14,6 +17,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import controller.MainController;
+import gui.ImageCache;
 import gui.MainFrame;
 import gui.launcher.MapSelector;
 import model.level.InvalidMapException;
@@ -35,10 +39,12 @@ public class EditorMenu extends JPanel {
 
         // Title (row 0)
         constraints.gridy = 0;
+        constraints.gridx = 0;
         constraints.gridwidth = 4;
 
-        constraints.gridx = 0;
-        add(new JLabel("INTERACTIVE EDITOR"), constraints);
+        JLabel title = new JLabel("INTERACTIVE EDITOR");
+        title.setName("titleLabel");
+        add(title, constraints);
 
         // Size labels (row 1)
         constraints.gridy = 1;
@@ -62,13 +68,14 @@ public class EditorMenu extends JPanel {
         cols = new JSpinner(new SpinnerNumberModel(DEFAULT_COLS, 5, 25, 1));
         add(cols, constraints);
 
+        // Insets for the rest of the components
         constraints.fill = GridBagConstraints.BOTH;
+        constraints.insets = new Insets(10, 10, 10, 10);
 
         // Interactive grid (row 3)
         constraints.gridy = 3;
-        constraints.gridwidth = 4;
-
         constraints.gridx = 0;
+        constraints.gridwidth = 4;
         constraints.weighty = 1;
 
         model = new EditorModel(DEFAULT_ROWS, DEFAULT_COLS);
@@ -98,20 +105,20 @@ public class EditorMenu extends JPanel {
         add(menu, constraints);
 
         constraints.gridx = 1;
-        JButton clear = new JButton("Clear");
-        clear.addActionListener(e -> {
-            model.reset();
-            grid.reset();
-        });
+        Image clearIcon = ImageCache.loadImage("laf/icon/cancel.png", MainFrame.class);
+        JButton clear = new JButton("Clear", new ImageIcon(clearIcon));
+        clear.addActionListener(e -> { model.reset(); grid.reset(); });
         add(clear, constraints);
 
         constraints.gridx = 2;
-        JButton open = new JButton("Open");
+        Image openIcon = ImageCache.loadImage("laf/icon/directory.png", MainFrame.class);
+        JButton open = new JButton("Open", new ImageIcon(openIcon));
         open.addActionListener(e -> open());
         add(open, constraints);
 
         constraints.gridx = 3;
-        JButton save = new JButton("Save");
+        Image saveIcon = ImageCache.loadImage("laf/icon/floppyDrive.png", MainFrame.class);
+        JButton save = new JButton("Save", new ImageIcon(saveIcon));
         save.addActionListener(e -> save());
         add(save, constraints);
     }
@@ -128,7 +135,7 @@ public class EditorMenu extends JPanel {
         if (response != JOptionPane.OK_OPTION) return;
 
         try {
-            model.readFile(selector.getSelectedMap());
+            model.readFile(selector.getSelectedResource());
             rows.setValue(model.getRows());
             cols.setValue(model.getCols());
             grid.reset();
@@ -148,7 +155,7 @@ public class EditorMenu extends JPanel {
                 this,
                 "No spawn point set.",
                 "No spawn point",
-                JOptionPane.WARNING_MESSAGE
+                JOptionPane.INFORMATION_MESSAGE
             );
             return;
         }

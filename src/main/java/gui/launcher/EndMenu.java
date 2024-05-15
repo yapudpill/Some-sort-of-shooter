@@ -5,8 +5,13 @@ import model.ingame.Statistics;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class EndMenu extends JPanel {
 
@@ -22,20 +27,23 @@ public class EndMenu extends JPanel {
         constraints.gridy = 0;
         constraints.gridx = 0;
         constraints.gridwidth = 4;
-        add(new JLabel("GAME OVER"), constraints);
-        constraints.gridwidth = 1;
+
+        JLabel title = new JLabel("GAME OVER");
+        title.setName("titleLabel");
+        add(title, constraints);
 
         // Statistics (row 1)
         constraints.gridy = 1;
         constraints.gridx = 0;
-        constraints.gridwidth = 4;
         add(new StatsPanel(stats), constraints);
-        constraints.gridwidth = 1;
+
+        // Insets for the rest of the components
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.gridwidth = 2;
 
         // Menu and replay (row 2)
         constraints.gridy = 2;
-        constraints.gridwidth = 2;
-        constraints.fill = GridBagConstraints.BOTH;
 
         constraints.gridx = 0;
         JButton menu = new JButton("Menu");
@@ -50,7 +58,7 @@ public class EndMenu extends JPanel {
             } catch (InvalidMapException | InvalidScenarioException e) {
                 JOptionPane.showMessageDialog(
                 this,
-                String.format("The %s file changed and is no longer in the correct format.", e instanceof InvalidMapException ? "map" : "animation"),
+                String.format("The %s file changed and is no longer in the correct format.", e instanceof InvalidMapException ? "map" : "scenario"),
                 "Error",
                 JOptionPane.ERROR_MESSAGE
             );
@@ -58,20 +66,19 @@ public class EndMenu extends JPanel {
         });
         add(replay, constraints);
 
-        constraints.gridwidth = 1;
 
         // Quit (row 3)
         constraints.gridy = 3;
         constraints.gridx = 1;
-        constraints.gridwidth = 2;
+
         JButton quit = new JButton("Quit");
         quit.addActionListener(e -> mainController.closeWindow());
         add(quit, constraints);
-        constraints.gridwidth = 1;
 
-        // Needed to properly separate the 4 columns (row 4)
+        // Quite ridiculous but needed to properly separate the 4 columns (row 4)
         constraints.gridy = 4;
         constraints.weighty = 0;
+        constraints.gridwidth = 1;
         for (int i = 0; i < 4; i++) {
             constraints.gridx = i;
             add(new JPanel(), constraints);

@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-import gui.ingame.tile.TileRendererFactory;
 import gui.ingame.tile.TileRenderer;
+import gui.ingame.tile.TileRendererFactory;
 import model.level.TileModel;
 import util.Pair;
 

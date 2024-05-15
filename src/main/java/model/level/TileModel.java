@@ -2,6 +2,7 @@ package model.level;
 
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
+import model.ingame.entity.IEntity.IEntityFactory;
 
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;

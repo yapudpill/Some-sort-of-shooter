@@ -5,7 +5,11 @@ import model.ingame.GameModel;
 import model.ingame.Statistics;
 import model.level.InvalidMapException;
 import model.level.MapModel;
-import model.level.scenario.*;
+import model.level.scenario.FixedScenario;
+import model.level.scenario.IScenario;
+import model.level.scenario.InvalidScenarioException;
+import model.level.scenario.MarathonScenario;
+import model.level.scenario.ScenarioParser;
 import util.EndReachedBehaviour;
 import util.Resource;
 
@@ -18,9 +22,10 @@ public class GameController {
     public GameController(Resource mapResource, Resource scenarioResource, MainController mainController) throws InvalidMapException, InvalidScenarioException {
         this.mainController = mainController;
         MapModel mapModel = new MapModel(mapResource);
-        IScenario scenario = new FixedScenario(EndReachedBehaviour.INFINITE);
+        IScenario scenario;
         if (scenarioResource == null) {
             scenario = new MarathonScenario();
+
         } else {
             scenario = ScenarioParser.loadScenario(scenarioResource.toStream());
         }

@@ -31,8 +31,8 @@ public class EntityRendererFactory {
             case RubberProjectile e      -> new CircleRenderer(e, Color.BLUE);
             case Projectile e            -> new CircleRenderer(e, Color.BLACK);
 
-            case ExplosionZoneEntity e -> new AnimatedRenderer(e, "animations/explosion_zone.xml");
-            case KnifeZoneEntity e     -> new AnimatedRenderer(e, "animations/knife_zone.xml", e.getDirection()::getAngle);
+            case ExplosionZoneEntity e -> new AnimatedEntityRenderer(e, "animations/explosion_zone.xml");
+            case KnifeZoneEntity e     -> new AnimatedEntityRenderer(e, "animations/knife_zone.xml", e.getDirection()::getAngle);
 
             case SimpleTrap e -> new RectangleRenderer(e, Color.BLACK);
 

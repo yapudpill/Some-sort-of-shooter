@@ -1,6 +1,10 @@
 package model.level.scenario;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 public abstract class WeightedRandomElementGenerator<E> {
     private final Random rng = new Random();
@@ -10,6 +14,7 @@ public abstract class WeightedRandomElementGenerator<E> {
     private Map<E, Double> elementRates; // Rate in probability of spawn per second
 
     public void setElementRates(Map<E, Double> rates) {
+
         this.elementRates = rates;
     }
 
