@@ -1,5 +1,6 @@
 package gui.editor;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -8,8 +9,11 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import gui.ingame.entity.AbstractEntityRenderer;
+import gui.ingame.entity.EntityRendererFactory;
 import gui.ingame.tile.TileRenderer;
 import gui.ingame.tile.TileRendererFactory;
+import model.ingame.entity.IEntity;
 import model.level.TileModel;
 import util.Pair;
 
@@ -34,7 +38,7 @@ public class EditorGrid extends JPanel {
         removeAll();
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                add(listeningRenderer(x, y, model.getTile(x, y)));
+                add(makeRenderer(x, y));
             }
         }
 
@@ -44,13 +48,22 @@ public class EditorGrid extends JPanel {
     private void updateCell(int x, int y) {
         int pos = y * model.getCols() + x;
         remove(pos);
-        add(listeningRenderer(x, y, model.getTile(x, y)), pos);
+        add(makeRenderer(x, y), pos);
         validate();
     }
 
-    private TileRenderer listeningRenderer(int x, int y, TileModel t) {
-        TileRenderer renderer = TileRendererFactory.make(t);
-        renderer.addMouseListener(new MouseAdapter() {
+    private TileRenderer makeRenderer(int x, int y) {
+        TileModel tile = model.getTile(x, y);
+        IEntity entity = model.getEntity(x, y);
+
+        TileRenderer tileRenderer = TileRendererFactory.make(tile);
+        if (entity != null) {
+            tileRenderer.setLayout(new BorderLayout());
+            AbstractEntityRenderer entityRenderer = EntityRendererFactory.make(entity);
+            tileRenderer.add(entityRenderer);
+        }
+
+        tileRenderer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 switch (e.getButton()) {
@@ -73,7 +86,7 @@ public class EditorGrid extends JPanel {
                 }
             }
         });
-        return renderer;
+        return tileRenderer;
     }
 
     @Override

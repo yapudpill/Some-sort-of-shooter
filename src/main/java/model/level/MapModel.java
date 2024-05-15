@@ -2,9 +2,13 @@ package model.level;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import model.ingame.entity.BreakableBarrier;
+import model.ingame.entity.EntityConstructor;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.level.tiles.SpawnTileModel;
@@ -12,19 +16,27 @@ import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
 import util.Coordinates;
+import util.Pair;
 import util.Resource;
 
 public class MapModel {
     private final TileModel[][] tiles;
+    private final List<Pair<Coordinates, EntityConstructor>> initialEntities;
     private Coordinates playerSpawn;
 
     public MapModel(Resource map) throws InvalidMapException {
         char[][] parsedMap = parseMap(map);
 
         tiles = new TileModel[parsedMap.length][parsedMap[0].length];
+        initialEntities = new ArrayList<>();
+
         for (int i = 0; i < parsedMap.length; i++) {
             for (int j = 0; j < parsedMap[0].length; j++) {
-                tiles[i][j] = convertChar(parsedMap[i][j]);
+                Pair<TileModel, EntityConstructor> pair = convertChar(parsedMap[i][j]);
+                tiles[i][j] = pair.first();
+                if (pair.second() != null) {
+                    initialEntities.add(new Pair<>(new Coordinates(j + 0.5, i + 0.5), pair.second()));
+                }
 
                 // The function parseMap guaranties that there is exactly one
                 // spawn point
@@ -81,14 +93,19 @@ public class MapModel {
         return arr;
     }
 
-    public static TileModel convertChar(char c) {
+    public static Pair<TileModel, EntityConstructor> convertChar(char c) {
         return switch (c) {
-            case '#' -> new WaterTileModel();
-            case 'V' -> new VoidTileModel();
-            case 'S' -> new SpawnTileModel();
-            case ' ' -> new StandardTileModel();
-            default  -> new StandardTileModel();
+            case '#' -> new Pair<>(new WaterTileModel(), null);
+            case 'V' -> new Pair<>(new VoidTileModel(), null);
+            case 'S' -> new Pair<>(new SpawnTileModel(), null);
+            case '/' -> new Pair<>(new StandardTileModel(), BreakableBarrier::new);
+            case ' ' -> new Pair<>(new StandardTileModel(), null);
+            default  -> new Pair<>(new StandardTileModel(), null);
         };
+    }
+
+    public List<Pair<Coordinates, EntityConstructor>> getInitialEntities() {
+        return initialEntities;
     }
 
     public Coordinates getPlayerSpawn() {
@@ -207,8 +224,8 @@ public class MapModel {
         dy *= 2;
 
         for (; n > 0; --n) {
-            boolean notBeginnigOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
-            if (!canEnterAround(entity, x, y) && notBeginnigOrEnd) {
+            boolean notBeginningOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
+            if (!canEnterAround(entity, x, y) && notBeginningOrEnd) {
                 return true;
             }
 
@@ -223,7 +240,7 @@ public class MapModel {
         return false;
     }
 
-    public void printCollideables() {
+    public void printCollidables() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[0].length; j++) {
                 System.out.println("Tile at " + j + ", " + i + " : ");
