@@ -25,10 +25,11 @@ public class PlayerRenderer extends VulnerableAnimatedRenderer {
         } else {
             animationManager.switchAnimation(
                 switch (animationManager.getCurrentAnimationId()) {
-                    case "walk_up"   -> "idle_up";
-                    case "walk_down" -> "idle_down";
-                    case "walk_left" -> "idle_left";
-                    default          -> "idle_right";
+                    case "walk_up"    -> "idle_up";
+                    case "walk_down"  -> "idle_down";
+                    case "walk_left"  -> "idle_left";
+                    case "walk_right" -> "idle_right";
+                    default           -> null;
                 }
             );
         }

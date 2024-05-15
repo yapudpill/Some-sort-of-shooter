@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="40"
+   viewBox="0 -960 1600 1600"
+   width="40"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="gridView.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="15.1933"
+     inkscape:cx="15.269889"
+     inkscape:cy="16.915351"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="40"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="M 200,-226.66667 V -760 h 533.33333 v 533.33333 z M 200,440 V -93.33333 H 733.33333 V 440 Z M 866.66667,-226.66667 V -760 H 1400 v 533.33333 z m 0,666.66667 V -93.33333 H 1400 V 440 Z M 333.33333,-360 H 600 V -626.66667 H 333.33333 Z M 1000,-360 h 266.6667 V -626.66667 H 1000 Z m 0,666.66667 h 266.6667 V 40 H 1000 Z m -666.66667,0 H 600 V 40 H 333.33333 Z M 1000,-360 Z m 0,400 z m -400,0 z m 0,-400 z"
+     id="path1"
+     style="fill:#ffffff;stroke-width:1.66667" />
+</svg>

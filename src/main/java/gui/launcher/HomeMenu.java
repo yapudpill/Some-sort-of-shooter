@@ -2,6 +2,7 @@ package gui.launcher;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,13 +25,16 @@ public class HomeMenu extends JPanel {
 
         constraints.gridx = 0;
         constraints.gridwidth = 2;
-        add(new JLabel("SOME SORT OF SHOOTER"), constraints);
+        JLabel title = new JLabel("SOME SORT OF SHOOTER");
+        title.setName("titleLabel");
+        add(title, constraints);
         constraints.gridwidth = 1;
 
         // Play and editor (row 1)
         constraints.gridy = 1;
         constraints.weighty = 0.5;
         constraints.fill = GridBagConstraints.BOTH;
+        constraints.insets = new Insets(30, 30, 30, 30);
 
         constraints.gridx = 0;
         JButton play = new JButton("Play");

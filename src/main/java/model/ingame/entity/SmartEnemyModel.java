@@ -7,7 +7,6 @@ import model.ingame.entity.behavior.StandardBehavior;
 import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.Projectile;
 import model.ingame.weapon.PistolModel;
-import model.ingame.weapon.Projectile;
 import model.ingame.weapon.ProjectileWeaponModel;
 import util.Coordinates;
 
