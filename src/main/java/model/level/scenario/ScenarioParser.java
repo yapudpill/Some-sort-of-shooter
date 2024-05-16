@@ -44,27 +44,27 @@ public class ScenarioParser {
         Map<WeaponConstructor, Double> weaponRates = null;
         Element weaponsNode = (Element) contextElement.getElementsByTagName("weapons").item(0);
         if (oneshot) {
-            oneShotWeapons = parseOneShotContextPart(weaponsNode, "weapon", WeaponParser::parseWeapon);
+            oneShotWeapons = parseOneShotContextPart(weaponsNode, "weapon", ScenarioElementsParsers::parseWeapon);
         } else {
-            weaponRates = parseFixedContextPart(weaponsNode, "weapon", WeaponParser::parseWeapon);
+            weaponRates = parseFixedContextPart(weaponsNode, "weapon", ScenarioElementsParsers::parseWeapon);
         }
 
         List<EntityConstructor> oneShotEnemies = null;
         Map<EntityConstructor, Double> enemyRates = null;
         Element enemiesNode = (Element) contextElement.getElementsByTagName("enemies").item(0);
         if (oneshot) {
-            oneShotEnemies = parseOneShotContextPart(enemiesNode, "enemy", EnemyParser::getEnemyFactory);
+            oneShotEnemies = parseOneShotContextPart(enemiesNode, "enemy", ScenarioElementsParsers::parseEnemy);
         } else {
-            enemyRates = parseFixedContextPart(enemiesNode, "enemy", EnemyParser::getEnemyFactory);
+            enemyRates = parseFixedContextPart(enemiesNode, "enemy", ScenarioElementsParsers::parseEnemy);
         }
 
         List<EntityConstructor> oneShotMiscs = new ArrayList<>();
         Map<EntityConstructor, Double> miscRates = new HashMap<>();
         Element miscsNode = (Element) contextElement.getElementsByTagName("miscs").item(0);
         if (oneshot) {
-            oneShotMiscs = parseOneShotContextPart(miscsNode, "misc", MiscEntityParser::parseMiscEntity);
+            oneShotMiscs = parseOneShotContextPart(miscsNode, "misc", ScenarioElementsParsers::parseMisc);
         } else {
-            miscRates = parseFixedContextPart(miscsNode, "misc", MiscEntityParser::parseMiscEntity);
+            miscRates = parseFixedContextPart(miscsNode, "misc", ScenarioElementsParsers::parseMisc);
         }
 
         IGameContext context;
