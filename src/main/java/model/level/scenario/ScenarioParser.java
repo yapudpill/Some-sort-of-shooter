@@ -6,31 +6,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import model.ingame.entity.IEnemy;
-import model.ingame.entity.IEntity;
-import model.ingame.weapon.WeaponModel;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import model.ingame.entity.EntityConstructor;
+import model.ingame.weapon.WeaponConstructor;
 import util.EndReachedBehaviour;
 import util.Pair;
 
 public class ScenarioParser {
-    private static Pair<Double, IGameContext> parseContextElement(Element contextElement) throws InvalidScenarioException {
-        IGameContext context;
 
+    private static Pair<Double, IGameContext> parseContextElement(Element contextElement) throws InvalidScenarioException {
         String type = contextElement.getAttribute("type");
         boolean oneshot = switch (type) {
             case "oneshot" -> true;
             case "fixed" -> false;
             default -> throw new InvalidScenarioException("Invalid context type");
         };
-
 
         double time;
         try {
@@ -39,94 +40,85 @@ public class ScenarioParser {
             throw new InvalidScenarioException("Invalid time");
         }
 
+        List<WeaponConstructor> oneShotWeapons = null;
+        Map<WeaponConstructor, Double> weaponRates = null;
         Element weaponsNode = (Element) contextElement.getElementsByTagName("weapons").item(0);
-        NodeList weaponNodes = weaponsNode.getElementsByTagName("weapon");
-
-        Map<WeaponModel.IWeaponFactory, Double> weaponRates = new HashMap<>();
-        List<WeaponModel.IWeaponFactory> oneShotWeapons = new ArrayList<>();
-
-        for (int i = 0; i < weaponNodes.getLength(); i++) {
-            Element weaponElement = (Element) weaponNodes.item(i);
-            String name = weaponElement.getAttribute("name");
-            WeaponModel.IWeaponFactory weaponFactory = WeaponParser.parseWeapon(name);
-            if (weaponFactory == null) {
-                throw new InvalidScenarioException("Invalid weapon name");
-            }
-            double rate = 0;
-            try {
-                if (!oneshot) rate = Double.parseDouble(weaponElement.getAttribute("rate"));
-            } catch (NumberFormatException e) {
-                throw new InvalidScenarioException("Invalid weapon rate");
-            }
-            if (oneshot) {
-                oneShotWeapons.add(weaponFactory);
-            } else {
-                weaponRates.put(weaponFactory, rate);
-            }
+        if (oneshot) {
+            oneShotWeapons = parseOneShotContextPart(weaponsNode, "weapon", WeaponParser::parseWeapon);
+        } else {
+            weaponRates = parseFixedContextPart(weaponsNode, "weapon", WeaponParser::parseWeapon);
         }
 
-
+        List<EntityConstructor> oneShotEnemies = null;
+        Map<EntityConstructor, Double> enemyRates = null;
         Element enemiesNode = (Element) contextElement.getElementsByTagName("enemies").item(0);
-        NodeList enemyNodes = enemiesNode.getElementsByTagName("enemy");
-
-        Map<IEnemy.IEnemyFactory, Double> enemyRates = new HashMap<>();
-        List<IEnemy.IEnemyFactory> oneShotEnemies = new ArrayList<>();
-
-        for (int i = 0; i < enemyNodes.getLength(); i++) {
-            Element enemyElement = (Element) enemyNodes.item(i);
-            String name = enemyElement.getAttribute("name");
-            IEnemy.IEnemyFactory enemyFactory = EnemyParser.getEnemyFactory(name);
-            if (enemyFactory == null) {
-                throw new InvalidScenarioException("Invalid enemy name");
-            }
-            double rate = 0;
-            try {
-                if (!oneshot) rate = Double.parseDouble(enemyElement.getAttribute("rate"));
-            } catch (NumberFormatException e) {
-                throw new InvalidScenarioException("Invalid enemy rate");
-            }
-            if (oneshot) {
-                oneShotEnemies.add(enemyFactory);
-            } else {
-                enemyRates.put(enemyFactory, rate);
-            }
+        if (oneshot) {
+            oneShotEnemies = parseOneShotContextPart(enemiesNode, "enemy", EnemyParser::getEnemyFactory);
+        } else {
+            enemyRates = parseFixedContextPart(enemiesNode, "enemy", EnemyParser::getEnemyFactory);
         }
 
+        List<EntityConstructor> oneShotMiscs = new ArrayList<>();
+        Map<EntityConstructor, Double> miscRates = new HashMap<>();
         Element miscsNode = (Element) contextElement.getElementsByTagName("miscs").item(0);
-        NodeList miscNodes = miscsNode.getElementsByTagName("misc");
-
-        Map<IEntity.IEntityFactory, Double> miscRates = new HashMap<>();
-        List<IEntity.IEntityFactory> oneShotMiscs = new ArrayList<>();
-
-
-        for (int i = 0; i < miscNodes.getLength(); i++) {
-            Element miscNode = (Element) miscNodes.item(i);
-            String name = miscNode.getAttribute("name");
-            IEntity.IEntityFactory miscEntityFactory = MiscEntityParser.parseMiscEntity(name);
-            if (miscEntityFactory == null) {
-                throw new InvalidScenarioException("Invalid entity name");
-            }
-            double rate = 0;
-            try {
-                if (!oneshot) rate = Double.parseDouble(miscNode.getAttribute("rate"));
-            } catch (NumberFormatException e) {
-                throw new InvalidScenarioException("Invalid entity rate");
-            }
-            if (oneshot) {
-                oneShotMiscs.add(miscEntityFactory);
-            } else {
-                miscRates.put(miscEntityFactory, rate);
-            }
+        if (oneshot) {
+            oneShotMiscs = parseOneShotContextPart(miscsNode, "misc", MiscEntityParser::parseMiscEntity);
+        } else {
+            miscRates = parseFixedContextPart(miscsNode, "misc", MiscEntityParser::parseMiscEntity);
         }
 
+        IGameContext context;
         if (oneshot) {
             context = new IGameContext.OneShotSpawnContext(oneShotWeapons, oneShotEnemies, oneShotMiscs);
         } else {
             context = new IGameContext.FixedSpawnRateContext(weaponRates, enemyRates, miscRates);
         }
 
-
         return new Pair<>(time, context);
+    }
+
+    private static <T> Map<T, Double> parseFixedContextPart(Element part, String childName, Function<String, T> parser) throws InvalidScenarioException {
+        NodeList nodes = part.getElementsByTagName(childName);
+
+        Map<T, Double> rates = new HashMap<>();
+
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Element element = (Element) nodes.item(i);
+            String name = element.getAttribute("name");
+
+            T parsed = parser.apply(name);
+            if (parsed == null) {
+                throw new InvalidScenarioException("Invalid " + childName + " name");
+            }
+
+            try {
+                double rate = Double.parseDouble(element.getAttribute("rate"));
+                rates.put(parsed, rate);
+            } catch (NumberFormatException e) {
+                throw new InvalidScenarioException("Invalid " + childName + " rate");
+            }
+        }
+
+        return rates;
+    }
+
+    private static <T> List<T> parseOneShotContextPart(Element part, String childName, Function<String, T> parser) throws InvalidScenarioException {
+        NodeList nodes = part.getElementsByTagName(childName);
+
+        List<T> oneShot = new ArrayList<>();
+
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Element enemy = (Element) nodes.item(i);
+            String name = enemy.getAttribute("name");
+
+            T parsed = parser.apply(name);
+            if (parsed == null) {
+                throw new InvalidScenarioException("Invalid " + childName + " name");
+            }
+            oneShot.add(parsed);
+        }
+
+        return oneShot;
     }
 
     public static IScenario loadScenario(InputStream stream) throws InvalidScenarioException {
@@ -154,8 +146,8 @@ public class ScenarioParser {
             NodeList contextNodes = root.getElementsByTagName("interval");
 
             for (int i = 0; i < contextNodes.getLength(); i++) {
-                Node interval_node = contextNodes.item(i);
-                Pair<Double, IGameContext> pair = parseContextElement((Element) interval_node);
+                Node node = contextNodes.item(i);
+                Pair<Double, IGameContext> pair = parseContextElement((Element) node);
                 scenario.put(pair.first(), pair.second());
             }
 

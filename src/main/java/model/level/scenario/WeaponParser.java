@@ -8,10 +8,10 @@ import model.ingame.weapon.RocketLauncher;
 import model.ingame.weapon.RubberWeapon;
 import model.ingame.weapon.ShotGun;
 import model.ingame.weapon.SimpleTrapPlacer;
-import model.ingame.weapon.WeaponModel;
+import model.ingame.weapon.WeaponConstructor;
 
 public class WeaponParser {
-    public static final Map<String, WeaponModel.IWeaponFactory> AVAILABLE_WEAPONS = Map.of(
+    public static final Map<String, WeaponConstructor> AVAILABLE_WEAPONS = Map.of(
             "Pistol", PistolModel::new,
             "Knife", KnifeWeapon::new,
             "RocketLauncher", RocketLauncher::new,
@@ -20,7 +20,7 @@ public class WeaponParser {
             "TrapPlacer", SimpleTrapPlacer::new
     );
 
-    public static WeaponModel.IWeaponFactory parseWeapon(String weaponName) {
+    public static WeaponConstructor parseWeapon(String weaponName) {
         return AVAILABLE_WEAPONS.get(weaponName);
     }
 }

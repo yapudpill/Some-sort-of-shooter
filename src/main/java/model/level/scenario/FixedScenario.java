@@ -11,6 +11,6 @@ public class FixedScenario extends IntervalMap<Double, IGameContext> implements 
 
     @Override
     public IScenarioCursor createCursor(GameModel gameModel) {
-        return new FixedScenarioCursor(this);
+        return new FixedCursor(this);
     }
 }

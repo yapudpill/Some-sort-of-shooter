@@ -1,20 +1,18 @@
 package model.level.scenario;
 
-import model.ingame.entity.IEnemy.IEnemyFactory;
-import model.ingame.entity.IEntity.IEntityFactory;
+import model.ingame.entity.EntityConstructor;
+import model.ingame.weapon.WeaponConstructor;
 import util.IUpdateable;
-
-import static model.ingame.weapon.WeaponModel.IWeaponFactory;
 
 public interface IScenarioCursor extends IUpdateable {
     @Override
     void update(double delta);
 
-    IWeaponFactory nextWeapon();
+    WeaponConstructor nextWeapon();
 
-    IEnemyFactory nextEnemy();
+    EntityConstructor nextEnemy();
 
-    IEntityFactory nextMiscEntity();
+    EntityConstructor nextMiscEntity();
 
     boolean isGameFinished();
 }

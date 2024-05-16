@@ -10,7 +10,7 @@ import model.ingame.weapon.Projectile;
 import model.ingame.weapon.ProjectileWeaponModel;
 import util.Coordinates;
 
-public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity, IEnemy {
+public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
 
     private final PlayerModel player;

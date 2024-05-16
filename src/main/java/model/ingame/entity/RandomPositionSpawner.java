@@ -1,71 +1,75 @@
 package model.ingame.entity;
 
 import model.ingame.GameModel;
+import model.level.MapModel;
 import util.Coordinates;
 import util.IUpdateable;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
-import static model.ingame.entity.IEntity.IEntityFactory;
-
 public class RandomPositionSpawner implements IUpdateable {
-    private final GameModel gameModel;
-    private final Supplier<IEntityFactory> entityFactorySupplier;
+    private final Supplier<EntityConstructor> entityFactorySupplier;
     private final Random rng = new Random();
+    private final GameModel gameModel;
+    protected final MapModel mapModel;
 
-    public RandomPositionSpawner(GameModel gameModel, Supplier<IEntityFactory> entityFactorySupplier) {
+    public RandomPositionSpawner(GameModel gameModel, Supplier<EntityConstructor> entityFactorySupplier) {
         this.gameModel = gameModel;
+        this.mapModel = gameModel.getMapModel();
         this.entityFactorySupplier = entityFactorySupplier;
     }
 
-    public void spawnEntity() {
-        IEntityFactory entityFactory = entityFactorySupplier.get();
-        if (entityFactory == null) return;
-        double x = rng.nextInt(gameModel.getMapModel().getWidth());
-        double y = rng.nextInt(gameModel.getMapModel().getHeight());
-        // Move to the next walkable tile
-        Coordinates pos = findNextWalkableTile((int) x, (int) y, entityFactory);
-        gameModel.addEntity(entityFactory.make(pos, gameModel));
+    @Override
+    public void update(double delta) {
+        // Try to spawn a new entity
+        EntityConstructor constructor = entityFactorySupplier.get();
+        if (constructor == null) return;
+
+        IEntity entity = constructor.makeEntity(Coordinates.ZERO, gameModel);
+        Coordinates pos = randomSpawn(entity);
+        entity.setPos(pos);
+
+        gameModel.addEntity(entity);
     }
 
-    private Coordinates findNextWalkableTile(int x, int y, IEntityFactory entity) {
-        int width = gameModel.getMapModel().getWidth();
-        int height = gameModel.getMapModel().getHeight();
+    private Coordinates randomSpawn(IEntity entity) {
+        int width = mapModel.getWidth();
+        int height = mapModel.getHeight();
 
-        do {
-            x = (x + 1) % width;
-            if (x == 0) {
+        // Select random position
+        double x = rng.nextDouble(width);
+        double y = rng.nextDouble(height);
+
+        while (!validSpawn(x, y, entity)) {
+            x++;
+            if (x >= width) {
+                x %= width;
                 y = (y + 1) % height;
             }
-
-            // Check if the current tile and its surrounding tiles are walkable
-        } while (!canTileSpawn(x, y, entity));
+        }
 
         return new Coordinates(x, y);
     }
 
-    private boolean canTileSpawn(int x, int y, IEntityFactory entity) {
-        int width = gameModel.getMapModel().getWidth();
-        int height = gameModel.getMapModel().getHeight();
+    private boolean validSpawn(double x, double y, IEntity entity) {
+        int ix = (int) x;
+        int iy = (int) y;
 
-        // Check if the current tile is standard
-        if (!gameModel.getMapModel().getTile(x, y).canSpawn(entity)) {
+        // Check if the current tile is walkable
+        if (!mapModel.getTile(ix, iy).canEnter(entity)) {
             return false;
         }
 
         // Check if any surrounding tile is non walkable
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                int newX = x + i;
-                int newY = y + j;
+                int newX = ix + i;
+                int newY = iy + j;
 
                 // Exclude borders
-                if (newX < 0 || newX >= width || newY < 0 || newY >= height) {
-                    return false;
-                }
-
-                if (!gameModel.getMapModel().getTile(newX, newY).canSpawn(entity)) {
+                if (mapModel.isOutOfBounds(newX, newY)
+                    || !mapModel.getTile(newX, newY).canEnter(entity)) {
                     return false;
                 }
             }
@@ -73,10 +77,5 @@ public class RandomPositionSpawner implements IUpdateable {
 
         // All checks passed, the tile and its surroundings are walkable
         return true;
-    }
-
-    @Override
-    public void update(double delta) {
-        spawnEntity();
     }
 }

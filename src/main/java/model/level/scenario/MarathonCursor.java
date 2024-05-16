@@ -2,8 +2,8 @@ package model.level.scenario;
 
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
-import model.ingame.entity.IEntity.IEntityFactory;
-import model.ingame.weapon.WeaponModel.IWeaponFactory;
+import model.ingame.entity.EntityConstructor;
+import model.ingame.weapon.WeaponConstructor;
 import util.MathTools;
 import util.ZipToMap;
 
@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import java.util.stream.IntStream;
-
-import static model.ingame.entity.IEnemy.IEnemyFactory;
 
 public class MarathonCursor implements IScenarioCursor {
     private static final int MAX_DIFFICULTY = 30;
@@ -26,31 +24,30 @@ public class MarathonCursor implements IScenarioCursor {
     private int waveDuration;
     private ModelTimer cooldownTimer;
     private ModelTimer waveTimer;
-    private int waveNumber = 0;
     private int rawDifficulty;
 
-    private final WeightedRandomElementGenerator<IEnemyFactory> enemyGenerator;
-    private final WeightedRandomElementGenerator<IWeaponFactory> weaponGenerator;
+    private final WeightedRandomGenerator<EntityConstructor> enemyGenerator;
+    private final WeightedRandomGenerator<WeaponConstructor> weaponGenerator;
 
-    private final Queue<IWeaponFactory> weaponsQueue = new LinkedList<>();
-    private final Queue<IEnemyFactory> enemiesQueue = new LinkedList<>();
-
-    private final Queue<IEntityFactory> miscEntitiesQueue = new LinkedList<>();
-
+    private final Queue<WeaponConstructor> weaponsQueue = new LinkedList<>();
+    private final Queue<EntityConstructor> enemiesQueue = new LinkedList<>();
+    private final Queue<EntityConstructor> miscEntitiesQueue = new LinkedList<>();
 
     public MarathonCursor(MarathonScenario scenario, GameModel gameModel) {
         this.scenario = scenario;
         this.gameModel = gameModel;
-        ModelTimer updateDifficultyTimer = new ModelTimer(1, true, this::updateDifficulty, gameModel);
-        updateDifficultyTimer.start();
+
+        this.enemyGenerator = new WeightedRandomGenerator<>();
+        this.weaponGenerator = new WeightedRandomGenerator<>();
+
         this.cooldownDuration = scenario.initialWaveCooldown();
         this.waveDuration = scenario.initialWaveDuration();
 
-        this.enemyGenerator = new EnemyGenerator();
-        this.weaponGenerator = new WeaponGenerator();
+        ModelTimer updateDifficultyTimer = new ModelTimer(1, true, this::updateDifficulty, gameModel);
+        updateDifficultyTimer.start();
+
         ModelTimer spawnTimer = new ModelTimer(1, true, this::spawnStuff, gameModel);
         spawnTimer.start();
-
 
         startCooldown();
     }
@@ -58,8 +55,7 @@ public class MarathonCursor implements IScenarioCursor {
     private void spawnStuff() {
         if (!isCoolingDown) {
             enemiesQueue.addAll(enemyGenerator.nextElements(1));
-        }
-        else {
+        } else {
             weaponsQueue.addAll(weaponGenerator.nextElements(1));
         }
     }
@@ -74,15 +70,22 @@ public class MarathonCursor implements IScenarioCursor {
         } else {
             difficultyIncrease = -1;
         }
-        System.out.println("Difficulty increased by " + difficultyIncrease);
+
         rawDifficulty = Math.max(0, rawDifficulty + difficultyIncrease);
-        System.out.println("Raw difficulty: " + rawDifficulty);
-        System.out.println("Adjusted difficulty: " + adjustedDifficulty());
+
         if (difficultyIncrease != 0) {
-            double enemyGeneratorP = (adjustedDifficulty() / MAX_DIFFICULTY) / 2;
+            double enemyGeneratorP = adjustedDifficulty() / (2 * MAX_DIFFICULTY);
             double weaponGeneratorP = (1 - enemyGeneratorP);
-            enemyGenerator.setElementRates(ZipToMap.zipToMap(scenario.enemiesByDifficulty(), getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)));
-            weaponGenerator.setElementRates(ZipToMap.zipToMap(scenario.weaponsByPower(), getBinomialProbabilities(scenario.weaponsByPower().size(), weaponGeneratorP)));
+
+            enemyGenerator.setElementRates(ZipToMap.zipToMap(
+                scenario.enemiesByDifficulty(),
+                getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)
+            ));
+
+            weaponGenerator.setElementRates(ZipToMap.zipToMap(
+                scenario.weaponsByPower(),
+                getBinomialProbabilities(scenario.weaponsByPower().size(), weaponGeneratorP)
+            ));
         }
     }
 
@@ -95,8 +98,6 @@ public class MarathonCursor implements IScenarioCursor {
 
     private void startWave() {
         this.isCoolingDown = false;
-        waveNumber++;
-        System.out.println("Wave " + waveNumber + " started");
         waveTimer = new ModelTimer(waveDuration, false, this::startCooldown, gameModel);
         waveTimer.start();
     }
@@ -112,16 +113,20 @@ public class MarathonCursor implements IScenarioCursor {
 
     // TODO: optimize this, we compute similar things every time
     private List<Double> getBinomialProbabilities(int n, double p) {
-        return (IntStream.range(0, n).mapToDouble(k -> Math.pow(p, k) * Math.pow(1 - p, n - k) * MathTools.nCR(n, k))).boxed().toList();
+        return IntStream
+            .range(0, n)
+            .mapToDouble(k -> Math.pow(p, k) * Math.pow(1 - p, n - k) * MathTools.nCR(n, k))
+            .boxed()
+            .toList();
     }
 
     @Override
-    public IWeaponFactory nextWeapon() {
+    public WeaponConstructor nextWeapon() {
         return weaponsQueue.poll();
     }
 
     @Override
-    public IEnemyFactory nextEnemy() {
+    public EntityConstructor nextEnemy() {
         if (isCoolingDown) {
             return null;
         }
@@ -130,7 +135,7 @@ public class MarathonCursor implements IScenarioCursor {
     }
 
     @Override
-    public IEntityFactory nextMiscEntity() {
+    public EntityConstructor nextMiscEntity() {
         return miscEntitiesQueue.poll();
     }
 
