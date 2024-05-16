@@ -3,7 +3,7 @@ package gui.animations;
 import gui.ImageCache;
 import util.IUpdateable;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 public class AnimationManager implements IUpdateable {
     private final AnimationGroup animationGroup;
@@ -29,7 +29,7 @@ public class AnimationManager implements IUpdateable {
         }
     }
 
-    public BufferedImage getCurrentImage() {
+    public Image getCurrentImage() {
         return ImageCache.loadImage(cursor.getCurrentValue(), resourceBase);
     }
 

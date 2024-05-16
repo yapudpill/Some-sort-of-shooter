@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.MainController;
+import gui.ImageCache;
 
 public class HomeMenu extends JPanel {
 
@@ -37,19 +38,19 @@ public class HomeMenu extends JPanel {
         constraints.insets = new Insets(30, 30, 30, 30);
 
         constraints.gridx = 0;
-        JButton play = new JButton("Play");
+        JButton play = new JButton("Play", ImageCache.loadIcon("play"));
         play.addActionListener(e -> mainController.loadMapMenu());
         add(play, constraints);
 
         constraints.gridx = 1;
-        JButton edit = new JButton("Editor");
+        JButton edit = new JButton("Editor", ImageCache.loadIcon("file"));
         edit.addActionListener(e -> mainController.loadEditor());
         add(edit, constraints);
 
         // Quit (row 2)
         constraints.gridy = 2;
         constraints.gridx = 0;
-        JButton quit = new JButton("Quit");
+        JButton quit = new JButton("Quit", ImageCache.loadIcon("exit"));
         quit.addActionListener(e -> mainController.closeWindow());
         add(quit, constraints);
     }

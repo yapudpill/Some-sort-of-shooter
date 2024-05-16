@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.MainController;
+import gui.ImageCache;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
 import util.Resource;
@@ -54,12 +55,12 @@ public class MapMenu extends JPanel {
         constraints.weighty = 0.5;
 
         constraints.gridx = 0;
-        JButton back = new JButton("Back");
+        JButton back = new JButton("Back", ImageCache.loadIcon("home"));
         back.addActionListener(e -> mainController.loadHomeMenu());
         add(back, constraints);
 
         constraints.gridx = 1;
-        JButton start = new JButton("Start");
+        JButton start = new JButton("Start", ImageCache.loadIcon("play"));
         start.addActionListener(event -> {
             try {
                 Resource map = mapSelector.getSelectedResource();
