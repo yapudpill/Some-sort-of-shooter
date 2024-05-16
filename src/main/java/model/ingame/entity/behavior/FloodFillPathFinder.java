@@ -14,7 +14,7 @@ import util.Coordinates;
 
 public class FloodFillPathFinder {
     private IEntity entityFinder;
-    private NodeGrid nodeGrid;
+    public static NodeGrid nodeGrid;
     private List<Coordinates> targets;
     private ModelTimer updateTimer;
     private Predicate<Coordinates> shouldAvoid;
@@ -47,12 +47,6 @@ public class FloodFillPathFinder {
                     continue;
                 }
 
-                // Set the value of the current node
-                if (shouldAvoid != null && shouldAvoid.test(currentPos)) {
-                    nodeGrid.getNode(x, y).setValue(1000);
-                } else {
-                    nodeGrid.getNode(x, y).setValue(currentValue);
-                }
 
                 // Add adjacent nodes to the queue
                 addAdjacentNodes(queue, x, y);
@@ -103,7 +97,8 @@ public class FloodFillPathFinder {
             MovementHandler movementHandler = entity.getMovementHandler();
             if (!this.isRunning()) this.start();
             Coordinates lowestCoord = this.getLowestNodeAround((int) pos.x(), (int) pos.y());
-            if (pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates(lowestCoord.x() - pos.x(), lowestCoord.y() - pos.y()));
+            if (pos.isInCenter() || !movementHandler.isMoving())
+             movementHandler.setDirectionVector(new Coordinates(lowestCoord.x() - pos.x(), lowestCoord.y() - pos.y()));
     }
 
     public void setTargets(List<Coordinates> targets) {

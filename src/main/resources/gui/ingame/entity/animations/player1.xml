@@ -5,37 +5,65 @@
     <animation id="walk_up" endReachedBehaviour="LOOPING">
         <frame time="0.1" path="sprites/player1/up/up1.png"/>
         <frame time="0.2" path="sprites/player1/up/up2.png"/>
-        <frame time="0.3" path="sprites/player1/up/up1.png"/>
-        <frame time="0.4" path="sprites/player1/up/up3.png"/>
+        <frame time="0.3" path="sprites/player1/up/up3.png"/>
+        <frame time="0.4" path="sprites/player1/up/up4.png"/>
+        <frame time="0.5" path="sprites/player1/up/up5.png"/>
+        <frame time="0.6" path="sprites/player1/up/up6.png"/>
+        <frame time="0.7" path="sprites/player1/up/up7.png"/>
+        <frame time="0.8" path="sprites/player1/up/up8.png"/>
+        <frame time="0.9" path="sprites/player1/up/up9.png"/>
+        <frame time="1.0" path="sprites/player1/up/up10.png"/>
     </animation>
 
     <animation id="idle_right" endReachedBehaviour="INFINITE">
-        <frame time="0.1" path="sprites/player1/right/right1.png"/>
+        <frame time="0.1" path="sprites/player1/idle/right/idle_right1.png"/>
+        <frame time="0.2" path="sprites/player1/idle/right/idle_right2.png"/>
+        <frame time="0.3" path="sprites/player1/idle/right/idle_right3.png"/>
     </animation>
     <animation id="walk_right" endReachedBehaviour="LOOPING">
         <frame time="0.1" path="sprites/player1/right/right1.png"/>
         <frame time="0.2" path="sprites/player1/right/right2.png"/>
-        <frame time="0.3" path="sprites/player1/right/right1.png"/>
-        <frame time="0.4" path="sprites/player1/right/right3.png"/>
+        <frame time="0.3" path="sprites/player1/right/right3.png"/>
+        <frame time="0.4" path="sprites/player1/right/right4.png"/>
+        <frame time="0.5" path="sprites/player1/right/right5.png"/>
+        <frame time="0.6" path="sprites/player1/right/right6.png"/>
+        <frame time="0.7" path="sprites/player1/right/right7.png"/>
+        <frame time="0.8" path="sprites/player1/right/right8.png"/>
+        <frame time="0.9" path="sprites/player1/right/right9.png"/>
+        <frame time="1.0" path="sprites/player1/right/right10.png"/>
     </animation>
 
     <animation id="idle_down" endReachedBehaviour="INFINITE">
-        <frame time="0.1" path="sprites/player1/right/right1.png"/>
+        <frame time="0.1" path="sprites/player1/down/down1.png"/>
     </animation>
     <animation id="walk_down" endReachedBehaviour="LOOPING">
-        <frame time="0.1" path="sprites/player1/right/right1.png"/>
-        <frame time="0.2" path="sprites/player1/right/right2.png"/>
-        <frame time="0.3" path="sprites/player1/right/right1.png"/>
-        <frame time="0.4" path="sprites/player1/right/right3.png"/>
+        <frame time="0.1" path="sprites/player1/down/down1.png"/>
+        <frame time="0.2" path="sprites/player1/down/down2.png"/>
+        <frame time="0.3" path="sprites/player1/down/down3.png"/>
+        <frame time="0.4" path="sprites/player1/down/down4.png"/>
+        <frame time="0.5" path="sprites/player1/down/down5.png"/>
+        <frame time="0.6" path="sprites/player1/down/down6.png"/>
+        <frame time="0.7" path="sprites/player1/down/down7.png"/>
+        <frame time="0.8" path="sprites/player1/down/down8.png"/>
+        <frame time="0.9" path="sprites/player1/down/down9.png"/>
+        <frame time="1.0" path="sprites/player1/down/down10.png"/>
     </animation>
 
     <animation id="idle_left" endReachedBehaviour="INFINITE">
-        <frame time="0.1" path="sprites/player1/left/left1.png"/>
+        <frame time="0.1" path="sprites/player1/idle/left/idle_left1.png"/>
+        <frame time="0.1" path="sprites/player1/idle/left/idle_left2.png"/>
+        <frame time="0.1" path="sprites/player1/idle/left/idle_left3.png"/>
     </animation>
     <animation id="walk_left" endReachedBehaviour="LOOPING">
         <frame time="0.1" path="sprites/player1/left/left1.png"/>
         <frame time="0.2" path="sprites/player1/left/left2.png"/>
-        <frame time="0.3" path="sprites/player1/left/left1.png"/>
-        <frame time="0.4" path="sprites/player1/left/left3.png"/>
+        <frame time="0.3" path="sprites/player1/left/left3.png"/>
+        <frame time="0.4" path="sprites/player1/left/left4.png"/>
+        <frame time="0.5" path="sprites/player1/left/left5.png"/>
+        <frame time="0.6" path="sprites/player1/left/left6.png"/>
+        <frame time="0.7" path="sprites/player1/left/left7.png"/>
+        <frame time="0.8" path="sprites/player1/left/left8.png"/>
+        <frame time="0.9" path="sprites/player1/left/left9.png"/>
+        <frame time="1.0" path="sprites/player1/left/left10.png"/>
     </animation>
 </animationGroup>

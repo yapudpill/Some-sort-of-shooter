@@ -57,6 +57,7 @@ public class GameModel implements IUpdateable {
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
         ExplodingEnemy.setPathFinder(floodFillPathFinder);
 
+
         // TODO: read this from map
         // add breakable barriers
         BreakableBarrier barrier1 = new BreakableBarrier(new Coordinates(3.5, 5.5), this);

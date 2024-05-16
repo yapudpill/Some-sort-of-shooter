@@ -15,7 +15,9 @@ import util.Coordinates;
 import util.IUpdateable;
 import model.ingame.entity.PlayerModel;
 import model.ingame.entity.WeaponEntity;
+import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.level.MapModel;
+import java.awt.Graphics;
 
 public class HUDLayer extends JPanel implements IUpdateable {
     private String currentMessString = "";
@@ -35,12 +37,12 @@ public class HUDLayer extends JPanel implements IUpdateable {
     private class MessageLabel extends JLabel implements IScalableComponent {
         @Override
         public Coordinates getOriginalPosition() {
-            return new Coordinates((map.getWidth() / 2)-2.5, 1);
+            return playerModel.getPos();
         }
 
         @Override
         public Coordinates getOriginalSize() {
-            return new Coordinates(5, 5);
+            return new Coordinates(12, 1);
         }
     }
 

@@ -1,0 +1,14 @@
+<animationGroup default="water">
+    <animation id="water" endReachedBehaviour="LOOPING">
+        <frame time="0.1" path="sprites/water/water0001.png"/>
+        <frame time="0.2" path="sprites/water/water0002.png"/>
+        <frame time="0.3" path="sprites/water/water0003.png"/>
+        <frame time="0.4" path="sprites/water/water0004.png"/>
+        <frame time="0.5" path="sprites/water/water0005.png"/>
+        <frame time="0.6" path="sprites/water/water0006.png"/>
+        <frame time="0.7" path="sprites/water/water0007.png"/>
+        <frame time="0.8" path="sprites/water/water0008.png"/>
+        <frame time="0.9" path="sprites/water/water0009.png"/>
+    </animation>
+</animationGroup>
+
