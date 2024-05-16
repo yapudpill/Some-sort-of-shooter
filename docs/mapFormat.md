@@ -2,7 +2,7 @@ Maps are loaded via the `MapSelector` class that reads either internal maps
 located in resources/model/level/maps, or external maps created by the user and
 located on the disk.
 
-Here is an example of what a map file could look like.
+Here is an example of what a map file could look like:
 
 ```
 +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
@@ -14,31 +14,27 @@ Here is an example of what a map file could look like.
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
 |         #               #   #   #   #                               b         |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|         #               #   #           s   s                                 |
+|         #               #   #           /   /                                 |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|         #   #   #   #   #           s   s                                     |
+|         #   #   #   #   #           /   /                                     |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
 |                                             #   #   #   #   #   #   #         |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
 |                                         #   #                                 |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|         /   /   /                       #   #                                 |
+|         V   V   V                       #   #                                 |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|         /   /   /                       #                   r                 |
+|         V   V   V                       #                   r                 |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|         /   /                                                                 |
-+   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|                                                                               |
+|         V   V                                                                 |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
 |                                                                               |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|                                                                               |
+|                                                         s   s   s             |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|                                                                               |
+|                                                         s   S   s             |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|                                                                               |
-+   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
-|                                                                               |
+|                                                         s   s   s             |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
 |                                                                               |
 +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +   +
@@ -52,13 +48,19 @@ The first and last lines and the first and last column are the limits of the map
 the different tiles are separated by `+` at every corner.
 
 Meaning of the characters:
-- `+` is at every corner, it's used to show the grid
-- `---` is a horizontal border of the map
-- `|` (pipe) is a vertical border of the map
-- ` ` (space) indicates the default empty tile (no effect + all entity can enter)
-- `#` indicates the water tile (no effect + only bullets can enter)
-- `S` indicates the player's spawn point
-- `b`, `/`, `r` and `s` are just for the show, no actual meaning for now
+| character   | meaning                                       | can enter        |
+| ----------- | --------------------------------------------- | ---------------- |
+| `+`         | corner of the grid                            |                  |
+| `---`       | horizontal border of the map                  |                  |
+| `\|`        | vertical border of the map                    |                  |
+|             |                                               |                  |
+| ` ` (space) | default empty tile                            | all entities     |
+| `/`         | default empty tile with breakable barrier     | nothing then all |
+| `#`         | water tile                                    | bullets only     |
+| `V`         | void tile                                     | nothing          |
+| `s`         | safe tile                                     | player only      |
+| `S`         | safe tile where the player spawns, one by map | player only      |
+| `b`, `r`    | does nothing, just for the show               |                  |
 
 *Note that only the character in the center of each square is read by the
 program, all separators around squares are actually optionals.*

@@ -3,9 +3,9 @@ package model.level.tiles;
 import model.ingame.entity.PlayerModel;
 import model.level.TileModel;
 
-public class SpawnTileModel extends TileModel {
+public class SafeTileModel extends TileModel {
 
-    public SpawnTileModel() {
+    public SafeTileModel() {
         addCanEnterCondition(entity -> entity instanceof PlayerModel);
     }
 }

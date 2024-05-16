@@ -153,7 +153,7 @@ public class EditorMenu extends JPanel {
         if (model.getSpawn() == null) {
             JOptionPane.showMessageDialog(
                 this,
-                "No spawn point set.",
+                "No spawn point set. Please use middle clic to set a spawn point.",
                 "No spawn point",
                 JOptionPane.INFORMATION_MESSAGE
             );
