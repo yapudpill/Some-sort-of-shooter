@@ -45,12 +45,15 @@ public class GameModel implements IUpdateable {
         physicsEngine = new PhysicsEngineModel(map, collisionEntities);
         updateables.add(physicsEngine);
 
-        player = new PlayerModel(map.getPlayerSpawn(), this);
-        addEntity(player);
-
+        PlayerModel tmpPlayer = null;
         for (Pair<Coordinates, EntityConstructor> pair : map.getInitialEntities()) {
-            addEntity(pair.second().makeEntity(pair.first(), this));
+            IEntity entity = pair.second().makeEntity(pair.first(), this);
+            addEntity(entity);
+            if (entity instanceof PlayerModel p) {
+                tmpPlayer = p;
+            }
         }
+        player = tmpPlayer;
 
         updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextEnemyFactory));
         updateables.add(new RandomPositionSpawner(this, () -> WeaponEntity.weaponEntityFactory(scenarioCursor.nextWeaponFactory())));

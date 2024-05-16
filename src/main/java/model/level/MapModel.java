@@ -11,7 +11,8 @@ import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.EntityConstructor;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
-import model.level.tiles.SpawnTileModel;
+import model.ingame.entity.PlayerModel;
+import model.level.tiles.SafeTileModel;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
@@ -22,7 +23,6 @@ import util.Resource;
 public class MapModel {
     private final TileModel[][] tiles;
     private final List<Pair<Coordinates, EntityConstructor>> initialEntities;
-    private Coordinates playerSpawn;
 
     public MapModel(Resource map) throws InvalidMapException {
         char[][] parsedMap = parseMap(map);
@@ -37,12 +37,6 @@ public class MapModel {
                 if (pair.second() != null) {
                     initialEntities.add(new Pair<>(new Coordinates(j + 0.5, i + 0.5), pair.second()));
                 }
-
-                // The function parseMap guaranties that there is exactly one
-                // spawn point
-                if (tiles[i][j] instanceof SpawnTileModel) {
-                    playerSpawn = new Coordinates(j + 0.5, i + 0.5);
-                }
             }
         }
     }
@@ -56,7 +50,7 @@ public class MapModel {
      * @return array containing the character corresponding to the content of
      *         each tile
      * @throws InvalidMapException if the map is not square or if it doesn't
-     *                             contain a spawn point
+     *                             contain exactly one spawn point
      */
     public static char[][] parseMap(Resource map) throws InvalidMapException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(map.toStream()));
@@ -97,19 +91,19 @@ public class MapModel {
         return switch (c) {
             case '#' -> new Pair<>(new WaterTileModel(), null);
             case 'V' -> new Pair<>(new VoidTileModel(), null);
-            case 'S' -> new Pair<>(new SpawnTileModel(), null);
+            case 's' -> new Pair<>(new SafeTileModel(), null);
+            case 'S' -> new Pair<>(new SafeTileModel(), PlayerModel::new);
             case '/' -> new Pair<>(new StandardTileModel(), BreakableBarrier::new);
             case ' ' -> new Pair<>(new StandardTileModel(), null);
             default  -> new Pair<>(new StandardTileModel(), null);
         };
     }
 
+    /**
+     * This list is guaranteed to contain exactly one PlayerModel constructor
+     */
     public List<Pair<Coordinates, EntityConstructor>> getInitialEntities() {
         return initialEntities;
-    }
-
-    public Coordinates getPlayerSpawn() {
-        return playerSpawn;
     }
 
     public boolean isOutOfBounds(int x, int y) {

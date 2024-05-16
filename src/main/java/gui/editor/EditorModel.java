@@ -10,18 +10,18 @@ import model.ingame.GameModel;
 import model.ingame.Statistics;
 import model.ingame.entity.EntityConstructor;
 import model.ingame.entity.IEntity;
+import model.ingame.entity.PlayerModel;
 import model.level.InvalidMapException;
 import model.level.MapModel;
 import model.level.TileModel;
 import model.level.scenario.Scenario;
-import model.level.tiles.SpawnTileModel;
 import util.Coordinates;
 import util.Pair;
 import util.Resource;
 
 public class EditorModel {
     // The first character is considered to be the default tile
-    private static final char[] possibleChars = { ' ', '#', 'V', '/' };
+    private static final char[] possibleChars = { ' ', '#', 'V', '/', 's' };
     private static final Map<Character, Integer> indexes = new HashMap<>();
     static {
         for (int i = 0; i < possibleChars.length; i++) {
@@ -123,7 +123,7 @@ public class EditorModel {
             for (int x = 0; x < cols; x++) {
                 updateSquare(x, y, charGrid[y][x]);
 
-                if (tileGrid[y][x] instanceof SpawnTileModel) {
+                if (entityGrid[y][x] instanceof PlayerModel) {
                     spawn = new Pair<>(x, y);
                 }
             }

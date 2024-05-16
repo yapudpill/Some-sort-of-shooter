@@ -1,4 +1,4 @@
-<animationGroup default="walk_up">
+<animationGroup default="walk_down">
     <animation id="idle_up" endReachedBehaviour="INFINITE">
         <frame time="0.1" path="sprites/player1/up/up1.png"/>
     </animation>
