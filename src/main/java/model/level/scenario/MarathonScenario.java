@@ -1,16 +1,19 @@
 package model.level.scenario;
 
+import java.util.List;
+
 import model.ingame.GameModel;
-import model.ingame.entity.*;
+import model.ingame.entity.ExplodingEnemy;
+import model.ingame.entity.FirstAidKit;
 import model.ingame.entity.IEnemy.IEnemyFactory;
 import model.ingame.entity.IEntity.IEntityFactory;
+import model.ingame.entity.SmartEnemyModel;
+import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.weapon.KnifeWeapon;
 import model.ingame.weapon.PistolModel;
 import model.ingame.weapon.RocketLauncher;
 import model.ingame.weapon.ShotGun;
 import model.ingame.weapon.WeaponModel.IWeaponFactory;
-
-import java.util.List;
 
 public class MarathonScenario implements IScenario {
     private static final List<IEnemyFactory> ENEMIES_BY_DIFF = List.of(

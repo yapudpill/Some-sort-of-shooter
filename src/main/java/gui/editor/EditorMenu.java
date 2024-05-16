@@ -2,12 +2,10 @@ package gui.editor;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -100,25 +98,22 @@ public class EditorMenu extends JPanel {
         constraints.gridwidth = 1;
 
         constraints.gridx = 0;
-        JButton menu = new JButton("Home menu");
+        JButton menu = new JButton("Home menu", ImageCache.loadIcon("home"));
         menu.addActionListener(e -> mainController.loadHomeMenu());
         add(menu, constraints);
 
         constraints.gridx = 1;
-        Image clearIcon = ImageCache.loadImage("laf/icon/cancel.png", MainFrame.class);
-        JButton clear = new JButton("Clear", new ImageIcon(clearIcon));
+        JButton clear = new JButton("Clear", ImageCache.loadIcon("cancel"));
         clear.addActionListener(e -> { model.reset(); grid.reset(); });
         add(clear, constraints);
 
         constraints.gridx = 2;
-        Image openIcon = ImageCache.loadImage("laf/icon/directory.png", MainFrame.class);
-        JButton open = new JButton("Open", new ImageIcon(openIcon));
+        JButton open = new JButton("Open", ImageCache.loadIcon("directory"));
         open.addActionListener(e -> open());
         add(open, constraints);
 
         constraints.gridx = 3;
-        Image saveIcon = ImageCache.loadImage("laf/icon/floppyDrive.png", MainFrame.class);
-        JButton save = new JButton("Save", new ImageIcon(saveIcon));
+        JButton save = new JButton("Save", ImageCache.loadIcon("floppyDrive"));
         save.addActionListener(e -> save());
         add(save, constraints);
     }
@@ -153,7 +148,7 @@ public class EditorMenu extends JPanel {
         if (model.getSpawn() == null) {
             JOptionPane.showMessageDialog(
                 this,
-                "No spawn point set.",
+                "No spawn point set. Please use middle clic to set a spawn point.",
                 "No spawn point",
                 JOptionPane.INFORMATION_MESSAGE
             );

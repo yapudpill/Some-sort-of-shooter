@@ -6,16 +6,23 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.ingame.GameModel;
+import model.ingame.Statistics;
+import model.ingame.entity.EntityConstructor;
+import model.ingame.entity.IEntity;
+import model.ingame.entity.PlayerModel;
 import model.level.InvalidMapException;
 import model.level.MapModel;
 import model.level.TileModel;
-import model.level.tiles.SpawnTileModel;
+import model.level.scenario.IScenario;
+import model.level.scenario.MarathonScenario;
+import util.Coordinates;
 import util.Pair;
 import util.Resource;
 
 public class EditorModel {
     // The first character is considered to be the default tile
-    private static final char[] possibleChars = { ' ', '#', 'V' };
+    private static final char[] possibleChars = { ' ', '#', 'V', '/', 's' };
     private static final Map<Character, Integer> indexes = new HashMap<>();
     static {
         for (int i = 0; i < possibleChars.length; i++) {
@@ -24,15 +31,33 @@ public class EditorModel {
         indexes.put('S', -1);
     }
 
+
+    // A dummy GameModel to instantiate the entities returned by convertChar
+    private final GameModel dummyModel;
+
     // Pair rather than Coordinates because x and y in Coordinates are double
-    private Pair<Integer, Integer> spawn;
     private int rows, cols;
+    private Pair<Integer, Integer> spawn;
     private char[][] charGrid;
     private TileModel[][] tileGrid;
+    private IEntity[][] entityGrid;
 
     public EditorModel(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
+
+        Statistics dummyStatistics = new Statistics(null, null);
+        IScenario dummyScenario = new MarathonScenario();
+        MapModel dummyMap = null;
+        try {
+            dummyMap = new MapModel(new Resource("dummyMap", getClass()::getResourceAsStream));
+        } catch (InvalidMapException e) {
+            // It is impossible to end up here, dummyMap is a valid map
+            e.printStackTrace();
+            System.exit(1);
+        }
+        dummyModel = new GameModel(dummyMap, dummyStatistics, dummyScenario);
+
         reset();
     }
 
@@ -40,6 +65,7 @@ public class EditorModel {
         spawn = null;
         charGrid = new char[rows][cols];
         tileGrid = new TileModel[rows][cols];
+        entityGrid = new IEntity[rows][cols];
 
         char defaultChar = possibleChars[0];
 
@@ -76,7 +102,14 @@ public class EditorModel {
 
     private void updateSquare(int x, int y, char newChar) {
         charGrid[y][x] = newChar;
-        tileGrid[y][x] = MapModel.convertChar(newChar);
+
+        Pair<TileModel, EntityConstructor> pair = MapModel.convertChar(newChar);
+        tileGrid[y][x] = pair.first();
+        if (pair.second() != null) {
+            entityGrid[y][x] = pair.second().makeEntity(Coordinates.ZERO, dummyModel);
+        } else {
+            entityGrid[y][x] = null;
+        }
     }
 
     public void readFile(Resource map) throws InvalidMapException {
@@ -85,11 +118,13 @@ public class EditorModel {
         cols = charGrid[0].length;
 
         tileGrid = new TileModel[rows][cols];
+        entityGrid = new IEntity[rows][cols];
+
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                tileGrid[y][x] = MapModel.convertChar(charGrid[y][x]);
+                updateSquare(x, y, charGrid[y][x]);
 
-                if (tileGrid[y][x] instanceof SpawnTileModel) {
+                if (entityGrid[y][x] instanceof PlayerModel) {
                     spawn = new Pair<>(x, y);
                 }
             }
@@ -120,6 +155,10 @@ public class EditorModel {
 
     public TileModel getTile(int x, int y) {
         return tileGrid[y][x];
+    }
+
+    public IEntity getEntity(int x, int y) {
+        return entityGrid[y][x];
     }
 
     public int getRows() {

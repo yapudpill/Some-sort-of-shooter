@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.EventQueue;
+
 import gui.MainFrame;
 import gui.editor.EditorMenu;
 import gui.launcher.EndMenu;
@@ -9,8 +11,6 @@ import model.ingame.Statistics;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
 import util.Resource;
-
-import java.awt.*;
 
 public class MainController {
     private final MainFrame mainFrame;

@@ -4,9 +4,9 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-import controller.PlayerController;
 import gui.RatioLayout;
 import model.ingame.GameModel;
+import model.level.MapModel;
 import util.IUpdateable;
 
 /**
@@ -19,21 +19,16 @@ public class GameView extends JPanel implements IUpdateable {
     private final GameMainArea mainArea;
 
     public GameView(GameModel gameModel) {
-        mainArea = new GameMainArea(gameModel);
         setOpaque(true);
         setLayout(new BorderLayout());
 
-        PlayerController playerController = new PlayerController(gameModel.getPlayer(), mainArea);
-        mainArea.addKeyListener(playerController.getKeyListener());
-        mainArea.addMouseListener(playerController.getMouseListener());
-        mainArea.addMouseMotionListener(playerController.getMouseMotionListener());
+        mainArea = new GameMainArea(gameModel);
 
-        RatioLayout centerFillRatioLayout = new RatioLayout((double) gameModel.getMapModel().getWidth() / gameModel.getMapModel().getHeight());
-        JPanel mainAreaWrapper = new JPanel(centerFillRatioLayout);
+        MapModel map = gameModel.getMapModel();
+        RatioLayout ratioLayout = new RatioLayout((double) map.getWidth() / map.getHeight());
+        JPanel mainAreaWrapper = new JPanel(ratioLayout);
         mainAreaWrapper.add(mainArea);
         add(mainAreaWrapper, BorderLayout.CENTER);
-
-        mainArea.setFocusable(true);
     }
 
     @Override

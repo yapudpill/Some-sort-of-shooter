@@ -1,8 +1,14 @@
 package model.level.scenario;
 
-import model.ingame.weapon.*;
-
 import java.util.Map;
+
+import model.ingame.weapon.KnifeWeapon;
+import model.ingame.weapon.PistolModel;
+import model.ingame.weapon.RocketLauncher;
+import model.ingame.weapon.RubberWeapon;
+import model.ingame.weapon.ShotGun;
+import model.ingame.weapon.SimpleTrapPlacer;
+import model.ingame.weapon.WeaponModel;
 
 public class WeaponParser {
     public static final Map<String, WeaponModel.IWeaponFactory> AVAILABLE_WEAPONS = Map.of(

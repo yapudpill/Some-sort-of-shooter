@@ -1,15 +1,18 @@
 package gui.ingame;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Set;
 
 import javax.swing.JLayeredPane;
 
+import controller.PlayerController;
 import gui.FillLayout;
 import gui.ingame.effects.EffectsLayer;
 import gui.ingame.footprints.FootprintsLayer;
 import model.ingame.GameModel;
-import util.IUpdateable;
 import model.level.MapModel;
+import util.IUpdateable;
 
 /**
  * The main area of the game, containing the map and the entities but NOT the HUD, buttons to exit, etc.
@@ -24,6 +27,20 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
     private final int mapWidth, mapHeight;
 
     public GameMainArea(GameModel gameModel) {
+
+        PlayerController playerController = new PlayerController(gameModel.getPlayer(), this);
+        addKeyListener(playerController);
+        addMouseListener(playerController);
+        addMouseMotionListener(playerController);
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    gameModel.setRunning(false);
+                }
+            }
+        });
+
         MapModel map = gameModel.getMapModel();
         mapWidth = map.getWidth();
         mapHeight = map.getHeight();
@@ -41,6 +58,7 @@ public class GameMainArea extends JLayeredPane implements IUpdateable {
         add(entitiesLayer, ENTITIES_LAYER);
         add(effectsLayer, HUD_LAYER);
         add(HUDLayer, HUD_LAYER);
+        setFocusable(true);
     }
 
     /**

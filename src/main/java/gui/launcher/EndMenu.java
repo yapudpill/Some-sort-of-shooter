@@ -1,6 +1,7 @@
 package gui.launcher;
 
 import controller.MainController;
+import gui.ImageCache;
 import model.ingame.Statistics;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
@@ -46,12 +47,12 @@ public class EndMenu extends JPanel {
         constraints.gridy = 2;
 
         constraints.gridx = 0;
-        JButton menu = new JButton("Menu");
+        JButton menu = new JButton("Menu", ImageCache.loadIcon("home"));
         menu.addActionListener(e -> mainController.loadHomeMenu());
         add(menu, constraints);
 
         constraints.gridx = 2;
-        JButton replay = new JButton("Replay");
+        JButton replay = new JButton("Replay", ImageCache.loadIcon("play"));
         replay.addActionListener(event -> {
             try {
                 mainController.loadGame(stats.mapResource, stats.scenarioResource);
@@ -71,7 +72,7 @@ public class EndMenu extends JPanel {
         constraints.gridy = 3;
         constraints.gridx = 1;
 
-        JButton quit = new JButton("Quit");
+        JButton quit = new JButton("Quit", ImageCache.loadIcon("exit"));
         quit.addActionListener(e -> mainController.closeWindow());
         add(quit, constraints);
 
