@@ -1,12 +1,11 @@
 package model.level;
 
-import model.ingame.entity.ICollisionEntity;
-import model.ingame.entity.IEntity;
-import model.ingame.entity.IEntity.IEntityFactory;
-
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
+
+import model.ingame.entity.ICollisionEntity;
+import model.ingame.entity.IEntity;
 
 public abstract class TileModel {
     protected final Set<ICollisionEntity> collidables = new CopyOnWriteArraySet<>();
@@ -16,10 +15,6 @@ public abstract class TileModel {
 
     public boolean canEnter(IEntity entity) {
         return canEnterConditions.stream().allMatch(condition -> condition.test(entity));
-    }
-
-    public boolean canSpawn(IEntityFactory entity) {
-        return false;
     }
 
     public void addCanEnterCondition(Predicate<IEntity> condition) {

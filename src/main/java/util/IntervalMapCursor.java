@@ -32,7 +32,7 @@ public class IntervalMapCursor<K extends Comparable<K>, V> {
                     this.currentKey = intervalMap.loop(currentKey);
                     this.hasLooped = true;
                 }
-            };
+            }
         }
 
         this.hasChanged = lastValue != getCurrentValue();

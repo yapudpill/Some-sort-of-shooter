@@ -20,7 +20,7 @@ public class ScenarioSelector extends ResourceSelector {
         constraints.weightx = 1;
         constraints.weighty = 1;
 
-        marathonCheckbox = new JCheckBox("Marathon mode (Coming soon!)");
+        marathonCheckbox = new JCheckBox("Marathon mode");
         marathonCheckbox.addItemListener(e -> toggleMarathon());
         marathonCheckbox.setSelected(true);
         add(marathonCheckbox, constraints);

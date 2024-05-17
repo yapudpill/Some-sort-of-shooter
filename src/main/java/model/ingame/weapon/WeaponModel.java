@@ -56,9 +56,4 @@ public abstract class WeaponModel {
     public String getIdentifier() {
         return identifier;
     }
-
-    @FunctionalInterface
-    public interface IWeaponFactory {
-        WeaponModel createWeapon(ICombatEntity owner, GameModel gameModel);
-    }
 }

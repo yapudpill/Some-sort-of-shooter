@@ -1,22 +1,21 @@
 package model.level.scenario;
 
-import model.ingame.weapon.WeaponModel;
+import model.ingame.entity.EntityConstructor;
+import model.ingame.weapon.WeaponConstructor;
 
 import java.util.Collection;
 import java.util.Map;
 
-import static model.ingame.entity.IEnemy.IEnemyFactory;
-import static model.ingame.entity.IEntity.IEntityFactory;
-
-
 public interface IGameContext {
-    record OneShotSpawnContext(Collection<WeaponModel.IWeaponFactory> weapons,
-                               Collection<IEnemyFactory> enemies,
-                               Collection<IEntityFactory> miscEntities) implements IGameContext {
-    }
+    record OneShotSpawnContext(
+        Collection<WeaponConstructor> weapons,
+        Collection<EntityConstructor> enemies,
+        Collection<EntityConstructor> miscEntities
+    )implements IGameContext {}
 
-    record FixedSpawnRateContext(Map<Double, WeaponModel.IWeaponFactory> weaponRates,
-                                 Map<Double, IEnemyFactory> enemyRates,
-                                 Map<Double, IEntityFactory> miscEntityRates) implements IGameContext {
-    }
+    record FixedSpawnRateContext(
+        Map<WeaponConstructor, Double> weaponRates,
+        Map<EntityConstructor, Double> enemyRates,
+        Map<EntityConstructor, Double> miscEntityRates
+    ) implements IGameContext {}
 }

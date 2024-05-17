@@ -14,7 +14,8 @@ import model.ingame.entity.PlayerModel;
 import model.level.InvalidMapException;
 import model.level.MapModel;
 import model.level.TileModel;
-import model.level.scenario.Scenario;
+import model.level.scenario.IScenario;
+import model.level.scenario.MarathonScenario;
 import util.Coordinates;
 import util.Pair;
 import util.Resource;
@@ -46,7 +47,7 @@ public class EditorModel {
         this.cols = cols;
 
         Statistics dummyStatistics = new Statistics(null, null);
-        Scenario dummyScenario = new Scenario(null);
+        IScenario dummyScenario = new MarathonScenario();
         MapModel dummyMap = null;
         try {
             dummyMap = new MapModel(new Resource("dummyMap", getClass()::getResourceAsStream));
