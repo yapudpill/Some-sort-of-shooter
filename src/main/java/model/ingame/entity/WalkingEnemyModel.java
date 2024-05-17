@@ -6,7 +6,7 @@ import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.KnifeWeapon;
 import util.Coordinates;
 
-public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity, IEnemy {
+public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
 
     private final PlayerModel player;

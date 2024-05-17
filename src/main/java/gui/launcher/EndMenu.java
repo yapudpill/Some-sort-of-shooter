@@ -1,19 +1,18 @@
 package gui.launcher;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import controller.MainController;
 import gui.ImageCache;
 import model.ingame.Statistics;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class EndMenu extends JPanel {
 

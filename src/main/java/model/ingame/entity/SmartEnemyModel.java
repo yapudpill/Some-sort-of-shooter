@@ -5,12 +5,12 @@ import model.ingame.ModelTimer;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.entity.behavior.StandardBehavior;
 import model.ingame.physics.MovementHandler;
-import model.ingame.weapon.Projectile;
 import model.ingame.weapon.PistolModel;
+import model.ingame.weapon.Projectile;
 import model.ingame.weapon.ProjectileWeaponModel;
 import util.Coordinates;
 
-public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity, IEnemy {
+public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
 
     private final PlayerModel player;

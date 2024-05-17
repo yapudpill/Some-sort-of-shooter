@@ -17,8 +17,8 @@ import model.ingame.entity.WeaponEntity;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
 import model.level.MapModel;
-import model.level.scenario.Scenario;
-import model.level.scenario.ScenarioCursor;
+import model.level.scenario.IScenario;
+import model.level.scenario.IScenarioCursor;
 import util.Coordinates;
 import util.IUpdateable;
 import util.Pair;
@@ -27,7 +27,7 @@ public class GameModel implements IUpdateable {
     public final Statistics stats;
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;
-    private final ScenarioCursor scenarioCursor;
+    private final IScenarioCursor scenarioCursor;
     private final PlayerModel player;
     private boolean isRunning = true;
 
@@ -35,11 +35,11 @@ public class GameModel implements IUpdateable {
     private final Set<ICollisionEntity> collisionEntities = new CopyOnWriteArraySet<>();
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
 
-    public GameModel(MapModel map, Statistics stats, Scenario scenario) {
+    public GameModel(MapModel map, Statistics stats, IScenario scenario) {
         this.map = map;
         this.stats = stats;
 
-        scenarioCursor = new ScenarioCursor(scenario);
+        scenarioCursor = scenario.createCursor(this);
         updateables.add(scenarioCursor);
 
         physicsEngine = new PhysicsEngineModel(map, collisionEntities);
@@ -55,9 +55,9 @@ public class GameModel implements IUpdateable {
         }
         player = tmpPlayer;
 
-        updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextEnemyFactory));
-        updateables.add(new RandomPositionSpawner(this, () -> WeaponEntity.weaponEntityFactory(scenarioCursor.nextWeaponFactory())));
-        updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextMiscEntityFactory));
+        updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextEnemy));
+        updateables.add(new RandomPositionSpawner(this, () -> WeaponEntity.weaponEntityFactory(scenarioCursor.nextWeapon())));
+        updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextMiscEntity));
 
         ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO, this);
         enemyFinderInstance.despawn();

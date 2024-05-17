@@ -1,12 +1,12 @@
 package model.ingame.entity;
 
 import model.ingame.GameModel;
+import model.ingame.weapon.WeaponConstructor;
 import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
-import model.ingame.weapon.WeaponModel.IWeaponFactory;
 
 public class WeaponEntity extends CollisionEntityModel {
-    public static IEntityFactory weaponEntityFactory(IWeaponFactory weaponFactory) {
+    public static EntityConstructor weaponEntityFactory(WeaponConstructor weaponFactory) {
         if (weaponFactory == null) return null;
         return (pos, gameModel) -> new WeaponEntity(pos, weaponFactory.createWeapon(null, gameModel), gameModel);
     }
