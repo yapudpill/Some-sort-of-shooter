@@ -10,6 +10,7 @@ import java.util.Map;
 
 import gui.ingame.GameMainArea;
 import model.ingame.entity.PlayerModel;
+import model.ingame.weapon.ShotGun;
 import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
 
@@ -81,18 +82,23 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
     @Override
     public void mousePressed(MouseEvent e) {
         if (getKeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
-            WeaponModel weapon = controlledPlayerModel.getWeapon();
-            if (weapon != null) {
-                weapon.setDirectionVector(new Coordinates(
-                    (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
-                    (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
-                ));
-            }
             getKeyActionMap(controlledPlayerModel).get(e.getButton()).run();
         }
     }
 
-    @Override public void mouseReleased(MouseEvent arg0) {}
+    @Override public void mouseReleased(MouseEvent e) {
+        int button = e.getButton();
+        if (button == 1) {
+            WeaponModel weapon = controlledPlayerModel.getWeapon();
+            if(weapon != null){
+                switch (weapon){
+                    case ShotGun a ->
+                            getKeyActionMap(controlledPlayerModel).get(e.getButton()).run();
+                    default -> {}
+                }
+            }
+        }
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
