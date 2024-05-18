@@ -12,7 +12,7 @@ public class TileRendererFactory {
             case StandardTileModel t -> new StaticTileImageRenderer("GrassTile.jpg");
             case WaterTileModel t    -> new AnimatedTileRenderer("animations/water.xml");
             case VoidTileModel t     -> new StaticTileImageRenderer("VoidTile.png");
-            case SpawnTileModel t    -> new StaticTileImageRenderer("SpawnTile.jpg");
+            case SafeTileModel t     -> new StaticTileImageRenderer("SpawnTile.png");
 
             default -> throw new IllegalArgumentException("Unknown tile model " + tileModel.getClass().getName());
         };
