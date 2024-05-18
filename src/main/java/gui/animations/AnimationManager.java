@@ -20,7 +20,6 @@ public class AnimationManager implements IUpdateable {
 
     public void switchAnimation(String id) {
         if (id == null) return;
-
         if (currentAnimation == null || !currentAnimation.getId().equals(id)) {
             currentAnimation = animationGroup.get(id);
             if (currentAnimation == null) {
@@ -32,6 +31,10 @@ public class AnimationManager implements IUpdateable {
 
     public void setImageLoader(ImageLoader imageLoader) {
         this.imageLoader = imageLoader;
+    }
+
+    public boolean imageLoaderIs(ImageLoader imageLoader) {
+        return this.imageLoader== imageLoader;
     }
 
     public BufferedImage getCurrentImage() {
