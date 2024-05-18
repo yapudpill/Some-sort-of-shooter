@@ -5,7 +5,7 @@ import model.ingame.entity.ICombatEntity;
 
 public abstract class ProjectileWeaponModel extends WeaponModel {
     public ProjectileWeaponModel(String name, String identifier, ICombatEntity owner, GameModel gameModel, double coolDown) {
-        super(name, identifier, gameModel, owner, coolDown);
+        super(name, identifier, owner, gameModel, coolDown);
     }
 
     public abstract Projectile createProjectile();

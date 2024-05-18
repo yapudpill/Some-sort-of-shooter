@@ -8,7 +8,7 @@ public abstract class AbstractTrapPlacer extends WeaponModel {
     protected int trapCount;
 
     public AbstractTrapPlacer(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown, int trapCount) {
-        super(name, identifier, gameModel, owner, coolDown);
+        super(name, identifier, owner, gameModel, coolDown);
         this.trapCount = trapCount;
     }
 

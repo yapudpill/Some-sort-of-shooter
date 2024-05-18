@@ -19,7 +19,7 @@ public class KnifeWeapon extends WeaponModel {
     private KnifeZoneEntity damageZone = null;
 
     public KnifeWeapon(ICombatEntity owner, GameModel gameModel) {
-        super("Knife", "knife", gameModel, owner, KNIFE_COOLDOWN);
+        super("Knife", "knife", owner, gameModel, KNIFE_COOLDOWN);
         attackDurationTimer = new ModelTimer(
             ATTACK_DURATION,
             false,

@@ -15,7 +15,7 @@ public abstract class WeaponModel {
     protected GameModel gameModel;
     protected double coolDownDelay;
 
-    public WeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {
+    public WeaponModel(String name, String identifier,  ICombatEntity owner, GameModel gameModel,double coolDown) {
         this.name = name;
         this.physicsEngine = gameModel.getPhysicsEngine();
         this.gameModel = gameModel;
