@@ -1,0 +1,12 @@
+<animationGroup default="rocket_projectile">
+    <animation endReachedBehaviour="LOOPING" id="rocket_projectile">
+        <frame time="0.1" path="sprites/weapon/rocket-projectile/rocket1.png"/>
+        <frame time="0.2" path="sprites/weapon/rocket-projectile/rocket2.png"/>
+        <frame time="0.3" path="sprites/weapon/rocket-projectile/rocket3.png"/>
+        <frame time="0.4" path="sprites/weapon/rocket-projectile/rocket4.png"/>
+        <frame time="0.5" path="sprites/weapon/rocket-projectile/rocket5.png"/>
+        <frame time="0.6" path="sprites/weapon/rocket-projectile/rocket6.png"/>
+        <frame time="0.7" path="sprites/weapon/rocket-projectile/rocket7.png"/>
+        <frame time="0.8" path="sprites/weapon/rocket-projectile/rocket8.png"/>
+    </animation>
+</animationGroup>

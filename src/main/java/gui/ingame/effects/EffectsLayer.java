@@ -10,9 +10,9 @@ import javax.swing.JPanel;
 
 import gui.ScaleLayout;
 import model.ingame.GameModel;
-import util.IUpdateable;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.entity.IEntity;
+import util.IUpdateable;
 import util.SetToMapSynchronisator;
 
 public class EffectsLayer extends JPanel implements IUpdateable {

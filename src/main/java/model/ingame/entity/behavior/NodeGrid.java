@@ -4,7 +4,7 @@ import model.level.MapModel;
 import util.Coordinates;
 
 public class NodeGrid {
-    private final Node[][] nodes;
+    public static Node[][] nodes;
 
     public NodeGrid(MapModel map){
         nodes = new Node[map.getWidth()][map.getHeight()];

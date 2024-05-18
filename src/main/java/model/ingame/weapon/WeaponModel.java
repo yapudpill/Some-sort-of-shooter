@@ -13,6 +13,7 @@ public abstract class WeaponModel {
     protected ModelTimer coolDownTimer;
     protected Coordinates directionVector;
     protected GameModel gameModel;
+    protected double coolDownDelay;
 
     public WeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {
         this.name = name;
@@ -21,6 +22,7 @@ public abstract class WeaponModel {
         this.owner = owner;
         this.identifier = identifier;
         coolDownTimer = new ModelTimer(coolDown, false, () -> {}, gameModel);
+        coolDownDelay =  coolDown;
     }
 
     public abstract boolean attack();
@@ -56,4 +58,13 @@ public abstract class WeaponModel {
     public String getIdentifier() {
         return identifier;
     }
+
+    public double getTimeLeft() {
+        return coolDownTimer.getTimeLeft();
+    }
+
+    public double getCoolDownDelay() {
+        return coolDownDelay;
+    }
+
 }

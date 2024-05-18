@@ -3,6 +3,7 @@ package model.ingame.entity;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.physics.MovementHandler;
+import model.ingame.weapon.RocketLauncher;
 import util.Coordinates;
 
 public class PlayerModel extends CombatEntityModel {
@@ -13,13 +14,16 @@ public class PlayerModel extends CombatEntityModel {
     private final ModelTimer dashTimer;
     private final ModelTimer pickWeaponTimer;
 
+
     public PlayerModel(Coordinates pos, GameModel gameModel) {
-        super(pos, MAX_HEALTH, 0.5, 0.5, gameModel);
+        super(pos, MAX_HEALTH, 0.8, 0.8, gameModel);
         dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
         pickWeaponTimer = new ModelTimer(0.5, false, () -> {}, gameModel);
 
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(DEFAULT_SPEED);
+        setWeapon(new RocketLauncher(this, gameModel));
+
     }
 
     @Override
@@ -52,5 +56,17 @@ public class PlayerModel extends CombatEntityModel {
 
     public void pickWeapon() {
         this.pickWeaponTimer.start();
+    }
+
+    public boolean isDashing() {
+        return dashTimer.isRunning();
+    }
+
+    public double getDashTimeLeft() {
+        return dashTimer.getTimeLeft();
+    }
+
+    public double getDashDuration() {
+        return dashTimer.getTimerDuration();
     }
 }
