@@ -21,6 +21,11 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
                 this.takeDamage(health);
             }
         });
+        addBlockedMovementListener(e -> {
+            if (e.blockingTile().getCollidablesSet().stream().anyMatch(entity -> entity instanceof BreakableBarrier)) {
+                attack();
+            }
+        });
     }
 
     @Override

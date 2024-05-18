@@ -24,6 +24,11 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
             }
         });
         setWeapon(new KnifeWeapon(this, gameModel));
+        addBlockedMovementListener(e -> {
+            if (e.blockingTile().getCollidablesSet().stream().anyMatch(entity -> entity instanceof BreakableBarrier)) {
+                attack();
+            }
+        });
     }
 
     @Override
