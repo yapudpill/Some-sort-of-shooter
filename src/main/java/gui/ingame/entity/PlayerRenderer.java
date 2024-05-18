@@ -3,9 +3,13 @@ package gui.ingame.entity;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import gui.ImageCache;
 import model.ingame.entity.PlayerModel;
+import util.ImageLoader;
 
 public class PlayerRenderer extends VulnerableAnimatedRenderer {
+    private ImageLoader reg = ImageCache::loadImage;
+    private ImageLoader neg = ImageCache::loadNegativeImage;
 
     public PlayerRenderer(PlayerModel entityModel) {
         super(entityModel, "animations/player1.xml");
@@ -31,8 +35,12 @@ public class PlayerRenderer extends VulnerableAnimatedRenderer {
         super.update(deltaT);
 
         PlayerModel player = (PlayerModel) entity;
-
         if (player.getMovementHandler().isMoving()) {
+            if(player.isDashing()){
+                if(animationManager.imageLoaderIs(reg)) animationManager.setImageLoader(neg);
+            }else if(!animationManager.imageLoaderIs(reg)) {
+                animationManager.setImageLoader(reg);
+            }
             animationManager.switchAnimation(
                 switch (player.getMovementHandler().getDirectionVector().getCardinalDirection()) {
                     case UP    -> "walk_up";
