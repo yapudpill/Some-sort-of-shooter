@@ -7,7 +7,7 @@ import model.ingame.physics.DamageListener;
 public class ShotGun extends ProjectileWeaponModel {
 
     public ShotGun(ICombatEntity owner, GameModel gameModel) {
-        super("Shotgun", "shotgun", gameModel, owner, 60);
+        super("Shotgun", "shotgun", gameModel, owner, 3);
     }
 
     @Override
@@ -26,6 +26,7 @@ public class ShotGun extends ProjectileWeaponModel {
             setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
             fire();
         }
+        coolDownTimer.start();
         return true;
     }
 }
