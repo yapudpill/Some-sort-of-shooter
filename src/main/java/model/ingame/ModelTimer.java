@@ -21,12 +21,12 @@ public class ModelTimer implements IUpdateable {
     public void update(double delta) {
         timer -= delta;
         if (timer <= 0) {
-            runnable.run();
             if (repeats) {
                 timer = timerDuration;
             } else {
                 stop();
             }
+            runnable.run();
         }
     }
 
