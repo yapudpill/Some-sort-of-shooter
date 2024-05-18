@@ -26,20 +26,17 @@ public class Gatling extends ProjectileWeaponModel {
         }
         if (!isFiring){
             isFiring = true;
-            fireStart();
+            fire();
         } else {
             isFiring = false;
         }
         return true;
     }
 
-    public void fireStart(){
-        fire();
-    }
-
     public void fire() {
+        System.out.println(isFiring);
         if (isFiring) {
-            setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
+            setDirectionVector(getDirectionVector().rotate(Math.random() * 0.4 - 0.25));
             Projectile projectile = createProjectile();
             projectile.setPos(owner.getPos());
             projectile.getMovementHandler().setDirectionVector(this.directionVector);

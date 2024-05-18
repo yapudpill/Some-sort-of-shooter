@@ -87,7 +87,8 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
         }
     }
 
-    @Override public void mouseReleased(MouseEvent e) {
+    @Override
+    public void mouseReleased(MouseEvent e) {
         int button = e.getButton();
         if (button == 1) {
             WeaponModel weapon = controlledPlayerModel.getWeapon();
