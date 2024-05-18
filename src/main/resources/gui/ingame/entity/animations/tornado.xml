@@ -1,0 +1,6 @@
+<animationGroup default="tornado">
+    <animation endReachedBehaviour="LOOPING" id="tornado">
+        <frame time="0.1" path="sprites/weapon/tornado-projectile/tornado1.png"/>
+        <frame time="0.2" path="sprites/weapon/tornado-projectile/tornado2.png"/>
+    </animation>
+</animationGroup>

@@ -14,6 +14,7 @@ import model.ingame.entity.WeaponEntity;
 import model.ingame.weapon.BulletsModel;
 import model.ingame.weapon.RocketProjectileModel;
 import model.ingame.weapon.RubberProjectile;
+import model.ingame.weapon.TornadoProjectileModel;
 
 public class EntityRendererFactory {
     public static AbstractEntityRenderer make(IEntity entity) {
@@ -26,6 +27,7 @@ public class EntityRendererFactory {
             case RubberProjectile e -> new SpriteRenderer(e, "sprites/weapon/rubberball.png");
             case BulletsModel e -> new AnimatedEntityRenderer(e, "animations/bullets.xml", e.getMovementHandler().getDirectionVector()::getAngle);
             case RocketProjectileModel e -> new AnimatedEntityRenderer(e, "animations/rocket_projectile.xml", e.getMovementHandler().getDirectionVector()::getAngle);
+            case TornadoProjectileModel e -> new AnimatedEntityRenderer(e, "animations/tornado.xml", () -> {return 0.0;});
 
             case SmartEnemyModel e   -> new VulnerableAnimatedRenderer(e, "animations/smart_enemy.xml");
             case ExplodingEnemy e   -> new VulnerableAnimatedRenderer(e, "animations/exploding_enemy.xml");

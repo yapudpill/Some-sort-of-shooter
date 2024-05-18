@@ -15,6 +15,7 @@ import model.ingame.weapon.RubberWeapon;
 import model.ingame.weapon.ShotGun;
 import model.ingame.weapon.Gatling;
 import model.ingame.weapon.SimpleTrapPlacer;
+import model.ingame.weapon.TornadoGun;
 import model.ingame.weapon.WeaponConstructor;
 
 public class MarathonScenario implements IScenario {
@@ -29,7 +30,8 @@ public class MarathonScenario implements IScenario {
 //            SimpleTrapPlacer::new,
 //            PistolModel::new,
 //            RubberWeapon::new,
-            Gatling::new
+//            Gatling::new,
+//            TornadoGun::new,
 //            ShotGun::new,
 //            RocketLauncher::new
 
