@@ -10,7 +10,7 @@ public class Gatling extends ProjectileWeaponModel {
     public Gatling(  ICombatEntity owner, GameModel gameModel) {
         super("Gatling", "Gatling", owner, gameModel, 0.5);
     }
-    ModelTimer inBetweenTimer = new ModelTimer(0.048, false, () -> {}, gameModel);
+    ModelTimer inBetweenTimer = new ModelTimer(0.048, false, this::fire, gameModel);
 
     @Override
     public Projectile createProjectile() {
@@ -34,20 +34,18 @@ public class Gatling extends ProjectileWeaponModel {
     }
 
     public void fireStart(){
-        setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
         fire();
-        if (isFiring && !inBetweenTimer.isRunning()){
-            System.out.println("test");
-            fireStart();
-        }
     }
 
     public void fire() {
-        Projectile projectile = createProjectile();
-        projectile.setPos(owner.getPos());
-        projectile.getMovementHandler().setDirectionVector(this.directionVector);
-        gameModel.attachAsUpdateable(projectile);
-        gameModel.addEntity(projectile);
-        inBetweenTimer.start();
+        if (isFiring) {
+            setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
+            Projectile projectile = createProjectile();
+            projectile.setPos(owner.getPos());
+            projectile.getMovementHandler().setDirectionVector(this.directionVector);
+            gameModel.attachAsUpdateable(projectile);
+            gameModel.addEntity(projectile);
+            inBetweenTimer.start();
+        }
     }
 }
