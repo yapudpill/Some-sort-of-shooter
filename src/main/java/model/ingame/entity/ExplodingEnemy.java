@@ -17,15 +17,19 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
         movementHandler.setSpeed(2.4);
         addCollisionListener(e -> {
             if (e.getInvolvedEntitiesList().contains(player)) {
-                gameModel.addEntity(new ExplosionZoneEntity(this.pos, 2, 2, 10, 1, gameModel));
-                this.takeDamage(health);
+                explode();
             }
         });
         addBlockedMovementListener(e -> {
             if (e.blockingTile().getCollidablesSet().stream().anyMatch(entity -> entity instanceof BreakableBarrier)) {
-                attack();
+                explode();
             }
         });
+    }
+
+    public void explode() {
+        gameModel.addEntity(new ExplosionZoneEntity(this.pos, 2, 2, 10, 1, gameModel));
+        this.takeDamage(health);
     }
 
     @Override
