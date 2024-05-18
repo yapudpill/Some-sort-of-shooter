@@ -12,11 +12,14 @@ import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.BlockedMovementListener;
 import model.ingame.physics.CollisionEvent;
 import model.ingame.physics.CollisionListener;
+import model.ingame.physics.ExitEvent;
+import model.ingame.physics.ExitListener;
 import util.Coordinates;
 
 public abstract class CollisionEntityModel extends EntityModel implements ICollisionEntity {
     private final List<CollisionListener> collisionListeners = new ArrayList<>();
     private final List<BlockedMovementListener> blockedMovementListeners = new ArrayList<>();
+    private final List<ExitListener> exitListeners = new ArrayList<>();
     private final Rectangle2D collisionBox;
     private final Set<ICollisionEntity> currentlyCollidedEntities = new CopyOnWriteArraySet<>();
 
@@ -54,6 +57,10 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
         blockedMovementListeners.add(listener);
     }
 
+    public void addExitListener(ExitListener listener) {
+        exitListeners.add(listener);
+    }
+
     @Override
     public void notifyBlockedMovementListeners(BlockedMovementEvent e) {
         for (BlockedMovementListener listener : blockedMovementListeners) {
@@ -68,6 +75,12 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
         }
     }
 
+    public void notifyExitListeners(ExitEvent e) {
+        for (ExitListener listener : exitListeners) {
+            listener.onExit(e);
+        }
+    }
+
     @Override
     public void despawn() {
         super.despawn();
@@ -75,9 +88,14 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
         gameModel.removeCollisionEntity(this);
     }
 
-    public void updateCollidedEntities(Set<ICollisionEntity> collidedEntities) {
+    // returns the list of the entities who exited the collision
+    public Set<ICollisionEntity> updateCollidedEntities(Set<ICollisionEntity> collidedEntities) {
+        // Calculate the intersection of the two sets
+        Set<ICollisionEntity> exitEntities = new CopyOnWriteArraySet<>(currentlyCollidedEntities);
+        exitEntities.removeAll(collidedEntities);
         currentlyCollidedEntities.clear();
         currentlyCollidedEntities.addAll(collidedEntities);
+        return exitEntities;
     }
 
     public boolean isCurrentlyCollidingWith(ICollisionEntity entity) {

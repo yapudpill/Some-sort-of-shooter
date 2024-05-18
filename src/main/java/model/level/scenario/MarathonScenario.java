@@ -8,6 +8,7 @@ import model.ingame.entity.ExplodingEnemy;
 import model.ingame.entity.FirstAidKit;
 import model.ingame.entity.SmartEnemyModel;
 import model.ingame.entity.WalkingEnemyModel;
+import model.ingame.weapon.GravityGun;
 import model.ingame.weapon.KnifeWeapon;
 import model.ingame.weapon.PistolModel;
 import model.ingame.weapon.RocketLauncher;
@@ -28,6 +29,7 @@ public class MarathonScenario implements IScenario {
             SimpleTrapPlacer::new,
             PistolModel::new,
             RubberWeapon::new,
+            GravityGun::new,
             ShotGun::new,
             RocketLauncher::new
     );

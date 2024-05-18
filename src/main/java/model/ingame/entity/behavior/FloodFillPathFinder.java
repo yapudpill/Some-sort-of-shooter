@@ -11,7 +11,6 @@ import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.physics.MovementHandler;
-import model.level.TileModel;
 import util.Coordinates;
 
 public class FloodFillPathFinder {
