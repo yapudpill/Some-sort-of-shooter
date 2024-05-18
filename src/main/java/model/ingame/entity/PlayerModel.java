@@ -4,6 +4,7 @@ import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.TornadoGun;
+import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
 
 public class PlayerModel extends CombatEntityModel {
@@ -13,6 +14,7 @@ public class PlayerModel extends CombatEntityModel {
 
     private final ModelTimer dashTimer;
     private final ModelTimer pickWeaponTimer;
+    WeaponModel otherWeapon;
 
 
     public PlayerModel(Coordinates pos, GameModel gameModel) {
@@ -54,12 +56,34 @@ public class PlayerModel extends CombatEntityModel {
         }
     }
 
+    public void swap(){
+        if (otherWeapon!= null){
+            WeaponModel tmp = weapon;
+            weapon = otherWeapon;
+            otherWeapon = tmp;
+        }
+    }
+
     public void pickWeapon() {
         this.pickWeaponTimer.start();
     }
 
     public boolean isDashing() {
         return dashTimer.isRunning();
+    }
+
+    @Override
+    public void setWeapon(WeaponModel weapon) {
+        if (this.weapon != null && otherWeapon == null){
+            otherWeapon = weapon;
+            otherWeapon.setOwner(this);
+        } else {
+            this.weapon = weapon;
+        }
+    }
+
+    public WeaponModel getOtherWeapon() {
+        return otherWeapon;
     }
 
     public double getDashTimeLeft() {

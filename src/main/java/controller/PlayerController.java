@@ -34,7 +34,8 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
         return Map.of(
                 MouseEvent.BUTTON1, playerModel::attack,
                 MouseEvent.BUTTON3, playerModel::dash,
-                KeyEvent.VK_E, playerModel::pickWeapon
+                KeyEvent.VK_E, playerModel::pickWeapon,
+                KeyEvent.VK_A, playerModel::swap
         );
     }
 
@@ -82,7 +83,14 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
 
     @Override
     public void mousePressed(MouseEvent e) {
+        WeaponModel weapon = controlledPlayerModel.getWeapon();
         if (getKeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
+            if (weapon != null && weapon.usesDirectionVector()) {
+                weapon.setDirectionVector(new Coordinates(
+                        (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
+                        (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
+                ));
+            }
             getKeyActionMap(controlledPlayerModel).get(e.getButton()).run();
         }
     }
@@ -92,7 +100,14 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
         int button = e.getButton();
         if (button == 1) {
             WeaponModel weapon = controlledPlayerModel.getWeapon();
+
             if(weapon != null){
+                if (weapon.usesDirectionVector()) {
+                    weapon.setDirectionVector(new Coordinates(
+                            (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
+                            (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
+                    ));
+                }
                 switch (weapon){
                     case ShotGun ignored ->
                             getKeyActionMap(controlledPlayerModel).get(button).run();

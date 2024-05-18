@@ -26,14 +26,14 @@ public class MarathonScenario implements IScenario {
     );
 
     private static final List<WeaponConstructor> WEAPON_BY_POWER = List.of(
-//            KnifeWeapon::new,
-//            SimpleTrapPlacer::new,
-//            PistolModel::new,
-//            RubberWeapon::new,
-//            Gatling::new,
-//            TornadoGun::new,
-//            ShotGun::new,
-//            RocketLauncher::new
+            KnifeWeapon::new,
+            SimpleTrapPlacer::new,
+            PistolModel::new,
+            RubberWeapon::new,
+            Gatling::new,
+            TornadoGun::new,
+            ShotGun::new,
+            RocketLauncher::new
 
     );
 
