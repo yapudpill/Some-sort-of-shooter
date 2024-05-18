@@ -218,8 +218,8 @@ public class MapModel {
         dy *= 2;
 
         for (; n > 0; --n) {
-            boolean notBeginningOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
-            if (!canEnterAround(entity, x, y) && notBeginningOrEnd) {
+            boolean notBeginnigOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
+            if (!canEnterAround(entity,x, y) && notBeginnigOrEnd) {
                 return true;
             }
 

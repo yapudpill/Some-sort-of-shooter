@@ -45,4 +45,12 @@ public class ModelTimer implements IUpdateable {
     public boolean isRunning() {
         return isRunning;
     }
+
+    public double getTimeLeft() {
+        return timer;
+    }
+
+    public double getTimerDuration() {
+        return timerDuration;
+    }
 }

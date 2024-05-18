@@ -1,8 +1,0 @@
-<animationGroup default="water">
-    <animation id="water" endReachedBehaviour="LOOPING">
-        <frame time="0.5" path="sprites/grass/grass0001.png"/>
-        <frame time="1.0" path="sprites/grass/grass0002.png"/>
-        <frame time="1.5" path="sprites/grass/grass0003.png"/>
-        <frame time="2.0" path="sprites/grass/grass0004.png"/>
-    </animation>
-</animationGroup>

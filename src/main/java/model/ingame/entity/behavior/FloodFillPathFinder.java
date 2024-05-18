@@ -54,6 +54,7 @@ public class FloodFillPathFinder {
                     nodeGrid.getNode(x, y).setValue(currentValue);
                 }
 
+
                 // Add adjacent nodes to the queue
                 addAdjacentNodes(queue, x, y);
             }
@@ -65,7 +66,7 @@ public class FloodFillPathFinder {
         // Add adjacent nodes to the queue if they are within bounds and have not been visited
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) continue;
+                if (i == j || i == -j) continue;
                 if (isValidCoordinate(x + i, y + j)) {
                     queue.add(new Coordinates(x + i, y + j));
                 }
@@ -103,7 +104,8 @@ public class FloodFillPathFinder {
             MovementHandler movementHandler = entity.getMovementHandler();
             if (!this.isRunning()) this.start();
             Coordinates lowestCoord = this.getLowestNodeAround((int) pos.x(), (int) pos.y());
-            if (pos.isInCenter() || !movementHandler.isMoving()) movementHandler.setDirectionVector(new Coordinates(lowestCoord.x() - pos.x(), lowestCoord.y() - pos.y()));
+            if (pos.isInCenter() || !movementHandler.isMoving())
+             movementHandler.setDirectionVector(new Coordinates(lowestCoord.x() - pos.x(), lowestCoord.y() - pos.y()));
     }
 
     public void setTargets(List<Coordinates> targets) {

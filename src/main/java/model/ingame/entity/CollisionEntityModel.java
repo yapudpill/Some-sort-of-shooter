@@ -3,6 +3,9 @@ package model.ingame.entity;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Predicate;
 
 import model.ingame.GameModel;
 import model.ingame.physics.BlockedMovementEvent;
@@ -15,6 +18,7 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
     private final List<CollisionListener> collisionListeners = new ArrayList<>();
     private final List<BlockedMovementListener> blockedMovementListeners = new ArrayList<>();
     private final Rectangle2D collisionBox;
+    private final Set<ICollisionEntity> currentlyCollidedEntities = new CopyOnWriteArraySet<>();
 
     public CollisionEntityModel(Coordinates pos, double width, double height, GameModel gameModel) {
         super(pos, width, height, gameModel);
@@ -70,4 +74,19 @@ public abstract class CollisionEntityModel extends EntityModel implements IColli
         gameModel.getMapModel().removeCollidableAt(this, this.pos);
         gameModel.removeCollisionEntity(this);
     }
+
+    public void updateCollidedEntities(Set<ICollisionEntity> collidedEntities) {
+        currentlyCollidedEntities.clear();
+        currentlyCollidedEntities.addAll(collidedEntities);
+    }
+
+    public boolean isCurrentlyCollidingWith(ICollisionEntity entity) {
+        return currentlyCollidedEntities.contains(entity);
+    }
+
+    public boolean isCurrentlyCollidingWith(Predicate<ICollisionEntity> predicate) {
+        return currentlyCollidedEntities.stream().anyMatch(predicate);
+    }
+
+
 }

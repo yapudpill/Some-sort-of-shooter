@@ -11,7 +11,7 @@
 - Changement du couleur du player quand il est attaqué
 - Ajout des `currentlyCollidingEntities`
 - Affichage des weapon dans le HUD
-- 
+-
 ### Yacob :
 - Intégration des scénarios à l'écran d'accueil (de la même façon que les maps) + Chargement à partir de fichiers XML
 - Ajout d'animations pour l'eau
@@ -28,4 +28,4 @@
 
 5. Équilibrage du jeu (vitesse notamment)
 6. Documenter le code
-7. Amélioration générale de l'esthétique
+7. Amélioration générale de l'esthétique# Feuille de Sprint #12

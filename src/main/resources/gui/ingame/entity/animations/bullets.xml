@@ -1,0 +1,5 @@
+<animationGroup default="bullet">
+    <animation endReachedBehaviour="INFINITE" id="bullet">
+        <frame time="0.1" path="sprites/weapon/Bullet.png"/>
+    </animation>
+</animationGroup>

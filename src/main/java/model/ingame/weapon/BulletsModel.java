@@ -5,8 +5,8 @@ import util.Coordinates;
 
 public class BulletsModel extends Projectile {
     public static final double BULLET_SPEED = 12;
-    public static final double BULLET_WIDTH = 0.3;
-    public static final double BULLET_HEIGHT = 0.3;
+    public static final double BULLET_WIDTH = 0.6;
+    public static final double BULLET_HEIGHT = 0.6;
     public static final int BULLET_DAMAGE = 12;
 
     public BulletsModel(Coordinates pos, ProjectileWeaponModel source, GameModel gameModel) {

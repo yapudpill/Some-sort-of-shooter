@@ -5,7 +5,7 @@ import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
 import util.Coordinates;
 
-public class ExplodingEnemy extends CreatureModel implements IEffectEntity {
+public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
     private final PlayerModel player;
 
@@ -14,11 +14,11 @@ public class ExplodingEnemy extends CreatureModel implements IEffectEntity {
         this.pos = pos;
         this.player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(5.4);
+        movementHandler.setSpeed(2.4);
         addCollisionListener(e -> {
             if (e.getInvolvedEntitiesList().contains(player)) {
                 gameModel.addEntity(new ExplosionZoneEntity(this.pos, 2, 2, 10, 1, gameModel));
-                this.despawn();
+                this.takeDamage(health);
             }
         });
     }

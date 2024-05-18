@@ -1,37 +1,14 @@
 <animationGroup default="water">
     <animation id="water" endReachedBehaviour="LOOPING">
-        <frame time="0.3" path="sprites/water/water0001.png"/>
-        <frame time="0.6" path="sprites/water/water0002.png"/>
-        <frame time="0.8999999999999999" path="sprites/water/water0003.png"/>
-        <frame time="1.2" path="sprites/water/water0004.png"/>
-        <frame time="1.5" path="sprites/water/water0005.png"/>
-        <frame time="1.7999999999999998" path="sprites/water/water0006.png"/>
-        <frame time="2.1" path="sprites/water/water0007.png"/>
-        <frame time="2.4" path="sprites/water/water0008.png"/>
-        <frame time="2.6999999999999997" path="sprites/water/water0009.png"/>
-        <frame time="3.0" path="sprites/water/water0010.png"/>
-        <frame time="3.3" path="sprites/water/water0011.png"/>
-        <frame time="3.5999999999999996" path="sprites/water/water0012.png"/>
-        <frame time="3.9" path="sprites/water/water0013.png"/>
-        <frame time="4.2" path="sprites/water/water0014.png"/>
-        <frame time="4.5" path="sprites/water/water0015.png"/>
-        <frame time="4.8" path="sprites/water/water0016.png"/>
-        <frame time="5.1" path="sprites/water/water0017.png"/>
-        <frame time="5.3999999999999995" path="sprites/water/water0018.png"/>
-        <frame time="5.7" path="sprites/water/water0019.png"/>
-        <frame time="6.0" path="sprites/water/water0020.png"/>
-        <frame time="6.3" path="sprites/water/water0021.png"/>
-        <frame time="6.6" path="sprites/water/water0022.png"/>
-        <frame time="6.8999999999999995" path="sprites/water/water0023.png"/>
-        <frame time="7.199999999999999" path="sprites/water/water0024.png"/>
-        <frame time="7.5" path="sprites/water/water0025.png"/>
-        <frame time="7.8" path="sprites/water/water0026.png"/>
-        <frame time="8.1" path="sprites/water/water0027.png"/>
-        <frame time="8.4" path="sprites/water/water0028.png"/>
-        <frame time="8.7" path="sprites/water/water0029.png"/>
-        <frame time="9.0" path="sprites/water/water0030.png"/>
-        <frame time="9.299999999999999" path="sprites/water/water0031.png"/>
-        <frame time="9.6" path="sprites/water/water0032.png"/>
-
+        <frame time="0.1" path="sprites/water/water0001.png"/>
+        <frame time="0.2" path="sprites/water/water0002.png"/>
+        <frame time="0.3" path="sprites/water/water0003.png"/>
+        <frame time="0.4" path="sprites/water/water0004.png"/>
+        <frame time="0.5" path="sprites/water/water0005.png"/>
+        <frame time="0.6" path="sprites/water/water0006.png"/>
+        <frame time="0.7" path="sprites/water/water0007.png"/>
+        <frame time="0.8" path="sprites/water/water0008.png"/>
+        <frame time="0.9" path="sprites/water/water0009.png"/>
     </animation>
 </animationGroup>
+
