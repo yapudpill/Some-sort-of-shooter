@@ -3,6 +3,8 @@ package gui;
 import javax.imageio.ImageIO;
 
 import java.awt.Color;
+import java.awt.Graphics;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import java.awt.Image;
@@ -26,8 +28,7 @@ public class ImageCache {
         if (cache.get(path + "_inv") != null) {
             return cache.get(path + "_inv");
         }
-        BufferedImage img = loadImage(path, resourceBase);
-
+        BufferedImage img = copyImage(loadImage(path, resourceBase));
         //inversion
         for (int x = 0; x < img.getWidth(); x++) {
             for (int y = 0; y < img.getHeight(); y++) {
@@ -36,7 +37,7 @@ public class ImageCache {
                 col = new Color(
                     255 - col.getRed(),
                     255 - col.getGreen(),
-                    255 - col.getBlue()
+                    255 - col.getBlue(), col.getAlpha()
                 );
                 img.setRGB(x, y, col.getRGB());
             }
@@ -44,6 +45,14 @@ public class ImageCache {
 
         cache.put(path + "_inv", img);
         return img;
+    }
+
+    private static BufferedImage copyImage(BufferedImage source){
+        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+        Graphics g = b.getGraphics();
+        g.drawImage(source, 0, 0, null);
+        g.dispose();
+        return b;
     }
 
     public static BufferedImage loadImage(String path, Class<?> resourceBase) {
