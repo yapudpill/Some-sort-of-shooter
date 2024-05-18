@@ -93,9 +93,9 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
             WeaponModel weapon = controlledPlayerModel.getWeapon();
             if(weapon != null){
                 switch (weapon){
-                    case ShotGun a ->
+                    case ShotGun ignored ->
                             getKeyActionMap(controlledPlayerModel).get(button).run();
-                    case Gatling a ->
+                    case Gatling ignored ->
                             getKeyActionMap(controlledPlayerModel).get(button).run();
                     default -> {}
                 }
