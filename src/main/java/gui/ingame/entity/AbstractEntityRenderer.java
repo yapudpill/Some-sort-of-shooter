@@ -1,17 +1,19 @@
 package gui.ingame.entity;
 
-import java.awt.Graphics;
+import gui.IScalableComponent;
+import model.ingame.entity.IEntity;
+import util.Coordinates;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
-import javax.swing.JComponent;
-
-import gui.IScalableComponent;
-import model.ingame.entity.IEntity;
-import util.Coordinates;
-
+/**
+ * Abstract class for rendering entities, providing the size and position of the **displayed** entity **before** being scaled.
+ */
 public abstract class AbstractEntityRenderer extends JComponent implements IScalableComponent {
     protected final IEntity entity;
     private final Map<Predicate<IEntity>, BufferedImage> conditionsToRendering = new ConcurrentHashMap<>();

@@ -1,19 +1,17 @@
 package gui;
 
 import javax.imageio.ImageIO;
-
-import java.awt.Color;
-import java.awt.Graphics;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import java.awt.Image;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A cache for images, to avoid loading the same image multiple times and doubles as a helper for image loading.
+ */
 public class ImageCache {
 
     public static class ImageNotFoundException extends RuntimeException {

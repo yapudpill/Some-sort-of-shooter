@@ -17,6 +17,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is responsible for loading and caching animations from XML files. Animations loaded once are then retrieved
+ * from the cache, to avoid reloading them.
+ */
 public class AnimationCache {
 
     public static class AnimationNotFoundException extends RuntimeException {

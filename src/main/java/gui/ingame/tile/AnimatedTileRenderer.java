@@ -1,13 +1,15 @@
 package gui.ingame.tile;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import gui.animations.AnimationCache;
 import gui.animations.AnimationGroup;
 import gui.animations.AnimationManager;
 import util.IUpdateable;
 
+import java.awt.*;
+
+/**
+ * A renderer for animated tiles, using an {@link AnimationManager} to manage the animations.
+ */
 public class AnimatedTileRenderer extends TileRenderer implements IUpdateable {
     protected final AnimationManager animationManager;
 

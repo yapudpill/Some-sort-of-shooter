@@ -1,14 +1,5 @@
 package gui.editor;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JPanel;
-
 import gui.ingame.entity.AbstractEntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
 import gui.ingame.tile.TileRenderer;
@@ -17,6 +8,14 @@ import model.ingame.entity.IEntity;
 import model.level.TileModel;
 import util.Pair;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+/**
+ * Panel that displays the grid of tiles and reacts to mouse events to change the tiles.
+ */
 public class EditorGrid extends JPanel {
     private final EditorModel model;
     private final GridLayout layout;

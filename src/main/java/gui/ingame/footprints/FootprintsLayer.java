@@ -1,19 +1,21 @@
 package gui.ingame.footprints;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.IntSupplier;
-
-import javax.swing.JPanel;
-
 import gui.ScaleLayout;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.entity.IEntity;
 import util.IUpdateable;
 import util.SetToMapSynchronisator;
 
+import javax.swing.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.IntSupplier;
+
+/**
+ * Panel layer for rendering footprints of entities.
+ */
 public class FootprintsLayer extends JPanel implements IUpdateable {
     private final Map<ICombatEntity, FootprintManager> combatEntitiesFootprintMap = new ConcurrentHashMap<>();
     private final Set<IEntity> entityModelSet;
@@ -33,10 +35,12 @@ public class FootprintsLayer extends JPanel implements IUpdateable {
             }
         }
 
+        // Creates a FootprintManager for each combat entity that doesn't have one yet, and removes the FootprintManager
+        // for each combat entity that doesn't exist anymore
         SetToMapSynchronisator.synchronise(combatEntities,
             combatEntitiesFootprintMap,
             this::addFootprintSpawner,
-            this::stopFootprintSpawner // Don't immediately remove the footprints, they will fade out thanks to the FootprintManager
+            this::stopFootprintSpawner // Don't immediately remove the footprints, they will fade out thanks to the FootprintManager, so just stop them
         );
 
         for (IUpdateable footprintManager : combatEntitiesFootprintMap.values()) {

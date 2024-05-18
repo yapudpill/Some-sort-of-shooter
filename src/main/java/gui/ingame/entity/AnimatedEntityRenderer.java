@@ -1,15 +1,19 @@
 package gui.ingame.entity;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.util.function.DoubleSupplier;
-
 import gui.animations.AnimationCache;
 import gui.animations.AnimationGroup;
 import gui.animations.AnimationManager;
 import model.ingame.entity.IEntity;
 import util.IUpdateable;
 
+import java.awt.*;
+import java.util.function.DoubleSupplier;
+
+/**
+ * Class for rendering entities with animations. Allows for the entity to be animated and rotated. The angle is provided
+ * by a function passed to the constructor to allow quickly creating new renderers without extending the class, as a lot
+ * of them are very similar.
+ */
 public class AnimatedEntityRenderer extends AbstractEntityRenderer implements IUpdateable {
     protected final AnimationManager animationManager;
     protected final DoubleSupplier angle;

@@ -8,10 +8,8 @@ import util.MathTools;
 import util.ZipToMap;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 public class MarathonCursor implements IScenarioCursor {
     private static final int MAX_DIFFICULTY = 30;
@@ -79,18 +77,19 @@ public class MarathonCursor implements IScenarioCursor {
 
             enemyGenerator.setElementRates(ZipToMap.zipToMap(
                 scenario.enemiesByDifficulty(),
-                getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)
+                MathTools.getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)
             ));
 
             weaponGenerator.setElementRates(ZipToMap.zipToMap(
                 scenario.weaponsByPower(),
-                getBinomialProbabilities(scenario.weaponsByPower().size(), weaponGeneratorP)
+                MathTools.getBinomialProbabilities(scenario.weaponsByPower().size(), weaponGeneratorP)
             ));
         }
     }
 
     @Override
-    public void update(double delta) {}
+    public void update(double delta) {
+    }
 
     private double adjustedDifficulty() {
         return 30 * Math.log(rawDifficulty + 1);
@@ -111,14 +110,7 @@ public class MarathonCursor implements IScenarioCursor {
         cooldownTimer.start();
     }
 
-    // TODO: optimize this, we compute similar things every time
-    private List<Double> getBinomialProbabilities(int n, double p) {
-        return IntStream
-            .range(0, n)
-            .mapToDouble(k -> Math.pow(p, k) * Math.pow(1 - p, n - k) * MathTools.nCR(n, k))
-            .boxed()
-            .toList();
-    }
+
 
     @Override
     public WeaponConstructor nextWeapon() {

@@ -4,6 +4,9 @@ import gui.ImageCache;
 import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.IVulnerableEntity;
 
+/**
+ * Renderer for the BreakableBarrier entity. Changes the displayed animation based on the health of the wall.
+ */
 public class BreakableBarrierRenderer extends AbstractEntityRenderer{
 
     public BreakableBarrierRenderer(BreakableBarrier entity) {

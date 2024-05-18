@@ -1,25 +1,19 @@
 package gui.editor;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-
 import controller.MainController;
 import gui.ImageCache;
 import gui.MainFrame;
 import gui.launcher.MapSelector;
 import model.level.InvalidMapException;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * Panel that displays the editor menu, allowing the user to create and save maps.
+ */
 public class EditorMenu extends JPanel {
     private static final int DEFAULT_ROWS = 20;
     private static final int DEFAULT_COLS = 20;

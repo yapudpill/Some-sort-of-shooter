@@ -1,11 +1,13 @@
 package gui.ingame.entity;
 
-import java.awt.Graphics;
-import java.awt.Image;
-
 import gui.ImageCache;
 import model.ingame.entity.IEntity;
 
+import java.awt.*;
+
+/**
+ * Renderer for entities that are represented by a single sprite.
+ */
 public class SpriteRenderer extends AbstractEntityRenderer {
     private final Image image;
 

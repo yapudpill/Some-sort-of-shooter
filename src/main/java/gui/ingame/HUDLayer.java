@@ -13,6 +13,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.function.IntSupplier;
 
+/**
+ * A simple HUD layer that displays the current weapon of the player, and a message if the player is standing on a weapon.
+ */
 public class HUDLayer extends JPanel implements IUpdateable {
     private String currentMessString = "";
 
