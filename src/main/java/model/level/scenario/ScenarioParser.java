@@ -151,7 +151,7 @@ public class ScenarioParser {
 
             return scenario;
 
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | NullPointerException e) {
             throw new InvalidScenarioException(e.getMessage());
         }
     }
