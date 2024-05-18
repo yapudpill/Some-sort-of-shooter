@@ -13,6 +13,7 @@ import model.ingame.weapon.PistolModel;
 import model.ingame.weapon.RocketLauncher;
 import model.ingame.weapon.RubberWeapon;
 import model.ingame.weapon.ShotGun;
+import model.ingame.weapon.Gatling;
 import model.ingame.weapon.SimpleTrapPlacer;
 import model.ingame.weapon.WeaponConstructor;
 
@@ -24,12 +25,14 @@ public class MarathonScenario implements IScenario {
     );
 
     private static final List<WeaponConstructor> WEAPON_BY_POWER = List.of(
-            KnifeWeapon::new,
-            SimpleTrapPlacer::new,
-            PistolModel::new,
-            RubberWeapon::new,
-            ShotGun::new,
-            RocketLauncher::new
+//            KnifeWeapon::new,
+//            SimpleTrapPlacer::new,
+//            PistolModel::new,
+//            RubberWeapon::new,
+            Gatling::new
+//            ShotGun::new,
+//            RocketLauncher::new
+
     );
 
     public MarathonScenario() {

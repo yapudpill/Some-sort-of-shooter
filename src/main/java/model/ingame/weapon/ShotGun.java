@@ -5,9 +5,9 @@ import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.DamageListener;
 
 public class ShotGun extends ProjectileWeaponModel {
-    boolean isSecondShot = false;
+    private boolean isSecondShot = false;
     public ShotGun(ICombatEntity owner, GameModel gameModel) {
-        super("Shotgun", "shotgun", gameModel, owner, 3);
+        super("Shotgun", "shotgun", owner, gameModel, 3);
     }
 
     @Override
