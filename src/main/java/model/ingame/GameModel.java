@@ -1,31 +1,33 @@
 package model.ingame;
 
-import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
 
 import model.ingame.entity.CombatEntityModel;
+import model.ingame.entity.EntityConstructor;
 import model.ingame.entity.ExplodingEnemy;
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.PlayerModel;
-import model.ingame.entity.RandomEnemySpawner;
+import model.ingame.entity.RandomPositionSpawner;
 import model.ingame.entity.SmartEnemyModel;
 import model.ingame.entity.WalkingEnemyModel;
+import model.ingame.entity.WeaponEntity;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.PhysicsEngineModel;
-import model.ingame.weapon.RandomWeaponSpawner;
-import model.level.InvalidMapException;
 import model.level.MapModel;
+import model.level.scenario.IScenario;
+import model.level.scenario.IScenarioCursor;
 import util.Coordinates;
 import util.IUpdateable;
-import util.Resource;
+import util.Pair;
 
 public class GameModel implements IUpdateable {
     public final Statistics stats;
     private final PhysicsEngineModel physicsEngine;
     private final MapModel map;
+    private final IScenarioCursor scenarioCursor;
     private final PlayerModel player;
     private boolean isRunning = true;
 
@@ -33,18 +35,29 @@ public class GameModel implements IUpdateable {
     private final Set<ICollisionEntity> collisionEntities = new CopyOnWriteArraySet<>();
     private final Set<IUpdateable> updateables = new CopyOnWriteArraySet<>();
 
-    public GameModel(Resource mapResource) throws InvalidMapException {
-        stats = new Statistics(mapResource);
-        map = new MapModel(mapResource);
+    public GameModel(MapModel map, Statistics stats, IScenario scenario) {
+        this.map = map;
+        this.stats = stats;
+
+        scenarioCursor = scenario.createCursor(this);
+        updateables.add(scenarioCursor);
 
         physicsEngine = new PhysicsEngineModel(map, collisionEntities);
         updateables.add(physicsEngine);
 
-        player = new PlayerModel(map.getPlayerSpawn(), this);
-        addEntity(player);
+        PlayerModel tmpPlayer = null;
+        for (Pair<Coordinates, EntityConstructor> pair : map.getInitialEntities()) {
+            IEntity entity = pair.second().makeEntity(pair.first(), this);
+            addEntity(entity);
+            if (entity instanceof PlayerModel p) {
+                tmpPlayer = p;
+            }
+        }
+        player = tmpPlayer;
 
-        updateables.add(new RandomWeaponSpawner(this, 5));
-        updateables.add(new RandomEnemySpawner(this, 4));
+        updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextEnemy));
+        updateables.add(new RandomPositionSpawner(this, () -> WeaponEntity.weaponEntityFactory(scenarioCursor.nextWeapon())));
+        updateables.add(new RandomPositionSpawner(this, scenarioCursor::nextMiscEntity));
 
         ExplodingEnemy enemyFinderInstance = new ExplodingEnemy(Coordinates.ZERO, this);
         enemyFinderInstance.despawn();
@@ -63,6 +76,8 @@ public class GameModel implements IUpdateable {
         for (IUpdateable updateable : updateables) {
             updateable.update(delta);
         }
+
+        if (scenarioCursor.isGameFinished()) isRunning = false;
     }
 
     public MapModel getMapModel() {
@@ -75,10 +90,6 @@ public class GameModel implements IUpdateable {
 
     public PlayerModel getPlayer() {
         return player;
-    }
-
-    public Collection<IUpdateable> getUpdateables() {
-        return updateables;
     }
 
     public PhysicsEngineModel getPhysicsEngine() {

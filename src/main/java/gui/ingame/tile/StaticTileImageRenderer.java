@@ -1,19 +1,15 @@
 package gui.ingame.tile;
 
-import gui.ImageCache;
-
 import java.awt.Graphics;
 import java.awt.Image;
 
-public class StaticTileImageRenderer extends TileRenderer{
-    protected Image image;
+import gui.ImageCache;
+
+public class StaticTileImageRenderer extends TileRenderer {
+    private final Image image;
 
     public StaticTileImageRenderer(String path) {
         image = ImageCache.loadImage(path, getClass());
-    }
-
-    public StaticTileImageRenderer(){
-        image = null;
     }
 
     @Override

@@ -1,0 +1,29 @@
+<scenario endReachedBehaviour="LOOPING">
+    <interval type="oneshot" time="3">
+        <weapons>
+            <weapon name="Pistol"/>
+            <weapon name="Knife"/>
+            <weapon name="RocketLauncher"/>
+            <weapon name="ShotGun"/>
+            <weapon name="RubberWeapon"/>
+        </weapons>
+        <enemies>
+        </enemies>
+        <miscs>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+        </miscs>
+    </interval>
+    <interval type="fixed" time="200">
+        <weapons>
+        </weapons>
+        <enemies>
+            <enemy rate="0.3" name="WalkingEnemy"/>
+            <enemy rate="0.7" name="ExplodingEnemy"/>
+            <enemy rate="0.7" name="SmartEnemy"/>
+        </enemies>
+        <miscs>
+        </miscs>
+    </interval>
+</scenario>

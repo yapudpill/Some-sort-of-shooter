@@ -6,7 +6,7 @@ import java.util.function.DoubleSupplier;
 
 import model.ingame.entity.IVulnerableEntity;
 
-public class VulnerableAnimatedRenderer extends AnimatedRenderer{
+public class VulnerableAnimatedRenderer extends AnimatedEntityRenderer{
     private int lastHealth;
     private int alpha = 0;
     private int red = 0;

@@ -1,7 +1,6 @@
 package gui.animations;
 
 import java.awt.image.BufferedImage;
-
 import util.IUpdateable;
 import util.ImageLoader;
 import util.RegularImageLoader;
@@ -20,6 +19,8 @@ public class AnimationManager implements IUpdateable {
     }
 
     public void switchAnimation(String id) {
+        if (id == null) return;
+
         if (currentAnimation == null || !currentAnimation.getId().equals(id)) {
             currentAnimation = animationGroup.get(id);
             if (currentAnimation == null) {

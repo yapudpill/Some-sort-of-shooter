@@ -3,6 +3,7 @@ package model.ingame.entity;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.behavior.FloodFillPathFinder;
+import model.ingame.entity.behavior.StandardBehavior;
 import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.PistolModel;
 import model.ingame.weapon.Projectile;

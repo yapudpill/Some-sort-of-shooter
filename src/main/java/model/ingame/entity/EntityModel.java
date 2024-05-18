@@ -41,4 +41,5 @@ public abstract class EntityModel implements IEntity {
     public double getHeight() {
         return height;
     }
+
 }

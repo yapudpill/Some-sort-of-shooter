@@ -24,13 +24,13 @@ public class EntityRendererFactory {
             case BreakableBarrier e  -> new BreakableBarrierRenderer(e);
 
             case RubberProjectile e -> new SpriteRenderer(e, "sprites/weapon/rubberball.png");
-            case BulletsModel e -> new AnimatedRenderer(e, "animations/bullets.xml", e.getMovementHandler().getDirectionVector()::getAngle);
-            case RocketProjectileModel e -> new AnimatedRenderer(e, "animations/rocket_projectile.xml", e.getMovementHandler().getDirectionVector()::getAngle);
+            case BulletsModel e -> new AnimatedEntityRenderer(e, "animations/bullets.xml", e.getMovementHandler().getDirectionVector()::getAngle);
+            case RocketProjectileModel e -> new AnimatedEntityRenderer(e, "animations/rocket_projectile.xml", e.getMovementHandler().getDirectionVector()::getAngle);
 
             case SmartEnemyModel e   -> new VulnerableAnimatedRenderer(e, "animations/smart_enemy.xml");
             case ExplodingEnemy e   -> new VulnerableAnimatedRenderer(e, "animations/exploding_enemy.xml");
-            case ExplosionZoneEntity e -> new AnimatedRenderer(e, "animations/explosion_zone.xml");
-            case KnifeZoneEntity e     -> new AnimatedRenderer(e, "animations/knife_zone.xml", e.getDirection()::getAngle);
+            case ExplosionZoneEntity e -> new AnimatedEntityRenderer(e, "animations/explosion_zone.xml");
+            case KnifeZoneEntity e     -> new AnimatedEntityRenderer(e, "animations/knife_zone.xml", e.getDirection()::getAngle);
 
             case SimpleTrap e -> new SpriteRenderer(e, "sprites/weapon/simple_trap_placer.png");
 

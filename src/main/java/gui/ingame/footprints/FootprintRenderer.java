@@ -1,15 +1,16 @@
 package gui.ingame.footprints;
 
-import gui.ImageCache;
-import gui.IScalableComponent;
-import util.Coordinates;
-import util.IUpdateable;
-
-import javax.swing.JComponent;
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
+
+import javax.swing.JComponent;
+
+import gui.IScalableComponent;
+import gui.ImageCache;
+import util.Coordinates;
+import util.IUpdateable;
 
 public class FootprintRenderer extends JComponent implements IScalableComponent, IUpdateable {
     private static final double FOOTPRINT_SIZE = 0.5;
@@ -34,7 +35,7 @@ public class FootprintRenderer extends JComponent implements IScalableComponent,
         super.paintComponents(g);
         Graphics2D g2d = (Graphics2D) g.create();
 
-        BufferedImage image = ImageCache.loadImage("footprint.png", getClass());
+        Image image = ImageCache.loadImage("footprint.png", getClass());
         int mid = getWidth() / 2;
         g2d.rotate(angle, mid, mid);
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) (1 - age / FOOTPRINT_LIFETIME)));

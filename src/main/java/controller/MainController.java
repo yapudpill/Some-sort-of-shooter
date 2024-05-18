@@ -9,6 +9,7 @@ import gui.launcher.HomeMenu;
 import gui.launcher.MapMenu;
 import model.ingame.Statistics;
 import model.level.InvalidMapException;
+import model.level.scenario.InvalidScenarioException;
 import util.Resource;
 
 public class MainController {
@@ -31,8 +32,8 @@ public class MainController {
         mainFrame.loadMenu(new MapMenu(this));
     }
 
-    public void loadGame(Resource map) throws InvalidMapException {
-        GameController gameController = new GameController(map, this);
+    public void loadGame(Resource mapResource, Resource scenarioResource) throws InvalidMapException, InvalidScenarioException {
+        GameController gameController = new GameController(mapResource, scenarioResource, this);
         mainFrame.loadMenu(gameController.gameView);
         EventQueue.invokeLater(gameController.gameView::setFocusToMainArea);
     }

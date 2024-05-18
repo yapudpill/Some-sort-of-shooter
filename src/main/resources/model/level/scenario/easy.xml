@@ -1,0 +1,32 @@
+<scenario endReachedBehaviour="LOOPING">
+    <interval type="oneshot" time="3">
+        <weapons>
+            <weapon name="Pistol"/>
+            <weapon name="Knife"/>
+        </weapons>
+        <enemies>
+        </enemies>
+        <miscs>
+            <misc name="Bandages"/>
+        </miscs>
+    </interval>
+    <interval type="fixed" time="10">
+        <weapons>
+        </weapons>
+        <enemies>
+            <enemy rate="0.3" name="WalkingEnemy"/>
+        </enemies>
+        <miscs>
+        </miscs>
+    </interval>
+    <interval type="oneshot" time="20">
+        <weapons>
+        </weapons>
+        <enemies>
+        </enemies>
+        <miscs>
+            <misc name="Bandages"/>
+        </miscs>
+    </interval>
+
+</scenario>

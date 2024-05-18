@@ -39,8 +39,8 @@ public class MapBackgroundLayer extends JComponent implements IUpdateable {
     public void update(double delta) {
         for (TileRenderer[] row : tileRenderers) {
             for (TileRenderer tileRenderer : row) {
-                if (tileRenderer instanceof IUpdateable iUpdateable) {
-                    iUpdateable.update(delta);
+                if (tileRenderer instanceof IUpdateable updateable) {
+                    updateable.update(delta);
                 }
             }
         }

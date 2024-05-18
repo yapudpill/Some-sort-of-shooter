@@ -3,6 +3,9 @@ package gui;
 import javax.imageio.ImageIO;
 
 import java.awt.Color;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -60,5 +63,13 @@ public class ImageCache {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Load an icon from the resource/gui/laf/icon directory
+     */
+    public static Icon loadIcon(String name) {
+        Image image = loadImage("laf/icon/" + name + ".png", MainFrame.class);
+        return new ImageIcon(image);
     }
 }

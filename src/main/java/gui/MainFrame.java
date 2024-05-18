@@ -1,11 +1,15 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.io.InputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 
 /**
  * The main <code>JFrame</code> object of this project, where everything is
@@ -24,17 +28,31 @@ public class MainFrame extends JFrame {
      * default look and feel. Then make it visible.
      */
     public MainFrame() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            fileChooser.updateUI(); // make the file chooser use the look and feel
-        } catch (Exception e) {}
+        setupLookAndFeel();
 
         setSize(900, 900);
         setTitle("Some sort of shooter");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null);
         setLocationRelativeTo(null);
         EventQueue.invokeLater(() -> setVisible(true));
+    }
+
+    private void setupLookAndFeel() {
+        try {
+            // Make the custom font available for the look and feel
+            InputStream fontStream = getClass().getResourceAsStream("laf/determination.ttf");
+            Font font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
+            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            env.registerFont(font);
+
+
+            SynthLookAndFeel laf = new SynthLookAndFeel();
+            laf.load(getClass().getResourceAsStream("laf/lookAndFeel.xml"), getClass());
+            UIManager.setLookAndFeel(laf);
+            fileChooser.updateUI(); // make the file chooser use the look and feel
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

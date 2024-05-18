@@ -4,7 +4,7 @@ import model.level.TileModel;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
-import model.level.tiles.SpawnTileModel;
+import model.level.tiles.SafeTileModel;
 
 public class TileRendererFactory {
     public static TileRenderer make(TileModel tileModel) {
