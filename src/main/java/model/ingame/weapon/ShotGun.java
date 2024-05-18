@@ -5,7 +5,7 @@ import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.DamageListener;
 
 public class ShotGun extends ProjectileWeaponModel {
-
+    boolean isSecondShot = false;
     public ShotGun(ICombatEntity owner, GameModel gameModel) {
         super("Shotgun", "shotgun", gameModel, owner, 3);
     }
@@ -26,7 +26,13 @@ public class ShotGun extends ProjectileWeaponModel {
             setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
             fire();
         }
-        coolDownTimer.start();
+        if (isSecondShot){
+            coolDownTimer.start();
+            isSecondShot = false;
+        }
+        else {
+            isSecondShot = true;
+        }
         return true;
     }
 }

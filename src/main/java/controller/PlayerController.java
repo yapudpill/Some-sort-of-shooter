@@ -92,6 +92,8 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
         }
     }
 
+    @Override public void mouseReleased(MouseEvent arg0) {}
+
     @Override
     public void mouseMoved(MouseEvent e) {
         WeaponModel weapon = controlledPlayerModel.getWeapon();
@@ -102,11 +104,19 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
             ));
         }
     }
+    public void mouseDragged(MouseEvent e) {
+        WeaponModel weapon = controlledPlayerModel.getWeapon();
+        if (weapon != null && weapon.usesDirectionVector()) {
+            weapon.setDirectionVector(new Coordinates(
+                    (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
+                    (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
+            ));
+        }
+    }
+
 
     @Override public void mouseClicked(MouseEvent arg0) {}
-    @Override public void mouseDragged(MouseEvent arg0) {}
     @Override public void mouseEntered(MouseEvent arg0) {}
     @Override public void mouseExited(MouseEvent arg0) {}
-    @Override public void mouseReleased(MouseEvent arg0) {}
     @Override public void keyTyped(KeyEvent arg0) {}
 }
