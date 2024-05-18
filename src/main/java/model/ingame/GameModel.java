@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
 
-import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.CombatEntityModel;
 import model.ingame.entity.ExplodingEnemy;
 import model.ingame.entity.ICollisionEntity;
@@ -56,16 +55,6 @@ public class GameModel implements IUpdateable {
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
         ExplodingEnemy.setPathFinder(floodFillPathFinder);
-
-
-        // TODO: read this from map
-        // add breakable barriers
-        BreakableBarrier barrier1 = new BreakableBarrier(new Coordinates(3.5, 5.5), this);
-        BreakableBarrier barrier2 = new BreakableBarrier(new Coordinates(3.5, 6.5), this);
-        BreakableBarrier barrier3 = new BreakableBarrier(new Coordinates(3.5, 7.5), this);
-        entityModelList.add(barrier1);
-        entityModelList.add(barrier2);
-        entityModelList.add(barrier3);
     }
 
     @Override

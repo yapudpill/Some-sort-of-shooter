@@ -11,13 +11,10 @@ import gui.IScalableComponent;
 import gui.ImageCache;
 import gui.ScaleLayout;
 import gui.ingame.entity.PlayerRenderer;
-import util.Coordinates;
-import util.IUpdateable;
 import model.ingame.entity.PlayerModel;
 import model.ingame.entity.WeaponEntity;
-import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.level.MapModel;
-import java.awt.Graphics;
+import util.Coordinates;
+import util.IUpdateable;
 
 public class HUDLayer extends JPanel implements IUpdateable {
     private String currentMessString = "";
@@ -50,9 +47,9 @@ public class HUDLayer extends JPanel implements IUpdateable {
     private final JLabel messageLabel = new MessageLabel();
 
     private final PlayerModel playerModel;
-    private final MapModel map;
 
-    public HUDLayer(PlayerModel playerModel, IntSupplier scaleSupplier, MapModel map) {
+
+    public HUDLayer(PlayerModel playerModel, IntSupplier scaleSupplier) {
         this.setLayout(new ScaleLayout(scaleSupplier));
         this.setOpaque(false);
         this.playerModel = playerModel;
@@ -61,7 +58,6 @@ public class HUDLayer extends JPanel implements IUpdateable {
         // position in the top center
         this.add(messageLabel);
         messageLabel.setForeground(Color.BLACK);
-        this.map = map;
     }
 
     @Override

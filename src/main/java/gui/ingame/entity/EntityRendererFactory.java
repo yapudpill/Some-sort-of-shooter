@@ -1,7 +1,5 @@
 package gui.ingame.entity;
 
-import java.awt.Color;
-
 import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.ExplodingEnemy;
 import model.ingame.entity.ExplosionZoneEntity;

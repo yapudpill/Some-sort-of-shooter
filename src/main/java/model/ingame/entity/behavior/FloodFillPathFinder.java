@@ -14,7 +14,7 @@ import util.Coordinates;
 
 public class FloodFillPathFinder {
     private IEntity entityFinder;
-    public static NodeGrid nodeGrid;
+    private NodeGrid nodeGrid;
     private List<Coordinates> targets;
     private ModelTimer updateTimer;
     private Predicate<Coordinates> shouldAvoid;
@@ -47,6 +47,13 @@ public class FloodFillPathFinder {
                     continue;
                 }
 
+                // Set the value of the current node
+                if (shouldAvoid != null && shouldAvoid.test(currentPos)) {
+                    nodeGrid.getNode(x, y).setValue(1000);
+                } else {
+                    nodeGrid.getNode(x, y).setValue(currentValue);
+                }
+
 
                 // Add adjacent nodes to the queue
                 addAdjacentNodes(queue, x, y);
@@ -59,7 +66,7 @@ public class FloodFillPathFinder {
         // Add adjacent nodes to the queue if they are within bounds and have not been visited
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) continue;
+                if (i == j || i == -j) continue;
                 if (isValidCoordinate(x + i, y + j)) {
                     queue.add(new Coordinates(x + i, y + j));
                 }

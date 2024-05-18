@@ -56,4 +56,16 @@ public class PlayerModel extends CombatEntityModel {
     public void pickWeapon() {
         this.pickWeaponTimer.start();
     }
+
+    public boolean isDashing() {
+        return dashTimer.isRunning();
+    }
+
+    public double getDashTimeLeft() {
+        return dashTimer.getTimeLeft();
+    }
+
+    public double getDashDuration() {
+        return dashTimer.getTimerDuration();
+    }
 }

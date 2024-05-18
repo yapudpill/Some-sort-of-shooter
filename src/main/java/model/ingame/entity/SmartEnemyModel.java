@@ -17,7 +17,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     private Projectile projectileInstance;
 
     public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 50, 1,1, gameModel);
+        super(pos, 50, 0.9,0.9, gameModel);
         player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(3.6);
@@ -28,10 +28,9 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
         }, gameModel);
         this.projectileInstance = ((ProjectileWeaponModel) getWeapon()).createProjectile();
     }
-
     @Override
     public boolean canApplyEffect(IVulnerableEntity target) {
-        return target instanceof PlayerModel;
+        return target instanceof PlayerModel || target instanceof BreakableBarrier;
     }
 
     public static void setPathFinder(FloodFillPathFinder pathFinder) {
@@ -40,7 +39,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
 
     @Override
     public void update(double delta) {
-        if (!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance)) {
+        if (!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance) && pos.isInCenter()) {
             shootingTimer.update(delta);
             movementHandler.setDirectionVector(Coordinates.ZERO);
         } else {

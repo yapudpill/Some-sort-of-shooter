@@ -1,11 +1,29 @@
 package gui.ingame.entity;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import model.ingame.entity.PlayerModel;
 
 public class PlayerRenderer extends VulnerableAnimatedRenderer {
 
     public PlayerRenderer(PlayerModel entityModel) {
         super(entityModel, "animations/player1.xml");
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // draw vertical bar representing the cool down of the weapon if there is one
+        if (((PlayerModel) entity).getWeapon() != null) {
+            double coolDown = ((PlayerModel) entity).getWeapon().getTimeLeft();
+            double maxCoolDown = ((PlayerModel) entity).getWeapon().getCoolDownDelay();
+            double width = getWidth() * 0.1;
+            double height = getHeight() * 0.8 * (1-(coolDown / maxCoolDown));
+            double x = getWidth() - width;
+            double y = (getHeight() - height);
+            g.setColor(Color.BLACK);
+            g.fillRect((int) x, (int) y, (int) width, (int) height);
+        }
     }
 
     @Override

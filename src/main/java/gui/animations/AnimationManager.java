@@ -1,15 +1,17 @@
 package gui.animations;
 
-import gui.ImageCache;
-import util.IUpdateable;
-
 import java.awt.image.BufferedImage;
+
+import util.IUpdateable;
+import util.ImageLoader;
+import util.RegularImageLoader;
 
 public class AnimationManager implements IUpdateable {
     private final AnimationGroup animationGroup;
     private final Class<?> resourceBase;
     private Animation currentAnimation;
     private AnimationCursor cursor;
+    private ImageLoader imageLoader = new RegularImageLoader();
 
     public AnimationManager(AnimationGroup animationGroup, Class<?> resourceBase) {
         this.animationGroup = animationGroup;
@@ -27,8 +29,12 @@ public class AnimationManager implements IUpdateable {
         }
     }
 
+    public void setImageLoader(ImageLoader imageLoader) {
+        this.imageLoader = imageLoader;
+    }
+
     public BufferedImage getCurrentImage() {
-        return ImageCache.loadImage(cursor.getCurrentValue(), resourceBase);
+        return imageLoader.load(cursor.getCurrentValue(), resourceBase);
     }
 
     public String getCurrentAnimationId() {
