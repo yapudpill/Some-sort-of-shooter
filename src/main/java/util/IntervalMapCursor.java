@@ -2,6 +2,14 @@ package util;
 
 import java.util.function.BinaryOperator;
 
+/**
+ * A cursor to navigate through an {@link IntervalMap}.
+ * <p>
+ * Very generic, so it needs a binary operator corresponding to the addition for the type K.
+ *
+ * @param <K> The type of the keys, i.e. the unit of the intervals used to index the map
+ * @param <V> The type of the values
+ */
 public class IntervalMapCursor<K extends Comparable<K>, V> {
     private final IntervalMap<K, V> intervalMap;
     private final BinaryOperator<K> add;

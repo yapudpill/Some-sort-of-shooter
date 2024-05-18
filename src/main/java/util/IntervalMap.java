@@ -3,6 +3,17 @@ package util;
 import java.util.TreeMap;
 import java.util.function.BinaryOperator;
 
+/**
+ * A map from intervals to values. Useful for animations, scenarios...
+ * <p>
+ * Very generic, so it needs a zero value and a modulo operation defined for the type K.
+ * <p>
+ * For example, if the map contains the intervals [0, 10) and [10, 20) with values 1 and 2,then the value for key 5 is 1
+ * and the value for key 15 is 2.
+ *
+ * @param <K> The type of the keys, i.e. the unit of the intervals used to index the map
+ * @param <V> The type of the values
+ */
 public class IntervalMap<K extends Comparable<K>, V> extends TreeMap<K, V> {
 
     /** Start of the first interval */
