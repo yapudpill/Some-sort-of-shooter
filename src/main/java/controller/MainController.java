@@ -4,7 +4,7 @@ import gui.MainFrame;
 import gui.editor.EditorMenu;
 import gui.launcher.EndMenu;
 import gui.launcher.HomeMenu;
-import gui.launcher.MapMenu;
+import gui.launcher.LevelMenu;
 import model.ingame.Statistics;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
@@ -31,8 +31,8 @@ public class MainController {
         mainFrame.loadMenu(new EditorMenu(this));
     }
 
-    public void loadMapMenu() {
-        mainFrame.loadMenu(new MapMenu(this));
+    public void loadLevelMenu() {
+        mainFrame.loadMenu(new LevelMenu(this));
     }
 
     public void loadGame(Resource mapResource, Resource scenarioResource) throws InvalidMapException, InvalidScenarioException {
