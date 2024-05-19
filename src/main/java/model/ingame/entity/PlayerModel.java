@@ -4,7 +4,6 @@ import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.GravityGun;
-import model.ingame.weapon.KnifeWeapon;
 import util.Coordinates;
 
 public class PlayerModel extends CombatEntityModel {
