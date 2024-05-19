@@ -54,3 +54,7 @@ Tiles types organised are in the following order:
 A valid map must contain exactly one spawn point, use <kbd>middle click</kbd> to set it.
 
 *See map [format documentation](docs/mapFormat.md) for more details.*
+
+### Report
+
+[Link to Notion website containing the project's report.](https://fair-bottom-1ad.notion.site/Projet-de-Programmation-SR1a-af69d2673ded4220984fbb3651d71f32?pvs=4)
