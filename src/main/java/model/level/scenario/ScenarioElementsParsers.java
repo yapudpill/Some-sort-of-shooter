@@ -1,10 +1,6 @@
 package model.level.scenario;
 
-import model.ingame.entity.EntityConstructor;
-import model.ingame.entity.ExplodingEnemy;
-import model.ingame.entity.FirstAidKit;
-import model.ingame.entity.SmartEnemyModel;
-import model.ingame.entity.WalkingEnemyModel;
+import model.ingame.entity.*;
 import model.ingame.weapon.KnifeWeapon;
 import model.ingame.weapon.PistolModel;
 import model.ingame.weapon.RocketLauncher;
@@ -36,6 +32,7 @@ public class ScenarioElementsParsers {
             case "ExplodingEnemy" -> ExplodingEnemy::new;
             case "SmartEnemy" -> SmartEnemyModel::new;
             case "WalkingEnemy" -> WalkingEnemyModel::new;
+            case "LootEnemy" -> LootEnnemy::new;
             default -> null;
         };
     }
