@@ -8,6 +8,7 @@ import model.ingame.entity.ExplosionZoneEntity;
 import model.ingame.entity.FirstAidKit;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.KnifeZoneEntity;
+import model.ingame.entity.LootEnnemy;
 import model.ingame.entity.PlayerModel;
 import model.ingame.entity.SimpleTrap;
 import model.ingame.entity.SmartEnemyModel;
@@ -29,7 +30,6 @@ public class EntityRendererFactory {
         return switch (entity) {
             case PlayerModel e -> new PlayerRenderer(e);
 
-            case WalkingEnemyModel e -> new VulnerableSpriteRenderer(e, "sprites/EyeBallEnemy.png");
             case BreakableBarrier e  -> new BreakableBarrierRenderer(e);
 
             case RubberProjectile e -> new SpriteRenderer(e, "sprites/weapon/rubberball.png");
@@ -40,6 +40,8 @@ public class EntityRendererFactory {
             case BlackHoleProjectile e -> new AnimatedEntityRenderer(e, "animations/blackhole.xml");
             case BlackHoleZone ignored -> new RectangleRenderer(entity,new Color(0,0,0,0));
 
+            case WalkingEnemyModel e -> new VulnerableSpriteRenderer(e, "sprites/EyeBallEnemy.png");
+            case LootEnnemy e -> new VulnerableSpriteRenderer(e, "sprites/EyeBallEnemy.png");
             case SmartEnemyModel e   -> new VulnerableAnimatedRenderer(e, "animations/smart_enemy.xml");
             case ExplodingEnemy e   -> new VulnerableAnimatedRenderer(e, "animations/exploding_enemy.xml");
             case ExplosionZoneEntity e -> new AnimatedEntityRenderer(e, "animations/explosion_zone.xml");

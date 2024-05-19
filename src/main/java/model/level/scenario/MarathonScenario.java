@@ -14,7 +14,8 @@ public class MarathonScenario implements IScenario {
     private static final List<EntityConstructor> ENEMIES_BY_DIFF = List.of(
             WalkingEnemyModel::new,
             SmartEnemyModel::new,
-            ExplodingEnemy::new
+            ExplodingEnemy::new,
+            LootEnnemy::new
     );
 
     private static final List<WeaponConstructor> WEAPON_BY_POWER = List.of(

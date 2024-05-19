@@ -46,7 +46,7 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
 
     @Override
     public void update(double delta) {
-        pathFinder.handlePathFindingUpdate(this, player.getPos());
+        pathFinder.handlePathFindingUpdate(this, player.getPos(),true);
         super.update(delta);
     }
 }

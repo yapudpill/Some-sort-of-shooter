@@ -3,36 +3,41 @@ package model.ingame.entity;
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
+import model.ingame.weapon.KnifeWeapon;
 import util.Coordinates;
 
 /**
- * An enemy that explodes when it comes into contact with the player or a breakable barrier.
+ * Model for the walking enemy entity. Moves towards the player and attacks when close.
  */
-public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
+public class LootEnnemy extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
+
     private final PlayerModel player;
 
-    public ExplodingEnemy(Coordinates pos, GameModel gameModel) {
-        super(pos, 50, 0.8, 0.8, gameModel, 0);
-        this.pos = pos;
-        this.player = gameModel.getPlayer();
+    public LootEnnemy(Coordinates pos, GameModel gameModel) {
+        super(pos, 300, 2, 2, gameModel, 3);
+        player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(2.4);
+        movementHandler.setSpeed(3);
         addCollisionListener(e -> {
-            if (e.getInvolvedEntitiesList().contains(player)) {
-                explode();
+            for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
+                if (entity instanceof PlayerModel) {
+                    attack();
+                }
             }
         });
+        setWeapon(new KnifeWeapon(this, gameModel));
         addBlockedMovementListener(e -> {
             if (!e.outOfBounds() && e.blockingTile().getCollidablesSet().stream().anyMatch(entity -> entity instanceof BreakableBarrier)) {
-                explode();
+                attack();
             }
         });
     }
 
-    public void explode() {
-        gameModel.addEntity(new ExplosionZoneEntity(this.pos, 2, 2, 10, 1, gameModel));
-        this.takeDamage(health);
+    @Override
+    public void despawn() {
+        super.despawn();
+        player.upgradeRandom();
     }
 
     @Override
@@ -40,18 +45,13 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
         return target instanceof PlayerModel;
     }
 
-    @Override
-    public void takeDamage(double damage) {
-        super.takeDamage(damage);
-    }
-
     public static void setPathFinder(FloodFillPathFinder pathFinder) {
-        ExplodingEnemy.pathFinder = pathFinder;
+        LootEnnemy.pathFinder = pathFinder;
     }
 
     @Override
     public void update(double delta) {
-        pathFinder.handlePathFindingUpdate(this, player.getPos(),true);
+        pathFinder.handlePathFindingUpdate(this, player.getPos(), false);
         super.update(delta);
     }
 }

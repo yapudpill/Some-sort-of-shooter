@@ -84,33 +84,44 @@ public class FloodFillPathFinder {
                 || gameModel.getMapModel().getTile(x, y).getCollidablesSet().stream().anyMatch(e -> e instanceof BreakableBarrier));
     }
 
-    public Coordinates getLowestNodeAround(int x, int y) {
+    public Coordinates getNextNode(int x, int y, boolean chase) {
         int lowestValue = Integer.MAX_VALUE;
         Coordinates lowestPos = new Coordinates(x, y);
+        int highestValue = Integer.MIN_VALUE;
+        Coordinates highestPos = new Coordinates(x, y);
+        int tmp;
         // use for loop
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (Math.abs(i) == Math.abs(j)) continue;
                 int newX = x + i;
                 int newY = y + j;
-                if (isValidCoordinate(newX, newY) && nodeGrid.getNode(newX, newY).getValue() < lowestValue
-                && nodeGrid.getNode(newX, newY).getValue() != 0) {
-                    lowestValue = nodeGrid.getNode(newX, newY).getValue();
+                if (!isValidCoordinate(newX, newY)){
+                    continue;
+                }
+                tmp = nodeGrid.getNode(newX, newY).getValue();
+                if (tmp < lowestValue && tmp != 0) {
+                    lowestValue = tmp;
                     lowestPos = nodeGrid.getNode(newX, newY).getCoordinates();
+                }
+                if (!chase && tmp > highestValue && tmp < 100) {
+                    highestValue = tmp;
+                    highestPos = nodeGrid.getNode(newX, newY).getCoordinates();
                 }
             }
         }
-        return lowestPos;
+        if (chase) return lowestPos;
+        else return (lowestValue < 4)?lowestPos:highestPos;
     }
 
-    public void handlePathFindingUpdate(IMobileEntity entity, Coordinates target){
+    public void handlePathFindingUpdate(IMobileEntity entity, Coordinates target, boolean chase){
             this.setTarget(target);
             Coordinates pos = entity.getPos();
             MovementHandler movementHandler = entity.getMovementHandler();
             if (!this.isRunning()) this.start();
-            Coordinates lowestCoord = this.getLowestNodeAround((int) pos.x(), (int) pos.y());
+            Coordinates nextCoord = this.getNextNode((int) pos.x(), (int) pos.y(), chase);
             if (pos.isInCenter() || !movementHandler.isMoving())
-             movementHandler.setDirectionVector(new Coordinates(lowestCoord.x() - pos.x(), lowestCoord.y() - pos.y()));
+             movementHandler.setDirectionVector(new Coordinates(nextCoord.x() - pos.x(), nextCoord.y() - pos.y()));
     }
 
     public void setTargets(List<Coordinates> targets) {

@@ -50,7 +50,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
             }
         } else {
             stopped = false;
-            pathFinder.handlePathFindingUpdate(this, player.getPos());
+            pathFinder.handlePathFindingUpdate(this, player.getPos(),true);
         }
         super.update(delta);
     }

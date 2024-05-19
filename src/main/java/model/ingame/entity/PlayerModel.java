@@ -88,22 +88,20 @@ public class PlayerModel extends CombatEntityModel {
     }
 
     public void upgradeRandom(){
-        for (int i = 0; i < 2; i++) {
-            int a = (int) (Math.random() * 4);
-            switch (a){
-                case 0:
-                    upgradeDamage();
-                    break;
-                case 1:
-                    upgradeHealth();
-                    break;
-                case 2:
-                    upgradeRegen();
-                    break;
-                case 3:
-                    upgradeSpeed();
-                    break;
-            }
+        int i = (int) (Math.random() * 4);
+        switch (i){
+            case 0:
+                upgradeDamage();
+                break;
+            case 1:
+                upgradeHealth();
+                break;
+            case 2:
+                upgradeRegen();
+                break;
+            case 3:
+                upgradeSpeed();
+                break;
         }
     }
 
