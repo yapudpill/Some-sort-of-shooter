@@ -46,7 +46,7 @@ public class HUDLayer extends JPanel implements IUpdateable {
     private class MessageLabel extends JLabel implements IScalableComponent {
         @Override
         public Coordinates getOriginalPosition() {
-            return playerModel.getPos();
+            return playerModel.getPos().add(new Coordinates(-4, 0));
         }
 
         @Override
@@ -87,6 +87,8 @@ public class HUDLayer extends JPanel implements IUpdateable {
         else weaponLabel.setIcon(null);
         if(playerModel.isCurrentlyCollidingWith(e -> e instanceof WeaponEntity)) {
             currentMessString = "Press E to pick up weapon";
+        } else if (playerModel.shouldPickWeapons()) {
+            currentMessString = "Press A to swap weapon";
         } else {
             currentMessString = "";
         }
