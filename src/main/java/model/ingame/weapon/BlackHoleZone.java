@@ -23,15 +23,6 @@ public class BlackHoleZone extends CollisionEntityModel{
             });
 
         });
-        addExitListener(e -> {
-            e.getEntitiesWhoExited().forEach(ent -> {
-                if(!(ent instanceof PlayerModel) && ent instanceof CreatureModel c) {
-                    // push the creature away from the black hole
-                    MovementHandler movementHandler = c.getMovementHandler();
-                    movementHandler.setDirectionVector(Coordinates.ZERO);
-                }
-            });
-        });
         despawnTimer.start();
     }
 
