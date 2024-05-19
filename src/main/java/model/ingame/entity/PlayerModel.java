@@ -3,7 +3,7 @@ package model.ingame.entity;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.physics.MovementHandler;
-import model.ingame.weapon.FlameThrower;
+import model.ingame.weapon.GravityGun;
 import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
 
@@ -27,8 +27,7 @@ public class PlayerModel extends CombatEntityModel {
 
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(DEFAULT_SPEED);
-        setWeapon(new FlameThrower(this, gameModel));
-
+        setWeapon(new GravityGun(this, gameModel));
     }
 
     @Override

@@ -48,7 +48,7 @@ public class PhysicsEngineModel implements IUpdateable {
                 involvedEntities.add(other);
             }
         }
-        entity.updateCollidedEntities(involvedEntities);
+        handleExit(entity.updateCollidedEntities(involvedEntities), entity);
         return involvedEntities;
     }
 
@@ -112,6 +112,11 @@ public class PhysicsEngineModel implements IUpdateable {
         }
 
         return blockedMovementEvent;
+    }
+
+    private void handleExit(Set<ICollisionEntity> exitEntities, ICollisionEntity entity) {
+        ExitEvent event = new ExitEvent(entity, exitEntities);
+        entity.notifyExitListeners(event);
     }
 
     private BlockedMovementEvent mergeBlockedMovementEvents(BlockedMovementEvent blockedMovementEvent1, BlockedMovementEvent blockedMovementEvent2) {

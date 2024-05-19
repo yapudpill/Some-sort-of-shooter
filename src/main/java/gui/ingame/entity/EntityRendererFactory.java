@@ -1,5 +1,7 @@
 package gui.ingame.entity;
 
+import java.awt.Color;
+
 import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.ExplodingEnemy;
 import model.ingame.entity.ExplosionZoneEntity;
@@ -11,6 +13,8 @@ import model.ingame.entity.SimpleTrap;
 import model.ingame.entity.SmartEnemyModel;
 import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.WeaponEntity;
+import model.ingame.weapon.BlackHoleProjectile;
+import model.ingame.weapon.BlackHoleZone;
 import model.ingame.weapon.BulletsModel;
 import model.ingame.weapon.FlameProjectileModel;
 import model.ingame.weapon.RocketProjectileModel;
@@ -33,6 +37,8 @@ public class EntityRendererFactory {
             case RocketProjectileModel e -> new AnimatedEntityRenderer(e, "animations/rocket_projectile.xml", e.getMovementHandler().getDirectionVector()::getAngle);
             case TornadoProjectileModel e -> new AnimatedEntityRenderer(e, "animations/tornado.xml", () -> {return 0.0;});
             case FlameProjectileModel e -> new AnimatedEntityRenderer(e, "animations/flame.xml", () -> {return 0.0;});
+            case BlackHoleProjectile e -> new AnimatedEntityRenderer(e, "animations/blackhole.xml");
+            case BlackHoleZone e -> new RectangleRenderer(entity,new Color(0,0,0,0));
 
             case SmartEnemyModel e   -> new VulnerableAnimatedRenderer(e, "animations/smart_enemy.xml");
             case ExplodingEnemy e   -> new VulnerableAnimatedRenderer(e, "animations/exploding_enemy.xml");
