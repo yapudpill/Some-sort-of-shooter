@@ -5,6 +5,9 @@ import util.IUpdateable;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The game loop used by the model, updating at a fixed rate using a Timer
+ */
 public class ModelGameLoop extends GameLoop {
     private static final int FRAME_TIME = 16; // ms
 

@@ -1,10 +1,12 @@
 package gui.ingame.tile;
 
-import java.awt.Graphics;
-import java.awt.Image;
-
 import gui.ImageCache;
 
+import java.awt.*;
+
+/**
+ * A renderer for static tiles, using a single image.
+ */
 public class StaticTileImageRenderer extends TileRenderer {
     private final Image image;
 

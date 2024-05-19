@@ -13,6 +13,9 @@ import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.WeaponEntity;
 import model.ingame.weapon.*;
 
+/**
+ * Factory class for creating entity renderers based on the provided entity model.
+ */
 public class EntityRendererFactory {
     public static AbstractEntityRenderer make(IEntity entity) {
         return switch (entity) {

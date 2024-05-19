@@ -1,12 +1,5 @@
 package gui.ingame;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.IntSupplier;
-
-import javax.swing.JPanel;
-
 import gui.ScaleLayout;
 import gui.ingame.entity.AbstractEntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
@@ -14,6 +7,16 @@ import model.ingame.entity.IEntity;
 import util.IUpdateable;
 import util.SetToMapSynchronisator;
 
+import javax.swing.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.IntSupplier;
+
+/**
+ * The layer that renders all the entities in the game. They are scaled using a {@link ScaleLayout}.
+ * The entity renderers are synced with the model on each update.
+ */
 public class EntitiesLayer extends JPanel implements IUpdateable {
     private final Map<IEntity, AbstractEntityRenderer> modelRendererMap = new ConcurrentHashMap<>();
     private final Set<IEntity> entityModelSet;
@@ -39,7 +42,7 @@ public class EntitiesLayer extends JPanel implements IUpdateable {
 
     @Override
     public void update(double delta) {
-        // Synchronize the sets and maps
+        // Creates a renderer for each entity that doesn't have one yet, and removes the renderer for each entity that doesn't exist anymore
         SetToMapSynchronisator.synchronise(entityModelSet,
                 modelRendererMap,
                 this::addEntityRenderer,

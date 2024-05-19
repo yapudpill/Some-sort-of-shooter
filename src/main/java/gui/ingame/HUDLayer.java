@@ -16,6 +16,13 @@ import model.ingame.entity.WeaponEntity;
 import util.Coordinates;
 import util.IUpdateable;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.function.IntSupplier;
+
+/**
+ * A simple HUD layer that displays the current weapon of the player, and a message if the player is standing on a weapon.
+ */
 public class HUDLayer extends JPanel implements IUpdateable {
     private String currentMessString = "";
 
@@ -80,9 +87,11 @@ public class HUDLayer extends JPanel implements IUpdateable {
         if(playerModel.getOtherWeapon()!=null){
             otherWeaponLabel.setIcon(new ImageIcon(ImageCache.loadImage(String.format("sprites/weapon/%s.png", playerModel.getOtherWeapon().getIdentifier()),PlayerRenderer.class)));
         }
+        else otherWeaponLabel.setIcon(null);
         if(playerModel.getWeapon()!=null) {
             weaponLabel.setIcon(new ImageIcon(ImageCache.loadImage(String.format("sprites/weapon/%s.png", playerModel.getWeapon().getIdentifier()), PlayerRenderer.class)));
         }
+        else weaponLabel.setIcon(null);
         if(playerModel.isCurrentlyCollidingWith(e -> e instanceof WeaponEntity)) {
             currentMessString = "Press E to pick up weapon";
         } else {

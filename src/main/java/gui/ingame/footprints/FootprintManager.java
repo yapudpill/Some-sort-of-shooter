@@ -7,6 +7,10 @@ import model.ingame.entity.ICombatEntity;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Manages the footprints of one entity. The footprints are rendered on the given FootprintsLayer. The manager will
+ * automatically remove itself from the layer once the entity has stopped moving and all footprints have faded.
+ */
 public class FootprintManager implements IUpdateable {
     private static final double FOOTPRINT_DISTANCE = 0.7;
 

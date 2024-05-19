@@ -7,9 +7,11 @@ import java.util.function.Predicate;
 
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
+import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.physics.MovementHandler;
+import model.level.TileModel;
 import util.Coordinates;
 
 public class FloodFillPathFinder {
@@ -76,7 +78,8 @@ public class FloodFillPathFinder {
 
     private boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < nodeGrid.getWidth() && y >= 0 && y < nodeGrid.getHeight()
-                && gameModel.getMapModel().getTile(x, y).canEnter(entityFinder);
+                && (gameModel.getMapModel().getTile(x, y).canEnter(entityFinder)
+                || gameModel.getMapModel().getTile(x, y).getCollidablesSet().stream().anyMatch(e -> e instanceof BreakableBarrier));
     }
 
     public Coordinates getLowestNodeAround(int x, int y) {

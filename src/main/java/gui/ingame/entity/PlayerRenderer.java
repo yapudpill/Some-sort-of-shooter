@@ -1,13 +1,15 @@
 package gui.ingame.entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import gui.ImageCache;
 import model.ingame.entity.PlayerModel;
 import model.ingame.weapon.ContinuousFireWeapon;
 import util.ImageLoader;
 
+import java.awt.*;
+
+/**
+ * Renderer for the player entity. Switches animations based on the player's movement.
+ */
 public class PlayerRenderer extends VulnerableAnimatedRenderer {
     private ImageLoader reg = ImageCache::loadImage;
     private ImageLoader neg = ImageCache::loadNegativeImage;

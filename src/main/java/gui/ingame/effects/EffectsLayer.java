@@ -1,13 +1,5 @@
 package gui.ingame.effects;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.IntSupplier;
-
-import javax.swing.JPanel;
-
 import gui.ScaleLayout;
 import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
@@ -15,6 +7,16 @@ import model.ingame.entity.IEntity;
 import util.IUpdateable;
 import util.SetToMapSynchronisator;
 
+import javax.swing.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.IntSupplier;
+
+/**
+ * Layer that displays effects on top of the game entities. Currently, only displays the aim arrow.
+ */
 public class EffectsLayer extends JPanel implements IUpdateable {
     private final Map<ICombatEntity, AimArrow> combatEntitiesAimMap = new ConcurrentHashMap<>();
     private final GameModel gameModel;

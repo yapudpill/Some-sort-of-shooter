@@ -25,7 +25,7 @@ public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable
 
     // Used for rendering
     public Coordinates getDirection() {
-        if (!attacker.getMovementHandler().isMoving()) {
+        if (attacker.getWeapon() != null && !attacker.getMovementHandler().isMoving()) {
             Coordinates direction = attacker.getWeapon().getDirectionVector();
             if (direction != null) return direction.normalize();
         }

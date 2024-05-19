@@ -14,6 +14,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+/**
+ * The menu that is displayed when the game is over.
+ */
 public class EndMenu extends JPanel {
 
     public EndMenu(MainController mainController, Statistics stats) {

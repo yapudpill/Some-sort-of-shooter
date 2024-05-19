@@ -1,24 +1,19 @@
 package gui.launcher;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import gui.ImageCache;
+import gui.MainFrame;
+import util.Resource;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import gui.ImageCache;
-import gui.MainFrame;
-import util.Resource;
-
+/**
+ * A panel that allows the user to select a resource from a list of built-ins or load a custom resource.
+ */
 public class ResourceSelector extends JPanel {
     private final Class<?> resourceBase;
     private final String filePattern;

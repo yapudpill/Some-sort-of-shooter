@@ -1,11 +1,5 @@
 package gui.editor;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-
 import model.ingame.GameModel;
 import model.ingame.Statistics;
 import model.ingame.entity.EntityConstructor;
@@ -20,6 +14,15 @@ import util.Coordinates;
 import util.Pair;
 import util.Resource;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Model for the editor, responsible for storing the current state of the map being edited.
+ */
 public class EditorModel {
     // The first character is considered to be the default tile
     private static final char[] possibleChars = { ' ', '#', 'V', '/', 's' };

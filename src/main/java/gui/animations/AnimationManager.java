@@ -1,10 +1,15 @@
 package gui.animations;
 
-import java.awt.image.BufferedImage;
 import util.IUpdateable;
 import util.ImageLoader;
 import util.RegularImageLoader;
 
+import java.awt.image.BufferedImage;
+
+/**
+ * Manages Animations from an AnimationGroup, switching between them and providing the current image. Has to be updated
+ * regularly to advance the animation.
+ */
 public class AnimationManager implements IUpdateable {
     private final AnimationGroup animationGroup;
     private final Class<?> resourceBase;

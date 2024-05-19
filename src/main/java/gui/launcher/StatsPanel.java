@@ -1,13 +1,13 @@
 package gui.launcher;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import model.ingame.Statistics;
 
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * A panel displaying the statistics of a game that has ended.
+ */
 public class StatsPanel extends JPanel {
 
     public StatsPanel(Statistics stats) {

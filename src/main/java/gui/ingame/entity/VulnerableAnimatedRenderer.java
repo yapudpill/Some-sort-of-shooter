@@ -1,11 +1,13 @@
 package gui.ingame.entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.function.DoubleSupplier;
-
 import model.ingame.entity.IVulnerableEntity;
 
+import java.awt.*;
+import java.util.function.DoubleSupplier;
+
+/**
+ * Renderer for entities that are represented by an animated sprite and should display a health bar.
+ */
 public class VulnerableAnimatedRenderer extends AnimatedEntityRenderer{
     private int lastHealth;
     private int alpha = 0;
@@ -33,6 +35,8 @@ public class VulnerableAnimatedRenderer extends AnimatedEntityRenderer{
     @Override
     public void update(double delta) {
         super.update(delta);
+
+        // Make the entity flash red or green when it takes damage or heals
         if(lastHealth > ((IVulnerableEntity) entity).getHealth()) {
             lastHealth = ((IVulnerableEntity) entity).getHealth();
             alpha = 128;

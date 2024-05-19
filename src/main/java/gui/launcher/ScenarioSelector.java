@@ -1,12 +1,14 @@
 package gui.launcher;
 
-import java.awt.GridBagConstraints;
-
-import javax.swing.JCheckBox;
-
 import model.level.MapModel;
 import util.Resource;
 
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * A selector for scenarios. Can use marathon mode, select a built-in scenario, or use a custom scenario from an external XML file.
+ */
 public class ScenarioSelector extends ResourceSelector {
     private final JCheckBox marathonCheckbox;
 

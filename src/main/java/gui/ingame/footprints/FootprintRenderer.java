@@ -1,17 +1,16 @@
 package gui.ingame.footprints;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-
-import javax.swing.JComponent;
-
 import gui.IScalableComponent;
 import gui.ImageCache;
 import util.Coordinates;
 import util.IUpdateable;
 
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Renders a footprint on the screen. The footprint will fade out over time.
+ */
 public class FootprintRenderer extends JComponent implements IScalableComponent, IUpdateable {
     private static final double FOOTPRINT_SIZE = 0.5;
     private static final double FOOTPRINT_LIFETIME = 0.8;
