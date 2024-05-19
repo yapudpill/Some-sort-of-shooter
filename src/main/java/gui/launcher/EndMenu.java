@@ -6,8 +6,13 @@ import model.ingame.Statistics;
 import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 /**
  * The menu that is displayed when the game is over.

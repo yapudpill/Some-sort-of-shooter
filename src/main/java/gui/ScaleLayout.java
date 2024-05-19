@@ -2,7 +2,10 @@ package gui;
 
 import util.Coordinates;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.LayoutManager;
 import java.util.function.IntSupplier;
 
 /**

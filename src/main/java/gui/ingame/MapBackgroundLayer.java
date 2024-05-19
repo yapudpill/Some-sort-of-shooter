@@ -5,8 +5,8 @@ import gui.ingame.tile.TileRendererFactory;
 import model.level.MapModel;
 import util.IUpdateable;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JComponent;
+import java.awt.GridLayout;
 import java.util.function.IntSupplier;
 
 /**
