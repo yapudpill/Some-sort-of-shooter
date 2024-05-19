@@ -24,7 +24,7 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
             }
         });
         addBlockedMovementListener(e -> {
-            if (e.blockingTile().getCollidablesSet().stream().anyMatch(entity -> entity instanceof BreakableBarrier)) {
+            if (!e.outOfBounds() && e.blockingTile().getCollidablesSet().stream().anyMatch(entity -> entity instanceof BreakableBarrier)) {
                 explode();
             }
         });

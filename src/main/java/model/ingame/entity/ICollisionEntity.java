@@ -4,6 +4,8 @@ import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.BlockedMovementListener;
 import model.ingame.physics.CollisionEvent;
 import model.ingame.physics.CollisionListener;
+import model.ingame.physics.ExitEvent;
+import model.ingame.physics.ExitListener;
 import util.Coordinates;
 
 import java.awt.geom.Rectangle2D;
@@ -20,7 +22,9 @@ public interface ICollisionEntity extends IEntity {
     void setCollisionBox(Coordinates pos);
     void addCollisionListener(CollisionListener listener);
     void addBlockedMovementListener(BlockedMovementListener listener);
+    void addExitListener(ExitListener listener);
     void notifyCollisionListeners(CollisionEvent e);
     void notifyBlockedMovementListeners(BlockedMovementEvent e);
-    void updateCollidedEntities(Set<ICollisionEntity> collidedEntities);
+    void notifyExitListeners(ExitEvent e);
+    Set<ICollisionEntity> updateCollidedEntities(Set<ICollisionEntity> collidedEntities);
 }

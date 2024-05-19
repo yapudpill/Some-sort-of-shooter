@@ -48,6 +48,9 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
+        if(heldKeys.isEmpty() && !controlledPlayerModel.getMovementHandler().getDirectionVector().equals(Coordinates.ZERO)) {
+            controlledPlayerModel.getMovementHandler().setDirectionVector(Coordinates.ZERO);
+        }
         if (heldKeys.contains(keyCode)) return;
 
         // Update direction:

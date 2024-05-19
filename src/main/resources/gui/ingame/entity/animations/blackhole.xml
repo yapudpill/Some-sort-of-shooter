@@ -1,0 +1,12 @@
+<animationGroup default="blackhole">
+    <animation endReachedBehaviour="LOOPING" id="blackhole">
+        <frame time="0.1" path="sprites/blackhole/blackhole1.png"/>
+        <frame time="0.2" path="sprites/blackhole/blackhole2.png"/>
+        <frame time="0.3" path="sprites/blackhole/blackhole3.png"/>
+        <frame time="0.4" path="sprites/blackhole/blackhole4.png"/>
+        <frame time="0.5" path="sprites/blackhole/blackhole5.png"/>
+        <frame time="0.6" path="sprites/blackhole/blackhole6.png"/>
+        <frame time="0.7" path="sprites/blackhole/blackhole7.png"/>
+        <frame time="0.8" path="sprites/blackhole/blackhole8.png"/>
+    </animation>
+</animationGroup>

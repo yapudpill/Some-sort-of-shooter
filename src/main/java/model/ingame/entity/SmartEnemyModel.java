@@ -14,7 +14,7 @@ import util.Coordinates;
  */
 public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
-
+    private boolean stopped = false;
     private final PlayerModel player;
     private ModelTimer shootingTimer;
     private Projectile projectileInstance;
@@ -44,8 +44,12 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     public void update(double delta) {
         if (!gameModel.getMapModel().obstaclesBetween(player.getPos(), pos, projectileInstance) && pos.isInCenter()) {
             shootingTimer.update(delta);
-            movementHandler.setDirectionVector(Coordinates.ZERO);
+            if(!stopped) {
+                movementHandler.setDirectionVector(Coordinates.ZERO);
+                stopped = true;
+            }
         } else {
+            stopped = false;
             pathFinder.handlePathFindingUpdate(this, player.getPos());
         }
         super.update(delta);
