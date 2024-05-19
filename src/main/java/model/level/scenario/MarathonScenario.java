@@ -27,6 +27,7 @@ public class MarathonScenario implements IScenario {
             Gatling::new,
             FlameThrower::new,
             RocketLauncher::new,
+            TornadoGun::new,
             GravityGun::new
     );
 

@@ -2,7 +2,6 @@ package model.ingame.entity;
 
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
-import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.KnifeWeapon;
 import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
