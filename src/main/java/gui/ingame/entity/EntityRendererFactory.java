@@ -39,7 +39,7 @@ public class EntityRendererFactory {
             case WalkingEnemyModel e -> new VulnerableSpriteRenderer(e, "sprites/EyeBallEnemy.png");
             case SmartEnemyModel e   -> new VulnerableAnimatedRenderer(e, "animations/smart_enemy.xml");
             case ExplodingEnemy e    -> new VulnerableAnimatedRenderer(e, "animations/exploding_enemy.xml");
-            case LootEnnemy e -> new VulnerableSpriteRenderer(e, "sprites/EyeBallEnemy.png");
+            case LootEnnemy e -> new VulnerableSpriteRenderer(e, "sprites/lootenemy.png");
 
             // Bullets
             case BulletsModel e          -> new SpriteRenderer(e, "sprites/weapon/bullet.png", e.getMovementHandler().getDirectionVector()::getAngle);
