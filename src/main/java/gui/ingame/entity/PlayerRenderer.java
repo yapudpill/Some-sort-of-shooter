@@ -36,7 +36,7 @@ public class PlayerRenderer extends VulnerableAnimatedRenderer {
                 drawVerticalBar(g, (double) ((ContinuousFireWeapon) weaponModel).getHeat() / ((ContinuousFireWeapon) weaponModel).getMaxheat(), Color.RED);
             }
             else {
-                drawVerticalBar(g, (double) weaponModel.getTimeLeft() / weaponModel.getCoolDownDelay(), Color.BLACK);
+                drawVerticalBar(g, weaponModel.getTimeLeft() / weaponModel.getCoolDownDelay(), Color.BLACK);
             }
         }
 
