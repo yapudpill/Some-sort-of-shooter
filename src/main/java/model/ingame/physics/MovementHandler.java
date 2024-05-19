@@ -9,12 +9,12 @@ import util.IUpdateable;
  */
 public class MovementHandler implements IUpdateable {
     private final IMobileEntity entity;
-    private final PhysicsEngineModel physicsEngine;
+    private final PhysicsEngine physicsEngine;
     private double speed;
     private Coordinates directionVector = new Coordinates(0, 0);
     private boolean isMoving = false;
 
-    public MovementHandler(IMobileEntity entity, PhysicsEngineModel physicsEngine) {
+    public MovementHandler(IMobileEntity entity, PhysicsEngine physicsEngine) {
         this.entity = entity;
         this.physicsEngine = physicsEngine;
     }

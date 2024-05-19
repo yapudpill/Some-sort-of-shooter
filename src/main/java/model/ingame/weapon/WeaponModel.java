@@ -3,14 +3,12 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.ICombatEntity;
-import model.ingame.physics.PhysicsEngineModel;
 import util.Coordinates;
 
 /**
  * Abstract weapon model. All weapons inherit from this class.
  */
 public abstract class WeaponModel {
-    protected final PhysicsEngineModel physicsEngine;
     protected final String name, identifier;
     protected ICombatEntity owner;
     protected ModelTimer coolDownTimer;
@@ -20,7 +18,6 @@ public abstract class WeaponModel {
 
     public WeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {
         this.name = name;
-        this.physicsEngine = gameModel.getPhysicsEngine();
         this.gameModel = gameModel;
         this.owner = owner;
         this.identifier = identifier;

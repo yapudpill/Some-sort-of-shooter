@@ -13,10 +13,13 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     protected int health;
     protected int maxHealth;
 
-    public CreatureModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel) {
+    public CreatureModel(Coordinates pos, double speed, int maxHealth, double width, double height, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
+        this.movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
+
+        movementHandler.setSpeed(speed);
         addBlockedMovementListener(new SlidingListener());
     }
 

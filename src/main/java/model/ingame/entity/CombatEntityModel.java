@@ -10,8 +10,8 @@ import util.Coordinates;
 public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity {
     protected WeaponModel weapon;
 
-    public CombatEntityModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel) {
-        super(pos, maxHealth, width, height, gameModel);
+    public CombatEntityModel(Coordinates pos, double speed, int maxHealth, double width, double height, GameModel gameModel) {
+        super(pos, speed, maxHealth, width, height, gameModel);
         addCollisionListener(e -> {
             for (IEntity entity : e.getInvolvedEntitiesList()) {
                 if (shouldPickWeapons() && entity instanceof WeaponEntity weaponEntity) {

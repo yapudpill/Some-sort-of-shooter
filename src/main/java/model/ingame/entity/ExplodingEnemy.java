@@ -2,7 +2,6 @@ package model.ingame.entity;
 
 import model.ingame.GameModel;
 import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.physics.MovementHandler;
 import util.Coordinates;
 
 /**
@@ -13,11 +12,9 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;
 
     public ExplodingEnemy(Coordinates pos, GameModel gameModel) {
-        super(pos, 50, 0.8, 0.8, gameModel);
+        super(pos, 2.4, 50, 0.8, 0.8, gameModel);
         this.pos = pos;
         this.player = gameModel.getPlayer();
-        movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(2.4);
         addCollisionListener(e -> {
             if (e.getInvolvedEntitiesList().contains(player)) {
                 explode();
