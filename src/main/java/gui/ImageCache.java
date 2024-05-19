@@ -22,38 +22,7 @@ public class ImageCache {
 
     private static final Map<String, BufferedImage> cache = new HashMap<>();
 
-    public static BufferedImage loadNegativeImage(String path, Class<?> resourceBase) {
-        if (cache.get(path + "_inv") != null) {
-            return cache.get(path + "_inv");
-        }
-        BufferedImage img = copyImage(loadImage(path, resourceBase));
-        //inversion
-        for (int x = 0; x < img.getWidth(); x++) {
-            for (int y = 0; y < img.getHeight(); y++) {
-                int pixel = img.getRGB(x, y);
-                Color col = new Color(pixel, true);
-                col = new Color(
-                    255 - col.getRed(),
-                    255 - col.getGreen(),
-                    255 - col.getBlue(), col.getAlpha()
-                );
-                img.setRGB(x, y, col.getRGB());
-            }
-        }
-
-        cache.put(path + "_inv", img);
-        return img;
-    }
-
-    private static BufferedImage copyImage(BufferedImage source){
-        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
-        Graphics g = b.getGraphics();
-        g.drawImage(source, 0, 0, null);
-        g.dispose();
-        return b;
-    }
-
-    public static BufferedImage loadImage(String path, Class<?> resourceBase) {
+    public static Image loadImage(String path, Class<?> resourceBase) {
         if (cache.get(path) != null) {
             return cache.get(path);
         }
@@ -70,6 +39,38 @@ public class ImageCache {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Image loadNegativeImage(String path, Class<?> resourceBase) {
+        if (cache.get(path + "_inv") != null) {
+            return cache.get(path + "_inv");
+        }
+
+        BufferedImage img = copyImage(loadImage(path, resourceBase));
+        for (int x = 0; x < img.getWidth(); x++) {
+            for (int y = 0; y < img.getHeight(); y++) {
+                int pixel = img.getRGB(x, y);
+                Color col = new Color(pixel, true);
+                col = new Color(
+                    255 - col.getRed(),
+                    255 - col.getGreen(),
+                    255 - col.getBlue(),
+                    col.getAlpha()
+                );
+                img.setRGB(x, y, col.getRGB());
+            }
+        }
+
+        cache.put(path + "_inv", img);
+        return img;
+    }
+
+    private static BufferedImage copyImage(Image source) {
+        BufferedImage b = new BufferedImage(source.getWidth(null), source.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics g = b.getGraphics();
+        g.drawImage(source, 0, 0, null);
+        g.dispose();
+        return b;
     }
 
     /**
