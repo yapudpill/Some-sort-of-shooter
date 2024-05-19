@@ -1,13 +1,13 @@
 package gui.ingame.entity;
 
-import javax.swing.JComponent;
-
 import gui.IScalableComponent;
 import model.ingame.entity.IEntity;
 import util.Coordinates;
 
+import javax.swing.*;
+
 /**
- * Abstract class for rendering entities, providing the size and position of the **displayed** entity **before** being scaled.
+ * Class for rendering entities, providing the size and position of the **displayed** entity **before** being scaled.
  */
 public class EntityRenderer extends JComponent implements IScalableComponent {
     protected final IEntity entity;
