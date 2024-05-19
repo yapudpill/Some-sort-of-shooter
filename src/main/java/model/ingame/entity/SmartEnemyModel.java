@@ -22,6 +22,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
         super(pos, 3.6, 50, 0.9,0.9, gameModel, 0);
         player = gameModel.getPlayer();
         setWeapon(new PistolModel(this, gameModel));
+        setDamageMultiplier(0.8);
         shootingTimer = new ModelTimer(1, true, () -> {
             aim();
             attack();

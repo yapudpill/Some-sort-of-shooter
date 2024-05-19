@@ -14,8 +14,9 @@ public class LootEnnemy extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;
 
     public LootEnnemy(Coordinates pos, GameModel gameModel) {
-        super(pos, 3,300, 1.1, 1.1, gameModel, 3);
+        super(pos, 3,120, 1.1, 1.1, gameModel, 10);
         player = gameModel.getPlayer();
+        setDamageMultiplier(3);
         addCollisionListener(e -> {
             for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
                 if (entity instanceof PlayerModel) {
