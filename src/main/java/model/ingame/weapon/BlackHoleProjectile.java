@@ -8,14 +8,19 @@ import util.Coordinates;
 public class BlackHoleProjectile extends Projectile{
     public static final double COLLAPSE_DELAY = 0.5;
     private final ModelTimer collapseTimer;
+    private final ModelTimer despawnTimer;
 
     public BlackHoleProjectile(Coordinates pos, ProjectileWeaponModel source,
             GameModel gameModel) {
-        super(pos, source, 0.4, 0.4, 30, gameModel);
+        super(pos, source, 0.9, 0.9, 30, gameModel);
+        despawnTimer = new ModelTimer(3, false, this::despawn, gameModel);
         movementHandler.setSpeed(10);
         addCollisionListener(new DamageListener(damage));
         addBlockedMovementListener(e -> collapse());
-        collapseTimer = new ModelTimer(COLLAPSE_DELAY, false, () -> collapse(), gameModel);
+        collapseTimer = new ModelTimer(COLLAPSE_DELAY, false, () -> {
+            collapse();
+            despawnTimer.start();
+        }, gameModel);
     }
 
     public void collapse() {

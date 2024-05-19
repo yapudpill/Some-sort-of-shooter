@@ -30,8 +30,8 @@ public class EntityRendererFactory {
             case RubberProjectile e -> new SpriteRenderer(e, "sprites/weapon/rubberball.png");
             case BulletsModel e -> new AnimatedEntityRenderer(e, "animations/bullets.xml", e.getMovementHandler().getDirectionVector()::getAngle);
             case RocketProjectileModel e -> new AnimatedEntityRenderer(e, "animations/rocket_projectile.xml", e.getMovementHandler().getDirectionVector()::getAngle);
-            case BlackHoleProjectile e -> new CircleRenderer(entity,Color.BLACK);
-            case BlackHoleZone e -> new RectangleRenderer(entity,new Color(0,0,0,100));
+            case BlackHoleProjectile e -> new AnimatedEntityRenderer(e, "animations/blackhole.xml");
+            case BlackHoleZone e -> new RectangleRenderer(entity,new Color(0,0,0,0));
 
             case SmartEnemyModel e   -> new VulnerableAnimatedRenderer(e, "animations/smart_enemy.xml");
             case ExplodingEnemy e   -> new VulnerableAnimatedRenderer(e, "animations/exploding_enemy.xml");

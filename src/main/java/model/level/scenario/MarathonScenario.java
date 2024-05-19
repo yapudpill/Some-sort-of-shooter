@@ -29,9 +29,9 @@ public class MarathonScenario implements IScenario {
             SimpleTrapPlacer::new,
             PistolModel::new,
             RubberWeapon::new,
-            GravityGun::new,
             ShotGun::new,
-            RocketLauncher::new
+            RocketLauncher::new,
+            GravityGun::new
     );
 
     public MarathonScenario() {
