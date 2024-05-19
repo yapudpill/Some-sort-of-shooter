@@ -1,18 +1,18 @@
 package model.ingame.entity;
 
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Predicate;
-
 import model.ingame.GameModel;
 import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.BlockedMovementListener;
 import model.ingame.physics.CollisionEvent;
 import model.ingame.physics.CollisionListener;
 import util.Coordinates;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Predicate;
 
 public abstract class CollisionEntityModel extends EntityModel implements ICollisionEntity {
     private final List<CollisionListener> collisionListeners = new ArrayList<>();

@@ -1,9 +1,6 @@
 package gui;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
+import java.awt.*;
 
 /**
  * A layout that fills the parent container with a single component. Used for stacking up layers in a parent LayeredPane,

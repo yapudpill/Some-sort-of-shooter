@@ -11,7 +11,11 @@ import model.ingame.entity.SimpleTrap;
 import model.ingame.entity.SmartEnemyModel;
 import model.ingame.entity.WalkingEnemyModel;
 import model.ingame.entity.WeaponEntity;
-import model.ingame.weapon.*;
+import model.ingame.weapon.BulletsModel;
+import model.ingame.weapon.FlameProjectileModel;
+import model.ingame.weapon.RocketProjectileModel;
+import model.ingame.weapon.RubberProjectile;
+import model.ingame.weapon.TornadoProjectileModel;
 
 /**
  * Factory class for creating entity renderers based on the provided entity model.

@@ -1,18 +1,17 @@
 package model.ingame.entity.behavior;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.function.Predicate;
-
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.IEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.physics.MovementHandler;
-import model.level.TileModel;
 import util.Coordinates;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.function.Predicate;
 
 public class FloodFillPathFinder {
     private IEntity entityFinder;

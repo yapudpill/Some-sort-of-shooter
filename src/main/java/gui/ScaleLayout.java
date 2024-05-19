@@ -1,12 +1,9 @@
 package gui;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
-import java.util.function.IntSupplier;
-
 import util.Coordinates;
+
+import java.awt.*;
+import java.util.function.IntSupplier;
 
 /**
  * A layout manager that applies a uniform scaling/homothety to all ScalableComponents of a container, according to a

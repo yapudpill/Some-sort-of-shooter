@@ -1,11 +1,11 @@
 package model.ingame.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import util.Coordinates;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class ExplosionZoneEntity extends CollisionEntityModel {
     private final ModelTimer despawnTimer;

@@ -1,12 +1,5 @@
 package gui.ingame;
 
-import java.awt.Color;
-import java.util.function.IntSupplier;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import gui.IScalableComponent;
 import gui.ImageCache;
 import gui.ScaleLayout;

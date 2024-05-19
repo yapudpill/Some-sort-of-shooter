@@ -1,5 +1,12 @@
 package controller;
 
+import gui.ingame.GameMainArea;
+import model.ingame.entity.PlayerModel;
+import model.ingame.weapon.ContinuousFireWeapon;
+import model.ingame.weapon.ShotGun;
+import model.ingame.weapon.WeaponModel;
+import util.Coordinates;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -7,13 +14,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Map;
-
-import gui.ingame.GameMainArea;
-import model.ingame.entity.PlayerModel;
-import model.ingame.weapon.ContinuousFireWeapon;
-import model.ingame.weapon.ShotGun;
-import model.ingame.weapon.WeaponModel;
-import util.Coordinates;
 
 /**
  * A controller for a player using the ZQSD keys. It uses Swing's KeyListener to

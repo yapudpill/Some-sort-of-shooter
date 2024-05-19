@@ -1,11 +1,11 @@
 package model.ingame.physics;
 
+import model.ingame.entity.ICollisionEntity;
+
 import java.util.Collections;
 import java.util.EventObject;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
-
-import model.ingame.entity.ICollisionEntity;
 
 public class CollisionEvent extends EventObject {
     private final Set<ICollisionEntity> involvedEntities;

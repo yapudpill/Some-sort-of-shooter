@@ -1,8 +1,8 @@
 package gui.ingame.footprints;
 
+import model.ingame.entity.ICombatEntity;
 import util.Coordinates;
 import util.IUpdateable;
-import model.ingame.entity.ICombatEntity;
 
 import java.util.LinkedList;
 import java.util.List;

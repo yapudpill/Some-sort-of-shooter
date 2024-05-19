@@ -1,9 +1,5 @@
 package model.ingame;
 
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Predicate;
-
 import model.ingame.entity.CombatEntityModel;
 import model.ingame.entity.EntityConstructor;
 import model.ingame.entity.ExplodingEnemy;
@@ -22,6 +18,10 @@ import model.level.scenario.IScenarioCursor;
 import util.Coordinates;
 import util.IUpdateable;
 import util.Pair;
+
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Predicate;
 
 public class GameModel implements IUpdateable {
     public final Statistics stats;

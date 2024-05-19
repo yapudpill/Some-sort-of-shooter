@@ -1,13 +1,13 @@
 package model.ingame.entity;
 
-import java.awt.geom.Rectangle2D;
-import java.util.Set;
-
 import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.BlockedMovementListener;
 import model.ingame.physics.CollisionEvent;
 import model.ingame.physics.CollisionListener;
 import util.Coordinates;
+
+import java.awt.geom.Rectangle2D;
+import java.util.Set;
 
 public interface ICollisionEntity extends IEntity {
     Rectangle2D getCollisionBox();

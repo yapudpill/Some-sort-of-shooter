@@ -1,12 +1,5 @@
 package model.level;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-
 import model.ingame.entity.BreakableBarrier;
 import model.ingame.entity.EntityConstructor;
 import model.ingame.entity.ICollisionEntity;
@@ -19,6 +12,13 @@ import model.level.tiles.WaterTileModel;
 import util.Coordinates;
 import util.Pair;
 import util.Resource;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class MapModel {
     private final TileModel[][] tiles;

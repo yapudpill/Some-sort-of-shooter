@@ -1,9 +1,6 @@
 package gui;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
+import java.awt.*;
 
 /**
  * A layout manager that can center the components it manages and make them fill the parent as much as possible, while
