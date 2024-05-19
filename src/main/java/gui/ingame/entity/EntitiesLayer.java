@@ -1,8 +1,6 @@
-package gui.ingame;
+package gui.ingame.entity;
 
 import gui.ScaleLayout;
-import gui.ingame.entity.AbstractEntityRenderer;
-import gui.ingame.entity.EntityRendererFactory;
 import model.ingame.entity.IEntity;
 import util.IUpdateable;
 import util.SetToMapSynchronisator;
@@ -18,7 +16,7 @@ import java.util.function.IntSupplier;
  * The entity renderers are synced with the model on each update.
  */
 public class EntitiesLayer extends JPanel implements IUpdateable {
-    private final Map<IEntity, AbstractEntityRenderer> modelRendererMap = new ConcurrentHashMap<>();
+    private final Map<IEntity, EntityRenderer> modelRendererMap = new ConcurrentHashMap<>();
     private final Set<IEntity> entityModelSet;
 
     public EntitiesLayer(Set<IEntity> entityModelSet, IntSupplier scaleSupplier) {
@@ -28,13 +26,13 @@ public class EntitiesLayer extends JPanel implements IUpdateable {
     }
 
     private void addEntityRenderer(IEntity entityModel) {
-        AbstractEntityRenderer renderer = EntityRendererFactory.make(entityModel);
+        EntityRenderer renderer = EntityRendererFactory.make(entityModel);
         modelRendererMap.put(entityModel, renderer);
         add(renderer);
     }
 
     private void removeEntityRenderer(IEntity entityModel) {
-        AbstractEntityRenderer removedRenderer = modelRendererMap.remove(entityModel);
+        EntityRenderer removedRenderer = modelRendererMap.remove(entityModel);
         if (removedRenderer != null) {
             remove(removedRenderer);
         }
@@ -47,7 +45,7 @@ public class EntitiesLayer extends JPanel implements IUpdateable {
                 modelRendererMap,
                 this::addEntityRenderer,
                 this::removeEntityRenderer);
-        for (AbstractEntityRenderer renderer : modelRendererMap.values()) {
+        for (EntityRenderer renderer : modelRendererMap.values()) {
             if (renderer instanceof IUpdateable updateableRenderer) updateableRenderer.update(delta);
         }
 

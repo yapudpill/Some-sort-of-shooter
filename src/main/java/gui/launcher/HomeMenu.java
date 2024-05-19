@@ -37,7 +37,7 @@ public class HomeMenu extends JPanel {
 
         constraints.gridx = 0;
         JButton play = new JButton("Play", ImageCache.loadIcon("play"));
-        play.addActionListener(e -> mainController.loadMapMenu());
+        play.addActionListener(e -> mainController.loadLevelMenu());
         add(play, constraints);
 
         constraints.gridx = 1;

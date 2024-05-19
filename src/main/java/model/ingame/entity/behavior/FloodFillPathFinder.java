@@ -93,7 +93,6 @@ public class FloodFillPathFinder {
         // use for loop
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (Math.abs(i) == Math.abs(j)) continue;
                 int newX = x + i;
                 int newY = y + j;
                 if (!isValidCoordinate(newX, newY)){

@@ -20,12 +20,10 @@ public class PlayerModel extends CombatEntityModel {
 
 
     public PlayerModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 100, 0.8, 0.8, gameModel,0);
+        super(pos, DEFAULT_SPEED, 100, 0.8, 0.8, gameModel,0);
         dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
         pickWeaponTimer = new ModelTimer(0.5, false, () -> {}, gameModel);
 
-        movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(DEFAULT_SPEED);
         setWeapon(new KnifeWeapon(this, gameModel));
     }
 

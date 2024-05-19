@@ -11,8 +11,8 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     protected WeaponModel weapon;
     protected double damageMultiplier;
 
-    public CombatEntityModel(Coordinates pos, double maxHealth, double width, double height, GameModel gameModel, double regen) {
-        super(pos, maxHealth, width, height, gameModel, regen);
+    public CombatEntityModel(Coordinates pos, double speed, double maxHealth, double width, double height, GameModel gameModel, double regen) {
+        super(pos,speed, maxHealth, width, height, gameModel, regen);
         damageMultiplier = 1;
         addCollisionListener(e -> {
             for (IEntity entity : e.getInvolvedEntitiesList()) {

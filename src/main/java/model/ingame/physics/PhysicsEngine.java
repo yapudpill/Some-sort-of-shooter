@@ -14,11 +14,11 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * The <code>PhysicsEngineModel</code> class is used to handle the physics of the game, such as collision detection and entity movement.
  */
-public class PhysicsEngineModel implements IUpdateable {
+public class PhysicsEngine implements IUpdateable {
     private final Set<ICollisionEntity> collisionEntities;
     private final MapModel map;
 
-    public PhysicsEngineModel(MapModel map, Set<ICollisionEntity> collisionEntities) {
+    public PhysicsEngine(MapModel map, Set<ICollisionEntity> collisionEntities) {
         if (map == null) {
             throw new IllegalArgumentException("Map cannot be null");
         }
@@ -28,7 +28,12 @@ public class PhysicsEngineModel implements IUpdateable {
 
     public void update(double delta) {
         for (ICollisionEntity entity : collisionEntities) {
-            checkForCollisions(entity);
+            Set<ICollisionEntity> collidedEntities = getCollidedEntities(entity);
+
+            if (!collidedEntities.isEmpty()) {
+                CollisionEvent event = new CollisionEvent(entity, collidedEntities);
+                entity.notifyCollisionListeners(event);
+            }
         }
     }
 
@@ -75,17 +80,6 @@ public class PhysicsEngineModel implements IUpdateable {
         // move the entity and its collision box
         entity.getMovementHandler().setMoving(true);
         entity.setPos(entity.getPos().add(adjustedMovement));
-    }
-
-    public void checkForCollisions(ICollisionEntity entity) {
-        // check if the entity has collision listeners, and if it does, check if it is colliding with anything
-        Set<ICollisionEntity> collidedEntities = getCollidedEntities(entity);
-        if (!collidedEntities.isEmpty()) {
-            // create a collision event
-            CollisionEvent event = new CollisionEvent(entity, collidedEntities);
-            // notify the entity's collision listeners
-            entity.notifyCollisionListeners(event);
-        }
     }
 
     private BlockedMovementEvent handleBlockedMovement(IMobileEntity entity, Coordinates movementVector) {

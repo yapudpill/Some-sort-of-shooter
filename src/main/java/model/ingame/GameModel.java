@@ -2,7 +2,7 @@ package model.ingame;
 
 import model.ingame.entity.*;
 import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.physics.PhysicsEngineModel;
+import model.ingame.physics.PhysicsEngine;
 import model.level.MapModel;
 import model.level.scenario.IScenario;
 import model.level.scenario.IScenarioCursor;
@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  */
 public class GameModel implements IUpdateable {
     public final Statistics stats;
-    private final PhysicsEngineModel physicsEngine;
+    private final PhysicsEngine physicsEngine;
     private final MapModel map;
     private final IScenarioCursor scenarioCursor;
     private final PlayerModel player;
@@ -37,7 +37,7 @@ public class GameModel implements IUpdateable {
         scenarioCursor = scenario.createCursor(this);
         updateables.add(scenarioCursor);
 
-        physicsEngine = new PhysicsEngineModel(map, collisionEntities);
+        physicsEngine = new PhysicsEngine(map, collisionEntities);
         updateables.add(physicsEngine);
 
         PlayerModel tmpPlayer = null;
@@ -88,7 +88,7 @@ public class GameModel implements IUpdateable {
         return player;
     }
 
-    public PhysicsEngineModel getPhysicsEngine() {
+    public PhysicsEngine getPhysicsEngine() {
         return physicsEngine;
     }
 

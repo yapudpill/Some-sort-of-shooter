@@ -3,7 +3,6 @@ package model.ingame.entity;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.behavior.FloodFillPathFinder;
-import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.PistolModel;
 import model.ingame.weapon.Projectile;
 import model.ingame.weapon.ProjectileWeaponModel;
@@ -20,10 +19,8 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     private Projectile projectileInstance;
 
     public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 50, 0.9,0.9, gameModel, 0);
+        super(pos, 3.6, 50, 0.9,0.9, gameModel, 0);
         player = gameModel.getPlayer();
-        movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
-        movementHandler.setSpeed(3.6);
         setWeapon(new PistolModel(this, gameModel));
         shootingTimer = new ModelTimer(1, true, () -> {
             aim();

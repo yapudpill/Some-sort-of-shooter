@@ -16,10 +16,13 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     protected double regen;
     protected ModelTimer damage_over_time;
 
-    public CreatureModel(Coordinates pos, double maxHealth, double width, double height, GameModel gameModel, double regen) {
+    public CreatureModel(Coordinates pos, double speed, double maxHealth, double width, double height, GameModel gameModel, double regen) {
         super(pos, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
+        this.movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
+
+        movementHandler.setSpeed(speed);
         addBlockedMovementListener(new SlidingListener());
         this.regen = regen;
         damage_over_time = new ModelTimer(1,true, this::heal,gameModel);

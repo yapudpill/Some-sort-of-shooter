@@ -1,6 +1,6 @@
 package gui.editor;
 
-import gui.ingame.entity.AbstractEntityRenderer;
+import gui.ingame.entity.EntityRenderer;
 import gui.ingame.entity.EntityRendererFactory;
 import gui.ingame.tile.TileRenderer;
 import gui.ingame.tile.TileRendererFactory;
@@ -58,7 +58,7 @@ public class EditorGrid extends JPanel {
         TileRenderer tileRenderer = TileRendererFactory.make(tile);
         if (entity != null) {
             tileRenderer.setLayout(new BorderLayout());
-            AbstractEntityRenderer entityRenderer = EntityRendererFactory.make(entity);
+            EntityRenderer entityRenderer = EntityRendererFactory.make(entity);
             tileRenderer.add(entityRenderer);
         }
 

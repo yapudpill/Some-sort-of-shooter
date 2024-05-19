@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * accordingly.
  */
 public class MarathonCursor implements IScenarioCursor {
-    private static final int MAX_DIFFICULTY = 30;
+    private static final int MAX_DIFFICULTY = 100;
     private static final Random rng = new Random();
 
     private final GameModel gameModel;

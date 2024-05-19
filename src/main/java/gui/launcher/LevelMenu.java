@@ -12,9 +12,9 @@ import java.awt.*;
 /**
  * The menu that is displayed when setting up the game (selecting map and scenario).
  */
-public class MapMenu extends JPanel {
+public class LevelMenu extends JPanel {
 
-    public MapMenu(MainController mainController) {
+    public LevelMenu(MainController mainController) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -27,7 +27,7 @@ public class MapMenu extends JPanel {
         constraints.gridwidth = 2;
 
         constraints.weighty = 0.5;
-        JLabel title = new JLabel("MAP SELECTOR");
+        JLabel title = new JLabel("LEVEL SELECTOR");
         title.setName("titleLabel");
         add(title, constraints);
 
