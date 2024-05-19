@@ -15,7 +15,7 @@ public class LootEnnemy extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;
 
     public LootEnnemy(Coordinates pos, GameModel gameModel) {
-        super(pos, 300, 2, 2, gameModel, 3);
+        super(pos, 300, 1.1, 1.1, gameModel, 3);
         player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(3);
