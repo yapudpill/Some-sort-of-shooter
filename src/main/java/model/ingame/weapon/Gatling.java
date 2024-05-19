@@ -38,7 +38,7 @@ public class Gatling extends ProjectileWeaponModel implements ContinuousFireWeap
             isFiring = false;
             cooling();
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -51,6 +51,7 @@ public class Gatling extends ProjectileWeaponModel implements ContinuousFireWeap
             gameModel.addEntity(projectile);
             inBetweenTimer.start();
             heat++;
+            gameModel.stats.nbAttacks++;
         }
     }
     public void cooling(){
