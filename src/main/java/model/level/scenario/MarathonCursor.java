@@ -9,6 +9,7 @@ import util.WeightedRandomGenerator;
 import util.ZipToMap;
 
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -81,10 +82,11 @@ public class MarathonCursor implements IScenarioCursor {
             double enemyGeneratorP = adjustedDifficulty() / (2 * MAX_DIFFICULTY);
 
 
-            enemyGenerator.setElementRates(ZipToMap.zipToMap(
-                scenario.enemiesByDifficulty(),
-                MathTools.getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)
-            ));
+            Map<EntityConstructor, Double> nextEnemyRate = ZipToMap.zipToMap(
+                    scenario.enemiesByDifficulty(),
+                    MathTools.getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)
+            );
+            enemyGenerator.setElementRates(nextEnemyRate);
 
             double weaponsProba = 2. / scenario.weaponsByPower().size();
             weaponGenerator.setElementRates(scenario.weaponsByPower().stream().collect(Collectors.toMap(k -> k, k -> weaponsProba)));
@@ -96,7 +98,7 @@ public class MarathonCursor implements IScenarioCursor {
     }
 
     private double adjustedDifficulty() {
-        return 30 * Math.log(rawDifficulty + 1);
+        return Math.min(10 * Math.log(rawDifficulty + 1), MAX_DIFFICULTY);
     }
 
     private void startWave() {
@@ -107,13 +109,12 @@ public class MarathonCursor implements IScenarioCursor {
 
     private void startCooldown() {
         this.isCoolingDown = true;
-        for (int i=0; i<5; i++) { // Spawn 5 helper entities at the end of each wave
+        for (int i = 0; i < 5; i++) { // Spawn 5 helper entities at the end of each wave
             miscEntitiesQueue.addAll(scenario.helperEntities());
         }
         cooldownTimer = new ModelTimer(cooldownDuration, false, this::startWave, gameModel);
         cooldownTimer.start();
     }
-
 
 
     @Override
