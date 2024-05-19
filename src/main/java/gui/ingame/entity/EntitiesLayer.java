@@ -1,8 +1,6 @@
-package gui.ingame;
+package gui.ingame.entity;
 
 import gui.ScaleLayout;
-import gui.ingame.entity.AbstractEntityRenderer;
-import gui.ingame.entity.EntityRendererFactory;
 import model.ingame.entity.IEntity;
 import util.IUpdateable;
 import util.SetToMapSynchronisator;

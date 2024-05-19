@@ -1,12 +1,10 @@
-package gui.ingame;
+package gui.ingame.tile;
 
 import java.awt.GridLayout;
 import java.util.function.IntSupplier;
 
 import javax.swing.JComponent;
 
-import gui.ingame.tile.TileRenderer;
-import gui.ingame.tile.TileRendererFactory;
 import model.level.MapModel;
 import util.IUpdateable;
 
