@@ -11,16 +11,23 @@ import util.Coordinates;
  */
 public class PlayerModel extends CombatEntityModel {
     private static final double DEFAULT_SPEED = 5.3; // tile/s
-    private static final double DASH_SPEED = 21;
+    private static final double DASH_SPEED = 10;
+    private static final double DASH_DURATION = 0.5; // s
+    private static final double DASH_COOLDOWN = 0.7; // s
 
     private final ModelTimer dashTimer;
     private final ModelTimer pickWeaponTimer;
+    private final ModelTimer dashCooldownTimer;
     WeaponModel otherWeapon;
 
 
     public PlayerModel(Coordinates pos, GameModel gameModel) {
         super(pos, DEFAULT_SPEED, 100, 0.8, 0.8, gameModel,0);
-        dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
+        dashCooldownTimer = new ModelTimer(DASH_COOLDOWN, false, () -> {}, gameModel);
+        dashTimer = new ModelTimer(DASH_DURATION, false, () -> {
+            movementHandler.setSpeed(DEFAULT_SPEED);
+            dashCooldownTimer.start();
+        }, gameModel);
         pickWeaponTimer = new ModelTimer(0.5, false, () -> {}, gameModel);
 
         setWeapon(new KnifeWeapon(this, gameModel));
@@ -32,6 +39,9 @@ public class PlayerModel extends CombatEntityModel {
     }
 
     public void dash() {
+        if (dashCooldownTimer.isRunning()) {
+            return;
+        }
         movementHandler.setSpeed(DASH_SPEED);
         dashTimer.start();
     }
