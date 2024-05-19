@@ -47,7 +47,7 @@ public class FlameThrower extends ProjectileWeaponModel implements ContinuousFir
             gameModel.attachAsUpdateable(projectile);
             gameModel.addEntity(projectile);
             inBetweenTimer.start();
-            heat++;
+            heat+=2;
         }
     }
     public void cooling(){
