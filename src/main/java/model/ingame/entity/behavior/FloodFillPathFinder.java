@@ -90,9 +90,9 @@ public class FloodFillPathFinder {
         // use for loop
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (Math.abs(i) == Math.abs(j)) continue;
                 int newX = x + i;
                 int newY = y + j;
+                if (Math.abs(i) == Math.abs(j) || gameModel.getMapModel().isOutOfBounds(newX, newY)) continue;
                 Node node = nodeGrid.getNode(newX, newY);
                 int val = node.getValue();
                 if (isValidCoordinate(newX, newY) && val < lowestValue && val != 0) {
