@@ -10,7 +10,7 @@ public class Gatling extends ProjectileWeaponModel implements ContinuousFireWeap
     ModelTimer inBetweenTimer = new ModelTimer(0.048, false, this::fire, gameModel);
     int heat = 0;
     int maxheat = 100;
-    ModelTimer coolingTimer = new ModelTimer(0.012, true, this::cooling,gameModel);
+    ModelTimer coolingTimer = new ModelTimer(0.016, true, this::cooling,gameModel);
     public Gatling(ICombatEntity owner, GameModel gameModel) {
 
         super("Gatling", "Gatling", owner, gameModel, 0);
