@@ -14,7 +14,7 @@ import java.util.function.DoubleSupplier;
  * by a function passed to the constructor to allow quickly creating new renderers without extending the class, as a lot
  * of them are very similar.
  */
-public class AnimatedEntityRenderer extends AbstractEntityRenderer implements IUpdateable {
+public class AnimatedEntityRenderer extends EntityRenderer implements IUpdateable {
     protected final AnimationManager animationManager;
     protected final DoubleSupplier angle;
 
