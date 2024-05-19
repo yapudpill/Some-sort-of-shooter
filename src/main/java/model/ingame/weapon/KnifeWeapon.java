@@ -33,8 +33,7 @@ public class KnifeWeapon extends WeaponModel {
     }
 
     private void attackCallback() {
-        gameModel.removeEntity(damageZone);
-        gameModel.detachAsUpdateable(damageZone);
+        damageZone.despawn();
     }
 
     @Override
