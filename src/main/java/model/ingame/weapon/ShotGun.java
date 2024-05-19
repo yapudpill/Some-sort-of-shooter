@@ -23,7 +23,6 @@ public class ShotGun extends ProjectileWeaponModel {
             return false;
         }
         for (int i = 0; i < 5; i++) {
-            setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
             fire();
         }
         if (isSecondShot){
@@ -34,5 +33,14 @@ public class ShotGun extends ProjectileWeaponModel {
             isSecondShot = true;
         }
         return true;
+    }
+
+    @Override
+    public void fire() {
+        Projectile projectile = createProjectile();
+        projectile.setPos(owner.getPos());
+        projectile.getMovementHandler().setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
+        gameModel.attachAsUpdateable(projectile);
+        gameModel.addEntity(projectile);
     }
 }

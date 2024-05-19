@@ -23,7 +23,7 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
     public void fire() {
         Projectile projectile = createProjectile();
         projectile.setPos(owner.getPos());
-        projectile.getMovementHandler().setDirectionVector(this.directionVector);
+        projectile.getMovementHandler().setDirectionVector(getDirectionVector());
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);
     }

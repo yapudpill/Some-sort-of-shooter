@@ -39,10 +39,9 @@ public class Gatling extends ProjectileWeaponModel implements ContinuousFireWeap
     @Override
     public void fire() {
         if (isFiring && heat < maxheat) {
-            setDirectionVector(getDirectionVector().rotate(Math.random() * 0.32 - 0.25));
             Projectile projectile = createProjectile();
             projectile.setPos(owner.getPos());
-            projectile.getMovementHandler().setDirectionVector(this.directionVector);
+            projectile.getMovementHandler().setDirectionVector(getDirectionVector().rotate((Math.random() * 0.32 - 0.16)));
             gameModel.attachAsUpdateable(projectile);
             gameModel.addEntity(projectile);
             inBetweenTimer.start();
