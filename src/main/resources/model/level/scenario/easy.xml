@@ -5,6 +5,7 @@
             <weapon name="Knife"/>
         </weapons>
         <enemies>
+            <enemy name="LootEnemy"/>
         </enemies>
         <miscs>
             <misc name="Bandages"/>

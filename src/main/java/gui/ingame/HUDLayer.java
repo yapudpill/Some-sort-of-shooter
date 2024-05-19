@@ -104,16 +104,16 @@ public class HUDLayer extends JPanel implements IUpdateable {
         }
         else otherWeaponLabel.setIcon(null);
 
-        speedLabel.setIcon(new ImageIcon(ImageCache.loadImage("../../laf/icon/speed.png", PlayerRenderer.class)));
+        speedLabel.setIcon(ImageCache.loadIcon("speed"));
         speedLabel.setText(String.format(": %d", gameModel.stats.nbSpeedUpgrade));
 
-        damageLabel.setIcon(new ImageIcon(ImageCache.loadImage("../../laf/icon/damage.png", PlayerRenderer.class)));
+        damageLabel.setIcon(ImageCache.loadIcon("damage"));
         damageLabel.setText(String.format(": %d", gameModel.stats.nbDamageUpgrade));
 
-        healthLabel.setIcon(new ImageIcon(ImageCache.loadImage("../../laf/icon/health.png", PlayerRenderer.class)));
+        healthLabel.setIcon(ImageCache.loadIcon("health"));
         healthLabel.setText(String.format(": %d", gameModel.stats.nbHealthUpgrade));
 
-        regenLabel.setIcon(new ImageIcon(ImageCache.loadImage("../../laf/icon/regen.png", PlayerRenderer.class)));
+        regenLabel.setIcon(ImageCache.loadIcon("regen"));
         regenLabel.setText(String.format(": %d", gameModel.stats.nbRegenUpgrade));
 
         if(playerModel.isCurrentlyCollidingWith(e -> e instanceof WeaponEntity)) {
