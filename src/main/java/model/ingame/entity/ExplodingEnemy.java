@@ -12,7 +12,7 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
     private final PlayerModel player;
 
     public ExplodingEnemy(Coordinates pos, GameModel gameModel) {
-        super(pos, 2.4, 50, 0.8, 0.8, gameModel);
+        super(pos, 2.4, 50, 0.8, 0.8, gameModel, 0);
         this.pos = pos;
         this.player = gameModel.getPlayer();
         addCollisionListener(e -> {
@@ -38,7 +38,7 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
     }
 
     @Override
-    public void takeDamage(int damage) {
+    public void takeDamage(double damage) {
         super.takeDamage(damage);
     }
 
@@ -48,7 +48,7 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
 
     @Override
     public void update(double delta) {
-        pathFinder.handlePathFindingUpdate(this, player.getPos());
+        pathFinder.handlePathFindingUpdate(this, player.getPos(),true);
         super.update(delta);
     }
 }

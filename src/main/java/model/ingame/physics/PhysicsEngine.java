@@ -1,8 +1,5 @@
 package model.ingame.physics;
 
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-
 import model.ingame.entity.ICollisionEntity;
 import model.ingame.entity.IMobileEntity;
 import model.ingame.entity.IVulnerableEntity;
@@ -10,6 +7,9 @@ import model.level.MapModel;
 import model.level.TileModel;
 import util.Coordinates;
 import util.IUpdateable;
+
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * The <code>PhysicsEngineModel</code> class is used to handle the physics of the game, such as collision detection and entity movement.
@@ -41,7 +41,7 @@ public class PhysicsEngine implements IUpdateable {
      * Returns a list of all entities that are colliding with the given entity.
      *
      * @param entity the entity to check for collisions
-     * @return a list of all entities that are colliding with the given entity
+     * @return a set of all entities that are colliding with the given entity
      */
     public Set<ICollisionEntity> getCollidedEntities(ICollisionEntity entity) {
         Set<ICollisionEntity> involvedEntities = new CopyOnWriteArraySet<>();

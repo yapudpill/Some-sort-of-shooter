@@ -1,5 +1,12 @@
 package controller;
 
+import gui.ingame.GameMainArea;
+import model.ingame.entity.PlayerModel;
+import model.ingame.weapon.ContinuousFireWeapon;
+import model.ingame.weapon.ShotGun;
+import model.ingame.weapon.WeaponModel;
+import util.Coordinates;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -7,11 +14,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Map;
-
-import gui.ingame.GameMainArea;
-import model.ingame.entity.PlayerModel;
-import model.ingame.weapon.WeaponModel;
-import util.Coordinates;
 
 /**
  * A controller for a player using the ZQSD keys. It uses Swing's KeyListener to
@@ -32,7 +34,8 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
         return Map.of(
                 MouseEvent.BUTTON1, playerModel::attack,
                 MouseEvent.BUTTON3, playerModel::dash,
-                KeyEvent.VK_E, playerModel::pickWeapon
+                KeyEvent.VK_E, playerModel::pickWeapon,
+                KeyEvent.VK_A, playerModel::swap
         );
     }
 
@@ -83,15 +86,39 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
 
     @Override
     public void mousePressed(MouseEvent e) {
+        WeaponModel weapon = controlledPlayerModel.getWeapon();
         if (getKeyActionMap(controlledPlayerModel).containsKey(e.getButton())) {
-            WeaponModel weapon = controlledPlayerModel.getWeapon();
-            if (weapon != null) {
+            if (weapon != null && weapon.usesDirectionVector()) {
                 weapon.setDirectionVector(new Coordinates(
-                    (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
-                    (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
+                        (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
+                        (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
                 ));
             }
             getKeyActionMap(controlledPlayerModel).get(e.getButton()).run();
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        int button = e.getButton();
+        if (getKeyActionMap(controlledPlayerModel).containsKey(button)) {
+            WeaponModel weapon = controlledPlayerModel.getWeapon();
+
+            if(weapon != null){
+                if (weapon.usesDirectionVector()) {
+                    weapon.setDirectionVector(new Coordinates(
+                            (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
+                            (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
+                    ));
+                }
+                switch (weapon){
+                    case ShotGun ignored ->
+                            getKeyActionMap(controlledPlayerModel).get(button).run();
+                    case ContinuousFireWeapon ignored ->
+                            getKeyActionMap(controlledPlayerModel).get(button).run();
+                    default -> {}
+                }
+            }
         }
     }
 
@@ -105,11 +132,19 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
             ));
         }
     }
+    public void mouseDragged(MouseEvent e) {
+        WeaponModel weapon = controlledPlayerModel.getWeapon();
+        if (weapon != null && weapon.usesDirectionVector()) {
+            weapon.setDirectionVector(new Coordinates(
+                    (double) e.getX() / gameMainArea.getScale() - controlledPlayerModel.getPos().x(),
+                    (double) e.getY() / gameMainArea.getScale() - controlledPlayerModel.getPos().y()
+            ));
+        }
+    }
+
 
     @Override public void mouseClicked(MouseEvent arg0) {}
-    @Override public void mouseDragged(MouseEvent arg0) {}
     @Override public void mouseEntered(MouseEvent arg0) {}
     @Override public void mouseExited(MouseEvent arg0) {}
-    @Override public void mouseReleased(MouseEvent arg0) {}
     @Override public void keyTyped(KeyEvent arg0) {}
 }

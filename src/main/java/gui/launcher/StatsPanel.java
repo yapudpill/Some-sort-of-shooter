@@ -33,5 +33,25 @@ public class StatsPanel extends JPanel {
             stats.nbAttacks <= 1 ? "time" : "times"
         );
         add(new JLabel(killMessage), constraints);
+
+        constraints.gridy = 2;
+        String upgradeMessage = String.format(
+                "You collected %d speed %s, %d damage %s,",
+                stats.nbSpeedUpgrade,
+                stats.nbSpeedUpgrade <= 1 ? "upgrade" : "upgrades",
+                stats.nbDamageUpgrade,
+                stats.nbDamageUpgrade <= 1 ? "upgrade" : "upgrades"
+        );
+        add(new JLabel(upgradeMessage), constraints);
+
+        constraints.gridy = 3;
+        String upgradeMessage2LeRetour = String.format(
+                "%d health %s and %d regen %s.",
+                stats.nbHealthUpgrade,
+                stats.nbHealthUpgrade <= 1 ? "upgrade" : "upgrades",
+                stats.nbRegenUpgrade,
+                stats.nbRegenUpgrade <= 1 ? "upgrade" : "upgrades"
+        );
+        add(new JLabel(upgradeMessage2LeRetour), constraints);
     }
 }

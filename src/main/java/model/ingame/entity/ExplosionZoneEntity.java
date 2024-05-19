@@ -15,7 +15,7 @@ public class ExplosionZoneEntity extends CollisionEntityModel {
 
     private final Set<IVulnerableEntity> hitEntities = new HashSet<>();
 
-    public ExplosionZoneEntity(Coordinates pos, double width, double height, int damage, int duration, GameModel gameModel) {
+    public ExplosionZoneEntity(Coordinates pos, double width, double height, double damage, int duration, GameModel gameModel) {
         super(pos, width, height, gameModel);
         this.despawnTimer = new ModelTimer(duration, false, this::despawn, gameModel);
         this.despawnTimer.start();

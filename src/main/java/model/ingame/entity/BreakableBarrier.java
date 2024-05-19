@@ -10,8 +10,8 @@ import java.util.function.Predicate;
  * A breakable barrier that can be destroyed. Represented by an entity instead of a tile, as the tiles are not as dynamic.
  */
 public class BreakableBarrier extends CollisionEntityModel implements IVulnerableEntity {
-    private int health;
-    private final int maxHealth;
+    private double health;
+    private final double maxHealth;
     private Predicate<IEntity> blockingCondition = e -> e instanceof Projectile;
 
     public BreakableBarrier(Coordinates pos, GameModel gameModel) {
@@ -22,7 +22,7 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
     }
 
     @Override
-    public void takeDamage(int damage) {
+    public void takeDamage(double damage) {
         health -= damage;
         if (health <= 0) {
             despawn();
@@ -30,17 +30,20 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
     }
 
     @Override
-    public int getHealth() {
+    public void takeDOT(double damage) {}
+
+    @Override
+    public double getHealth() {
         return health;
     }
 
     @Override
-    public int getMaxHealth() {
+    public double getMaxHealth() {
         return maxHealth;
     }
 
     @Override
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 

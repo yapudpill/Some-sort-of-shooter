@@ -9,15 +9,15 @@ import java.util.function.Consumer;
  * Listener for collisions that apply damage to vulnerable entities that can be affected.
  */
 public class DamageListener implements CollisionListener {
-    private final int damage;
+    private final double damage;
     private final Consumer<IVulnerableEntity> onHit;
 
-    public DamageListener(int damage, Consumer<IVulnerableEntity> onHit) {
+    public DamageListener(double damage, Consumer<IVulnerableEntity> onHit) {
         this.damage = damage;
         this.onHit = onHit;
     }
 
-    public DamageListener(int damage) {
+    public DamageListener(double damage) {
         this.damage = damage;
         this.onHit = e -> {};
     }

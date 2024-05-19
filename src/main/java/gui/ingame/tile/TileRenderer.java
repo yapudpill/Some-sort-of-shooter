@@ -1,6 +1,6 @@
 package gui.ingame.tile;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Renders one tile, should be in a square shape

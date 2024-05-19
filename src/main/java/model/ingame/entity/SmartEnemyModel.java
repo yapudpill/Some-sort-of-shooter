@@ -19,7 +19,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
     private Projectile projectileInstance;
 
     public SmartEnemyModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 3.6, 50, 0.9,0.9, gameModel);
+        super(pos, 3.6, 50, 0.9,0.9, gameModel, 0);
         player = gameModel.getPlayer();
         setWeapon(new PistolModel(this, gameModel));
         shootingTimer = new ModelTimer(1, true, () -> {
@@ -47,7 +47,7 @@ public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity 
             }
         } else {
             stopped = false;
-            pathFinder.handlePathFindingUpdate(this, player.getPos());
+            pathFinder.handlePathFindingUpdate(this, player.getPos(),true);
         }
         super.update(delta);
     }

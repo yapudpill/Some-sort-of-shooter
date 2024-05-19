@@ -13,14 +13,14 @@ import util.Coordinates;
  */
 public abstract class Projectile extends CollisionEntityModel implements IMobileEntity, IEffectEntity {
     protected final ProjectileWeaponModel sourceWeapon;
-    protected final int damage;
+    protected final double damage;
     protected final MovementHandler movementHandler;
     protected boolean active;
 
-    public Projectile(Coordinates pos, ProjectileWeaponModel source, double width, double height, int damage, GameModel gameModel) {
+    public Projectile(Coordinates pos, ProjectileWeaponModel source, double width, double height, double damage, GameModel gameModel) {
         super(pos, width, height, gameModel);
-        this.damage = damage;
         this.sourceWeapon = source;
+        this.damage = damage*sourceWeapon.owner.getDamageMultiplier();
         this.movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         this.active = true;
     }

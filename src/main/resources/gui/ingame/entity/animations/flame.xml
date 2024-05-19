@@ -1,0 +1,8 @@
+<animationGroup default="flame">
+    <animation endReachedBehaviour="LOOPING" id="flame">
+        <frame time="0.1" path="sprites/weapon/flame-projectile/flame1.png"/>
+        <frame time="0.2" path="sprites/weapon/flame-projectile/flame2.png"/>
+        <frame time="0.3" path="sprites/weapon/flame-projectile/flame3.png"/>
+        <frame time="0.4" path="sprites/weapon/flame-projectile/flame4.png"/>
+    </animation>
+</animationGroup>

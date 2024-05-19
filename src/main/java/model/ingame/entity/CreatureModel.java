@@ -1,6 +1,7 @@
 package model.ingame.entity;
 
 import model.ingame.GameModel;
+import model.ingame.ModelTimer;
 import model.ingame.physics.MovementHandler;
 import model.ingame.physics.SlidingListener;
 import util.Coordinates;
@@ -10,10 +11,12 @@ import util.Coordinates;
  */
 public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity {
     protected MovementHandler movementHandler;
-    protected int health;
-    protected int maxHealth;
+    protected double health;
+    protected double maxHealth;
+    protected double regen;
+    protected ModelTimer damage_over_time;
 
-    public CreatureModel(Coordinates pos, double speed, int maxHealth, double width, double height, GameModel gameModel) {
+    public CreatureModel(Coordinates pos, double speed, double maxHealth, double width, double height, GameModel gameModel, double regen) {
         super(pos, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
@@ -21,6 +24,9 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
 
         movementHandler.setSpeed(speed);
         addBlockedMovementListener(new SlidingListener());
+        this.regen = regen;
+        damage_over_time = new ModelTimer(1,true, this::heal,gameModel);
+        damage_over_time.start();
     }
 
     @Override
@@ -29,21 +35,30 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     }
 
     @Override
-    public void takeDamage(int damage) {
+    public void takeDamage(double damage) {
         health -= damage;
-        if (isDead()) {
+        if (isDead() && gameModel.getEntitySet().contains(this)) {
             despawn();
             gameModel.stats.killedEnemies++;
         }
     }
 
+    public void heal(){
+        takeDamage(-regen);
+        if (health > maxHealth) health = maxHealth;
+    }
+
+    public void takeDOT(double damage){
+        regen -= damage;
+    }
+
     @Override
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
     @Override
-    public int getMaxHealth() {
+    public double getMaxHealth() {
         return maxHealth;
     }
 
@@ -58,7 +73,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     }
 
     @Override
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = Math.min(health, maxHealth);
     }
 

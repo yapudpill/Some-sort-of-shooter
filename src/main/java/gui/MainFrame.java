@@ -1,15 +1,14 @@
 package gui;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.io.InputStream;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.plaf.synth.SynthLookAndFeel;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.io.InputStream;
 
 /**
  * The main <code>JFrame</code> object of this project, where everything is

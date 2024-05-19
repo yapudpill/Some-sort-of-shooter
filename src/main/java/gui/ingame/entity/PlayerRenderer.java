@@ -2,6 +2,8 @@ package gui.ingame.entity;
 
 import gui.ImageCache;
 import model.ingame.entity.PlayerModel;
+import model.ingame.weapon.ContinuousFireWeapon;
+import model.ingame.weapon.WeaponModel;
 import util.ImageLoader;
 
 import java.awt.*;
@@ -17,19 +19,28 @@ public class PlayerRenderer extends VulnerableAnimatedRenderer {
         super(entityModel, "animations/player1.xml");
     }
 
+    private void drawVerticalBar(Graphics g, double percentage, Color color) {
+        double width = getWidth() * 0.1;
+        double height = getHeight() * 0.8 * percentage;
+        double x = getWidth() - width;
+        double y = (getHeight() - height);
+        g.setColor(color);
+        g.fillRect((int) x, (int) y, (int) width, (int) height);
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // draw vertical bar representing the cool down of the weapon if there is one
-        if (((PlayerModel) entity).getWeapon() != null) {
-            double coolDown = ((PlayerModel) entity).getWeapon().getTimeLeft();
-            double maxCoolDown = ((PlayerModel) entity).getWeapon().getCoolDownDelay();
-            double width = getWidth() * 0.1;
-            double height = getHeight() * 0.8 * (1-(coolDown / maxCoolDown));
-            double x = getWidth() - width;
-            double y = (getHeight() - height);
-            g.setColor(Color.BLACK);
-            g.fillRect((int) x, (int) y, (int) width, (int) height);
+        WeaponModel weaponModel = ((PlayerModel) entity).getWeapon();
+        if (weaponModel != null) {
+            if (weaponModel instanceof ContinuousFireWeapon) {
+                drawVerticalBar(g, (double) ((ContinuousFireWeapon) weaponModel).getHeat() / ((ContinuousFireWeapon) weaponModel).getMaxheat(), Color.RED);
+            }
+            else {
+                drawVerticalBar(g, weaponModel.getTimeLeft() / weaponModel.getCoolDownDelay(), Color.BLACK);
+            }
         }
+
+
     }
 
     @Override

@@ -62,6 +62,7 @@ public class GameModel implements IUpdateable {
         floodFillPathFinder.setAvoidPredicate(avoidPredicate);
         WalkingEnemyModel.setPathFinder(floodFillPathFinder);
         SmartEnemyModel.setPathFinder(floodFillPathFinder);
+        LootEnnemy.setPathFinder(floodFillPathFinder);
         ExplodingEnemy.setPathFinder(floodFillPathFinder);
     }
 

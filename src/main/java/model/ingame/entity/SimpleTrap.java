@@ -7,7 +7,7 @@ import util.Coordinates;
  * A simple trap that deals damage to entities that step on it.
  */
 public class SimpleTrap extends AbstractTrapEntity {
-    private static final int DAMAGE = 20;
+    private static final double DAMAGE = 20;
     private static final double WIDTH = 1;
     private static final double HEIGHT = 1;
 
@@ -17,7 +17,7 @@ public class SimpleTrap extends AbstractTrapEntity {
 
     @Override
     protected void trigger(IVulnerableEntity entity) {
-        entity.takeDamage(DAMAGE);
+        entity.takeDamage(DAMAGE*owner.getDamageMultiplier());
         despawn();
     }
 }

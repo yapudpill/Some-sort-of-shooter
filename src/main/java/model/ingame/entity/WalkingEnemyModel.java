@@ -14,8 +14,9 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
     private final PlayerModel player;
 
     public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 2.4, 50, 0.8, 0.8, gameModel);
+        super(pos, 2.4, 50, 0.8, 0.8, gameModel, 0);
         player = gameModel.getPlayer();
+        setDamageMultiplier(2);
         addCollisionListener(e -> {
             for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
                 if (entity instanceof PlayerModel) {
@@ -42,7 +43,7 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
 
     @Override
     public void update(double delta) {
-        pathFinder.handlePathFindingUpdate(this, player.getPos());
+        pathFinder.handlePathFindingUpdate(this, player.getPos(),true);
         super.update(delta);
     }
 }

@@ -7,8 +7,8 @@ import model.ingame.entity.ICombatEntity;
  * Abstract class for all weapons that fire projectiles.
  */
 public abstract class ProjectileWeaponModel extends WeaponModel {
-    public ProjectileWeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {
-        super(name, identifier, gameModel, owner, coolDown);
+    public ProjectileWeaponModel(String name, String identifier, ICombatEntity owner, GameModel gameModel, double coolDown) {
+        super(name, identifier, owner, gameModel, coolDown);
     }
 
     public abstract Projectile createProjectile();
@@ -26,7 +26,7 @@ public abstract class ProjectileWeaponModel extends WeaponModel {
     public void fire() {
         Projectile projectile = createProjectile();
         projectile.setPos(owner.getPos());
-        projectile.getMovementHandler().setDirectionVector(this.directionVector);
+        projectile.getMovementHandler().setDirectionVector(getDirectionVector());
         gameModel.attachAsUpdateable(projectile);
         gameModel.addEntity(projectile);
     }

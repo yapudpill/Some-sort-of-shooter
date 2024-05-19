@@ -8,9 +8,9 @@ import model.ingame.physics.DamageListener;
  * Shotgun weapon model. Fires multiple bullets in a spread, but with a direction vector offset by a random value to simulate spread.
  */
 public class ShotGun extends ProjectileWeaponModel {
-
+    private boolean isSecondShot = false;
     public ShotGun(ICombatEntity owner, GameModel gameModel) {
-        super("Shotgun", "shotgun", gameModel, owner, 1);
+        super("Shotgun", "shotgun", owner, gameModel, 2);
     }
 
     @Override
@@ -26,10 +26,24 @@ public class ShotGun extends ProjectileWeaponModel {
             return false;
         }
         for (int i = 0; i < 5; i++) {
-            setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
             fire();
         }
-        coolDownTimer.start();
+        if (isSecondShot){
+            coolDownTimer.start();
+            isSecondShot = false;
+        }
+        else {
+            isSecondShot = true;
+        }
         return true;
+    }
+
+    @Override
+    public void fire() {
+        Projectile projectile = createProjectile();
+        projectile.setPos(owner.getPos());
+        projectile.getMovementHandler().setDirectionVector(getDirectionVector().rotate(Math.random() * 0.5 - 0.25));
+        gameModel.attachAsUpdateable(projectile);
+        gameModel.addEntity(projectile);
     }
 }

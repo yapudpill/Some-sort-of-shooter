@@ -16,4 +16,7 @@ public interface ICombatEntity extends IMobileEntity, IVulnerableEntity {
     WeaponModel getWeapon();
 
     void setWeapon(WeaponModel weapon);
+
+    double getDamageMultiplier();
+    void setDamageMultiplier(double damageMultiplier);
 }
