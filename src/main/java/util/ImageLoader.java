@@ -1,9 +1,11 @@
 package util;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
+/**
+ * Interface for loading images.
+ */
+@FunctionalInterface
 public interface ImageLoader {
-
-    BufferedImage load(String path, Class<?> resourceBase);
-
+    Image load(String path, Class<?> resourceBase);
 }

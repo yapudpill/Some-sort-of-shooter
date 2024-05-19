@@ -6,6 +6,9 @@ import model.level.tiles.VoidTileModel;
 import model.level.tiles.WaterTileModel;
 import model.level.tiles.SafeTileModel;
 
+/**
+ * A factory for creating tile renderers.
+ */
 public class TileRendererFactory {
     public static TileRenderer make(TileModel tileModel) {
         return switch (tileModel) {

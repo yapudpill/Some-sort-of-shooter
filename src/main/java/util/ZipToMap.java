@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Zips two lists into a map.
+ */
 public class ZipToMap {
     public static <K, V> Map<K, V> zipToMap(List<K> keys, List<V> values) {
         return IntStream.range(0, keys.size()).boxed()

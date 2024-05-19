@@ -9,6 +9,9 @@ import model.ingame.weapon.Projectile;
 import model.ingame.weapon.ProjectileWeaponModel;
 import util.Coordinates;
 
+/**
+ * Model for the smart enemy entity. Shoots at the player from a distance.
+ */
 public class SmartEnemyModel extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
     private boolean stopped = false;

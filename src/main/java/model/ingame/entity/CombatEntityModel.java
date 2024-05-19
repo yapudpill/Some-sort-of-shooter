@@ -4,6 +4,9 @@ import model.ingame.GameModel;
 import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
 
+/**
+ * Represents an entity that can move, attack and be attacked.
+ */
 public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity {
     protected WeaponModel weapon;
 

@@ -9,7 +9,7 @@ import java.awt.LayoutManager;
  * A layout manager that can center the components it manages and make them fill the parent as much as possible, while
  * keeping a given width/height ratio.
  * <p>
- * It makes the components overlap, thus it is intended to be used with layers.
+ * It is designed to be used with one child. Using it with multiple children will make them stack on each other.
  */
 public class RatioLayout implements LayoutManager {
     private final double widthHeightRatio;

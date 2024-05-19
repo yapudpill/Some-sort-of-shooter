@@ -1,7 +1,7 @@
 package gui.ingame.entity;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
@@ -12,9 +12,12 @@ import gui.IScalableComponent;
 import model.ingame.entity.IEntity;
 import util.Coordinates;
 
+/**
+ * Abstract class for rendering entities, providing the size and position of the **displayed** entity **before** being scaled.
+ */
 public abstract class AbstractEntityRenderer extends JComponent implements IScalableComponent {
     protected final IEntity entity;
-    private final Map<Predicate<IEntity>, BufferedImage> conditionsToRendering = new ConcurrentHashMap<>();
+    private final Map<Predicate<IEntity>, Image> conditionsToRendering = new ConcurrentHashMap<>();
 
     public AbstractEntityRenderer(IEntity entity) {
         this.entity = entity;
@@ -42,7 +45,7 @@ public abstract class AbstractEntityRenderer extends JComponent implements IScal
         return entity.getPos().add(getOriginalSize().multiply(-0.5));
     }
 
-    public void addRenderingCondition(Predicate<IEntity> condition, BufferedImage image) {
+    public void addRenderingCondition(Predicate<IEntity> condition, Image image) {
         conditionsToRendering.put(condition, image);
     }
 }

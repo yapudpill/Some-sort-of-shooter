@@ -2,6 +2,9 @@ package model.ingame.entity.behavior;
 
 import util.Coordinates;
 
+/**
+ * Represents a node in the grid used by the flood fill algorithm.
+ */
 public class Node {
     private final Coordinates coordinates;
     private int value;

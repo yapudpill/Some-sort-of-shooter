@@ -6,6 +6,9 @@ import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.KnifeWeapon;
 import util.Coordinates;
 
+/**
+ * Model for the walking enemy entity. Moves towards the player and attacks when close.
+ */
 public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
 

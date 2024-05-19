@@ -13,6 +13,10 @@ import model.ingame.weapon.ShotGun;
 import model.ingame.weapon.SimpleTrapPlacer;
 import model.ingame.weapon.WeaponConstructor;
 
+/**
+ * Utility class that provides static methods to parse the names of the elements of a scenario and return the
+ * corresponding constructors. Used for parsing scenarios from XML files
+ */
 public class ScenarioElementsParsers {
 
     public static WeaponConstructor parseWeapon(String name) {

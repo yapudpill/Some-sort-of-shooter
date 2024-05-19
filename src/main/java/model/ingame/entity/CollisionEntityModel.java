@@ -1,12 +1,5 @@
 package model.ingame.entity;
 
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Predicate;
-
 import model.ingame.GameModel;
 import model.ingame.physics.BlockedMovementEvent;
 import model.ingame.physics.BlockedMovementListener;
@@ -16,6 +9,18 @@ import model.ingame.physics.ExitEvent;
 import model.ingame.physics.ExitListener;
 import util.Coordinates;
 
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.Predicate;
+
+/**
+ * Represents an entity that can move and collide with other entities.
+ * On each collision, the collision listeners are notified, and on each blocked movement (e.g. by a tile), the blocked
+ * movement listeners are notified.
+ */
 public abstract class CollisionEntityModel extends EntityModel implements ICollisionEntity {
     private final List<CollisionListener> collisionListeners = new ArrayList<>();
     private final List<BlockedMovementListener> blockedMovementListeners = new ArrayList<>();

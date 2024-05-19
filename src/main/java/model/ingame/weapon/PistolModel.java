@@ -4,10 +4,13 @@ import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.DamageListener;
 
+/**
+ * A model for the pistol weapon. A simple weapon that shoots bullets.
+ */
 public class PistolModel extends ProjectileWeaponModel {
 
     public PistolModel(ICombatEntity owner, GameModel gameModel) {
-        super("Pistol", "pistol", gameModel, owner, 1);
+        super("Pistol", "pistol", gameModel, owner, 0.2);
     }
 
     @Override

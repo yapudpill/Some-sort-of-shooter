@@ -1,0 +1,55 @@
+<scenario endReachedBehaviour="LOOPING">
+    <interval type="oneshot" time="0.1">
+        <weapons>
+            <weapon name="ShotGun"/>
+            <weapon name="ShotGun"/>
+            <weapon name="ShotGun"/>
+            <weapon name="ShotGun"/>
+            <weapon name="ShotGun"/>
+        </weapons>
+        <enemies>
+
+        </enemies>
+        <miscs>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+        </miscs>
+    </interval>
+    <interval type="fixed" time="10">
+        <weapons>
+        </weapons>
+        <enemies>
+            <enemy rate="0.5" name="WalkingEnemy"/>
+        </enemies>
+        <miscs>
+        </miscs>
+    </interval>
+
+
+    <interval type="fixed" time="20">
+        <weapons>
+        </weapons>
+        <enemies>
+            <enemy rate="0.2" name="SmartEnemy"/>
+        </enemies>
+        <miscs>
+        </miscs>
+    </interval>
+
+    <interval type="fixed" time="30">
+        <weapons>
+        </weapons>
+        <enemies>
+            <enemy rate="0.2" name="ExplodingEnemy"/>
+        </enemies>
+        <miscs>
+        </miscs>
+    </interval>
+</scenario>

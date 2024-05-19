@@ -1,11 +1,13 @@
 package gui.ingame.entity;
 
-import java.awt.Graphics;
-
 import model.ingame.entity.IVulnerableEntity;
 
-public class VulnerableSpriteRenderer extends SpriteRenderer {
+import java.awt.*;
 
+/**
+ * Same as SpriteRenderer but with a health bar.
+ */
+public class VulnerableSpriteRenderer extends SpriteRenderer {
     public VulnerableSpriteRenderer(IVulnerableEntity entity, String path) {
         super(entity, path);
     }

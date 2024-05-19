@@ -3,6 +3,9 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import util.Coordinates;
 
+/**
+ * A model for bullets.
+ */
 public class BulletsModel extends Projectile {
     public static final double BULLET_SPEED = 12;
     public static final double BULLET_WIDTH = 0.6;

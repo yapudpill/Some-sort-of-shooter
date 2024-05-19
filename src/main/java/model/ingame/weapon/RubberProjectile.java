@@ -5,6 +5,9 @@ import model.ingame.physics.DamageListener;
 import model.ingame.physics.RicochetListener;
 import util.Coordinates;
 
+/**
+ * Rubber projectile model. Bounces off walls.
+ */
 public class RubberProjectile extends Projectile {
     public static final double RUBBER_WIDTH = 0.5;
     public static final double RUBBER_HEIGHT = 0.5;

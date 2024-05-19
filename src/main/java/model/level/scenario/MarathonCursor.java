@@ -5,14 +5,17 @@ import model.ingame.ModelTimer;
 import model.ingame.entity.EntityConstructor;
 import model.ingame.weapon.WeaponConstructor;
 import util.MathTools;
+import util.WeightedRandomGenerator;
 import util.ZipToMap;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Random;
-import java.util.stream.IntStream;
 
+/**
+ * Cursor for a marathon scenario. Keeps track of the current difficulty, updates it, and spawns enemies and weapons
+ * accordingly.
+ */
 public class MarathonCursor implements IScenarioCursor {
     private static final int MAX_DIFFICULTY = 30;
     private static final Random rng = new Random();
@@ -79,18 +82,19 @@ public class MarathonCursor implements IScenarioCursor {
 
             enemyGenerator.setElementRates(ZipToMap.zipToMap(
                 scenario.enemiesByDifficulty(),
-                getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)
+                MathTools.getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)
             ));
 
             weaponGenerator.setElementRates(ZipToMap.zipToMap(
                 scenario.weaponsByPower(),
-                getBinomialProbabilities(scenario.weaponsByPower().size(), weaponGeneratorP)
+                MathTools.getBinomialProbabilities(scenario.weaponsByPower().size(), weaponGeneratorP)
             ));
         }
     }
 
     @Override
-    public void update(double delta) {}
+    public void update(double delta) {
+    }
 
     private double adjustedDifficulty() {
         return 30 * Math.log(rawDifficulty + 1);
@@ -111,14 +115,7 @@ public class MarathonCursor implements IScenarioCursor {
         cooldownTimer.start();
     }
 
-    // TODO: optimize this, we compute similar things every time
-    private List<Double> getBinomialProbabilities(int n, double p) {
-        return IntStream
-            .range(0, n)
-            .mapToDouble(k -> Math.pow(p, k) * Math.pow(1 - p, n - k) * MathTools.nCR(n, k))
-            .boxed()
-            .toList();
-    }
+
 
     @Override
     public WeaponConstructor nextWeapon() {

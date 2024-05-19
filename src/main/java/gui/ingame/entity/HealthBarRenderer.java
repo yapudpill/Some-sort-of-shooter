@@ -1,10 +1,12 @@
 package gui.ingame.entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import model.ingame.entity.IVulnerableEntity;
 
+import java.awt.*;
+
+/**
+ * Utility class for rendering health bars.
+ */
 class HealthBarRenderer {
 
     static void drawBar(Graphics g, IVulnerableEntity entity, int width) {

@@ -19,6 +19,9 @@ import model.ingame.weapon.BulletsModel;
 import model.ingame.weapon.RocketProjectileModel;
 import model.ingame.weapon.RubberProjectile;
 
+/**
+ * Factory class for creating entity renderers based on the provided entity model.
+ */
 public class EntityRendererFactory {
     public static AbstractEntityRenderer make(IEntity entity) {
         return switch (entity) {

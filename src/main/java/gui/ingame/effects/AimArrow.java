@@ -1,17 +1,15 @@
 package gui.ingame.effects;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
-
-import javax.swing.JComponent;
-
 import gui.IScalableComponent;
 import model.ingame.entity.ICombatEntity;
 import util.Coordinates;
 
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Component that displays an arrow indicating the direction of the weapon of a combat entity.
+ */
 public class AimArrow extends JComponent implements IScalableComponent {
     private final ICombatEntity combatEntity;
 

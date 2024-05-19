@@ -1,11 +1,5 @@
 package gui.ingame;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Set;
-
-import javax.swing.JLayeredPane;
-
 import controller.PlayerController;
 import gui.FillLayout;
 import gui.ingame.effects.EffectsLayer;
@@ -14,8 +8,13 @@ import model.ingame.GameModel;
 import model.level.MapModel;
 import util.IUpdateable;
 
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Set;
+
 /**
- * The main area of the game, containing the map and the entities but NOT the HUD, buttons to exit, etc.
+ * The main area of the game, containing the different layers of the game.
  */
 public class GameMainArea extends JLayeredPane implements IUpdateable {
     private static final Integer TILES_LAYER = 0;

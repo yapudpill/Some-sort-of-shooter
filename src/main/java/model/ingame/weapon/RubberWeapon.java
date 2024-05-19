@@ -3,6 +3,9 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 
+/**
+ * Rubber gun weapon model. Fires rubber projectiles.
+ */
 public class RubberWeapon extends ProjectileWeaponModel {
 
     public RubberWeapon(ICombatEntity owner, GameModel gameModel) {

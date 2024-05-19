@@ -1,0 +1,33 @@
+<scenario endReachedBehaviour="INFINITE">
+    <interval type="oneshot" time="0.1">
+        <weapons>
+            <weapon name="Pistol"/>
+            <weapon name="Knife"/>
+            <weapon name="RocketLauncher"/>
+            <weapon name="ShotGun"/>
+            <weapon name="RubberWeapon"/>
+            <weapon name="TrapPlacer"/>
+        </weapons>
+        <enemies>
+            <enemy name="WalkingEnemy"/>
+        </enemies>
+        <miscs>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+            <misc name="Bandages"/>
+        </miscs>
+    </interval>
+    <interval type="fixed" time="1">
+        <weapons>
+        </weapons>
+        <enemies>
+            <enemy rate="0.1" name="WalkingEnemy"/>
+        </enemies>
+        <miscs>
+        </miscs>
+    </interval>
+</scenario>

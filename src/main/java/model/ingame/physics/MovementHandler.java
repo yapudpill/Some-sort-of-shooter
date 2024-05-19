@@ -4,8 +4,8 @@ import model.ingame.entity.IMobileEntity;
 import util.Coordinates;
 import util.IUpdateable;
 
-/*
- * The MovementHandlerModel class is used to handle the movement of a <code>IMobileEntity</code>.
+/**
+ * The MovementHandlerModel class is used to handle the movement of a {@link IMobileEntity}
  */
 public class MovementHandler implements IUpdateable {
     private final IMobileEntity entity;

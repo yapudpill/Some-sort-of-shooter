@@ -1,16 +1,14 @@
 package gui.launcher;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import controller.MainController;
 import gui.ImageCache;
 
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * The menu that is displayed on the home screen.
+ */
 public class HomeMenu extends JPanel {
 
     public HomeMenu(MainController mainController) {

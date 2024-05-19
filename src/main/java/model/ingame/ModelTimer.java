@@ -2,6 +2,10 @@ package model.ingame;
 
 import util.IUpdateable;
 
+/**
+ * A timer that can be used in the game model, updated using the game model's update loop. Needs a reference to the
+ * {@link GameModel} as it is an {@link IUpdateable} and needs to be attached to the game model's update loop.
+ */
 public class ModelTimer implements IUpdateable {
     private final double timerDuration;
     private final boolean repeats;

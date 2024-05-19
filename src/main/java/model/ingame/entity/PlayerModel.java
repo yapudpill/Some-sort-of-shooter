@@ -6,6 +6,9 @@ import model.ingame.physics.MovementHandler;
 import model.ingame.weapon.GravityGun;
 import util.Coordinates;
 
+/**
+ * Model for the player entity.
+ */
 public class PlayerModel extends CombatEntityModel {
     private static final double DEFAULT_SPEED = 5.3; // tile/s
     private static final double DASH_SPEED = 21;

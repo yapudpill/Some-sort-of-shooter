@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * Defines the behaviour when the end of the interval is reached.
+ */
 public enum EndReachedBehaviour {
 
     /** Values beyond last interval are not defined */

@@ -6,12 +6,15 @@ import model.ingame.entity.CombatEntityModel;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.entity.KnifeZoneEntity;
 
+/**
+ * A model for the knife weapon. The knife weapon is a melee weapon that deals damage in a small area around the attacker.
+ */
 public class KnifeWeapon extends WeaponModel {
     private static final double DMG_ZONE_ATTACKER_CENTER_SHIFT = 0.5;
     private static final double DMG_ZONE_WIDTH = 1;
     private static final double DMG_ZONE_HEIGHT = 1;
     private static final double ATTACK_DURATION = 0.4;
-    private static final double KNIFE_COOLDOWN = 0.3;
+    private static final double KNIFE_COOLDOWN = 0.41;
     private static final int DAMAGE = 10;
 
     private final ModelTimer attackDurationTimer;

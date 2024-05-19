@@ -5,6 +5,9 @@ import model.ingame.entity.behavior.FloodFillPathFinder;
 import model.ingame.physics.MovementHandler;
 import util.Coordinates;
 
+/**
+ * An enemy that explodes when it comes into contact with the player or a breakable barrier.
+ */
 public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
     private final PlayerModel player;

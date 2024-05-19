@@ -4,6 +4,12 @@ import model.ingame.GameModel;
 import util.Coordinates;
 import util.IUpdateable;
 
+/**
+ * A knife zone entity that damages entities that come into contact with it. Despawns when it hits an entity.
+ * The knife should handle the despawning of the knife zone entity.
+ * <p>
+ * The zone stays in the direction of the attacker's weapon or movement.
+ */
 public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable {
     private final CombatEntityModel attacker;
     private final double shift;
@@ -25,7 +31,7 @@ public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable
 
     // Used for rendering
     public Coordinates getDirection() {
-        if (!attacker.getMovementHandler().isMoving()) {
+        if (attacker.getWeapon() != null && !attacker.getMovementHandler().isMoving()) {
             Coordinates direction = attacker.getWeapon().getDirectionVector();
             if (direction != null) return direction.normalize();
         }

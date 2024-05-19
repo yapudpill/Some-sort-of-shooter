@@ -11,6 +11,9 @@ import model.level.scenario.MarathonScenario;
 import model.level.scenario.ScenarioParser;
 import util.Resource;
 
+/**
+ * Controller for the game. It is responsible for updating the model and the view, and for stopping the game when it ends
+ */
 public class GameController {
     final GameView gameView;
     private final GameModel gameModel;

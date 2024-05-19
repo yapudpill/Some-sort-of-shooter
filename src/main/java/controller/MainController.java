@@ -1,7 +1,5 @@
 package controller;
 
-import java.awt.EventQueue;
-
 import gui.MainFrame;
 import gui.editor.EditorMenu;
 import gui.launcher.EndMenu;
@@ -12,6 +10,11 @@ import model.level.InvalidMapException;
 import model.level.scenario.InvalidScenarioException;
 import util.Resource;
 
+import java.awt.*;
+
+/**
+ * Controller for the main menu. It is responsible for loading the different menus and launch the game.
+ */
 public class MainController {
     private final MainFrame mainFrame;
 

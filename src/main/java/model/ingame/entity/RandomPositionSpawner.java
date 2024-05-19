@@ -8,6 +8,9 @@ import util.IUpdateable;
 import java.util.Random;
 import java.util.function.Supplier;
 
+/**
+ * Spawner that randomly places entities obtained from a supplier of EntityConstructor on the map.
+ */
 public class RandomPositionSpawner implements IUpdateable {
     private final Supplier<EntityConstructor> entityFactorySupplier;
     private final Random rng = new Random();
