@@ -11,6 +11,7 @@ import util.ZipToMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Cursor for a marathon scenario. Keeps track of the current difficulty, updates it, and spawns enemies and weapons
@@ -78,17 +79,15 @@ public class MarathonCursor implements IScenarioCursor {
 
         if (difficultyIncrease != 0) {
             double enemyGeneratorP = adjustedDifficulty() / (2 * MAX_DIFFICULTY);
-            double weaponGeneratorP = (1 - enemyGeneratorP);
+
 
             enemyGenerator.setElementRates(ZipToMap.zipToMap(
                 scenario.enemiesByDifficulty(),
                 MathTools.getBinomialProbabilities(scenario.enemiesByDifficulty().size(), enemyGeneratorP)
             ));
 
-            weaponGenerator.setElementRates(ZipToMap.zipToMap(
-                scenario.weaponsByPower(),
-                MathTools.getBinomialProbabilities(scenario.weaponsByPower().size(), weaponGeneratorP)
-            ));
+            double weaponsProba = 2. / scenario.weaponsByPower().size();
+            weaponGenerator.setElementRates(scenario.weaponsByPower().stream().collect(Collectors.toMap(k -> k, k -> weaponsProba)));
         }
     }
 
