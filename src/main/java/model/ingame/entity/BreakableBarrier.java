@@ -30,6 +30,9 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
     }
 
     @Override
+    public void takeDOT(int damage) {}
+
+    @Override
     public int getHealth() {
         return health;
     }
