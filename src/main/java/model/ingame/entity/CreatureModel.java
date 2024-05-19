@@ -34,7 +34,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     @Override
     public void takeDamage(int damage) {
         health -= damage;
-        if (isDead()) {
+        if (isDead() && gameModel.getEntitySet().contains(this)) {
             despawn();
             gameModel.stats.killedEnemies++;
         }

@@ -4,10 +4,9 @@ import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 
 public class GravityGun extends ProjectileWeaponModel {
-    public static final double COLLAPSE_DELAY = 0.9;
 
     public GravityGun(ICombatEntity owner, GameModel gameModel) {
-        super("gravitygun", "gravitygun", gameModel, owner, 5);
+        super("gravitygun", "gravitygun", owner, gameModel, 5);
 
     }
 
