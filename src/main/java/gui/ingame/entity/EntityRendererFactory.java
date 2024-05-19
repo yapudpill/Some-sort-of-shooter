@@ -57,8 +57,9 @@ public class EntityRendererFactory {
 
                 yield new ConditionalRenderer(e, Map.of(
                     toRender -> ((IVulnerableEntity) toRender).getHealth() >= 60, full,
-                    toRender -> ((IVulnerableEntity) toRender).getHealth() >= 30, mid,
-                    toRender -> true, weak
+                    toRender -> ((IVulnerableEntity) toRender).getHealth() >= 30
+                    && ((IVulnerableEntity) toRender).getHealth() < 60, mid,
+                    toRender -> ((IVulnerableEntity) toRender).getHealth() < 30, weak
                 ));
             }
             case FirstAidKit e  -> new SpriteRenderer(e, "sprites/firstaid.png");
