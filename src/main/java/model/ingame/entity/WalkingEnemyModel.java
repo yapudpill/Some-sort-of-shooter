@@ -19,6 +19,7 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
         player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(2.4);
+        setDamageMultiplier(2);
         addCollisionListener(e -> {
             for (ICollisionEntity entity : e.getInvolvedEntitiesList()) {
                 if (entity instanceof PlayerModel) {

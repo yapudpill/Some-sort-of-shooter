@@ -8,7 +8,7 @@ import util.Resource;
 public class Statistics {
     public final Resource mapResource;
     public final Resource scenarioResource;
-    public int killedEnemies, nbAttacks;
+    public int killedEnemies, nbAttacks, nbRegenUpgrade, nbSpeedUpgrade, nbDamageUpgrade, nbHealthUpgrade;
     public double survivedTime;
 
     public Statistics(Resource mapResource, Resource scenarioResource) {

@@ -9,9 +9,11 @@ import util.Coordinates;
  */
 public abstract class CombatEntityModel extends CreatureModel implements ICombatEntity {
     protected WeaponModel weapon;
+    protected double damageMultiplier;
 
-    public CombatEntityModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel, int regen) {
+    public CombatEntityModel(Coordinates pos, double maxHealth, double width, double height, GameModel gameModel, double regen) {
         super(pos, maxHealth, width, height, gameModel, regen);
+        damageMultiplier = 1;
         addCollisionListener(e -> {
             for (IEntity entity : e.getInvolvedEntitiesList()) {
                 if (shouldPickWeapons() && entity instanceof WeaponEntity weaponEntity) {
@@ -46,5 +48,15 @@ public abstract class CombatEntityModel extends CreatureModel implements ICombat
     @Override
     public void setWeapon(WeaponModel weapon) {
         this.weapon = weapon;
+    }
+
+    @Override
+    public double getDamageMultiplier() {
+        return damageMultiplier;
+    }
+
+    @Override
+    public void setDamageMultiplier(double damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
     }
 }

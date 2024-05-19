@@ -9,7 +9,7 @@ import java.util.function.DoubleSupplier;
  * Renderer for entities that are represented by an animated sprite and should display a health bar.
  */
 public class VulnerableAnimatedRenderer extends AnimatedEntityRenderer{
-    private int lastHealth;
+    private double lastHealth;
     private int alpha = 0;
     private int red = 0;
     private int green= 0;

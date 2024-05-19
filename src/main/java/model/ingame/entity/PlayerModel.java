@@ -13,7 +13,6 @@ import util.Coordinates;
 public class PlayerModel extends CombatEntityModel {
     private static final double DEFAULT_SPEED = 5.3; // tile/s
     private static final double DASH_SPEED = 21;
-    private static final int MAX_HEALTH = 100;
 
     private final ModelTimer dashTimer;
     private final ModelTimer pickWeaponTimer;
@@ -21,7 +20,7 @@ public class PlayerModel extends CombatEntityModel {
 
 
     public PlayerModel(Coordinates pos, GameModel gameModel) {
-        super(pos, MAX_HEALTH, 0.8, 0.8, gameModel,0);
+        super(pos, 100, 0.8, 0.8, gameModel,0);
         dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
         pickWeaponTimer = new ModelTimer(0.5, false, () -> {}, gameModel);
 
@@ -50,7 +49,7 @@ public class PlayerModel extends CombatEntityModel {
     }
 
     @Override
-    public void takeDamage(int damage) {
+    public void takeDamage(double damage) {
         health -= damage;
         if (isDead()) {
             despawn();
@@ -87,6 +86,44 @@ public class PlayerModel extends CombatEntityModel {
     public WeaponModel getOtherWeapon() {
         return otherWeapon;
     }
+
+    public void upgradeRandom(){
+        for (int i = 0; i < 2; i++) {
+            int a = (int) (Math.random() * 4);
+            switch (a){
+                case 0:
+                    upgradeDamage();
+                    break;
+                case 1:
+                    upgradeHealth();
+                    break;
+                case 2:
+                    upgradeRegen();
+                    break;
+                case 3:
+                    upgradeSpeed();
+                    break;
+            }
+        }
+    }
+
+    public void upgradeRegen(){
+        regen+=0.2;
+        gameModel.stats.nbRegenUpgrade++;
+    }
+    public void upgradeSpeed(){
+        movementHandler.setSpeed(DEFAULT_SPEED+0.5);
+        gameModel.stats.nbSpeedUpgrade++;
+    }
+    public void upgradeDamage(){
+        damageMultiplier+=0.2;
+        gameModel.stats.nbDamageUpgrade++;
+    }
+    public void upgradeHealth(){
+        health+=20;
+        gameModel.stats.nbHealthUpgrade++;
+    }
+
 
     public double getDashTimeLeft() {
         return dashTimer.getTimeLeft();

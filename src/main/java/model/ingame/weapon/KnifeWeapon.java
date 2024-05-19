@@ -16,8 +16,8 @@ public class KnifeWeapon extends WeaponModel {
     private static final double DMG_ZONE_HEIGHT = 1.6;
     private static final double ATTACK_DURATION = 0.4;
     private static final double KNIFE_COOLDOWN = 0.41;
-    private static final int DAMAGE = 5;
-    private static final int DOT = 5;
+    private static final double DAMAGE = 5;
+    private static final double DOT = 5;
 
     private final ModelTimer attackDurationTimer;
 
@@ -53,7 +53,7 @@ public class KnifeWeapon extends WeaponModel {
             DMG_ZONE_ATTACKER_CENTER_SHIFT,
             gameModel,
             (CombatEntityModel) owner,
-            (owner instanceof PlayerModel)?DAMAGE:2*DAMAGE,
+            owner.getDamageMultiplier() * DAMAGE,
             (owner instanceof PlayerModel)?DOT:0
         );
         gameModel.addEntity(damageZone);

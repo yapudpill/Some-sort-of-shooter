@@ -14,7 +14,7 @@ public class KnifeZoneEntity extends CollisionEntityModel implements IUpdateable
     private final CombatEntityModel attacker;
     private final double shift;
 
-    public KnifeZoneEntity(Coordinates pos, double width, double height, double shift, GameModel gameModel, CombatEntityModel attacker, int damage, int DOT) {
+    public KnifeZoneEntity(Coordinates pos, double width, double height, double shift, GameModel gameModel, CombatEntityModel attacker, double damage, double DOT) {
         super(pos, width, height, gameModel);
         this.attacker = attacker;
         this.shift = shift;

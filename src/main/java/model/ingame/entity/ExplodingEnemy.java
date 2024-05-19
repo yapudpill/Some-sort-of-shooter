@@ -41,7 +41,7 @@ public class ExplodingEnemy extends CombatEntityModel implements IEffectEntity {
     }
 
     @Override
-    public void takeDamage(int damage) {
+    public void takeDamage(double damage) {
         super.takeDamage(damage);
     }
 

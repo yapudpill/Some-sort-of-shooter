@@ -7,8 +7,11 @@ import util.Coordinates;
  * Represents a trap entity in the game.
  */
 public abstract class AbstractTrapEntity extends CollisionEntityModel {
+    ICombatEntity owner;
+
     public AbstractTrapEntity(Coordinates pos, double width, double height, GameModel gameModel, ICombatEntity owner) {
         super(pos, width, height, gameModel);
+        this.owner = owner;
         addCollisionListener(e -> {
             for (ICollisionEntity entity: e.getInvolvedEntitiesList()) {
                 if (entity != owner && entity instanceof IVulnerableEntity vulnerableEntity) {

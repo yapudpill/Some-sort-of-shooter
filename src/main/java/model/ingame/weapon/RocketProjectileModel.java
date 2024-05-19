@@ -12,7 +12,7 @@ public class RocketProjectileModel extends Projectile {
     public static final double ROCKET_SPEED = 4;
     public static final double ROCKET_WIDTH = 0.9;
     public static final double ROCKET_HEIGHT = 0.9;
-    public static final int ROCKET_DAMAGE = 30;
+    public static final double ROCKET_DAMAGE = 30;
 
     public static final int ROCKET_EXPLOSION_RADIUS = 2;
     public static final int ROCKET_EXPLOSION_DURATION = 1;

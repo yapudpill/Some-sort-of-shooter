@@ -11,12 +11,12 @@ import util.Coordinates;
  */
 public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity {
     protected MovementHandler movementHandler;
-    protected int health;
-    protected int maxHealth;
-    protected int regen;
+    protected double health;
+    protected double maxHealth;
+    protected double regen;
     protected ModelTimer damage_over_time;
 
-    public CreatureModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel, int regen) {
+    public CreatureModel(Coordinates pos, double maxHealth, double width, double height, GameModel gameModel, double regen) {
         super(pos, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
@@ -32,7 +32,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     }
 
     @Override
-    public void takeDamage(int damage) {
+    public void takeDamage(double damage) {
         health -= damage;
         if (isDead() && gameModel.getEntitySet().contains(this)) {
             despawn();
@@ -45,17 +45,17 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
         if (health > maxHealth) health = maxHealth;
     }
 
-    public void takeDOT(int damage){
+    public void takeDOT(double damage){
         regen -= damage;
     }
 
     @Override
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
     @Override
-    public int getMaxHealth() {
+    public double getMaxHealth() {
         return maxHealth;
     }
 
@@ -70,7 +70,7 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     }
 
     @Override
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = Math.min(health, maxHealth);
     }
 

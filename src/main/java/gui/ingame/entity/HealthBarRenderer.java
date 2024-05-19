@@ -14,7 +14,7 @@ class HealthBarRenderer {
         g.fillRect(0, 0, width, 2);
 
         g.setColor(Color.GREEN);
-        int greenWidth = width * entity.getHealth() / entity.getMaxHealth();
+        int greenWidth = (int) (width * entity.getHealth() / entity.getMaxHealth());
         g.fillRect(0, 0, greenWidth, 2);
     }
 }
