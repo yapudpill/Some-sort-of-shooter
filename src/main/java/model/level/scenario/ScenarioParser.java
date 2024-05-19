@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Utility class that provides static methods to parse a scenario from an XML file
+ */
 public class ScenarioParser {
 
     private static Pair<Double, IGameContext> parseContextElement(Element contextElement) throws InvalidScenarioException {

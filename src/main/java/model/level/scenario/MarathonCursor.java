@@ -5,12 +5,17 @@ import model.ingame.ModelTimer;
 import model.ingame.entity.EntityConstructor;
 import model.ingame.weapon.WeaponConstructor;
 import util.MathTools;
+import util.WeightedRandomGenerator;
 import util.ZipToMap;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+/**
+ * Cursor for a marathon scenario. Keeps track of the current difficulty, updates it, and spawns enemies and weapons
+ * accordingly.
+ */
 public class MarathonCursor implements IScenarioCursor {
     private static final int MAX_DIFFICULTY = 30;
     private static final Random rng = new Random();

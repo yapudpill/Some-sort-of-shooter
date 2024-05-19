@@ -1,12 +1,15 @@
 package model.level;
 
+import model.ingame.entity.ICollisionEntity;
+import model.ingame.entity.IEntity;
+
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
 
-import model.ingame.entity.ICollisionEntity;
-import model.ingame.entity.IEntity;
-
+/**
+ * Represents a tile in the game. It decides which entities can enter it and what happens when they do.
+ */
 public abstract class TileModel {
     protected final Set<ICollisionEntity> collidables = new CopyOnWriteArraySet<>();
     protected Set<Predicate<IEntity>> canEnterConditions = new CopyOnWriteArraySet<>();

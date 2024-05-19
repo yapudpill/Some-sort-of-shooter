@@ -3,6 +3,9 @@ package model.ingame.entity.behavior;
 import model.level.MapModel;
 import util.Coordinates;
 
+/**
+ * Represents the grid of nodes used by the flood fill algorithm.
+ */
 public class NodeGrid {
     public static Node[][] nodes;
 

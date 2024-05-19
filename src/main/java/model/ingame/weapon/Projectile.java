@@ -8,6 +8,9 @@ import model.ingame.entity.IVulnerableEntity;
 import model.ingame.physics.MovementHandler;
 import util.Coordinates;
 
+/**
+ * Abstract class for all projectiles in the game. Keeps a reference to the weapon that fired it and the damage it deals.
+ */
 public abstract class Projectile extends CollisionEntityModel implements IMobileEntity, IEffectEntity {
     protected final ProjectileWeaponModel sourceWeapon;
     protected final int damage;

@@ -1,11 +1,14 @@
 package model.ingame.entity;
 
-import java.util.function.Predicate;
-
 import model.ingame.GameModel;
 import model.ingame.weapon.Projectile;
 import util.Coordinates;
 
+import java.util.function.Predicate;
+
+/**
+ * A breakable barrier that can be destroyed. Represented by an entity instead of a tile, as the tiles are not as dynamic.
+ */
 public class BreakableBarrier extends CollisionEntityModel implements IVulnerableEntity {
     private int health;
     private final int maxHealth;

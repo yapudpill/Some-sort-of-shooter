@@ -4,6 +4,9 @@ import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.DamageListener;
 
+/**
+ * Shotgun weapon model. Fires multiple bullets in a spread, but with a direction vector offset by a random value to simulate spread.
+ */
 public class ShotGun extends ProjectileWeaponModel {
 
     public ShotGun(ICombatEntity owner, GameModel gameModel) {

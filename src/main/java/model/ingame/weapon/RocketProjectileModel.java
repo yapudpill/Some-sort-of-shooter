@@ -5,6 +5,9 @@ import model.ingame.entity.ExplosionZoneEntity;
 import model.ingame.entity.IVulnerableEntity;
 import util.Coordinates;
 
+/**
+ * Rocket projectile model. Explodes on impact by spawning an explosion zone entity.
+ */
 public class RocketProjectileModel extends Projectile {
     public static final double ROCKET_SPEED = 4;
     public static final double ROCKET_WIDTH = 0.9;

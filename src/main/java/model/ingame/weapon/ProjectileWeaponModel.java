@@ -3,6 +3,9 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 
+/**
+ * Abstract class for all weapons that fire projectiles.
+ */
 public abstract class ProjectileWeaponModel extends WeaponModel {
     public ProjectileWeaponModel(String name, String identifier, GameModel gameModel, ICombatEntity owner, double coolDown) {
         super(name, identifier, gameModel, owner, coolDown);
