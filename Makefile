@@ -4,6 +4,7 @@
 SRC_DIR = src/main/java
 RES_DIR = src/main/resources
 BUILD_DIR = build
+JAR_DIR = jar
 
 MAIN_CLASS = controller.MainController
 MAIN_CLASS_FILE = controller/MainController.java
@@ -25,5 +26,8 @@ copy-resources: compile
 run: copy-resources
 	cd $(BUILD_DIR) && java $(MAIN_CLASS)
 
+jar: compile copy-resources
+	jar cfe $(JAR_DIR)/shooter.jar $(MAIN_CLASS) -C $(BUILD_DIR) .
+
 clean:
-	rm -rf $(BUILD_DIR)
+	rm -rf $(BUILD_DIR) $(JAR_DIR)
