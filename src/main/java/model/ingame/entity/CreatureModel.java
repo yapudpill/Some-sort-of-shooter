@@ -1,6 +1,7 @@
 package model.ingame.entity;
 
 import model.ingame.GameModel;
+import model.ingame.ModelTimer;
 import model.ingame.physics.MovementHandler;
 import model.ingame.physics.SlidingListener;
 import util.Coordinates;
@@ -9,12 +10,17 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
     protected MovementHandler movementHandler;
     protected int health;
     protected int maxHealth;
+    protected int regen;
+    protected ModelTimer damage_over_time;
 
-    public CreatureModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel) {
+    public CreatureModel(Coordinates pos, int maxHealth, double width, double height, GameModel gameModel, int regen) {
         super(pos, width, height, gameModel);
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         addBlockedMovementListener(new SlidingListener());
+        this.regen = regen;
+        damage_over_time = new ModelTimer(1,true, this::heal,gameModel);
+        damage_over_time.start();
     }
 
     @Override
@@ -29,6 +35,15 @@ public abstract class CreatureModel extends CollisionEntityModel implements IVul
             despawn();
             gameModel.stats.killedEnemies++;
         }
+    }
+
+    public void heal(){
+        takeDamage(-regen);
+        if (health > maxHealth) health = maxHealth;
+    }
+
+    public void takeDOT(int damage){
+        regen -= damage;
     }
 
     @Override

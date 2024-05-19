@@ -3,30 +3,27 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.ICombatEntity;
-import model.ingame.physics.DamageListener;
 
-public class Gatling extends ProjectileWeaponModel implements ContinuousFireWeapon {
+public class FlameThrower extends ProjectileWeaponModel implements ContinuousFireWeapon {
     private boolean isFiring;
     ModelTimer inBetweenTimer;
     int heat;
     int maxheat;
     ModelTimer coolingTimer;
 
-    public Gatling(ICombatEntity owner, GameModel gameModel) {
-        super("Gatling", "Gatling", owner, gameModel, 0);
+    public FlameThrower(ICombatEntity owner, GameModel gameModel) {
+        super("Flamethrower", "flamethrower", owner, gameModel, 0);
         this.isFiring = false;
         this.heat = 0;
-        this.maxheat = 100;
+        this.maxheat = 300;
         this.coolingTimer = new ModelTimer(0.016, true, this::cooling,gameModel);
         this.coolingTimer.start();
-        this.inBetweenTimer = new ModelTimer(0.048, false, this::fire, gameModel);
+        this.inBetweenTimer = new ModelTimer(0.016, false, this::fire, gameModel);
     }
 
     @Override
     public Projectile createProjectile() {
-        return new BulletsModel(owner.getPos(), this, gameModel) {{
-            addCollisionListener(new DamageListener(damage, e -> despawn()));
-        }};
+        return new FlameProjectileModel(getOwner().getPos(), this, gameModel);
     }
 
     @Override
@@ -46,7 +43,7 @@ public class Gatling extends ProjectileWeaponModel implements ContinuousFireWeap
         if (isFiring && heat < maxheat) {
             Projectile projectile = createProjectile();
             projectile.setPos(owner.getPos());
-            projectile.getMovementHandler().setDirectionVector(getDirectionVector().rotate((Math.random() * 0.32 - 0.16)));
+            projectile.getMovementHandler().setDirectionVector(getDirectionVector().rotate((Math.random() * 0.50 - 0.25)));
             gameModel.attachAsUpdateable(projectile);
             gameModel.addEntity(projectile);
             inBetweenTimer.start();

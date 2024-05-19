@@ -12,7 +12,7 @@ public class WalkingEnemyModel extends CombatEntityModel implements IEffectEntit
     private final PlayerModel player;
 
     public WalkingEnemyModel(Coordinates pos, GameModel gameModel) {
-        super(pos, 50, 0.8, 0.8, gameModel);
+        super(pos, 50, 0.8, 0.8, gameModel, 0);
         player = gameModel.getPlayer();
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(2.4);

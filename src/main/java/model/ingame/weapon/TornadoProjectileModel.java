@@ -13,7 +13,7 @@ public class TornadoProjectileModel extends Projectile{
     public TornadoProjectileModel(Coordinates pos, ProjectileWeaponModel source, GameModel gameModel) {
         super(pos, source, TORNADO_WIDTH, TORNADO_HEIGHT, TORNADO_DAMAGE, gameModel);
         movementHandler.setSpeed(TORNADO_SPEED);
-        addCollisionListener(new DamageListener(TORNADO_DAMAGE, e -> {}));
+        addCollisionListener(new DamageListener(TORNADO_DAMAGE));
         addBlockedMovementListener(e -> despawn());
     }
 }

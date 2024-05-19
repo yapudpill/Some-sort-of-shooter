@@ -3,7 +3,7 @@ package model.ingame.entity;
 import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.physics.MovementHandler;
-import model.ingame.weapon.TornadoGun;
+import model.ingame.weapon.FlameThrower;
 import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
 
@@ -18,13 +18,13 @@ public class PlayerModel extends CombatEntityModel {
 
 
     public PlayerModel(Coordinates pos, GameModel gameModel) {
-        super(pos, MAX_HEALTH, 0.8, 0.8, gameModel);
+        super(pos, MAX_HEALTH, 0.8, 0.8, gameModel,0);
         dashTimer = new ModelTimer(0.5, false, () -> movementHandler.setSpeed(DEFAULT_SPEED), gameModel);
         pickWeaponTimer = new ModelTimer(0.5, false, () -> {}, gameModel);
 
         movementHandler = new MovementHandler(this, gameModel.getPhysicsEngine());
         movementHandler.setSpeed(DEFAULT_SPEED);
-        setWeapon(new TornadoGun(this, gameModel));
+        setWeapon(new FlameThrower(this, gameModel));
 
     }
 

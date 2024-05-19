@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import gui.ImageCache;
 import model.ingame.entity.PlayerModel;
-import model.ingame.weapon.Gatling;
+import model.ingame.weapon.ContinuousFireWeapon;
 import util.ImageLoader;
 
 public class PlayerRenderer extends VulnerableAnimatedRenderer {
@@ -30,14 +30,14 @@ public class PlayerRenderer extends VulnerableAnimatedRenderer {
             g.fillRect((int) x, (int) y, (int) width, (int) height);
         }
         // draw vertical bar representing the heat of the weapon if there is one
-        if (((PlayerModel) entity).getWeapon() instanceof Gatling) {
-            double coolDown = ((Gatling) ((PlayerModel) entity).getWeapon()).getHeat();
-            double maxCoolDown = ((Gatling) ((PlayerModel) entity).getWeapon()).getMaxheat();
+        if (((PlayerModel) entity).getWeapon() instanceof ContinuousFireWeapon) {
+            double coolDown = ((ContinuousFireWeapon) ((PlayerModel) entity).getWeapon()).getHeat();
+            double maxCoolDown = ((ContinuousFireWeapon) ((PlayerModel) entity).getWeapon()).getMaxheat();
             double width = getWidth() * 0.1;
             double height = getHeight() * 0.8 * (coolDown / maxCoolDown);
             double x = getWidth() - width;
             double y = (getHeight() - height);
-            g.setColor(Color.ORANGE);
+            g.setColor(Color.RED);
             g.fillRect((int) x, (int) y, (int) width, (int) height);
         }
     }

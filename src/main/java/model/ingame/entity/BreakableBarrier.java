@@ -36,6 +36,8 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
         return maxHealth;
     }
 
+    public void takeDOT(int damage){}
+
     @Override
     public void setHealth(int health) {
         this.health = health;

@@ -10,7 +10,7 @@ import java.util.Map;
 
 import gui.ingame.GameMainArea;
 import model.ingame.entity.PlayerModel;
-import model.ingame.weapon.Gatling;
+import model.ingame.weapon.ContinuousFireWeapon;
 import model.ingame.weapon.ShotGun;
 import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
@@ -111,7 +111,7 @@ public class PlayerController implements KeyListener, MouseListener, MouseMotion
                 switch (weapon){
                     case ShotGun ignored ->
                             getKeyActionMap(controlledPlayerModel).get(button).run();
-                    case Gatling ignored ->
+                    case ContinuousFireWeapon ignored ->
                             getKeyActionMap(controlledPlayerModel).get(button).run();
                     default -> {}
                 }
