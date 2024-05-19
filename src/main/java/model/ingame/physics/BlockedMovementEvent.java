@@ -4,6 +4,9 @@ import model.ingame.entity.IMobileEntity;
 import model.level.TileModel;
 import util.Coordinates;
 
+/**
+ * Event that is fired when an entity's movement is blocked.
+ */
 public class BlockedMovementEvent {
     private final IMobileEntity blockedEntity;
     private final boolean outOfBounds;

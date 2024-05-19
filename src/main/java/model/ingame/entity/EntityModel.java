@@ -4,6 +4,10 @@ import model.ingame.GameModel;
 import util.Coordinates;
 import util.IUpdateable;
 
+/**
+ * Represents an entity in the game. Entities are objects that can be placed in the game with a position and interact
+ * with other entities.
+ */
 public abstract class EntityModel implements IEntity {
     protected GameModel gameModel;
     protected Coordinates pos;
@@ -41,5 +45,4 @@ public abstract class EntityModel implements IEntity {
     public double getHeight() {
         return height;
     }
-
 }

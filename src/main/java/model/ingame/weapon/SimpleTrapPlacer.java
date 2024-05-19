@@ -5,6 +5,9 @@ import model.ingame.entity.AbstractTrapEntity;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.entity.SimpleTrap;
 
+/**
+ * Simple trap placer weapon model. Places simple traps.
+ */
 public class SimpleTrapPlacer extends AbstractTrapPlacer {
     private static final String NAME = "Simple Trap Placer (%d)";
 

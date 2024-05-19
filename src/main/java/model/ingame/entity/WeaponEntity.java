@@ -5,6 +5,9 @@ import model.ingame.weapon.WeaponConstructor;
 import model.ingame.weapon.WeaponModel;
 import util.Coordinates;
 
+/**
+ * An entity that represents a weapon.
+ */
 public class WeaponEntity extends CollisionEntityModel {
     public static EntityConstructor weaponEntityFactory(WeaponConstructor weaponFactory) {
         if (weaponFactory == null) return null;

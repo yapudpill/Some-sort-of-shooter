@@ -7,6 +7,9 @@ import util.Coordinates;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * An entity that deals damage to all entities it collides with. Automatically despawns after a set duration.
+ */
 public class ExplosionZoneEntity extends CollisionEntityModel {
     private final ModelTimer despawnTimer;
 

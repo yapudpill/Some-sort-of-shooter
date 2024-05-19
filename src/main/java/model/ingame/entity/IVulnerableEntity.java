@@ -1,5 +1,8 @@
 package model.ingame.entity;
 
+/**
+ * Interface for entities that can take damage.
+ */
 public interface IVulnerableEntity extends IEntity {
     int getHealth();
     void setHealth(int health);

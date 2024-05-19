@@ -6,6 +6,9 @@ import util.Coordinates;
 
 import java.util.function.Predicate;
 
+/**
+ * A breakable barrier that can be destroyed. Represented by an entity instead of a tile, as the tiles are not as dynamic.
+ */
 public class BreakableBarrier extends CollisionEntityModel implements IVulnerableEntity {
     private int health;
     private final int maxHealth;
@@ -35,8 +38,6 @@ public class BreakableBarrier extends CollisionEntityModel implements IVulnerabl
     public int getMaxHealth() {
         return maxHealth;
     }
-
-    public void takeDOT(int damage){}
 
     @Override
     public void setHealth(int health) {

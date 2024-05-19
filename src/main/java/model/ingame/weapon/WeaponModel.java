@@ -6,6 +6,9 @@ import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.PhysicsEngineModel;
 import util.Coordinates;
 
+/**
+ * Abstract weapon model. All weapons inherit from this class.
+ */
 public abstract class WeaponModel {
     protected final PhysicsEngineModel physicsEngine;
     protected final String name, identifier;

@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Queue;
 import java.util.function.Predicate;
 
+/**
+ * This class is used to find the shortest path to a target using a flood fill algorithm.
+ */
 public class FloodFillPathFinder {
     private IEntity entityFinder;
     private NodeGrid nodeGrid;

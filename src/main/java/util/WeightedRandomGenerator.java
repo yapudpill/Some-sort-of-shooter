@@ -1,10 +1,15 @@
-package model.level.scenario;
+package util;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * A weighted random generator. Generates elements randomly based on their weight.
+ *
+ * @param <E> Type of the elements to generate
+ */
 public class WeightedRandomGenerator<E> {
     private final Random rng = new Random();
 

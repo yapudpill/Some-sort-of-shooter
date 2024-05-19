@@ -1,10 +1,6 @@
 package model.level;
 
-import model.ingame.entity.BreakableBarrier;
-import model.ingame.entity.EntityConstructor;
-import model.ingame.entity.ICollisionEntity;
-import model.ingame.entity.IEntity;
-import model.ingame.entity.PlayerModel;
+import model.ingame.entity.*;
 import model.level.tiles.SafeTileModel;
 import model.level.tiles.StandardTileModel;
 import model.level.tiles.VoidTileModel;
@@ -20,6 +16,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * Represents the map of the game. It contains the tiles of the map.
+ */
 public class MapModel {
     private final TileModel[][] tiles;
     private final List<Pair<Coordinates, EntityConstructor>> initialEntities;
@@ -218,8 +217,8 @@ public class MapModel {
         dy *= 2;
 
         for (; n > 0; --n) {
-            boolean notBeginnigOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
-            if (!canEnterAround(entity,x, y) && notBeginnigOrEnd) {
+            boolean notBeginningOrEnd = x != x0 || y != y0 && x != x1 || y != y1;
+            if (!canEnterAround(entity,x, y) && notBeginningOrEnd) {
                 return true;
             }
 

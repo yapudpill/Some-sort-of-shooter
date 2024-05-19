@@ -4,6 +4,9 @@ import model.ingame.GameModel;
 import model.ingame.entity.AbstractTrapEntity;
 import model.ingame.entity.ICombatEntity;
 
+/**
+ * Abstract class for weapons that place traps.
+ */
 public abstract class AbstractTrapPlacer extends WeaponModel {
     protected int trapCount;
 

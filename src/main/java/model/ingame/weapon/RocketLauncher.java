@@ -3,6 +3,9 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 
+/**
+ * Rocket launcher weapon model. Fires rocket projectiles.
+ */
 public class RocketLauncher extends ProjectileWeaponModel {
     private static final int COOL_DOWN = 2;
 

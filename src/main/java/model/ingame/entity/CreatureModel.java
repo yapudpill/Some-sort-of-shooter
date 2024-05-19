@@ -6,6 +6,9 @@ import model.ingame.physics.MovementHandler;
 import model.ingame.physics.SlidingListener;
 import util.Coordinates;
 
+/**
+ * Represents a creature that can move and be attacked.
+ */
 public abstract class CreatureModel extends CollisionEntityModel implements IVulnerableEntity, IMobileEntity {
     protected MovementHandler movementHandler;
     protected int health;

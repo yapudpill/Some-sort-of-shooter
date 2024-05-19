@@ -7,11 +7,14 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Predicate;
 
+/**
+ * Represents a tile in the game. It decides which entities can enter it and what happens when they do.
+ */
 public abstract class TileModel {
     protected final Set<ICollisionEntity> collidables = new CopyOnWriteArraySet<>();
     protected Set<Predicate<IEntity>> canEnterConditions = new CopyOnWriteArraySet<>();
 
-    public void applyEnterEffect(IEntity ignored) {}
+    public void applyEnterEffect(IEntity entity) {}
 
     public boolean canEnter(IEntity entity) {
         return canEnterConditions.stream().allMatch(condition -> condition.test(entity));
@@ -40,7 +43,7 @@ public abstract class TileModel {
     }
 
     public Set<ICollisionEntity> getCollidablesSet() {
-        return new CopyOnWriteArraySet<>(collidables);
+        return new CopyOnWriteArraySet<ICollisionEntity>(collidables);
     }
 
     /**

@@ -5,6 +5,9 @@ import model.ingame.entity.IVulnerableEntity;
 
 import java.util.function.Consumer;
 
+/**
+ * Listener for collisions that apply damage to vulnerable entities that can be affected.
+ */
 public class DamageListener implements CollisionListener {
     private final int damage;
     private final Consumer<IVulnerableEntity> onHit;

@@ -7,6 +7,9 @@ import java.util.EventObject;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * Event that is fired when a collision occurs.
+ */
 public class CollisionEvent extends EventObject {
     private final Set<ICollisionEntity> involvedEntities;
 

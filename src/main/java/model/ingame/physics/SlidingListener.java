@@ -2,6 +2,9 @@ package model.ingame.physics;
 
 import util.Coordinates;
 
+/**
+ * A listener for BlockedMovementEvents that adjusts the movement vector to slide along the blocking tile.
+ */
 public class SlidingListener implements BlockedMovementListener {
 
     @Override

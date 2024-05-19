@@ -5,12 +5,16 @@ import model.ingame.weapon.WeaponConstructor;
 import model.level.scenario.IGameContext.FixedSpawnRateContext;
 import model.level.scenario.IGameContext.OneShotSpawnContext;
 import util.IntervalMapCursor;
+import util.WeightedRandomGenerator;
 
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
 
+/**
+ * Cursor for a fixed scenario. Allows to iterate over the scenario's elements and provides the next elements to spawn.
+ */
 public class FixedCursor extends IntervalMapCursor<Double, IGameContext> implements IScenarioCursor {
     private final WeightedRandomGenerator<WeaponConstructor> weaponGenerator;
     private final WeightedRandomGenerator<EntityConstructor> enemyGenerator;
