@@ -58,3 +58,7 @@ Tiles types organised are in the following order:
 A valid map must contain exactly one spawn point, use <kbd>middle click</kbd> to set it.
 
 *See map [format documentation](docs/mapFormat.md) for more details.*
+
+### Scenario creation
+Custom scenarios may be made in the form of XML files. They can then be loaded in the game by unchecking the "Marathon Mode"
+checkbox and loading the custom scenario. More information on the format of these files can be found in the [scenario format documentation](docs/scenarioFormat.md).
