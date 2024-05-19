@@ -5,14 +5,8 @@ import java.util.function.IntSupplier;
 
 import javax.swing.JComponent;
 
-import gui.ingame.tile.TileRenderer;
-import gui.ingame.tile.TileRendererFactory;
 import model.level.MapModel;
 import util.IUpdateable;
-
-import javax.swing.JComponent;
-import java.awt.GridLayout;
-import java.util.function.IntSupplier;
 
 /**
  * A layer of the game rendering the map background. It is a JPanel containing TileRenderers, each one corresponding
