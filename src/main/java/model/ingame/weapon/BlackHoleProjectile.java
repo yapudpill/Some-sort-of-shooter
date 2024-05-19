@@ -12,7 +12,7 @@ public class BlackHoleProjectile extends Projectile{
 
     public BlackHoleProjectile(Coordinates pos, ProjectileWeaponModel source,
             GameModel gameModel) {
-        super(pos, source, 0.9, 0.9, 30, gameModel);
+        super(pos, source, 5, 5, 1, gameModel);
         despawnTimer = new ModelTimer(3, false, this::despawn, gameModel);
         movementHandler.setSpeed(10);
         addCollisionListener(new DamageListener(damage));
