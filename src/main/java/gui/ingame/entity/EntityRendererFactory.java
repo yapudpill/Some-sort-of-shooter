@@ -38,12 +38,12 @@ public class EntityRendererFactory {
             case TornadoProjectileModel e -> new AnimatedEntityRenderer(e, "animations/tornado.xml", () -> {return 0.0;});
             case FlameProjectileModel e -> new AnimatedEntityRenderer(e, "animations/flame.xml", () -> {return 0.0;});
             case BlackHoleProjectile e -> new AnimatedEntityRenderer(e, "animations/blackhole.xml");
-            case BlackHoleZone e -> new RectangleRenderer(entity,new Color(0,0,0,0));
+            case BlackHoleZone ignored -> new RectangleRenderer(entity,new Color(0,0,0,0));
 
             case SmartEnemyModel e   -> new VulnerableAnimatedRenderer(e, "animations/smart_enemy.xml");
             case ExplodingEnemy e   -> new VulnerableAnimatedRenderer(e, "animations/exploding_enemy.xml");
             case ExplosionZoneEntity e -> new AnimatedEntityRenderer(e, "animations/explosion_zone.xml");
-            case KnifeZoneEntity e     -> new AnimatedEntityRenderer(e, "animations/knife_zone.xml", e.getDirection()::getAngle);
+            case KnifeZoneEntity e     -> new AnimatedEntityRenderer(e, "animations/knife_zone.xml", () -> e.getDirection().getAngle() + Math.PI / 3);
 
             case SimpleTrap e -> new SpriteRenderer(e, "sprites/weapon/simple_trap_placer.png");
 
