@@ -10,9 +10,23 @@
 
 ### Using make
 
-You can only compile the game using `make` and then run the main class manually (see below).
+The makefile allows to compile and run the project with a single command:
 
-To directly run the game with make, use `make run`.
+```bash
+make run
+```
+It can also be used to create a jar file, put in `jar/`:
+    
+```bash
+make jar
+```
+
+### Using build.bat (windows)
+On windows, you can use the build.bat script to compile and run the project:
+
+```bash
+build.bat all
+```
 
 ### Manual compilation
 
