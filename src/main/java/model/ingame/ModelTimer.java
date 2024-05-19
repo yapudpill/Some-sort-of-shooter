@@ -51,7 +51,7 @@ public class ModelTimer implements IUpdateable {
     }
 
     public double getTimeLeft() {
-        return timer;
+        return isRunning ? timer: 0;
     }
 
     public double getTimerDuration() {
