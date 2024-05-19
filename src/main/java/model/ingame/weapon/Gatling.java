@@ -13,7 +13,7 @@ public class Gatling extends ProjectileWeaponModel implements ContinuousFireWeap
     ModelTimer coolingTimer;
 
     public Gatling(ICombatEntity owner, GameModel gameModel) {
-        super("Gatling", "Gatling", owner, gameModel, 0);
+        super("Gatling", "gatling", owner, gameModel, 0);
         this.isFiring = false;
         this.heat = 0;
         this.maxheat = 100;
