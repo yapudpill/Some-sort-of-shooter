@@ -7,6 +7,9 @@ import model.ingame.physics.DamageListener;
 import model.ingame.physics.MovementHandler;
 import util.Coordinates;
 
+/**
+ *  Model for the tornado projectile. It pushes enemies away.
+ */
 public class TornadoProjectileModel extends Projectile{
     public static final double TORNADO_SPEED = 8;
     public static final double TORNADO_WIDTH = 2.4;

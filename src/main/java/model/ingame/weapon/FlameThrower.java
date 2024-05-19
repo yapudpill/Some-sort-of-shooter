@@ -4,6 +4,10 @@ import model.ingame.GameModel;
 import model.ingame.ModelTimer;
 import model.ingame.entity.ICombatEntity;
 
+/**
+ * Model for the flamethrower weapon. It is a continuous fire weapon that deals damage over time. When used for a long
+ * time, it overheats and stops working.
+ */
 public class FlameThrower extends ProjectileWeaponModel implements ContinuousFireWeapon {
     private boolean isFiring;
     ModelTimer inBetweenTimer;

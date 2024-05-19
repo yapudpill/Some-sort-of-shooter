@@ -3,6 +3,9 @@ package model.ingame.weapon;
 import model.ingame.GameModel;
 import model.ingame.entity.ICombatEntity;
 
+/**
+ * Model for the gravity gun weapon. It fires a black hole that pulls enemies towards it.
+ */
 public class GravityGun extends ProjectileWeaponModel {
 
     public GravityGun(ICombatEntity owner, GameModel gameModel) {

@@ -5,6 +5,9 @@ import model.ingame.ModelTimer;
 import model.ingame.entity.ICombatEntity;
 import model.ingame.physics.DamageListener;
 
+/**
+ * Model for the gatling weapon. It fires a lot of bullets in a short amount of time, but overheats quickly.
+ */
 public class Gatling extends ProjectileWeaponModel implements ContinuousFireWeapon {
     private boolean isFiring;
     ModelTimer inBetweenTimer;

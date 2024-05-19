@@ -6,7 +6,7 @@ import model.ingame.weapon.KnifeWeapon;
 import util.Coordinates;
 
 /**
- * Model for the walking enemy entity. Moves towards the player and attacks when close.
+ * Model for an enemy that gives a random upgrade to the player when killed.
  */
 public class LootEnnemy extends CombatEntityModel implements IEffectEntity {
     private static FloodFillPathFinder pathFinder;
