@@ -36,7 +36,7 @@ Move around using <kbd>Z</kbd> <kbd>Q</kbd> <kbd>S</kbd> <kbd>D</kbd> (sorry if 
 
 Use <kbd>right clic</kbd> to shoot and <kbd>left clic</kbd> to dash.
 
-Press <kbd>E</kbd> to pick up a weapon and <kbd>esc</kbd> to end the game (instant game over).
+Press <kbd>E</kbd> to pick up a weapon, <kbd>A</kbd> to switch between the two held weapons and <kbd>esc</kbd> to end the game (instant game over).
 
 ### Editor controls
 
